@@ -1,0 +1,20 @@
+@import "normalize"; /* 页面标准化文件导入 */
+
+// width 包括内外边距
+* { box-sizing: border-box; }
+
+// 通用ul li
+ul {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style-type: none;
+  }
+}
+
+// 单行文字省略...
+@mixin single-ellipse {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
