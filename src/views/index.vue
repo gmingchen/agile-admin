@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <svg-icon name="home"></svg-icon>
+    <button @click="test">click</button>
     <!-- <h1>{{exampleComputed}}</h1> -->
   </div>
 </template>
@@ -16,7 +17,18 @@ export default defineComponent({
   },
   setup () {
     const store = useStore()
-    console.log(store.state.common.name)
+    return {
+      store
+    }
+  },
+  mounted () {
+    console.log(222)
+  },
+  methods: {
+
+    test () {
+      this.$router.push('/test')
+    }
   }
 })
 </script>

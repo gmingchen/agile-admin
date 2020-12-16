@@ -7,7 +7,6 @@ requireModules.keys().forEach(filePath => {
   const modular = requireModules(filePath)
   let name = path.resolve(filePath, '..')
   name = name.split('/').pop()
-  console.log('modular', modular)
   modules[name] = {
     namespaced: true,
     ...modular.default
