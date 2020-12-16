@@ -19,12 +19,8 @@
  *    3.color     为svg颜色
  *    4.svgClass  为svg Class样式
  */
-/**
- * svg-icon全局组件
- * @module global-svg-icon
- */
-
-export default {
+import { computed, defineComponent } from 'vue'
+export default defineComponent({
   name: 'SvgIcon',
   /**
    * Props 接受父组件的传值
@@ -51,31 +47,29 @@ export default {
       default: ''
     }
   },
-  computed: {
-    /**
-     * icon 名称处理
-     * @event iconName
-     */
-    iconName () {
-      return `#icon-${this.name}`
-    },
-    /**
-     * icon 样式处理
-     * @event iconClass
-     */
-    iconClass () {
-      if (this.svgClass) {
-        return 'svg-icon-set ' + this.svgClass
+  setup (props) {
+    // icon 名称处理
+    const iconName = computed(() => {
+      return `#icon-${props.name}`
+    })
+    // icon 样式处理
+    const iconClass = computed(() => {
+      if (props.svgClass) {
+        return 'svg-icon-set ' + props.svgClass
       } else {
-        if (this.size) {
+        if (props.size) {
           return 'svg-icon-set '
         } else {
           return 'svg-icon'
         }
       }
+    })
+    return {
+      iconName,
+      iconClass
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
