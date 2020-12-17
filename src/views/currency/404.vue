@@ -23,7 +23,7 @@ export default defineComponent({
 
     watch(endTime, (newVal) => {
       if (newVal === 0) {
-        push({ name: 'example' })
+        push({ name: 'login' })
       }
     })
 
