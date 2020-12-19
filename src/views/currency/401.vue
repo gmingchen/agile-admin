@@ -30,30 +30,20 @@
 </template>
 
 <script lang='ts'>
+import { Options, Vue } from 'vue-class-component'
 import errGif from '@/assets/images/401.gif'
-import { defineComponent } from 'vue'
-import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  setup () {
-    const errorGif: string = errGif + '?' + +new Date()
-    const { push, go } = useRouter()
-    return {
-      errorGif,
-      push,
-      go
-    }
-  },
-  methods: {
-    back () {
-      if (this.$route.query.noGoBack) {
-        this.push({ path: '/home' })
-      } else {
-        this.go(-1)
-      }
+@Options({})
+export default class Index extends Vue {
+  private errorGif: string = errGif + '?' + +new Date()
+  back () {
+    if (this.$route.query.noGoBack) {
+      this.$router.push({ path: '/login' })
+    } else {
+      this.$router.go(-1)
     }
   }
-})
+}
 </script>
 
 <style lang="scss" scoped>

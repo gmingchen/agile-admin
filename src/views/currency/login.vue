@@ -3,6 +3,11 @@
 </template>
 
 <script>
+import { Options, Vue } from 'vue-class-component'
+
+@Options({})
+export default class Index extends Vue {
+}
 </script>
 
 <style lang="scss">

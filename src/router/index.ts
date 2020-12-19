@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 /* 通用 */
 const currency: Array<RouteRecordRaw> = [
   { path: '/', redirect: { name: 'login' }, meta: { title: '重定向' }},
+  { path: '/home', name: 'home', component: () => import('@/views/index.vue'), meta: { title: 'home' }},
   { path: '/404', name: '404', component: () => import('@/views/currency/404.vue'), meta: { title: '404' }},
   { path: '/401', name: '401', component: () => import('@/views/currency/401.vue'), meta: { title: '401' }},
   { path: '/login', name: 'login', component: () => import('@/views/currency/login.vue'), meta: { title: '登录' }}

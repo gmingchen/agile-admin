@@ -2,7 +2,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import { components } from './element'
 import '@/assets/icon' // svg 图标引入
+
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -26,6 +28,14 @@ globalComponents.keys().forEach(filePath => {
     component.default || component
   )
 })
+
+components.forEach(component => {
+  app.component(component.name, component)
+})
+
+// plugins.forEach(plugin => {
+//   app.use(plugin)
+// })
 
 app.use(store)
   .use(router)

@@ -13,29 +13,29 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, onMounted, Ref, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { Options, Vue } from 'vue-class-component'
+import { Watch } from 'vue-property-decorator'
 
-export default defineComponent({
-  setup () {
-    const { push } = useRouter()
-    const endTime: Ref<number> = ref(5)
+@Options({})
+export default class Index extends Vue {
+  private endTime = 5
+  private timer: number | null = null;
 
-    watch(endTime, (newVal) => {
-      if (newVal === 0) {
-        push({ name: 'login' })
-      }
-    })
-
-    onMounted(() => {
-      setInterval(() => {
-        endTime.value--
-      }, 1000)
-    })
-
-    return { endTime }
+  @Watch('endTime')
+  onChange (newVal: number) {
+    if (newVal === 0) {
+      clearTimeout(this.timer as number)
+      this.$router.push({ name: 'login' })
+    }
   }
-})
+
+  mounted () {
+    this.timer = window.setInterval(() => {
+      this.endTime--
+      console.log(this.endTime)
+    }, 1000)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
