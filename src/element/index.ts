@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import 'element-plus/lib/theme-chalk/index.css'
 import {
   ElAlert,
@@ -174,7 +175,25 @@ const plugins = [
   ElNotification
 ]
 
-export {
-  components,
-  plugins
+export default {
+  install: function (app:any) {
+    components.forEach(component => {
+      app.component(component.name, component)
+    })
+    plugins.forEach(plugin => {
+      app.use(plugin)
+    })
+    app.provide('$loading', ElLoading.service)
+    app.provide('$message', ElMessage)
+    app.provide('$msgbox', ElMessageBox)
+    app.provide('$alert', ElMessageBox.alert)
+    app.provide('$confirm', ElMessageBox.confirm)
+    app.provide('$prompt', ElMessageBox.prompt)
+    app.provide('$notify', ElNotification)
+    const option = {
+      size: 'small',
+      zIndex: 2000
+    }
+    app.config.globalProperties.$ELEMENT = option
+  }
 }

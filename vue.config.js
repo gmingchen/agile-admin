@@ -55,14 +55,14 @@ module.exports = {
         symbolId: 'icon-[name]'
       })
   },
-  css: {
-    requireModuleExtension: false,
-    extract: false,
-    sourceMap: false,
-    loaderOptions: {
-      sass: {
-        prependData: `@import 'src/assets/sass/index.scss';`
-      }
-    }
-  }
+  // css: {
+  //   requireModuleExtension: false,
+  //   extract: false,
+  //   sourceMap: false,
+  //   loaderOptions: {
+  //     sass: {
+  //       prependData: `@import 'src/assets/sass/index.scss';`
+  //     }
+  //   }
+  // }
 }
