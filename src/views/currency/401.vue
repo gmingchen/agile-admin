@@ -31,7 +31,7 @@
 
 <script lang='ts'>
 import { Options, Vue } from 'vue-class-component'
-import errGif from '@/assets/images/401.gif'
+import errGif from '@AST/images/401.gif'
 
 @Options({})
 export default class Index extends Vue {
