@@ -6,7 +6,8 @@
     <el-button type="primary" @click="Alert">Alert</el-button><hr>
     <el-button type="primary" @click="Confirm">Confirm</el-button><hr>
     <el-button type="primary" @click="Prompt">Prompt</el-button><hr>
-    <el-button type="primary" @click="Notify">Notify</el-button>
+    <el-button type="primary" @click="Notify">Notify</el-button><hr>
+    <el-button type="primary" @click="login">Login</el-button>
   </div>
 </template>
 
@@ -14,6 +15,7 @@
 import { Loading, Message, Alert, Confirm, Prompt, Notify } from '@/mixins/element/index'
 import { Options } from 'vue-class-component'
 import { Mixins } from 'vue-property-decorator'
+import { login } from '@API/user/index'
 
 @Options({})
 export default class Index extends Mixins(Loading, Message, Alert, Confirm, Prompt, Notify) {
@@ -97,6 +99,11 @@ export default class Index extends Mixins(Loading, Message, Alert, Confirm, Prom
         console.log('click')
       },
       offset: 0
+    })
+  }
+  login () {
+    login({ username: '11111111111', password: '11111111' }).then(r => {
+      console.log(r)
     })
   }
 }

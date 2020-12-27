@@ -20,8 +20,8 @@
       "@/*": ["src/*"],
       "@API/*": ["src/api/*"],
       "@AST/*": ["src/assets/*"],
-      "@/U": ["src/utils/*"],
-      "@/V*": ["src/views/*"]
+      "@U/*": ["src/utils/*"],
+      "@V/*": ["src/views/*"]
     },
     "lib": [
       "esnext",

@@ -45,7 +45,6 @@ module.exports = {
       .set('@API', resolve('src/api'))
       .set('@AST', resolve('src/assets'))
       .set('@U', resolve('src/utils'))
-      .set('@V', resolve('src/views'))
     config.module.rules.delete('svg')
     config.module
       .rule('svg-smart')

@@ -15,4 +15,3 @@ app.use(store)
   .use(Components)
   .mount('#app')
 
-console.log(app.config.globalProperties)
