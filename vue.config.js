@@ -42,6 +42,7 @@ module.exports = {
   chainWebpack: (config) => {
     config.resolve.alias
       .set('@', resolve('src'))
+      .set('@C', resolve('src/config'))
       .set('@API', resolve('src/api'))
       .set('@AST', resolve('src/assets'))
       .set('@U', resolve('src/utils'))

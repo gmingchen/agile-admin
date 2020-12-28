@@ -3,7 +3,12 @@ import axios from 'axios'
 import qs from 'qs'
 import _ from 'lodash'
 import store from '@/store/index'
-import { ContentType } from './request.type'
+import { ContentType } from '@C/default/http.type'
+import {
+  contentType,
+  timeout,
+  successCode,
+} from '@C/index'
 
 /**
  * code处理
@@ -20,9 +25,9 @@ const codeHandle = (code: number|null, msg: string|null) => {
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
-  timeout: 10000,
+  timeout: timeout,
   headers: {
-    'Content-Type': ContentType.JSON
+    'Content-Type': contentType
   }
 })
 
@@ -51,12 +56,12 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-    const res = response.data
-    if (res.code === 0) {
-      return res
+    const {data, code, msg} = response.data
+    if (successCode.includes(code)) {
+      return data
     } else {
-      codeHandle(res.code, res.msg)
-      return res || ''
+      codeHandle(code, msg)
+      return response.data || ''
     }
   },
   error => {

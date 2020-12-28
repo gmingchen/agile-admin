@@ -18,6 +18,7 @@
     ],
     "paths": {
       "@/*": ["src/*"],
+      "@C/*": ["src/config/*"],
       "@API/*": ["src/api/*"],
       "@AST/*": ["src/assets/*"],
       "@U/*": ["src/utils/*"],
