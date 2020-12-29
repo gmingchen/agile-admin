@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2020-12-21 15:30:44
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2020-12-29 17:33:43
+ */
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 // eslint-disable-next-line @typescript-eslint/no-var-requires

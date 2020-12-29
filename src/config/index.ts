@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2020-12-28 16:36:27
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2020-12-29 17:33:26
+ */
 import { ContentType } from '@/config/index.type'
 
 // TODO: http

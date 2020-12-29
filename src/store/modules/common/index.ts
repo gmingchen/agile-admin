@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2020-12-16 14:50:54
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2020-12-29 17:32:57
+ */
 import { ICommon } from './index.type'
 
 export default {

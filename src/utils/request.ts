@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2020-12-21 16:45:49
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2020-12-29 17:32:47
+ */
 'use strict'
 import axios from 'axios'
 import qs from 'qs'

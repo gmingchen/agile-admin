@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2020-12-21 15:30:44
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2020-12-29 17:29:56
+ */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ILoading from 'element-plus/lib/el-loading/src/loading.type'
 import { IMessage } from 'element-plus/lib/el-message/src/types'

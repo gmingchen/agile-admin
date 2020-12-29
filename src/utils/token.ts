@@ -1,6 +1,19 @@
+/*
+ * @Description:
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2020-12-28 16:25:18
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2020-12-29 17:32:35
+ */
 import cookie from 'js-cookie'
 import { tokenKey, storage } from '@C/index'
-
+/**
+ * @description:
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
 export function getToken (): string | null {
   let token: string | null
   switch (storage) {

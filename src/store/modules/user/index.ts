@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2020-12-28 16:25:18
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2020-12-29 17:30:24
+ */
 import { getToken, setToken, clearToken } from '@U/token'
 import { IUser } from './index.type'
 export default {
