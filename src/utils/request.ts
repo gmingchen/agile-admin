@@ -3,11 +3,11 @@ import axios from 'axios'
 import qs from 'qs'
 import _ from 'lodash'
 import store from '@/store/index'
-import { ContentType } from '@C/default/http.type'
+import { ContentType } from '@/config/index.type'
 import {
-  contentType,
   timeout,
-  successCode,
+  contentType,
+  successCode
 } from '@C/index'
 
 /**
@@ -56,7 +56,7 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-    const {data, code, msg} = response.data
+    const { data, code, msg } = response.data
     if (successCode.includes(code)) {
       return data
     } else {
