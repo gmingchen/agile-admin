@@ -15,7 +15,7 @@ import {
  * @param code
  * @param msg
  */
-const codeHandle = (code: number|null, msg: string|null) => {
+const codeHandle = (code: number|null, msg: string|null): void => {
   switch (code) {
     case 401:
       console.log(msg)
