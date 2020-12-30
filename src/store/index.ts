@@ -1,10 +1,10 @@
 /*
- * @Description:
+ * @Description: vuex主入口 模块导入
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-29 17:30:32
+ * @LastEditTime: 2020-12-30 09:33:08
  */
 import { createStore } from 'vuex'
 // eslint-disable-next-line @typescript-eslint/no-var-requires

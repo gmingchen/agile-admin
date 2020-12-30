@@ -1,10 +1,10 @@
 /*
- * @Description:
+ * @Description: element-plus 提示信息混入
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 15:30:44
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-29 17:29:56
+ * @LastEditTime: 2020-12-30 09:31:16
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ILoading from 'element-plus/lib/el-loading/src/loading.type'

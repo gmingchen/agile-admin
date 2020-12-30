@@ -4,12 +4,12 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-29 17:34:31
+ * @LastEditTime: 2020-12-30 09:27:42
  */
 import service from '@U/request'
 import { ILoginParams } from './index.type'
 /**
- * @description:
+ * @description: 登录
  * @param {ILoginParams} params
  * @return {*}
  * @author: gumingchen
@@ -23,7 +23,7 @@ export function login (params: ILoginParams) {
 }
 
 /**
- * @description:
+ * @description: 获取登录用户信息
  * @param {*}
  * @return {*}
  * @author: gumingchen
@@ -36,7 +36,7 @@ export function getUserInfo () {
 }
 
 /**
- * @description:
+ * @description: 退出
  * @param {*}
  * @return {*}
  * @author: gumingchen

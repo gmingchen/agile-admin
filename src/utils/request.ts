@@ -1,10 +1,10 @@
 /*
- * @Description:
+ * @Description: axios二次封装
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-29 17:32:47
+ * @LastEditTime: 2020-12-30 09:39:02
  */
 'use strict'
 import axios from 'axios'
@@ -19,9 +19,11 @@ import {
 } from '@C/index'
 
 /**
- * code处理
- * @param code
- * @param msg
+ * @description: code处理
+ * @param {number} code
+ * @param {string} msg
+ * @return {*}
+ * @author: gumingchen
  */
 const codeHandle = (code: number|null, msg: string|null): void => {
   switch (code) {
@@ -30,7 +32,12 @@ const codeHandle = (code: number|null, msg: string|null): void => {
       break
   }
 }
-
+/**
+ * @description: axios创建
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: timeout,
@@ -39,6 +46,12 @@ const service = axios.create({
   }
 })
 
+/**
+ * @description: axios请求拦截器
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
 service.interceptors.request.use(
   config => {
     if (store.getters['user/token']) {
@@ -61,7 +74,12 @@ service.interceptors.request.use(
     return Promise.reject(error)
   }
 )
-
+/**
+ * @description: axios响应拦截器
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
 service.interceptors.response.use(
   response => {
     const { data, code, msg } = response.data

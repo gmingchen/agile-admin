@@ -1,10 +1,10 @@
 /*
- * @Description:
+ * @Description: 设置
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:36:27
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-30 09:26:32
+ * @LastEditTime: 2020-12-30 09:29:34
  */
 import { ContentType } from '@/config/index.type'
 

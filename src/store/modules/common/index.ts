@@ -1,10 +1,10 @@
 /*
- * @Description:
+ * @Description: 布局设置
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-29 17:32:57
+ * @LastEditTime: 2020-12-30 09:31:44
  */
 import { ICommon } from './index.type'
 

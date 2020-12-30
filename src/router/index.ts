@@ -1,10 +1,10 @@
 /*
- * @Description:
+ * @Description: 路由
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-29 17:33:08
+ * @LastEditTime: 2020-12-30 09:31:29
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
