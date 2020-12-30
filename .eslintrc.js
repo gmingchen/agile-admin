@@ -198,6 +198,11 @@ module.exports = {
       objectsInObjects: false
     }],
     'array-bracket-spacing': [2, 'never'],
-    '@typescript-eslint/interface-name-prefix': 0
+    '@typescript-eslint/interface-name-prefix': 0,
+    '@typescript-eslint/no-inferrable-types': [
+      true,
+      "ignore-params",
+      "ignore-properties"
+    ]
   }
 };
