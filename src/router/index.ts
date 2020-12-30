@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-30 09:31:29
+ * @LastEditTime: 2020-12-30 09:47:40
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
@@ -12,9 +12,9 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 const currency: Array<RouteRecordRaw> = [
   { path: '/', redirect: { name: 'login' }, meta: { title: '重定向' }},
   { path: '/home', name: 'home', component: () => import('@/views/index.vue'), meta: { title: 'home' }},
-  { path: '/404', name: '404', component: () => import('@/views/currency/404.vue'), meta: { title: '404' }},
-  { path: '/401', name: '401', component: () => import('@/views/currency/401.vue'), meta: { title: '401' }},
-  { path: '/login', name: 'login', component: () => import('@/views/currency/login.vue'), meta: { title: '登录' }}
+  { path: '/404', name: '404', component: () => import('@/views/common/404.vue'), meta: { title: '404' }},
+  { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title: '401' }},
+  { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title: '登录' }}
 ]
 /* 主入口 */
 const main: RouteRecordRaw = {
