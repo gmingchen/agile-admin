@@ -199,10 +199,6 @@ module.exports = {
     }],
     'array-bracket-spacing': [2, 'never'],
     '@typescript-eslint/interface-name-prefix': 0,
-    '@typescript-eslint/no-inferrable-types': [
-      true,
-      "ignore-params",
-      "ignore-properties"
-    ]
+    '@typescript-eslint/no-inferrable-types': 'off'
   }
 };
