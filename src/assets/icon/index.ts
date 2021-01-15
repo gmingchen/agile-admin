@@ -10,7 +10,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-15 15:52:19
+ * @LastEditTime: 2021-01-15 17:40:37
  */
 const requireAll = requireContext => requireContext.keys().map(requireContext)
 const req = require.context('./svg', false, /\.svg$/u)
@@ -23,7 +23,7 @@ const iconList = svgFiles.keys().map(item => {
 
 export default {
   // 获取图标(*).svg名称列表, 例如[shouye, xitong, zhedie, ...]
-  getNameList () {
+  getNameList() {
     return iconList
   }
 }

@@ -18,6 +18,21 @@ module.exports = {
   },
   // TODO: 关闭：'off' | 0, 警告: 'warn' | 1, 错误: 'error' | 2
   rules: {
+    "prettier/prettier": 2,
+    'vue/max-attributes-per-line': [2, {
+      'singleline': 10,
+      'multiline': {
+        'max': 1,
+        'allowFirstLine': false
+      }
+    }],
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/multiline-html-element-content-newline':'off',
+    'vue/name-property-casing': ['error', 'PascalCase'],
+    'vue/no-v-html': 'off',
+    '@typescript-eslint/interface-name-prefix': 0,
+    '@typescript-eslint/no-inferrable-types': 'off',
+
     // TODO: Possible Errors
     "for-direction": 2,                                                           // 强制 “for” 循环中更新子句的计数器朝着正确的方向移动
     "getter-return": 2,                                                           // 强制 getter 函数中出现 return 语句
@@ -37,7 +52,7 @@ module.exports = {
     "no-ex-assign": 2,                                                            // 禁止对 catch 子句的参数重新赋值
     "no-extra-boolean-cast": 2,                                                   // 禁止不必要的布尔转换
     "no-extra-parens": [2, 'functions'],                                          // 禁止不必要的括号
-    "no-extra-semi": 1,                                                           // 禁止不必要的分号
+    "no-extra-semi": 2,                                                           // 禁止不必要的分号
     "no-func-assign": 2,                                                          // 禁止对 function 声明重新赋值
     "no-inner-declarations": [2, 'functions'],                                    // 禁止在嵌套的块中出现变量声明或 function 声明
     "no-invalid-regexp": 2,                                                       // 禁止 RegExp 构造函数中存在无效的正则表达式字符串
@@ -58,7 +73,7 @@ module.exports = {
     // TODO: Best Practices
     "accessor-pairs": 2,                                                          // 强制 getter 和 setter 在对象中成对出现
     "array-callback-return": 0,                                                   // 强制数组方法的回调函数中有 return 语句
-    "block-scoped-var": 1,                                                        // 强制把变量的使用限制在其定义的作用域范围内
+    "block-scoped-var": 2,                                                        // 强制把变量的使用限制在其定义的作用域范围内
     "class-methods-use-this": 0,                                                  // 强制类方法使用 this
     "complexity": 0,                                                              // 指定程序中允许的最大环路复杂度
     "consistent-return": 0,                                                       // 要求 return 语句要么总是指定返回的值，要么不指定
@@ -69,12 +84,12 @@ module.exports = {
     "eqeqeq": ['error', 'always', {'null': 'ignore'}],                            // 要求使用 === 和 !==
     "guard-for-in": 0,                                                            // 要求 for-in 循环中有一个 if 语句
     "max-classes-per-file": 0,                                                    // 强制每个文件中包含的的类的最大数量
-    "no-alert": 1,                                                                // 禁用 alert、confirm 和 prompt
+    "no-alert": 2,                                                                // 禁用 alert、confirm 和 prompt
     "no-caller": 2,                                                               // 禁用 arguments.caller 或 arguments.callee
     "no-case-declarations": 2,                                                    // 不允许在 case 子句中使用词法声明
     "no-div-regex": 0,                                                            // 禁止除法操作符显式的出现在正则表达式开始的位置
     "no-else-return": 0,                                                          // 禁止 if 语句中 return 语句之后有 else 块
-    "no-empty-function": 1,                                                       // 禁止出现空函数
+    "no-empty-function": 2,                                                       // 禁止出现空函数
     "no-empty-pattern": 2,                                                        // 禁止使用空解构模式
     "no-eq-null": 0,                                                              // 禁止在没有类型检查操作符的情况下与 null 进行比较
     "no-eval": 0,                                                                 // 禁用 eval()
@@ -103,13 +118,13 @@ module.exports = {
     "no-new-wrappers": 2,                                                         // 禁止对 String，Number 和 Boolean 使用 new 操作符
     "no-octal": 2,                                                                // 禁用八进制字面量
     "no-octal-escape": 2,                                                         // 禁止在字符串中使用八进制转义序列
-    "no-param-reassign": 1,                                                       // 禁止对 function 的参数进行重新赋值
+    "no-param-reassign": 2,                                                       // 禁止对 function 的参数进行重新赋值
     "no-proto": 2,                                                                // 禁用 __proto__ 属性
     "no-redeclare": 2,                                                            // 禁止多次声明同一变量
     "no-restricted-properties": 0,                                                // 禁止使用对象的某些属性
     "no-return-assign": [2, 'except-parens'],                                     // 禁止在 return 语句中使用赋值语句
-    "no-return-await": 1,                                                         // 禁用不必要的 return await
-    "no-script-url": 1,                                                           // 禁止使用 javascript: url
+    "no-return-await": 2,                                                         // 禁用不必要的 return await
+    "no-script-url": 2,                                                           // 禁止使用 javascript: url
     "no-self-assign": 2,                                                          // 禁止自我赋值
     "no-self-compare": 2,                                                         // 禁止自身比较
     "no-sequences": 2,                                                            // 禁用逗号操作符
@@ -121,15 +136,15 @@ module.exports = {
     "no-useless-catch": 2,                                                        // 禁止不必要的 catch 子句
     "no-useless-concat": 0,                                                       // 禁止不必要的字符串字面量或模板字面量的连接
     "no-useless-escape": 2,                                                       // 禁用不必要的转义字符
-    "no-useless-return": 1,                                                       // 禁止多余的 return 语句
-    "no-void": 1,                                                                 // 禁用 void 操作符
+    "no-useless-return": 2,                                                       // 禁止多余的 return 语句
+    "no-void": 2,                                                                 // 禁用 void 操作符
     "no-warning-comments": 0,                                                     // 禁止在注释中使用特定的警告术语
     "no-with": 2,                                                                 // 禁用 with 语句
     "prefer-named-capture-group": 0,                                              // 建议在正则表达式中使用命名捕获组
     "prefer-promise-reject-errors": 0,                                            // 要求使用 Error 对象作为 Promise 拒绝的原因
     "radix": 0,                                                                   // 强制在 parseInt() 使用基数参数
-    "require-await": 1,                                                           // 禁止使用不带 await 表达式的 async 函数
-    "require-unicode-regexp": 1,                                                  // 强制在 RegExp 上使用 u 标志
+    "require-await": 2,                                                           // 禁止使用不带 await 表达式的 async 函数
+    "require-unicode-regexp": 2,                                                  // 强制在 RegExp 上使用 u 标志
     "vars-on-top": 0,                                                             // 要求所有的 var 声明出现在它们所在的作用域顶部
     "wrap-iife": [2, 'any'],                                                      // 要求 IIFE 使用括号括起来
     "yoda": [2, 'never'],                                                         // 要求或禁止 “Yoda” 条件
@@ -139,19 +154,19 @@ module.exports = {
     "no-delete-var": 2,                                                           // 禁止删除变量
     "no-label-var": 2,                                                            // 不允许标签与变量同名
     "no-restricted-globals": 0,                                                   // 禁用特定的全局变量
-    "no-shadow": 1,                                                               // 禁止变量声明与外层作用域的变量同名
+    "no-shadow": 2,                                                               // 禁止变量声明与外层作用域的变量同名
     "no-shadow-restricted-names": 2,                                              // 禁止将标识符定义为受限的名字
     "no-undef": 2,                                                                // 禁用未声明的变量，除非它们在 /*global */ 注释中被提到
     "no-undef-init": 2,                                                           // 禁止将变量初始化为 undefined
-    "no-undefined": 1,                                                            // 禁止将 undefined 作为标识符
+    "no-undefined": 2,                                                            // 禁止将 undefined 作为标识符
     "no-unused-vars": [2, {                                                       // 禁止出现未使用过的变量
       'vars': 'all',
       'args': 'none'
     }],
-    "no-use-before-define": 1,                                                    // 禁止在变量定义之前使用它们
+    "no-use-before-define": 2,                                                    // 禁止在变量定义之前使用它们
     // TODO: Node.js and CommonJS
     "callback-return": 0,                                                         // 强制数组方法的回调函数中有 return 语句
-    "global-require": 1,                                                          // 要求 require() 出现在顶层模块作用域中
+    "global-require": 2,                                                          // 要求 require() 出现在顶层模块作用域中
     "handle-callback-err": [2, '^(err|error)$'],                                  // 要求回调函数中有容错处理
     "no-buffer-constructor": 0,                                                   // 禁用 Buffer() 构造函数
     "no-mixed-requires": 0,                                                       // 禁止混合常规变量声明和 require 调用
@@ -206,7 +221,7 @@ module.exports = {
     "line-comment-position": 0,                                                   // 强制行注释的位置
     "linebreak-style": 0,                                                         // 强制使用一致的换行风格
     "linebreak-style": 0,                                                         // 强制使用一致的换行风格
-    "lines-around-comment": [1, {                                                 // 要求在注释周围有空行
+    "lines-around-comment": [2, {                                                 // 要求在注释周围有空行
       "beforeBlockComment": true
     }],
     "lines-between-class-members": 0,                                             // 要求或禁止类成员之间出现空行
@@ -233,7 +248,7 @@ module.exports = {
     "no-lonely-if": 0,                                                            // 禁止 if 作为唯一的语句出现在 else 语句中
     "no-mixed-operators": 0,                                                      // 禁止混合使用不同的操作符
     "no-mixed-spaces-and-tabs": 2,                                                // 禁止空格和 tab 的混合缩进
-    "no-multi-assign": 1,                                                         // 禁止连续赋值
+    "no-multi-assign": 2,                                                         // 禁止连续赋值
     "no-multiple-empty-lines": [2, {                                              // 禁止出现多行空行
       'max': 1
     }],
@@ -251,7 +266,9 @@ module.exports = {
     }],
     "no-whitespace-before-property": 2,                                           // 禁止属性前有空白
     "nonblock-statement-body-position": 0,                                        // 强制单个语句的位置
-    "object-curly-newline": 0,                                                    // 强制大括号内换行符的一致性
+    "object-curly-newline": [2, {                                                 // 强制大括号内换行符的一致性
+      "multiline": true
+    }],
     "object-curly-spacing": [2, 'always', {                                       // 强制在大括号中使用一致的空格
       objectsInObjects: false
     }],
@@ -284,7 +301,7 @@ module.exports = {
     "sort-keys": 0,                                                               // 要求对象属性按序排列
     "sort-vars": 0,                                                               // 要求同一个声明块中的变量按顺序排列
     'space-before-blocks': [2, 'always'],                                         // 强制在块之前使用一致的空格
-    "space-before-function-paren": [2, 'always'],                                 // 强制在 function的左括号之前使用一致的空格
+    "space-before-function-paren": [2, 'never'],                                 // 强制在 function的左括号之前使用一致的空格
     "space-in-parens": [2, 'never'],                                              // 强制在圆括号内使用一致的空格
     "space-infix-ops": 2,                                                         // 要求操作符周围有空格
     "space-unary-ops": [2, {                                                      // 强制在一元操作符前后使用一致的空格
@@ -322,14 +339,14 @@ module.exports = {
     "no-confusing-arrow": 0,                                                      // 禁止在可能与比较操作符相混淆的地方使用箭头函数
     "no-const-assign": 2,                                                         // 禁止修改 const 声明的变量
     "no-dupe-class-members": 2,                                                   // 禁止类成员中出现重复的名称
-    "no-duplicate-imports": 1,                                                    // 禁止重复模块导入
+    "no-duplicate-imports": 2,                                                    // 禁止重复模块导入
     "no-new-symbol": 2,                                                           // 禁止 Symbolnew 操作符和 new 一起使用
     "no-restricted-imports": 0,                                                   // 禁止 Symbolnew 操作符和 new 一起使用
     "no-this-before-super": 2,                                                    // 禁止在构造函数中，在调用 super() 之前使用 this 或 super
     "no-useless-computed-key": 2,                                                 // 禁止在对象中使用不必要的计算属性
     "no-useless-constructor": 2,                                                  // 禁用不必要的构造函数
     "no-useless-rename": 0,                                                       // 禁止在 import 和 export 和解构赋值时将引用重命名为相同的名字
-    "no-var": 1,                                                                  // 要求使用 let 或 const 而不是 var
+    "no-var": 2,                                                                  // 要求使用 let 或 const 而不是 var
     "object-shorthand": 0,                                                        // 要求或禁止对象字面量中方法和属性使用简写语法
     "prefer-arrow-callback": 0,                                                   // 要求回调函数使用箭头函数
     "prefer-const": 2,                                                            // 要求使用 const 声明那些声明后不再被修改的变量
@@ -344,23 +361,5 @@ module.exports = {
     "symbol-description": 0,                                                      // 要求 symbol 描述
     "template-curly-spacing": [2, 'never'],                                       // 要求或禁止模板字符串中的嵌入表达式周围空格的使用
     "yield-star-spacing": [2, 'both'],                                            // 强制在 yield* 表达式中 * 周围使用空格
-
-
-
-
-    "prettier/prettier": "off",
-    'vue/max-attributes-per-line': [2, {
-      'singleline': 10,
-      'multiline': {
-        'max': 1,
-        'allowFirstLine': false
-      }
-    }],
-    'vue/singleline-html-element-content-newline': 'off',
-    'vue/multiline-html-element-content-newline':'off',
-    'vue/name-property-casing': ['error', 'PascalCase'],
-    'vue/no-v-html': 'off',
-    '@typescript-eslint/interface-name-prefix': 0,
-    '@typescript-eslint/no-inferrable-types': 'off'
   }
 };

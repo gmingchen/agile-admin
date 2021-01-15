@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-30 09:31:44
+ * @LastEditTime: 2021-01-15 17:32:28
  */
 import { ICommon } from './index.type'
 
@@ -22,8 +22,6 @@ export default {
     navigationHeight: (state: ICommon) => state.navigationHeight,
     tabBarHeight: (state: ICommon) => state.tabBarHeight
   },
-  mutations: {
-  },
-  actions: {
-  }
+  mutations: {},
+  actions: {}
 }

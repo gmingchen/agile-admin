@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-15 15:51:57
+ * @LastEditTime: 2021-01-15 17:38:18
  */
 import service from '@U/request'
 import { ILoginParams } from './index.type'
@@ -15,7 +15,7 @@ import { ILoginParams } from './index.type'
  * @return {*}
  * @author: gumingchen
  */
-export function login (params: ILoginParams) {
+export function login(params: ILoginParams) {
   return service({
     url: '/antman_user_api/sys/login',
     method: 'post',
@@ -29,7 +29,7 @@ export function login (params: ILoginParams) {
  * @return {*}
  * @author: gumingchen
  */
-export function getUserInfo () {
+export function getUserInfo() {
   return service({
     url: '',
     method: 'get'
@@ -42,7 +42,7 @@ export function getUserInfo () {
  * @return {*}
  * @author: gumingchen
  */
-export function logout () {
+export function logout() {
   return service({
     url: '',
     method: 'get'
