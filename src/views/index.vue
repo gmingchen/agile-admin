@@ -73,7 +73,7 @@ export default class Index extends Mixins(Loading, Message, Alert, Confirm, Prom
     this.$prompt('请输入邮箱', '提示', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
-      inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+      inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/u,
       inputErrorMessage: '邮箱格式不正确'
     }).then(({ value }) => {
       console.log(value)

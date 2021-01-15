@@ -4,12 +4,12 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-30 09:33:08
+ * @LastEditTime: 2021-01-15 15:56:15
  */
 import { createStore } from 'vuex'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path')
-const requireModules = require.context('./modules', true, /index\.(ts|js)$/i)
+const requireModules = require.context('./modules', true, /index\.(ts|js)$/iu)
 const modules = {}
 requireModules.keys().forEach(filePath => {
   const modular = requireModules(filePath)

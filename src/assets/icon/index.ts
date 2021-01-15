@@ -10,13 +10,13 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-29 17:29:23
+ * @LastEditTime: 2021-01-15 15:52:19
  */
 const requireAll = requireContext => requireContext.keys().map(requireContext)
-const req = require.context('./svg', false, /\.svg$/)
+const req = require.context('./svg', false, /\.svg$/u)
 requireAll(req)
 
-const svgFiles = require.context('./svg', true, /\.svg$/)
+const svgFiles = require.context('./svg', true, /\.svg$/u)
 const iconList = svgFiles.keys().map(item => {
   return item.slice(2, -4)
 })

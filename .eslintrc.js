@@ -95,7 +95,7 @@ module.exports = {
     }],
     "no-lone-blocks": 2,                                                          // 禁用不必要的嵌套块
     "no-loop-func": 0,                                                            // 禁止在循环语句中出现包含不安全引用的函数声明
-    "no-magic-numbers": 1,                                                        // 禁用魔术数字
+    "no-magic-numbers": 0,                                                        // 禁用魔术数字
     "no-multi-spaces": 2,                                                         // 禁止使用多个空格
     "no-multi-str": 2,                                                            // 禁止使用多行字符串
     "no-new": 0,                                                                  // 禁止使用 new 以避免产生副作用
@@ -164,7 +164,7 @@ module.exports = {
     // TODO: Stylistic Issues
     "array-bracket-newline": 0,                                                   // 在数组开括号后和闭括号前强制换行
     "array-bracket-spacing": [2, 'never'],                                        // 在数组开括号后和闭括号前强制换行
-    "array-element-newline": [2, 'never'],                                        // 强制数组元素间出现换行
+    "array-element-newline": [2, 'consistent'],                                        // 强制数组元素间出现换行
     "block-spacing": [2, 'always'],                                               // 禁止或强制在代码块中开括号前和闭括号后有空格
     "brace-style": [2, '1tbs', {                                                  // 强制在代码块中使用一致的大括号风格
       'allowSingleLine': true
@@ -206,7 +206,9 @@ module.exports = {
     "line-comment-position": 0,                                                   // 强制行注释的位置
     "linebreak-style": 0,                                                         // 强制使用一致的换行风格
     "linebreak-style": 0,                                                         // 强制使用一致的换行风格
-    "lines-around-comment": 1,                                                    // 要求在注释周围有空行
+    "lines-around-comment": [1, {                                                 // 要求在注释周围有空行
+      "beforeBlockComment": true
+    }],
     "lines-between-class-members": 0,                                             // 要求或禁止类成员之间出现空行
     "max-depth": 0,                                                               // 强制可嵌套的块的最大深度
     "max-len": 0,                                                                 // 强制一行的最大长度

@@ -1,3 +1,11 @@
+<!--
+ * @Description:
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2021-01-14 13:30:55
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2021-01-15 15:53:35
+-->
 <template>
   <svg aria-hidden="true" :class="iconClass" :width="size" :height="size" :color="color">
     <use :xlink:href="iconName" />
@@ -5,6 +13,7 @@
 </template>
 
 <script lang='ts'>
+
 /**
  * 使用:
  *   1.组件模版中使用
@@ -22,6 +31,7 @@
 import { computed, defineComponent } from 'vue'
 export default defineComponent({
   name: 'SvgIcon',
+
   /**
    * Props 接受父组件的传值
    * @prop {String} name icon 名称 必传

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-30 09:39:02
+ * @LastEditTime: 2021-01-15 15:56:54
  */
 'use strict'
 import axios from 'axios'
@@ -32,6 +32,7 @@ const codeHandle = (code: number|null, msg: string|null): void => {
       break
   }
 }
+
 /**
  * @description: axios创建
  * @param {*}
@@ -74,6 +75,7 @@ service.interceptors.request.use(
     return Promise.reject(error)
   }
 )
+
 /**
  * @description: axios响应拦截器
  * @param {*}

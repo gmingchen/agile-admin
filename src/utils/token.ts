@@ -4,10 +4,11 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-30 09:39:57
+ * @LastEditTime: 2021-01-15 15:51:48
  */
 import cookie from 'js-cookie'
 import { tokenKey, storage } from '@C/index'
+
 /**
  * @description: 获取token
  * @param {*}
@@ -32,6 +33,7 @@ export function getToken (): string | null {
   }
   return token
 }
+
 /**
  * @description: 设置token
  * @param {string} token
@@ -54,6 +56,7 @@ export function setToken (token: string): void {
       break
   }
 }
+
 /**
  * @description: 清除token
  * @param {*}

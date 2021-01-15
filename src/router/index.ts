@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-30 09:47:40
+ * @LastEditTime: 2021-01-15 15:49:39
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
@@ -16,6 +16,7 @@ const currency: Array<RouteRecordRaw> = [
   { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title: '401' }},
   { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title: '登录' }}
 ]
+
 /* 主入口 */
 const main: RouteRecordRaw = {
   path: '/main',
@@ -24,6 +25,7 @@ const main: RouteRecordRaw = {
   meta: { title: '主入口整体布局' },
   children: []
 }
+
 /* 我的桌面 */
 const desktop: RouteRecordRaw = {
   path: '/desktop',
@@ -34,6 +36,7 @@ const desktop: RouteRecordRaw = {
     // { path: '/desktop/home', name: '/desktop/home', component: () => import('@/views/modules/desktop/home/index'), meta: { title: '首页' }}
   ]
 }
+
 /* 其他页面 */
 const other: RouteRecordRaw = {
   path: '/',
