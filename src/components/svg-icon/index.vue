@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-14 13:30:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 11:31:25
+ * @LastEditTime: 2021-01-18 16:37:34
 -->
 <template>
   <svg aria-hidden="true" :class="iconClass" :width="size" :height="size" :color="color">
@@ -26,58 +26,55 @@
  *    4.svgClass  为svg Class样式
 -->
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
-export default defineComponent({
-  name: 'SvgIcon',
+import { Options, Vue } from 'vue-class-component'
+import { Prop } from 'vue-property-decorator'
+
+@Options({})
+export default class SvgIcon extends Vue {
+  // icon 名称 必传
+  @Prop(String)
+  name!: string
+  // 自定义class name
+  @Prop({ type: String, default: '' })
+  svgClass?: string
+  // size 大小
+  @Prop({ type: String, default: '16px' })
+  size?: string
+  // color 颜色
+  @Prop({ type: String, default: '' })
+  color?: string
 
   /**
-   * Props 接受父组件的传值
-   * @prop {String} name icon 名称 必传
-   * @prop {String} svgClass 自定义class name
-   * @prop {String} size 大小
-   * @prop {String} color 颜色
+   * @description: 名称处理
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
    */
-  props: {
-    name: {
-      type: String,
-      required: true
-    },
-    svgClass: {
-      type: String,
-      default: ''
-    },
-    size: {
-      type: String,
-      default: '16px'
-    },
-    color: {
-      type: String,
-      default: ''
-    }
-  },
-  setup(props) {
-    // icon 名称处理
-    const iconName = computed(() => {
-      return `#icon-${props.name}`
-    })
-    // icon 样式处理
-    const iconClass = computed(() => {
-      if (props.svgClass) {
-        return 'svg-icon-set ' + props.svgClass
-      } else {
-        if (props.size) {
-          return 'svg-icon-set '
-        } else {
-          return 'svg-icon'
-        }
-      }
-    })
-    return {
-      iconName,
-      iconClass
-    }
+  get iconName(): string {
+    const result: string = `#icon-${this.name}`
+    return result
   }
-})
+
+  /**
+   * @description: 样式处理
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
+  get iconClass(): string {
+    let result: string
+    if (this.svgClass) {
+      result = 'svg-icon-set ' + this.svgClass
+    } else {
+      if (this.size) {
+        result = 'svg-icon-set '
+      } else {
+        result = 'svg-icon'
+      }
+    }
+    return result
+  }
+}
 </script>
 
 <style lang="scss" scoped>
