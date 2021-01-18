@@ -4,9 +4,9 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:36:27
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 09:48:48
+ * @LastEditTime: 2021-01-18 14:41:20
  */
-import { ContentType } from '@/config/index.type'
+import { ContentType, PromptComponentType, PromptMesssageType } from '@/config/index.type'
 
 // TODO: http
 // 请求数据类型
@@ -16,8 +16,10 @@ export const timeout: number = 10000
 // 请求成功Code
 export const successCode: number[] = [0, 200]
 // TODO: setting
-// 提示组件类型 alert / message / notify
-export const promptComponent: string = 'alert'
+// 提示组件类型
+export const promptComponent: string = PromptComponentType.MESSAGE
+// 提示组件信息类型
+export const promptMessage: 'success' | 'warning' | 'info' | 'error' | undefined = PromptMesssageType.WARING
 // 消息提示持续时长
 export const promptDuration: number = 3000
 // token存储key

@@ -4,15 +4,46 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 10:32:56
+ * @LastEditTime: 2021-01-18 14:43:04
  */
 'use strict'
 import axios from 'axios'
 import qs from 'qs'
 import _ from 'lodash'
 import store from '@/store/index'
-import { ContentType } from '@/config/index.type'
-import { timeout, contentType, successCode } from '@C/index'
+import { ContentType, PromptComponentType } from '@/config/index.type'
+import { timeout, contentType, successCode, promptComponent, promptMessage, promptDuration } from '@C/index'
+import { ElMessage, ElNotification, ElMessageBox } from 'element-plus'
+
+/**
+ * 异常消息提示
+ * @param msg
+ */
+const prompt = (msg: string | ''): void => {
+  switch (promptComponent) {
+    case PromptComponentType.MESSAGE:
+      ElMessage({
+        message: msg,
+        type: promptMessage,
+        duration: promptDuration
+      })
+      break
+    case PromptComponentType.NOTIFY:
+      ElNotification({
+        message: msg,
+        type: promptMessage,
+        duration: promptDuration
+      })
+      break
+    case PromptComponentType.ALERT:
+      ElMessageBox({
+        message: msg,
+        type: promptMessage,
+        showConfirmButton: true
+      })
+      break
+  }
+}
 
 /**
  * @description: code处理
@@ -21,10 +52,10 @@ import { timeout, contentType, successCode } from '@C/index'
  * @return {*}
  * @author: gumingchen
  */
-const codeHandle = (code: number | null, msg: string | null): void => {
+const codeHandle = (code: number | null, msg: string | ''): void => {
   switch (code) {
     case 401:
-      console.log(msg)
+      prompt(msg)
       break
   }
 }
