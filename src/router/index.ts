@@ -4,17 +4,17 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 10:29:53
+ * @LastEditTime: 2021-01-18 11:37:09
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 /* 通用 */
 const currency: Array<RouteRecordRaw> = [
   { path: '/', redirect: { name: 'login' }, meta: { title: '重定向' } },
-  { path: '/home', name: 'home', component: () => import('@/views/index.vue'), meta: { title: 'home' } },
+  { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title: '登录' } },
   { path: '/404', name: '404', component: () => import('@/views/common/404.vue'), meta: { title: '404' } },
   { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title: '401' } },
-  { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title: '登录' } }
+  { path: '/home', name: 'home', component: () => import('@/views/index.vue'), meta: { title: 'home' } }
 ]
 
 /* 主入口 */
