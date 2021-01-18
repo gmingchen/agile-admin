@@ -19,20 +19,20 @@ module.exports = {
   // TODO: 关闭：'off' | 0, 警告: 'warn' | 1, 错误: 'error' | 2
   rules: {
     "prettier/prettier": 2,
-    'vue/max-attributes-per-line': [2, {
-      'singleline': 10,
-      'multiline': {
-        'max': 1,
-        'allowFirstLine': false
+    "vue/max-attributes-per-line": [2, {
+      "singleline": 10,
+      "multiline": {
+        "max": 1,
+        "allowFirstLine": false
       }
     }],
-    'vue/singleline-html-element-content-newline': 'off',
-    'vue/multiline-html-element-content-newline':'off',
-    'vue/name-property-casing': ['error', 'PascalCase'],
-    'vue/no-v-html': 'off',
-    '@typescript-eslint/interface-name-prefix': 0,
-    '@typescript-eslint/no-inferrable-types': 'off',
-
+    "vue/singleline-html-element-content-newline": 0,
+    "vue/multiline-html-element-content-newline": 0,
+    "vue/name-property-casing": [2, 'PascalCase'],
+    "vue/no-v-html": 0,
+    // TODO: TypeScript
+    "@typescript-eslint/interface-name-prefix": 0,
+    "@typescript-eslint/no-inferrable-types": 0,
     // TODO: Possible Errors
     "for-direction": 2,                                                           // 强制 “for” 循环中更新子句的计数器朝着正确的方向移动
     "getter-return": 2,                                                           // 强制 getter 函数中出现 return 语句
@@ -40,10 +40,10 @@ module.exports = {
     "no-await-in-loop": 0,                                                        // 禁止在循环中出现 await
     "no-compare-neg-zero": 2,                                                     // 禁止与 -0 进行比较
     "no-cond-assign": 2,                                                          // 禁止条件表达式中出现赋值操作符
-    "no-console": process.env.NODE_ENV === "production" ? 2 : 0,                  // 生产环境禁用 console
+    "no-console": process.env.NODE_ENV === 'production' ? 2 : 0,                  // 生产环境禁用 console
     "no-constant-condition": 2,                                                   // 禁止在条件中使用常量表达式
     "no-control-regex": 2,                                                        // 禁止在正则表达式中使用控制字符
-    "no-debugger": process.env.NODE_ENV === "production" ? 2 : 0,                 // 生产环境禁用 debugger
+    "no-debugger": process.env.NODE_ENV === 'production' ? 2 : 0,                 // 生产环境禁用 debugger
     "no-dupe-args": 2,                                                            // 禁止 function 定义中出现重名参数
     "no-dupe-keys": 2,                                                            // 禁止对象字面量中出现重复的 key
     "no-duplicate-case": 2,                                                       // 禁止出现重复的 case 标签
@@ -77,7 +77,7 @@ module.exports = {
     "class-methods-use-this": 0,                                                  // 强制类方法使用 this
     "complexity": 0,                                                              // 指定程序中允许的最大环路复杂度
     "consistent-return": 0,                                                       // 要求 return 语句要么总是指定返回的值，要么不指定
-    "curly": [2, 'multi-line'],                                                          // 强制所有控制语句使用一致的括号风格
+    "curly": [2, 'multi-line'],                                                   // 强制所有控制语句使用一致的括号风格
     "default-case": 0,                                                            // 要求 switch 语句中有 default 分支
     "dot-location": [2, 'property'],                                              // 强制在点号之前和之后一致的换行
     "dot-notation": [0, { 'allowKeywords': false }],                              // 强制尽可能地使用点号
@@ -220,7 +220,6 @@ module.exports = {
     }],
     "line-comment-position": 0,                                                   // 强制行注释的位置
     "linebreak-style": 0,                                                         // 强制使用一致的换行风格
-    "linebreak-style": 0,                                                         // 强制使用一致的换行风格
     "lines-around-comment": [2, {                                                 // 要求在注释周围有空行
       "beforeBlockComment": true
     }],
@@ -267,10 +266,10 @@ module.exports = {
     "no-whitespace-before-property": 2,                                           // 禁止属性前有空白
     "nonblock-statement-body-position": 0,                                        // 强制单个语句的位置
     "object-curly-newline": [2, {                                                 // 强制大括号内换行符的一致性
-      "multiline": true
+      "consistent": true
     }],
     "object-curly-spacing": [2, 'always', {                                       // 强制在大括号中使用一致的空格
-      objectsInObjects: false
+      // objectsInObjects: false
     }],
     "object-property-newline": 0,                                                 // 强制将对象的属性放在不同的行上
     "one-var": [2, {                                                              // 强制函数中的变量要么一起声明要么分开声明
@@ -301,7 +300,7 @@ module.exports = {
     "sort-keys": 0,                                                               // 要求对象属性按序排列
     "sort-vars": 0,                                                               // 要求同一个声明块中的变量按顺序排列
     'space-before-blocks': [2, 'always'],                                         // 强制在块之前使用一致的空格
-    "space-before-function-paren": [2, 'never'],                                 // 强制在 function的左括号之前使用一致的空格
+    "space-before-function-paren": 0,                                             // 强制在 function的左括号之前使用一致的空格
     "space-in-parens": [2, 'never'],                                              // 强制在圆括号内使用一致的空格
     "space-infix-ops": 2,                                                         // 要求操作符周围有空格
     "space-unary-ops": [2, {                                                      // 强制在一元操作符前后使用一致的空格

@@ -1,1 +1,3 @@
 vue.config.js
+.eslintrc.js
+src/*.d.ts

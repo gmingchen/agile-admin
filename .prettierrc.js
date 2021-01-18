@@ -4,10 +4,11 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-15 16:34:03
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-15 17:43:03
+ * @LastEditTime: 2021-01-18 10:24:34
  */
 module.exports = {
-  "tabWidth": 2, // 指定每个缩进级别的空格数
+  "printWidth": 150, // 超过最大值换行
+  "tabWidth": 2, // 缩进字节数
   "semi": false, // 在语句末尾打印分号
   "singleQuote": true, // 使用引号
   "arrowParens": "avoid", // 箭头函数加上括号

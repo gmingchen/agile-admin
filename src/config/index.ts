@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:36:27
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-15 15:55:04
+ * @LastEditTime: 2021-01-18 09:48:48
  */
 import { ContentType } from '@/config/index.type'
 

@@ -1,12 +1,19 @@
 <template>
   <div class="home">
-    <svg-icon name="home"></svg-icon><hr>
-    <el-button type="primary" @click="Loading">Loading</el-button><hr>
-    <el-button type="primary" @click="Message">Message</el-button><hr>
-    <el-button type="primary" @click="Alert">Alert</el-button><hr>
-    <el-button type="primary" @click="Confirm">Confirm</el-button><hr>
-    <el-button type="primary" @click="Prompt">Prompt</el-button><hr>
-    <el-button type="primary" @click="Notify">Notify</el-button><hr>
+    <svg-icon name="home"></svg-icon>
+    <hr />
+    <el-button type="primary" @click="Loading">Loading</el-button>
+    <hr />
+    <el-button type="primary" @click="Message">Message</el-button>
+    <hr />
+    <el-button type="primary" @click="Alert">Alert</el-button>
+    <hr />
+    <el-button type="primary" @click="Confirm">Confirm</el-button>
+    <hr />
+    <el-button type="primary" @click="Prompt">Prompt</el-button>
+    <hr />
+    <el-button type="primary" @click="Notify">Notify</el-button>
+    <hr />
     <el-button type="primary" @click="login">Login</el-button>
   </div>
 </template>
@@ -19,7 +26,7 @@ import { login } from '@API/user/index'
 
 @Options({})
 export default class Index extends Mixins(Loading, Message, Alert, Confirm, Prompt, Notify) {
-  Loading () {
+  Loading() {
     const loading = this.$loading({
       target: document.body,
       body: false,
@@ -34,7 +41,7 @@ export default class Index extends Mixins(Loading, Message, Alert, Confirm, Prom
       loading.close()
     }, 2000)
   }
-  Message () {
+  Message() {
     this.$message({
       message: 'message',
       type: 'success', // success / info / warning / error
@@ -50,7 +57,7 @@ export default class Index extends Mixins(Loading, Message, Alert, Confirm, Prom
       }
     })
   }
-  Alert () {
+  Alert() {
     this.$alert('内容', '标题', {
       confirmButtonText: '确定',
       callback: action => {
@@ -58,35 +65,39 @@ export default class Index extends Mixins(Loading, Message, Alert, Confirm, Prom
       }
     })
   }
-  Confirm () {
+  Confirm() {
     this.$confirm('内容', '标题', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'warning'
-    }).then(() => {
-      console.log('ok')
-    }).catch(() => {
-      console.log('cancel')
     })
+      .then(() => {
+        console.log('ok')
+      })
+      .catch(() => {
+        console.log('cancel')
+      })
   }
-  Prompt () {
+  Prompt() {
     this.$prompt('请输入邮箱', '提示', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/u,
       inputErrorMessage: '邮箱格式不正确'
-    }).then(({ value }) => {
-      console.log(value)
-    }).catch(() => {
-      console.log('cancel')
     })
+      .then(({ value }) => {
+        console.log(value)
+      })
+      .catch(() => {
+        console.log('cancel')
+      })
   }
-  Notify () {
+  Notify() {
     this.$notify({
       title: '标题',
       message: '说明文字',
       dangerouslyUseHTMLString: false,
-      type: 'success',	// success/warning/info/error
+      type: 'success', // success/warning/info/error
       iconClass: '',
       customClass: '',
       duration: 4500,
@@ -101,7 +112,7 @@ export default class Index extends Mixins(Loading, Message, Alert, Confirm, Prom
       offset: 0
     })
   }
-  login () {
+  login() {
     login({ username: '11111111111', password: '11111111' }).then(r => {
       console.log(r)
     })

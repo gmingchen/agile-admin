@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-19 15:33:15
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-30 09:30:12
+ * @LastEditTime: 2021-01-18 10:22:43
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import 'element-plus/lib/theme-chalk/index.css'
@@ -175,16 +175,10 @@ const components = [
   ElUpload
 ]
 
-const plugins = [
-  ElInfiniteScroll,
-  ElLoading,
-  ElMessage,
-  ElMessageBox,
-  ElNotification
-]
+const plugins = [ElInfiniteScroll, ElLoading, ElMessage, ElMessageBox, ElNotification]
 
 export default {
-  install: function (app:any) {
+  install: function (app: any) {
     components.forEach(component => {
       app.component(component.name, component)
     })

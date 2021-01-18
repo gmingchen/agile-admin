@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 15:30:44
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-15 15:55:31
+ * @LastEditTime: 2021-01-18 09:53:06
  */
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
@@ -13,7 +13,7 @@ const path = require('path')
 
 export default {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  install: function (app:any) {
+  install: function (app: any) {
     const globalComponents = require.context('./', true, /index\.(vue|js)$/iu)
     globalComponents.keys().forEach(filePath => {
       const component = globalComponents(filePath)
@@ -26,10 +26,7 @@ export default {
             .replace(/\.\w+$/u, '')
         )
       )
-      app.component(
-        name,
-        component.default || component
-      )
+      app.component(name, component.default || component)
     })
   }
 }

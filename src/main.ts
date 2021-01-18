@@ -9,9 +9,4 @@ import '@/assets/sass/index.scss'
 
 const app = createApp(App)
 
-app.use(store)
-  .use(router)
-  .use(Element)
-  .use(Components)
-  .mount('#app')
-
+app.use(store).use(router).use(Element).use(Components).mount('#app')

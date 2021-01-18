@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-15 15:51:48
+ * @LastEditTime: 2021-01-18 10:33:39
  */
 import cookie from 'js-cookie'
 import { tokenKey, storage } from '@C/index'
@@ -15,7 +15,7 @@ import { tokenKey, storage } from '@C/index'
  * @return {*}
  * @author: gumingchen
  */
-export function getToken (): string | null {
+export function getToken(): string | null {
   let token: string | null
   switch (storage) {
     case 'cookie':
@@ -40,7 +40,7 @@ export function getToken (): string | null {
  * @return {*}
  * @author: gumingchen
  */
-export function setToken (token: string): void {
+export function setToken(token: string): void {
   switch (storage) {
     case 'cookie':
       cookie.set(tokenKey, token)
@@ -63,7 +63,7 @@ export function setToken (token: string): void {
  * @return {*}
  * @author: gumingchen
  */
-export function clearToken (): void {
+export function clearToken(): void {
   switch (storage) {
     case 'cookie':
       cookie.remove(tokenKey)

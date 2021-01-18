@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-15 15:56:54
+ * @LastEditTime: 2021-01-18 10:32:56
  */
 'use strict'
 import axios from 'axios'
@@ -12,11 +12,7 @@ import qs from 'qs'
 import _ from 'lodash'
 import store from '@/store/index'
 import { ContentType } from '@/config/index.type'
-import {
-  timeout,
-  contentType,
-  successCode
-} from '@C/index'
+import { timeout, contentType, successCode } from '@C/index'
 
 /**
  * @description: code处理
@@ -25,7 +21,7 @@ import {
  * @return {*}
  * @author: gumingchen
  */
-const codeHandle = (code: number|null, msg: string|null): void => {
+const codeHandle = (code: number | null, msg: string | null): void => {
   switch (code) {
     case 401:
       console.log(msg)
@@ -60,10 +56,7 @@ service.interceptors.request.use(
     }
     if (config.data) {
       // 过滤 key
-      config.data = _.pickBy(
-        config.data,
-        _.identity
-      )
+      config.data = _.pickBy(config.data, _.identity)
       if (config.headers['Content-Type'] === ContentType.FORM) {
         config.data = qs.stringify(config.data)
       }
