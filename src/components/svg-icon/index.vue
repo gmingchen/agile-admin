@@ -4,17 +4,14 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-14 13:30:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-15 15:53:35
+ * @LastEditTime: 2021-01-18 11:31:25
 -->
 <template>
   <svg aria-hidden="true" :class="iconClass" :width="size" :height="size" :color="color">
     <use :xlink:href="iconName" />
   </svg>
 </template>
-
-<script lang='ts'>
-
-/**
+<!--
  * 使用:
  *   1.组件模版中使用
  *      [<svg-icon
@@ -27,7 +24,8 @@
  *    2.size      为svg高宽（默认1em）
  *    3.color     为svg颜色
  *    4.svgClass  为svg Class样式
- */
+-->
+<script lang="ts">
 import { computed, defineComponent } from 'vue'
 export default defineComponent({
   name: 'SvgIcon',
@@ -57,7 +55,7 @@ export default defineComponent({
       default: ''
     }
   },
-  setup (props) {
+  setup(props) {
     // icon 名称处理
     const iconName = computed(() => {
       return `#icon-${props.name}`
@@ -83,16 +81,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .svg-icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-  }
-  .svg-icon-set {
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-  }
+.svg-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+.svg-icon-set {
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 </style>
