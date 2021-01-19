@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 15:30:44
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-19 10:03:10
+ * @LastEditTime: 2021-01-19 10:08:31
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Inject } from 'vue-property-decorator'
@@ -16,7 +16,6 @@ import ILoading from 'element-plus/lib/el-loading/src/loading.type'
 import { IMessage } from 'element-plus/lib/el-message/src/types'
 import { INotification } from 'element-plus/lib/el-notification/src/notification.type'
 import { PromptComponentType } from '@/config/index.type'
-import { ElMessageBoxOptions } from 'element-plus/lib/el-message-box/src/message-box.type'
 
 @Options({})
 export class Loading extends Vue {
@@ -33,7 +32,7 @@ export class Message extends Vue {
 @Options({})
 export class Msgbox extends Vue {
   @Inject('$msgbox')
-  $msgbox!: ElMessageBoxOptions
+  $msgbox!: Promise<any>
 }
 
 @Options({})
@@ -72,7 +71,8 @@ export class Tips extends Vue {
   /**
    * @description: 全局提示消息
    * @param {string} msg 消息内容
-   * @return {'success' | 'warning' | 'info' | 'error' | undefined} type 可选
+   * @param {'success' | 'warning' | 'info' | 'error' | undefined} type 可选
+   * @return {*}
    * @author: gumingchen
    */
   $tips(msg: string, type?: 'success' | 'warning' | 'info' | 'error' | undefined): void {
