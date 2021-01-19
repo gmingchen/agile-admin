@@ -2,7 +2,7 @@
   <div class="home">
     <svg-icon name="home"></svg-icon>
     <hr />
-    <el-button type="primary" @click="Loading">Loading</el-button>
+    <el-button type="primary" @click="Loading" ref="load">Loading</el-button>
     <hr />
     <el-button type="primary" @click="Message">Message</el-button>
     <hr />
@@ -28,6 +28,23 @@ import { login } from '@API/user/index'
 
 @Options({})
 export default class Index extends Mixins(Loading, Message, Alert, Confirm, Prompt, Notify, Tips) {
+  private loading: boolean = true
+  $refs!: {
+    load: HTMLFormElement
+  }
+  mounted() {
+    this.$loading({
+      target: this.$refs.load.$el,
+      body: false,
+      fullscreen: true,
+      lock: false,
+      text: '',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0, 0, 0, 0.0)',
+      customClass: ''
+    })
+  }
+
   Loading() {
     const loading = this.$loading({
       target: document.body,

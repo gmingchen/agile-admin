@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-19 09:48:52
+ * @LastEditTime: 2021-01-19 12:14:35
  */
 'use strict'
 import axios from 'axios'
@@ -12,8 +12,22 @@ import qs from 'qs'
 import _ from 'lodash'
 import store from '@/store/index'
 import { ContentType, PromptComponentType } from '@/config/index.type'
-import { timeout, contentType, successCode, promptComponent, promptMessage, promptDuration } from '@C/index'
-import { ElMessage, ElNotification, ElMessageBox } from 'element-plus'
+import { timeout, contentType, successCode, promptComponent, promptMessage, promptDuration, loadSwitch, loadTimeout, loadOptions } from '@C/index'
+import { ElMessage, ElNotification, ElMessageBox, ElLoading } from 'element-plus'
+
+let loadingService
+
+/**
+ * @description: loading
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+const loadHandle = (): void => {
+  if (loadSwitch && !loadingService) {
+    loadingService = ElLoading.service(loadOptions)
+  }
+}
 
 /**
  * 异常消息提示
@@ -82,6 +96,7 @@ const service = axios.create({
  */
 service.interceptors.request.use(
   config => {
+    loadHandle()
     if (store.getters['user/token']) {
       config.headers['token'] = store.getters['user/token']
     }
@@ -108,6 +123,11 @@ service.interceptors.request.use(
  */
 service.interceptors.response.use(
   response => {
+    if (loadSwitch) {
+      setTimeout(() => {
+        loadingService.close()
+      }, loadTimeout)
+    }
     const { data, code, msg } = response.data
     if (successCode.includes(code)) {
       return data

@@ -4,9 +4,10 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:36:27
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-19 10:01:27
+ * @LastEditTime: 2021-01-19 12:05:07
  */
 import { ContentType, PromptComponentType, PromptMesssageType } from '@/config/index.type'
+import { ILoadingOptions } from 'element-plus/lib/el-loading/src/loading.type'
 
 // TODO: http
 // 请求数据类型
@@ -22,6 +23,19 @@ export const promptComponent: string = PromptComponentType.MESSAGE
 export const promptMessage: 'success' | 'warning' | 'info' | 'error' | undefined = PromptMesssageType.WARING
 // 消息提示持续时长
 export const promptDuration: number = 3000
+// Loading
+export const loadSwitch: boolean = true
+export const loadTimeout: number = 1000
+export const loadOptions: ILoadingOptions = {
+  text: '',
+  spinner: 'el-icon-loading',
+  background: 'rgba(0, 0, 0, 0.7)',
+  customClass: '',
+  target: document.body,
+  body: false,
+  fullscreen: true,
+  lock: false
+}
 // token存储key
 export const tokenKey: string = 'token'
 // token存储位置 cookie / sessionStorage / localStorage
