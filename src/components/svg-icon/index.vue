@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-14 13:30:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 16:37:34
+ * @LastEditTime: 2021-01-19 14:38:31
 -->
 <template>
   <svg aria-hidden="true" :class="iconClass" :width="size" :height="size" :color="color">
@@ -30,7 +30,7 @@ import { Options, Vue } from 'vue-class-component'
 import { Prop } from 'vue-property-decorator'
 
 @Options({})
-export default class SvgIcon extends Vue {
+export default class extends Vue {
   // icon 名称 必传
   @Prop(String)
   name!: string

@@ -28,7 +28,7 @@ import { Options, Vue } from 'vue-class-component'
 import { Watch } from 'vue-property-decorator'
 
 @Options({})
-export default class Index extends Vue {
+export default class extends Vue {
   private endTime: number = 5
   private timer: number | null = null
 

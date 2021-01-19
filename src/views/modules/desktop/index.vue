@@ -14,7 +14,7 @@
 import { Options, Vue } from 'vue-class-component'
 
 @Options({})
-export default class Index extends Vue {}
+export default class extends Vue {}
 </script>
 
 <style></style>

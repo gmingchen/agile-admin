@@ -27,7 +27,7 @@ import { Mixins } from 'vue-property-decorator'
 import { login } from '@API/user/index'
 
 @Options({})
-export default class Index extends Mixins(Loading, Message, Alert, Confirm, Prompt, Notify, Tips) {
+export default class extends Mixins(Loading, Message, Alert, Confirm, Prompt, Notify, Tips) {
   private loading: boolean = true
   $refs!: {
     load: HTMLFormElement
