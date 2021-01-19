@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:36:27
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 14:41:20
+ * @LastEditTime: 2021-01-19 10:01:27
  */
 import { ContentType, PromptComponentType, PromptMesssageType } from '@/config/index.type'
 
