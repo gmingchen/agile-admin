@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:36:27
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-19 12:05:07
+ * @LastEditTime: 2021-01-19 13:16:10
  */
 import { ContentType, PromptComponentType, PromptMesssageType } from '@/config/index.type'
 import { ILoadingOptions } from 'element-plus/lib/el-loading/src/loading.type'
@@ -27,14 +27,22 @@ export const promptDuration: number = 3000
 export const loadSwitch: boolean = true
 export const loadTimeout: number = 1000
 export const loadOptions: ILoadingOptions = {
+  // 显示文本
   text: '',
+  // 显示图标
   spinner: 'el-icon-loading',
+  // 背景色
   background: 'rgba(0, 0, 0, 0.7)',
+  // 自定义类名
   customClass: '',
+  // 目标dom
   target: document.body,
+  // 是否插入目标dom的body上
   body: false,
+  // 是否全屏
   fullscreen: true,
-  lock: false
+  // 是否锁住滚动条
+  lock: true
 }
 // token存储key
 export const tokenKey: string = 'token'
