@@ -14,26 +14,22 @@
     <hr />
     <el-button type="primary" @click="Notify">Notify</el-button>
     <hr />
-    <el-button type="primary" @click="Tips">Tips</el-button>
-    <hr />
     <el-button type="primary" @click="login">Login</el-button>
   </div>
 </template>
 
 <script lang="ts">
-import { Loading, Message, Alert, Confirm, Prompt, Notify, Tips } from '@/mixins/element/index'
-import { Options } from 'vue-class-component'
-import { Mixins } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import { login } from '@API/user/index'
 
 @Options({})
-export default class extends Mixins(Loading, Message, Alert, Confirm, Prompt, Notify, Tips) {
+export default class extends Vue {
   private loading: boolean = true
   $refs!: {
     load: HTMLFormElement
   }
   mounted() {
-    this.$loading({
+    this['$loading']({
       target: this.$refs.load.$el,
       body: false,
       fullscreen: true,
@@ -46,7 +42,7 @@ export default class extends Mixins(Loading, Message, Alert, Confirm, Prompt, No
   }
 
   Loading() {
-    const loading = this.$loading({
+    const loading = this['$loading']({
       target: document.body,
       body: false,
       fullscreen: true,
@@ -61,7 +57,7 @@ export default class extends Mixins(Loading, Message, Alert, Confirm, Prompt, No
     }, 2000)
   }
   Message() {
-    this.$message({
+    this['$message']({
       message: 'message',
       type: 'success', // success / info / warning / error
       iconClass: '',
@@ -77,7 +73,7 @@ export default class extends Mixins(Loading, Message, Alert, Confirm, Prompt, No
     })
   }
   Alert() {
-    this.$alert('内容', '标题', {
+    this['$alert']('内容', '标题', {
       confirmButtonText: '确定',
       callback: action => {
         console.log(action)
@@ -85,7 +81,7 @@ export default class extends Mixins(Loading, Message, Alert, Confirm, Prompt, No
     })
   }
   Confirm() {
-    this.$confirm('内容', '标题', {
+    this['$confirm']('内容', '标题', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'warning'
@@ -98,7 +94,7 @@ export default class extends Mixins(Loading, Message, Alert, Confirm, Prompt, No
       })
   }
   Prompt() {
-    this.$prompt('请输入邮箱', '提示', {
+    this['$prompt']('请输入邮箱', '提示', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/u,
@@ -112,7 +108,7 @@ export default class extends Mixins(Loading, Message, Alert, Confirm, Prompt, No
       })
   }
   Notify() {
-    this.$notify({
+    this['$notify']({
       title: '标题',
       message: '说明文字',
       dangerouslyUseHTMLString: false,
@@ -130,9 +126,6 @@ export default class extends Mixins(Loading, Message, Alert, Confirm, Prompt, No
       },
       offset: 0
     })
-  }
-  Tips() {
-    this.$tips('提示内容')
   }
   login() {
     login({ username: '11111111111', password: '11111111' }).then(r => {

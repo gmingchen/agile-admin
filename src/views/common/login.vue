@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-19 14:37:59
+ * @LastEditTime: 2021-01-25 10:50:12
 -->
 <template>
   <fog>
@@ -13,15 +13,13 @@
 </template>
 
 <script lang="ts">
-import { Options } from 'vue-class-component'
-import { Mixins } from 'vue-property-decorator'
-import { Tips } from '@/mixins/element/index'
+import { Options, Vue } from 'vue-class-component'
 import Fog from './fog.vue'
 
 @Options({
   components: { Fog }
 })
-export default class extends Mixins(Tips) {
+export default class extends Vue {
   private form = {
     username: '',
     password: '',

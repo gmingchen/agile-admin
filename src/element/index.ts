@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-19 15:33:15
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 14:20:54
+ * @LastEditTime: 2021-01-25 10:49:11
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import 'element-plus/lib/theme-chalk/index.css'
@@ -185,13 +185,6 @@ export default {
     plugins.forEach(plugin => {
       app.use(plugin)
     })
-    app.provide('$loading', ElLoading.service)
-    app.provide('$message', ElMessage)
-    app.provide('$msgbox', ElMessageBox)
-    app.provide('$alert', ElMessageBox.alert)
-    app.provide('$confirm', ElMessageBox.confirm)
-    app.provide('$prompt', ElMessageBox.prompt)
-    app.provide('$notify', ElNotification)
     const option = {
       size: 'small',
       zIndex: 2000
