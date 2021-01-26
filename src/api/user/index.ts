@@ -4,10 +4,30 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 09:11:53
+ * @LastEditTime: 2021-01-26 16:21:46
  */
+import { $parseJson2Param } from '@/utils'
+import { IObject } from '@/utils/index.type'
 import service from '@U/request'
+import { AxiosPromise } from 'axios'
 import { ILoginParams } from './index.type'
+
+/**
+ * @description: 获取验证码
+ * @param {IObject} params
+ * @return {string}
+ * @author: gumingchen
+ */
+export function getCaptcha(params: IObject): string {
+  let result: string = ''
+  const options: IObject = {
+    url: '/captcha.jpg',
+    method: 'get',
+    params: params
+  }
+  result = `${process.env.VUE_APP_BASE_API + options.url}?${$parseJson2Param(options.params)}`
+  return result
+}
 
 /**
  * @description: 登录
@@ -15,7 +35,7 @@ import { ILoginParams } from './index.type'
  * @return {*}
  * @author: gumingchen
  */
-export function login(params: ILoginParams) {
+export function login(params: ILoginParams): AxiosPromise {
   return service({
     url: '/antman_user_api/sys/login',
     method: 'post',
@@ -29,7 +49,7 @@ export function login(params: ILoginParams) {
  * @return {*}
  * @author: gumingchen
  */
-export function getUserInfo() {
+export function getUserInfo(): AxiosPromise {
   return service({
     url: '',
     method: 'get'
@@ -42,7 +62,7 @@ export function getUserInfo() {
  * @return {*}
  * @author: gumingchen
  */
-export function logout() {
+export function logout(): AxiosPromise {
   return service({
     url: '',
     method: 'get'
