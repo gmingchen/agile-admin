@@ -96,7 +96,9 @@ module.exports = {
     "no-extend-native": 2,                                                        // 禁止扩展原生类型
     "no-extra-bind": 2,                                                           // 禁止不必要的 .bind() 调用
     "no-extra-label": 0,                                                          // 禁用不必要的标签
-    "no-fallthrough": 2,                                                          // 禁止 case 语句落空
+    "no-fallthrough": [2, {                                                       // 禁止 case 语句落空
+      'commentPattern': 'break[\\s\\w]*omitted'
+    }],
     "no-floating-decimal": 2,                                                     // 禁止数字字面量中使用前导和末尾小数点
     "no-global-assign": 2,                                                        // 禁止对原生对象或只读的全局对象进行赋值
     "no-implicit-coercion": 0,                                                    // 禁止使用短符号进行类型转换
