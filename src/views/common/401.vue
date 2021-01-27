@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-19 17:08:05
+ * @LastEditTime: 2021-01-27 15:09:52
 -->
 <template>
   <div class="errPage-container">
@@ -38,7 +38,14 @@ import errGif from '@AST/images/401.gif'
 @Options({})
 export default class extends Vue {
   private errorGif: string = errGif + '?' + +new Date()
-  back() {
+
+  /**
+   * @description: 回退
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
+  back(): void {
     if (this.$route.query.noGoBack) {
       this.$router.push({ path: '/login' })
     } else {

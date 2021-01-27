@@ -10,20 +10,20 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 09:52:56
+ * @LastEditTime: 2021-01-27 14:46:36
  */
 const requireAll = requireContext => requireContext.keys().map(requireContext)
 const req = require.context('./svg', false, /\.svg$/u)
 requireAll(req)
 
 const svgFiles = require.context('./svg', true, /\.svg$/u)
-const iconList = svgFiles.keys().map(item => {
+const iconList: string[] = svgFiles.keys().map((item: string): string => {
   return item.slice(2, -4)
 })
 
 export default {
   // 获取图标(*).svg名称列表, 例如[shouye, xitong, zhedie, ...]
-  getNameList() {
+  getNameList(): string[] {
     return iconList
   }
 }

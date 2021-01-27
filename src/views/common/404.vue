@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 16:15:04
+ * @LastEditTime: 2021-01-27 15:19:43
 -->
 <template>
   <div class="site-wrapper site-page--not-found">
@@ -33,7 +33,7 @@ export default class extends Vue {
   private timer: number | null = null
 
   @Watch('endTime')
-  onChange(newVal: number) {
+  onEndTime(newVal: number) {
     if (newVal === 0) {
       clearTimeout(this.timer as number)
       this.$router.push({ name: 'login' })
@@ -41,7 +41,7 @@ export default class extends Vue {
   }
 
   mounted() {
-    this.timer = window.setInterval(() => {
+    this.timer = window.setInterval((): void => {
       this.endTime--
       console.log(this.endTime)
     }, 1000)

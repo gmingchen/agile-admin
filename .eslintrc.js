@@ -33,7 +33,7 @@ module.exports = {
     // TODO: TypeScript
     "@typescript-eslint/interface-name-prefix": 0,
     "@typescript-eslint/no-inferrable-types": 0,
-    "@typescript-eslint/no-unused-vars": 0,
+    "@typescript-eslint/no-unused-vars": ['off'],
     // TODO: Possible Errors
     "for-direction": 2,                                                           // 强制 “for” 循环中更新子句的计数器朝着正确的方向移动
     "getter-return": 2,                                                           // 强制 getter 函数中出现 return 语句
@@ -162,9 +162,11 @@ module.exports = {
     "no-undef": 2,                                                                // 禁用未声明的变量，除非它们在 /*global */ 注释中被提到
     "no-undef-init": 2,                                                           // 禁止将变量初始化为 undefined
     "no-undefined": 2,                                                            // 禁止将 undefined 作为标识符
-    "no-unused-vars": [2, {                                                       // 禁止出现未使用过的变量
+    "no-unused-vars": [0, {                                                       // 禁止出现未使用过的变量
       'vars': 'all',
-      'args': 'none'
+      // 'varsIgnorePattern': '[iI]gnored',
+      'args': 'none',
+      'argsIgnorePattern': '^_'
     }],
     "no-use-before-define": 2,                                                    // 禁止在变量定义之前使用它们
     // TODO: Node.js and CommonJS

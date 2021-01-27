@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 10:31:13
+ * @LastEditTime: 2021-01-27 14:55:49
  */
 import { getToken, setToken, clearToken } from '@U/token'
 import { IUser } from './index.type'
@@ -16,19 +16,19 @@ export default {
     token: (state: IUser) => state.token
   },
   mutations: {
-    SET_TOKEN: (state: IUser, token: string) => {
+    SET_TOKEN: (state: IUser, token: string): void => {
       state.token = token
     },
-    CLEAR_TOKEN: (state: IUser) => {
+    CLEAR_TOKEN: (state: IUser): void => {
       state.token = ''
     }
   },
   actions: {
-    setToken: ({ commit }, token: string) => {
+    setToken: ({ commit }, token: string): void => {
       setToken(token)
       commit('SET_TOKEN', token)
     },
-    clearToken: ({ commit }) => {
+    clearToken: ({ commit }): void => {
       clearToken()
       commit('CLEAR_TOKEN')
     }

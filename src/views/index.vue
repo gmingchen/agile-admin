@@ -41,7 +41,7 @@ export default class extends Vue {
     })
   }
 
-  Loading() {
+  Loading(): void {
     const loading = this['$loading']({
       target: document.body,
       body: false,
@@ -56,7 +56,7 @@ export default class extends Vue {
       loading.close()
     }, 2000)
   }
-  Message() {
+  Message(): void {
     this['$message']({
       message: 'message',
       type: 'success', // success / info / warning / error
@@ -72,7 +72,7 @@ export default class extends Vue {
       }
     })
   }
-  Alert() {
+  Alert(): void {
     this['$alert']('内容', '标题', {
       confirmButtonText: '确定',
       callback: action => {
@@ -80,7 +80,7 @@ export default class extends Vue {
       }
     })
   }
-  Confirm() {
+  Confirm(): void {
     this['$confirm']('内容', '标题', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
@@ -93,7 +93,7 @@ export default class extends Vue {
         console.log('cancel')
       })
   }
-  Prompt() {
+  Prompt(): void {
     this['$prompt']('请输入邮箱', '提示', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
@@ -107,7 +107,7 @@ export default class extends Vue {
         console.log('cancel')
       })
   }
-  Notify() {
+  Notify(): void {
     this['$notify']({
       title: '标题',
       message: '说明文字',
@@ -127,7 +127,7 @@ export default class extends Vue {
       offset: 0
     })
   }
-  login() {
+  login(): void {
     login({ username: '11111111111', password: '11111111' }).then(r => {
       console.log(r)
     })

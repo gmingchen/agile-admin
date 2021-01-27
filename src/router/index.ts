@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 11:37:09
+ * @LastEditTime: 2021-01-27 14:48:08
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
@@ -62,7 +62,7 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((_to, _from, next) => {
   // NProgress.start()
   next()
 })

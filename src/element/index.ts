@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-19 15:33:15
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-25 10:49:11
+ * @LastEditTime: 2021-01-27 15:06:22
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import 'element-plus/lib/theme-chalk/index.css'
@@ -178,7 +178,7 @@ const components = [
 const plugins = [ElInfiniteScroll, ElLoading, ElMessage, ElMessageBox, ElNotification]
 
 export default {
-  install: function (app: any) {
+  install: function (app: any): void {
     components.forEach(component => {
       app.component(component.name, component)
     })

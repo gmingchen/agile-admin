@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-15 17:32:28
+ * @LastEditTime: 2021-01-27 14:55:20
  */
 import { ICommon } from './index.type'
 
@@ -18,9 +18,9 @@ export default {
     tabBarHeight: 60
   },
   getters: {
-    documentClientHeight: (state: ICommon) => state.documentClientHeight,
-    navigationHeight: (state: ICommon) => state.navigationHeight,
-    tabBarHeight: (state: ICommon) => state.tabBarHeight
+    documentClientHeight: (state: ICommon): number => state.documentClientHeight,
+    navigationHeight: (state: ICommon): number => state.navigationHeight,
+    tabBarHeight: (state: ICommon): number => state.tabBarHeight
   },
   mutations: {},
   actions: {}

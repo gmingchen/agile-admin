@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 15:30:44
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 09:53:06
+ * @LastEditTime: 2021-01-27 14:47:37
  */
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
@@ -15,7 +15,7 @@ export default {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   install: function (app: any) {
     const globalComponents = require.context('./', true, /index\.(vue|js)$/iu)
-    globalComponents.keys().forEach(filePath => {
+    globalComponents.keys().forEach((filePath: string): void => {
       const component = globalComponents(filePath)
       let name = path.resolve(filePath, '..')
       name = upperFirst(
