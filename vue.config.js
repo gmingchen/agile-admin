@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-18 11:07:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 17:34:07
+ * @LastEditTime: 2021-01-27 22:43:49
  */
 const path = require('path')
 function resolve (dir) {
@@ -72,6 +72,7 @@ module.exports = {
       .set('@API', resolve('src/api'))
       .set('@AST', resolve('src/assets'))
       .set('@U', resolve('src/utils'))
+      .set('@SASS', resolve('src/assets/sass'))
     config.module.rules.delete('svg')
     config.module
       .rule('svg-smart')

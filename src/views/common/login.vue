@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 17:33:28
+ * @LastEditTime: 2021-01-27 22:45:44
 -->
 <template>
   <fog>
@@ -116,6 +116,7 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import '@SASS/extend.scss';
 .login-card {
   position: absolute;
   top: 50%;

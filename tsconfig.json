@@ -22,7 +22,8 @@
       "@API/*": ["src/api/*"],
       "@AST/*": ["src/assets/*"],
       "@U/*": ["src/utils/*"],
-      "@V/*": ["src/views/*"]
+      "@V/*": ["src/views/*"],
+      "@SASS/*": ["src/assets/sass/*"]
     },
     "lib": [
       "esnext",

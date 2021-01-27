@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-19 13:54:30
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-19 14:36:17
+ * @LastEditTime: 2021-01-27 22:46:22
 -->
 <template>
   <div class="fog">
@@ -28,7 +28,7 @@ export default class extends Vue {}
   position: fixed;
   height: 100%;
   width: 100%;
-  // background-image: url('../../assets/images/login/bg.png');
+  background-image: url('../../assets/images/login/bg.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   -moz-background-size: 100% 100%;
