@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-18 11:07:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 15:40:36
+ * @LastEditTime: 2021-01-27 17:34:07
  */
 const path = require('path')
 function resolve (dir) {
@@ -42,7 +42,11 @@ module.exports = {
     // requireModuleExtension: false,                                                  // 当为true时,css文件名可省略module默认为false.
     extract: false,                                                                 // 默认生产环境下是true,开发环境下是false.
     sourceMap: false,                                                               // 是否为CSS开启source map.设置为true之后可能会影响构建的性能.                                               
-    loaderOptions: {}                                                               // 向CSS相关的loader传递选项(支持:css-loader postcss-loader sass-loader less-loader stylus-loader).
+    // loaderOptions: {                                                                // 向CSS相关的loader传递选项(支持:css-loader postcss-loader sass-loader less-loader stylus-loader).
+    //   sass: {
+    //     prependData: `@import '~@/assets/sass/index.scss';` // 引入全局scss全局样式
+    //   }
+    // }                                                               
   },
   // 如果这个值是一个对象,则会通过 webpack-merge 合并到最终的配置中.
   // 如果你需要基于环境有条件地配置行为,或者想要直接修改配置,那就换成一个函数(该函数会在环境变量被设置之后懒执行).该方法的第一个参数会收到已经解析好的配置.在函数内,你可以直接修改配置,或者返回一个将会被合并的对象.

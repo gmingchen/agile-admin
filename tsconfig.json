@@ -37,7 +37,8 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx",
-    "src/images.d.ts"
+    "src/assets/images/images.d.ts",
+    "src/api/axios.d.ts"
   ],
   "exclude": [
     "node_modules"

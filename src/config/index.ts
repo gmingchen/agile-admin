@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:36:27
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-19 13:16:10
+ * @LastEditTime: 2021-01-27 16:55:06
  */
 import { ContentType, PromptComponentType, PromptMesssageType } from '@/config/index.type'
 import { ILoadingOptions } from 'element-plus/lib/el-loading/src/loading.type'

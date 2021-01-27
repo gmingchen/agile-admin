@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-26 16:21:46
+ * @LastEditTime: 2021-01-27 15:44:48
  */
 import { $parseJson2Param } from '@/utils'
 import { IObject } from '@/utils/index.type'
@@ -35,9 +35,9 @@ export function getCaptcha(params: IObject): string {
  * @return {*}
  * @author: gumingchen
  */
-export function login(params: ILoginParams): AxiosPromise {
+export function login(params: ILoginParams) {
   return service({
-    url: '/antman_user_api/sys/login',
+    url: '/admin/login',
     method: 'post',
     data: params
   })
@@ -49,7 +49,7 @@ export function login(params: ILoginParams): AxiosPromise {
  * @return {*}
  * @author: gumingchen
  */
-export function getUserInfo(): AxiosPromise {
+export function getUserInfo() {
   return service({
     url: '',
     method: 'get'
@@ -62,7 +62,7 @@ export function getUserInfo(): AxiosPromise {
  * @return {*}
  * @author: gumingchen
  */
-export function logout(): AxiosPromise {
+export function logout() {
   return service({
     url: '',
     method: 'get'

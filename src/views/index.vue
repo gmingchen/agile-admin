@@ -13,15 +13,11 @@
     <el-button type="primary" @click="Prompt">Prompt</el-button>
     <hr />
     <el-button type="primary" @click="Notify">Notify</el-button>
-    <hr />
-    <el-button type="primary" @click="login">Login</el-button>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import { login } from '@API/user/index'
-
 @Options({})
 export default class extends Vue {
   private loading: boolean = true
@@ -125,11 +121,6 @@ export default class extends Vue {
         console.log('click')
       },
       offset: 0
-    })
-  }
-  login(): void {
-    login({ username: '11111111111', password: '11111111' }).then(r => {
-      console.log(r)
     })
   }
 }

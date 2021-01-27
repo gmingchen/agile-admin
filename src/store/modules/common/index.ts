@@ -4,11 +4,12 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 14:55:20
+ * @LastEditTime: 2021-01-27 16:30:47
  */
 import { ICommon } from './index.type'
 
 export default {
+  namespaced: true,
   state: {
     // 页面文档可视高度(随窗口改变大小)
     documentClientHeight: 0,

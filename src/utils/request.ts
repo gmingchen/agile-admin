@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-19 12:14:35
+ * @LastEditTime: 2021-01-27 16:47:33
  */
 'use strict'
 import axios from 'axios'
@@ -128,9 +128,9 @@ service.interceptors.response.use(
         loadingService.close()
       }, loadTimeout)
     }
-    const { data, code, msg } = response.data
+    const { code, msg } = response.data
     if (successCode.includes(code)) {
-      return data
+      return response.data
     } else {
       codeHandle(code, msg)
       return response.data || ''
