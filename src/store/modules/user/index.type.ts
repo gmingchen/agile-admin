@@ -4,9 +4,10 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 16:34:37
+ * @LastEditTime: 2021-01-29 22:28:26
  */
 export interface IUser {
-  username: string,
+  id: string
+  username: string
   token: string
 }

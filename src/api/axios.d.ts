@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /*
- * @Description: 
+ * @Description:
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-27 15:38:36
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 15:40:32
+ * @LastEditTime: 2021-01-29 22:18:18
  */
 import * as axios from 'axios'
 

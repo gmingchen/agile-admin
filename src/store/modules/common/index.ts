@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-29 17:36:31
+ * @LastEditTime: 2021-01-29 22:03:09
  */
 import { ICommon } from './index.type'
 
@@ -46,5 +46,12 @@ export default {
       state.sidebarOpend = sidebarOpend
     }
   },
-  actions: {}
+  actions: {
+    setDocunentClientHeight({ commit }, documentClientHeight: number): void {
+      commit('SET_DOCUMENT_CLIENT_HEIGHT', documentClientHeight)
+    },
+    setSidebarOpend({ commit }, sidebarOpend: boolean): void {
+      commit('SET_SIDEBAR_OPEND', sidebarOpend)
+    }
+  }
 }
