@@ -4,10 +4,12 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2020-12-30 09:31:59
+ * @LastEditTime: 2021-01-29 17:36:04
  */
 export interface ICommon {
   documentClientHeight: number,
-  navigationHeight: number,
-  tabBarHeight: number
+  sidebarWidth: number,
+  navbarHeight: number,
+  tabsHeight: number,
+  sidebarOpend: boolean
 }

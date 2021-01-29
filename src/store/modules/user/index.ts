@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 16:55:15
+ * @LastEditTime: 2021-01-29 17:29:47
  */
 import { getToken, setToken, clearToken } from '@U/token'
 import { IUser } from './index.type'

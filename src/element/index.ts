@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-19 15:33:15
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 17:14:16
+ * @LastEditTime: 2021-01-29 14:35:03
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import 'element-plus/lib/theme-chalk/index.css'
@@ -91,7 +91,13 @@ import {
   ElLoading,
   ElMessage,
   ElMessageBox,
-  ElNotification
+  ElNotification,
+  ElSkeleton,
+  ElSkeletonItem,
+  ElEmpty,
+  ElImageViewer,
+  ElSpace,
+  ElVirtualList
 } from 'element-plus'
 
 const components = [
@@ -172,7 +178,13 @@ const components = [
   ElTooltip,
   ElTransfer,
   ElTree,
-  ElUpload
+  ElUpload,
+  ElSkeleton,
+  ElSkeletonItem,
+  ElEmpty,
+  ElImageViewer,
+  ElSpace,
+  ElVirtualList
 ]
 
 const plugins = [ElInfiniteScroll, ElLoading, ElMessage, ElMessageBox, ElNotification]

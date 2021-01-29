@@ -4,12 +4,12 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 22:45:44
+ * @LastEditTime: 2021-01-29 17:22:21
 -->
 <template>
   <fog>
     <el-card class="login-card">
-      <el-form :model="form" :rules="rules" ref="formRef" @keyup.enter="submit()" status-icon>
+      <el-form :model="form" :rules="rules" ref="formRef" @keyup.enter="submit()" class="form" status-icon>
         <el-form-item prop="username">
           <el-input v-model="form.username" placeholder="帐号">
             <template #prefix>
@@ -63,7 +63,8 @@ export default class extends Vue {
     [key: string]: HTMLFormElement
   }
 
-  @userModule.Action('setToken') setToken
+  @userModule.Action('setToken')
+  setToken!: (arg: string) => void
 
   private captchaPath: string = ''
   private form = {
@@ -105,7 +106,7 @@ export default class extends Vue {
         const r = await login(this.form)
         if (r && r.code === 0) {
           this.setToken(r.token)
-          this.$router.replace({ name: 'home' })
+          this.$router.replace({ name: 'layout' })
         } else {
           this.getCaptcha()
         }
@@ -116,20 +117,23 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import '@SASS/extend.scss';
+@import '@SASS/mixin.scss';
 .login-card {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 500px;
   ::v-deep(.el-card) {
     background-color: transparent;
   }
-  .login-captcha img {
-    @extend .width-full;
-  }
-  .login-btn {
-    @extend .width-full;
+  .form {
+    .login-captcha img {
+      @include width-full;
+    }
+    .login-btn {
+      @include width-full;
+    }
   }
 }
 </style>

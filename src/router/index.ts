@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 14:48:08
+ * @LastEditTime: 2021-01-29 15:11:22
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
@@ -19,9 +19,9 @@ const currency: Array<RouteRecordRaw> = [
 
 /* 主入口 */
 const main: RouteRecordRaw = {
-  path: '/main',
-  name: 'main',
-  component: () => import('@/views/main/index.vue'),
+  path: '/layout',
+  name: 'layout',
+  component: () => import('@/views/layout/index.vue'),
   meta: { title: '主入口整体布局' },
   children: []
 }
@@ -43,9 +43,7 @@ const other: RouteRecordRaw = {
   name: '',
   component: () => import('@/views/modules/other/index.vue'),
   meta: { title: '其他菜单整体布局' },
-  children: [
-    // { path: '/other/system-management/data-model-customization', name: '/other/system-management/data-model-customization', component: () => import('@/views/modules/other/system-management/data-model-customization/index'), meta: { title: '菜单管理' }}
-  ]
+  children: []
 }
 
 main.children?.push(desktop, other)
