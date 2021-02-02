@@ -4,21 +4,26 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:56:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-29 22:35:48
+ * @LastEditTime: 2021-02-02 15:56:02
 -->
 <template>
-  <div></div>
+  <div>
+    <navbar />
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { namespace } from 'vuex-class'
+import Navbar from './components/navbar/index.vue'
 import { getUserInfo } from '@API/common'
 
 const commonModule = namespace('common')
 const userModule = namespace('user')
 
-@Options({})
+@Options({
+  components: { Navbar }
+})
 export default class extends Vue {
   @commonModule.State('documentClientHeight')
   documentClientHeight!: number
