@@ -4,29 +4,34 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:56:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-04 11:51:46
+ * @LastEditTime: 2021-02-04 17:04:24
 -->
 <template>
   <div>
-    <navbar />
+    <sidebar class="sidebar" :style="{ width: sidebarWidth + 'px' }" />
+    <Main class="main" :style="{ 'margin-left': sidebarWidth + 'px' }" />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { namespace } from 'vuex-class'
-import Navbar from './components/navbar/index.vue'
+import Sidebar from './components/sidebar/index.vue'
+import Main from './components/main/index.vue'
 import { getUserInfo } from '@API/common'
 
 const commonModule = namespace('common')
 const userModule = namespace('user')
 
 @Options({
-  components: { Navbar }
+  components: { Sidebar, Main }
 })
 export default class extends Vue {
   @commonModule.State('documentClientHeight')
   documentClientHeight!: number
+
+  @commonModule.State('sidebarWidth')
+  sidebarWidth!: number
 
   @commonModule.Action('setDocunentClientHeight')
   setDocunentClientHeight!: (arg: number) => void
@@ -76,4 +81,14 @@ export default class extends Vue {
 }
 </script>
 
-<style></style>
+<style lang="scss" scope>
+.sidebar {
+  position: fixed;
+  left: 0;
+  height: 100%;
+  z-index: 1;
+}
+.main {
+  position: relative;
+}
+</style>

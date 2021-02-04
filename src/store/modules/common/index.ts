@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-03 14:19:16
+ * @LastEditTime: 2021-02-04 17:21:59
  */
 import { ICommon } from './index.type'
 
@@ -14,13 +14,15 @@ export default {
     // 页面文档可视高度(随窗口改变大小)
     documentClientHeight: 0,
     // 侧边栏宽度
-    sidebarWidth: 60,
+    sidebarWidth: 200,
     // 顶部导航高度
     navbarHeight: 50,
     // 标签栏高度
     tabsHeight: 40,
     // 侧边栏是否打开
     sidebarOpend: true,
+    // 页头是否固定
+    headerFixed: false,
     // 是否全屏
     isFillScreen: false
   },
@@ -30,6 +32,7 @@ export default {
     navbarHeight: (state: ICommon): number => state.navbarHeight,
     tabsHeight: (state: ICommon): number => state.tabsHeight,
     sidebarOpend: (state: ICommon): boolean => state.sidebarOpend,
+    headerFixed: (state: ICommon): boolean => state.headerFixed,
     isFillScreen: (state: ICommon): boolean => state.isFillScreen
   },
   mutations: {
@@ -47,6 +50,9 @@ export default {
     },
     SET_SIDEBAR_OPEND: (state: ICommon, sidebarOpend: boolean): void => {
       state.sidebarOpend = sidebarOpend
+    },
+    SET_HEADER_FIXED: (state: ICommon, headerFixed: boolean): void => {
+      state.headerFixed = headerFixed
     },
     SET_IS_FULL_SCREEN: (state: ICommon, isFillScreen: boolean): void => {
       state.isFillScreen = isFillScreen
