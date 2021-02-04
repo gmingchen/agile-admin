@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 15:09:52
+ * @LastEditTime: 2021-02-03 14:42:01
 -->
 <template>
   <div class="errPage-container">
@@ -37,7 +37,7 @@ import errGif from '@AST/images/401.gif'
 
 @Options({})
 export default class extends Vue {
-  private errorGif: string = errGif + '?' + +new Date()
+  protected errorGif: string = errGif + '?' + +new Date()
 
   /**
    * @description: 回退

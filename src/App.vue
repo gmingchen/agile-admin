@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 09:30:33
+ * @LastEditTime: 2021-02-03 15:45:45
 -->
 <template>
   <router-view />
@@ -23,5 +23,6 @@ export default class App extends Vue {}
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  color: #606266;
 }
 </style>

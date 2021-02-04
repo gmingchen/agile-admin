@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 15:19:43
+ * @LastEditTime: 2021-02-03 16:25:10
 -->
 <template>
   <div class="site-wrapper site-page--not-found">
@@ -29,8 +29,8 @@ import { Watch } from 'vue-property-decorator'
 
 @Options({})
 export default class extends Vue {
-  private endTime: number = 5
-  private timer: number | null = null
+  protected endTime: number = 5
+  protected timer: number | null = null
 
   @Watch('endTime')
   onEndTime(newVal: number) {

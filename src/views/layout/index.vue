@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:56:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-02 15:56:02
+ * @LastEditTime: 2021-02-04 11:51:46
 -->
 <template>
   <div>
@@ -69,8 +69,8 @@ export default class extends Vue {
   async getUserInfo(): Promise<void> {
     const r = await getUserInfo()
     if (r && r.code === 0) {
-      this.setId(r.id)
-      this.setUsername(r.username)
+      this.setId(r.data.id)
+      this.setUsername(r.data.username)
     }
   }
 }

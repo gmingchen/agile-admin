@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-02 17:31:55
+ * @LastEditTime: 2021-02-03 14:19:16
  */
 import { ICommon } from './index.type'
 
@@ -22,7 +22,7 @@ export default {
     // 侧边栏是否打开
     sidebarOpend: true,
     // 是否全屏
-    screenFull: false
+    isFillScreen: false
   },
   getters: {
     documentClientHeight: (state: ICommon): number => state.documentClientHeight,
@@ -30,7 +30,7 @@ export default {
     navbarHeight: (state: ICommon): number => state.navbarHeight,
     tabsHeight: (state: ICommon): number => state.tabsHeight,
     sidebarOpend: (state: ICommon): boolean => state.sidebarOpend,
-    screenFull: (state: ICommon): boolean => state.screenFull
+    isFillScreen: (state: ICommon): boolean => state.isFillScreen
   },
   mutations: {
     SET_DOCUMENT_CLIENT_HEIGHT: (state: ICommon, documentClientHeight: number): void => {
@@ -48,8 +48,8 @@ export default {
     SET_SIDEBAR_OPEND: (state: ICommon, sidebarOpend: boolean): void => {
       state.sidebarOpend = sidebarOpend
     },
-    SET_SCREEN_FULL: (state: ICommon, screenFull: boolean): void => {
-      state.screenFull = screenFull
+    SET_IS_FULL_SCREEN: (state: ICommon, isFillScreen: boolean): void => {
+      state.isFillScreen = isFillScreen
     }
   },
   actions: {
@@ -59,8 +59,8 @@ export default {
     setSidebarOpend({ commit }, sidebarOpend: boolean): void {
       commit('SET_SIDEBAR_OPEND', sidebarOpend)
     },
-    setScreenFull({ commit }, screenFull: boolean): void {
-      commit('SET_SCREEN_FULL', screenFull)
+    setScreenFull({ commit }, isFillScreen: boolean): void {
+      commit('SET_IS_FULL_SCREEN', isFillScreen)
     }
   }
 }

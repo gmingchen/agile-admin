@@ -12,5 +12,5 @@ export interface ICommon {
   navbarHeight: number,
   tabsHeight: number,
   sidebarOpend: boolean,
-  screenFull: boolean
+  isFillScreen: boolean
 }

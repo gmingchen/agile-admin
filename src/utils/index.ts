@@ -4,9 +4,10 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-19 14:41:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 15:00:11
+ * @LastEditTime: 2021-02-04 15:38:05
  */
 import { IObject } from './index.type'
+import { clearToken } from './token'
 
 /**
  * @description: 生成UUID
@@ -178,4 +179,14 @@ export function $clearJson(json: IObject): void {
       json[key] = ''
     }
   }
+}
+
+/**
+ * @description: 清除登录信息
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function $clearLoginInfo(): void {
+  clearToken()
 }

@@ -4,11 +4,12 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 15:41:07
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-02 17:14:48
+ * @LastEditTime: 2021-02-03 15:52:14
 -->
 <template>
   <div class="navbar" :style="navbarStyle">
-    <crumbs class="crumbs" :style="{ 'line-height': navbarStyle['line-height'] }" />
+    <crumbs class="crumbs" :style="{ 'line-height': navbarStyle['height'] }" />
+    <tools class="tools" />
   </div>
 </template>
 
@@ -16,34 +17,39 @@
 import { Vue, Options } from 'vue-class-component'
 import { namespace } from 'vuex-class'
 import Crumbs from '../crumbs/index.vue'
+import Tools from '../tools/index.vue'
 
 const commonModule = namespace('common')
 
 @Options({
-  components: { Crumbs }
+  components: { Crumbs, Tools }
 })
 export default class extends Vue {
   @commonModule.State('navbarHeight')
   navbarHeight!: number
 
   private navbarStyle = {
-    height: '',
-    'line-height': ''
+    height: ''
   }
 
   created() {
     this.navbarStyle = {
-      height: `${this.navbarHeight}px`,
-      'line-height': `${this.navbarHeight}px`
+      height: `${this.navbarHeight}px`
     }
   }
 }
 </script>
 
 <style lang="scss" scope>
+@import '@SASS/mixin.scss';
 .navbar {
+  @include shadow;
+  padding: 0 10px;
   .crumbs {
     float: left;
+  }
+  .tools {
+    float: right;
   }
 }
 </style>

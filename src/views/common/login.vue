@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-02 15:55:18
+ * @LastEditTime: 2021-02-04 15:16:14
 -->
 <template>
   <fog>
@@ -66,14 +66,14 @@ export default class extends Vue {
   @userModule.Action('setToken')
   setToken!: (arg: string) => void
 
-  private captchaPath: string = ''
-  private form = {
+  protected captchaPath: string = ''
+  protected form = {
     username: '',
     password: '',
     uuid: '',
     captcha: ''
   }
-  private rules = {
+  protected rules = {
     username: [{ required: true, message: '帐号不能为空', trigger: 'blur' }],
     password: [{ required: true, message: '密码不能为空', trigger: 'blur' }],
     captcha: [{ required: true, message: '验证码不能为空', trigger: 'blur' }]
