@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 16:45:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-04 17:06:47
+ * @LastEditTime: 2021-02-05 15:10:45
 -->
 <template>
   <div class="sidebar">侧边栏</div>
@@ -17,7 +17,7 @@ import { Vue, Options } from 'vue-class-component'
 export default class extends Vue {}
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 @import '@SASS/mixin.scss';
 .sidebar {
   @include shadow;

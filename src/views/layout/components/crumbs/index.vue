@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 16:08:57
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-02 17:12:40
+ * @LastEditTime: 2021-02-05 15:11:08
 -->
 <template>
   <el-breadcrumb :separator="separator" :separator-class="separatorClass">
@@ -32,4 +32,4 @@ export default class extends Vue {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>

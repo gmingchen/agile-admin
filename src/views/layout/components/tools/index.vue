@@ -4,11 +4,18 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 17:24:00
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 11:19:46
+ * @LastEditTime: 2021-02-05 14:41:12
 -->
 <template>
   <div class="tools">
     <div class="tool-item" :style="{ 'line-height': navbarHeight + 'px' }">
+      <label>标签页：</label>
+      <el-tooltip :content="display ? '显示' : '隐藏'" placement="top">
+        <el-switch v-model="display" active-color="#13ce66" inactive-color="#ff4949" />
+      </el-tooltip>
+    </div>
+    <div class="tool-item" :style="{ 'line-height': navbarHeight + 'px' }">
+      <label>导航栏：</label>
       <el-tooltip :content="fixed ? '固定' : '不固定'" placement="top">
         <el-switch v-model="fixed" active-color="#13ce66" inactive-color="#ff4949" />
       </el-tooltip>
@@ -48,14 +55,28 @@ export default class extends Vue {
 
   @commonModule.State('navbarHeight')
   navbarHeight!: number
+
+  @commonModule.State('tabsDisplay')
+  tabsDisplay!: boolean
+  @commonModule.Action('setTabsDisplay')
+  setTabsDisplay!: (arg: boolean) => void
+
   @commonModule.State('headerFixed')
   headerFixed!: boolean
   @commonModule.Action('setHeaderFixed')
   setHeaderFixed!: (arg: boolean) => void
+
   @commonModule.State('screenFull')
   screenFull!: boolean
   @commonModule.Action('setScreenFull')
   setScreenFull!: (arg: boolean) => void
+
+  get display() {
+    return this.tabsDisplay
+  }
+  set display(val: boolean) {
+    this.setTabsDisplay(val)
+  }
 
   get fixed() {
     return this.headerFixed
@@ -123,7 +144,7 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .tools {
   height: 100%;
   & > .tool-item {

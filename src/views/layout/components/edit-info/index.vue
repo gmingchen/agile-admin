@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 11:16:33
+ * @LastEditTime: 2021-02-05 15:11:00
 -->
 <template>
   <el-dialog width="500px" title="修改密码" v-model="visible" :close-on-click-modal="false">
@@ -109,7 +109,7 @@ export default class extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 * {
   text-align: left;
 }

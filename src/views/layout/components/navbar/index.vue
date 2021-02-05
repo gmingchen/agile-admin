@@ -40,7 +40,7 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 @import '@SASS/mixin.scss';
 .navbar {
   @include shadow;

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 13:21:51
+ * @LastEditTime: 2021-02-05 16:35:22
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
@@ -14,7 +14,6 @@ const common: Array<RouteRecordRaw> = [
   { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title: '登录' } },
   { path: '/404', name: '404', component: () => import('@/views/common/404.vue'), meta: { title: '404' } },
   { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title: '401' } }
-  
 ]
 
 /* 主入口 */
@@ -24,7 +23,8 @@ const main: RouteRecordRaw = {
   component: () => import('@/views/layout/index.vue'),
   meta: { title: '主入口整体布局' },
   children: [
-    { path: '/home', name: 'home', component: () => import('@/views/modules/home/index.vue'), meta: { title: 'home' } }
+    { path: '/home', name: 'home', component: () => import('@/views/modules/home/index.vue'), meta: { title: 'home' } },
+    { path: '/example', name: 'example', component: () => import('@/views/modules/example/index.vue'), meta: { title: 'example' } }
   ]
 }
 

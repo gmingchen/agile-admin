@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 11:13:54
+ * @LastEditTime: 2021-02-05 15:12:22
  */
 import { ICommon } from './index.type'
 
@@ -19,6 +19,8 @@ export default {
     navbarHeight: 50,
     // 标签栏高度
     tabsHeight: 40,
+    // 标签栏是否显示
+    tabsDisplay: true,
     // 侧边栏是否打开
     sidebarOpend: true,
     // 页头是否固定
@@ -31,6 +33,7 @@ export default {
     sidebarWidth: (state: ICommon): number => state.sidebarWidth,
     navbarHeight: (state: ICommon): number => state.navbarHeight,
     tabsHeight: (state: ICommon): number => state.tabsHeight,
+    tabsDisplay: (state: ICommon): boolean => state.tabsDisplay,
     sidebarOpend: (state: ICommon): boolean => state.sidebarOpend,
     headerFixed: (state: ICommon): boolean => state.headerFixed,
     isFillScreen: (state: ICommon): boolean => state.isFillScreen
@@ -48,6 +51,9 @@ export default {
     SET_TABS_HEIGHT: (state: ICommon, tabsHeight: number): void => {
       state.tabsHeight = tabsHeight
     },
+    SET_TAVS_DISPLAY: (state: ICommon, tabsDisplay: boolean): void => {
+      state.tabsDisplay = tabsDisplay
+    },
     SET_SIDEBAR_OPEND: (state: ICommon, sidebarOpend: boolean): void => {
       state.sidebarOpend = sidebarOpend
     },
@@ -61,6 +67,9 @@ export default {
   actions: {
     setDocunentClientHeight({ commit }, documentClientHeight: number): void {
       commit('SET_DOCUMENT_CLIENT_HEIGHT', documentClientHeight)
+    },
+    setTabsDisplay({ commit }, tabsDisplay: boolean): void {
+      commit('SET_TAVS_DISPLAY', tabsDisplay)
     },
     setSidebarOpend({ commit }, sidebarOpend: boolean): void {
       commit('SET_SIDEBAR_OPEND', sidebarOpend)

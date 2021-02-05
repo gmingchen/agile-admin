@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-05 10:07:59
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 13:24:08
+ * @LastEditTime: 2021-02-05 17:20:03
 -->
 <template>
   <div class="contant" :style="style">
@@ -35,17 +35,19 @@ export default class extends Vue {
   tabsHeight!: number
   @commonModule.State('headerFixed')
   headerFixed!: boolean
+  @commonModule.State('tabsDisplay')
+  tabsDisplay!: boolean
 
   get style(): IObject {
     let result: IObject = {}
     if (this.headerFixed) {
       result = {
         'min-height': this.documentClientHeight + 'px',
-        'padding-top': this.navbarHeight + this.tabsHeight + 'px'
+        'padding-top': this.navbarHeight + (this.tabsDisplay ? this.tabsHeight : 0) + 'px'
       }
     } else {
       result = {
-        'min-height': `${this.documentClientHeight - this.navbarHeight - this.tabsHeight}px`
+        'min-height': `${this.documentClientHeight - this.navbarHeight - (this.tabsDisplay ? this.tabsHeight : 0)}px`
       }
     }
     return result
@@ -53,10 +55,11 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
+@import '@SASS/_variable.scss';
 .contant {
   position: relative;
-  background-color: #f0f2f5;
+  background-color: $bgColor;
   .component {
     padding: 0 10px;
   }

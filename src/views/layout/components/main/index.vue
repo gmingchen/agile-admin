@@ -4,14 +4,14 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 15:45:53
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 11:47:56
+ * @LastEditTime: 2021-02-05 14:40:12
 -->
 <template>
   <div class="main">
     <el-scrollbar :style="{ height: documentClientHeight + 'px' }">
       <div class="header" :style="style">
         <navbar />
-        <tabs />
+        <tabs v-if="tabsDisplay" />
       </div>
       <content />
     </el-scrollbar>
@@ -42,6 +42,8 @@ export default class extends Vue {
   sidebarWidth!: number
   @commonModule.State('headerFixed')
   headerFixed!: boolean
+  @commonModule.State('tabsDisplay')
+  tabsDisplay!: boolean
 
   get style(): IObject {
     let result: IObject = {}
@@ -59,7 +61,7 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .main {
   position: relative;
   .header {
