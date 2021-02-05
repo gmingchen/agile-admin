@@ -4,17 +4,17 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-29 15:11:22
+ * @LastEditTime: 2021-02-05 13:21:51
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 /* 通用 */
-const currency: Array<RouteRecordRaw> = [
+const common: Array<RouteRecordRaw> = [
   { path: '/', redirect: { name: 'login' }, meta: { title: '重定向' } },
   { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title: '登录' } },
   { path: '/404', name: '404', component: () => import('@/views/common/404.vue'), meta: { title: '404' } },
-  { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title: '401' } },
-  { path: '/home', name: 'home', component: () => import('@/views/index.vue'), meta: { title: 'home' } }
+  { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title: '401' } }
+  
 ]
 
 /* 主入口 */
@@ -23,32 +23,12 @@ const main: RouteRecordRaw = {
   name: 'layout',
   component: () => import('@/views/layout/index.vue'),
   meta: { title: '主入口整体布局' },
-  children: []
-}
-
-/* 我的桌面 */
-const desktop: RouteRecordRaw = {
-  path: '/desktop',
-  name: 'desktop',
-  component: () => import('@/views/modules/desktop/index.vue'),
-  meta: { title: '我的桌面整体布局' },
   children: [
-    // { path: '/desktop/home', name: '/desktop/home', component: () => import('@/views/modules/desktop/home/index'), meta: { title: '首页' }}
+    { path: '/home', name: 'home', component: () => import('@/views/modules/home/index.vue'), meta: { title: 'home' } }
   ]
 }
 
-/* 其他页面 */
-const other: RouteRecordRaw = {
-  path: '/',
-  name: '',
-  component: () => import('@/views/modules/other/index.vue'),
-  meta: { title: '其他菜单整体布局' },
-  children: []
-}
-
-main.children?.push(desktop, other)
-
-const routes: Array<RouteRecordRaw> = currency.concat(main)
+const routes: Array<RouteRecordRaw> = common.concat(main)
 
 console.log('routes', routes)
 

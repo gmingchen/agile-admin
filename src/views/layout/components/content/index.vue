@@ -4,14 +4,14 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-05 10:07:59
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 11:13:03
+ * @LastEditTime: 2021-02-05 13:24:08
 -->
 <template>
   <div class="contant" :style="style">
     <router-view v-slot="{ Component }">
       <transition>
         <keep-alive>
-          <component :is="Component"></component>
+          <component :is="Component" class="component"></component>
         </keep-alive>
       </transition>
     </router-view>
@@ -45,7 +45,7 @@ export default class extends Vue {
       }
     } else {
       result = {
-        height: this.documentClientHeight - this.navbarHeight - this.tabsHeight + 'px'
+        'min-height': `${this.documentClientHeight - this.navbarHeight - this.tabsHeight}px`
       }
     }
     return result
@@ -57,5 +57,8 @@ export default class extends Vue {
 .contant {
   position: relative;
   background-color: #f0f2f5;
+  .component {
+    padding: 0 10px;
+  }
 }
 </style>

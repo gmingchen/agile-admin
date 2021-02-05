@@ -4,15 +4,17 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 15:45:53
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 11:03:04
+ * @LastEditTime: 2021-02-05 11:47:56
 -->
 <template>
   <div class="main">
-    <div class="header" :style="style">
-      <navbar />
-      <tabs />
-    </div>
-    <content />
+    <el-scrollbar :style="{ height: documentClientHeight + 'px' }">
+      <div class="header" :style="style">
+        <navbar />
+        <tabs />
+      </div>
+      <content />
+    </el-scrollbar>
   </div>
 </template>
 
@@ -30,6 +32,8 @@ const commonModule = namespace('common')
   components: { Navbar, Tabs, Content }
 })
 export default class extends Vue {
+  @commonModule.State('documentClientHeight')
+  documentClientHeight!: number
   @commonModule.State('navbarHeight')
   navbarHeight!: number
   @commonModule.State('tabsHeight')
