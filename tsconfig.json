@@ -23,7 +23,8 @@
       "@AST/*": ["src/assets/*"],
       "@U/*": ["src/utils/*"],
       "@V/*": ["src/views/*"],
-      "@SASS/*": ["src/assets/sass/*"]
+      "@SASS/*": ["src/assets/sass/*"],
+      "@D/*": ["src/decorator/*"]
     },
     "lib": [
       "esnext",
