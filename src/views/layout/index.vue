@@ -4,12 +4,12 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:56:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-04 17:04:24
+ * @LastEditTime: 2021-02-05 11:07:50
 -->
 <template>
   <div>
     <sidebar class="sidebar" :style="{ width: sidebarWidth + 'px' }" />
-    <Main class="main" :style="{ 'margin-left': sidebarWidth + 'px' }" />
+    <Main class="main" :style="{ 'min-height': documentClientHeight + 'px', 'margin-left': sidebarWidth + 'px' }" />
   </div>
 </template>
 
@@ -86,7 +86,7 @@ export default class extends Vue {
   position: fixed;
   left: 0;
   height: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 .main {
   position: relative;

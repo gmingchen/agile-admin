@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-04 17:21:59
+ * @LastEditTime: 2021-02-05 11:13:54
  */
 import { ICommon } from './index.type'
 
@@ -22,7 +22,7 @@ export default {
     // 侧边栏是否打开
     sidebarOpend: true,
     // 页头是否固定
-    headerFixed: false,
+    headerFixed: true,
     // 是否全屏
     isFillScreen: false
   },
@@ -64,6 +64,9 @@ export default {
     },
     setSidebarOpend({ commit }, sidebarOpend: boolean): void {
       commit('SET_SIDEBAR_OPEND', sidebarOpend)
+    },
+    setHeaderFixed({ commit }, headerFixed: boolean): void {
+      commit('SET_HEADER_FIXED', headerFixed)
     },
     setScreenFull({ commit }, isFillScreen: boolean): void {
       commit('SET_IS_FULL_SCREEN', isFillScreen)

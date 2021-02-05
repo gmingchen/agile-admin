@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 15:41:07
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-04 17:18:28
+ * @LastEditTime: 2021-02-05 11:03:12
 -->
 <template>
   <div class="navbar" :style="navbarStyle">
@@ -45,7 +45,6 @@ export default class extends Vue {
 .navbar {
   @include shadow;
   padding: 0 10px;
-  background-color: white;
   .crumbs {
     float: left;
   }

@@ -1,41 +1,38 @@
 <!--
- * @Description:
+ * @Description: 路由展示入口
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
- * @Date: 2021-02-02 15:45:53
+ * @Date: 2021-02-05 10:07:59
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 11:03:04
+ * @LastEditTime: 2021-02-05 11:13:03
 -->
 <template>
-  <div class="main">
-    <div class="header" :style="style">
-      <navbar />
-      <tabs />
-    </div>
-    <content />
+  <div class="contant" :style="style">
+    <router-view v-slot="{ Component }">
+      <transition>
+        <keep-alive>
+          <component :is="Component"></component>
+        </keep-alive>
+      </transition>
+    </router-view>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import { namespace } from 'vuex-class'
-import Navbar from '../navbar/index.vue'
-import Tabs from '../tabs/index.vue'
-import Content from '../content/index.vue'
 import { IObject } from '@/utils/index.type'
 
 const commonModule = namespace('common')
 
-@Options({
-  components: { Navbar, Tabs, Content }
-})
+@Options({})
 export default class extends Vue {
+  @commonModule.State('documentClientHeight')
+  documentClientHeight!: number
   @commonModule.State('navbarHeight')
   navbarHeight!: number
   @commonModule.State('tabsHeight')
   tabsHeight!: number
-  @commonModule.State('sidebarWidth')
-  sidebarWidth!: number
   @commonModule.State('headerFixed')
   headerFixed!: boolean
 
@@ -43,11 +40,12 @@ export default class extends Vue {
     let result: IObject = {}
     if (this.headerFixed) {
       result = {
-        position: 'fixed',
-        top: 0,
-        right: 0,
-        'z-index': 1,
-        width: `calc(100% - ${this.sidebarWidth}px)`
+        'min-height': this.documentClientHeight + 'px',
+        'padding-top': this.navbarHeight + this.tabsHeight + 'px'
+      }
+    } else {
+      result = {
+        height: this.documentClientHeight - this.navbarHeight - this.tabsHeight + 'px'
       }
     }
     return result
@@ -56,10 +54,8 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scope>
-.main {
+.contant {
   position: relative;
-  .header {
-    background-color: white;
-  }
+  background-color: #f0f2f5;
 }
 </style>

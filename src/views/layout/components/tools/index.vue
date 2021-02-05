@@ -4,10 +4,15 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 17:24:00
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 09:39:23
+ * @LastEditTime: 2021-02-05 11:19:46
 -->
 <template>
   <div class="tools">
+    <div class="tool-item" :style="{ 'line-height': navbarHeight + 'px' }">
+      <el-tooltip :content="fixed ? '固定' : '不固定'" placement="top">
+        <el-switch v-model="fixed" active-color="#13ce66" inactive-color="#ff4949" />
+      </el-tooltip>
+    </div>
     <div class="tool-item" :style="{ 'line-height': navbarHeight + 'px' }">
       <svg-icon name="full-screen" size="20px" @click="fullScreen" />
     </div>
@@ -43,10 +48,21 @@ export default class extends Vue {
 
   @commonModule.State('navbarHeight')
   navbarHeight!: number
+  @commonModule.State('headerFixed')
+  headerFixed!: boolean
+  @commonModule.Action('setHeaderFixed')
+  setHeaderFixed!: (arg: boolean) => void
   @commonModule.State('screenFull')
   screenFull!: boolean
   @commonModule.Action('setScreenFull')
   setScreenFull!: (arg: boolean) => void
+
+  get fixed() {
+    return this.headerFixed
+  }
+  set fixed(val: boolean) {
+    this.setHeaderFixed(val)
+  }
 
   protected visible: boolean = false
 
@@ -80,7 +96,7 @@ export default class extends Vue {
       type: 'warning'
     }).then(async () => {
       const r = await logout()
-      if (r && r.code === 0) {
+      if (r) {
         $clearLoginInfo()
         this.$router.replace({ name: 'login' })
       }

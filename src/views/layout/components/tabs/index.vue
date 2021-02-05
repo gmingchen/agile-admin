@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 17:11:58
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 09:11:41
+ * @LastEditTime: 2021-02-05 11:03:43
 -->
 <template>
   <div class="tabs" :style="{ height: tabsHeight + 'px' }">标签页</div>
@@ -27,5 +27,6 @@ export default class extends Vue {
 @import '@SASS/mixin.scss';
 .tabs {
   @include shadow;
+  padding: 0 10px;
 }
 </style>
