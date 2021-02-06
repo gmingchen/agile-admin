@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 16:48:05
+ * @LastEditTime: 2021-02-05 20:18:43
  */
 import router from '@/router'
 import { ITab, ITabDelParam, ITabs } from './index.type'

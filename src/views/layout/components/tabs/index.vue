@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 17:11:58
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 17:20:36
+ * @LastEditTime: 2021-02-05 20:16:40
 -->
 <template>
   <div class="tabs" :style="{ height: tabsHeight + 'px' }">
@@ -17,10 +17,10 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>刷新当前标签</el-dropdown-item>
-            <el-dropdown-item>关闭当前标签</el-dropdown-item>
-            <el-dropdown-item>关闭至最左侧</el-dropdown-item>
-            <el-dropdown-item>关闭至最右侧</el-dropdown-item>
-            <el-dropdown-item>关闭其他标签</el-dropdown-item>
+            <el-dropdown-item @click="del('current', tabsActive)">关闭当前标签</el-dropdown-item>
+            <el-dropdown-item @click="del('left', tabsActive)">关闭至最左侧</el-dropdown-item>
+            <el-dropdown-item @click="del('right', tabsActive)">关闭至最右侧</el-dropdown-item>
+            <el-dropdown-item @click="del('other', tabsActive)">关闭其他标签</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -75,8 +75,12 @@ export default class extends Vue {
    * @author: gumingchen
    */
   delHandle(val: string): void {
+    this.del('current', val)
+  }
+
+  del(type: string, val: string): void {
     const param: ITabDelParam = {
-      type: 'current',
+      type: type,
       value: val
     }
     this.delTab(param)
