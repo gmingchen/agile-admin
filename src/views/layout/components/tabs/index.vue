@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 17:11:58
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-07 16:11:57
+ * @LastEditTime: 2021-02-07 16:13:33
 -->
 <template>
   <div class="tabs" :style="{ height: tabsHeight + 'px' }">
@@ -30,7 +30,6 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
-import { Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { ITab, ITabDelParam } from '@/store/modules/tabs/index.type'
 
