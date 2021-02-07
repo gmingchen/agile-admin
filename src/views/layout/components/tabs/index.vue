@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 17:11:58
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 20:16:40
+ * @LastEditTime: 2021-02-07 16:11:57
 -->
 <template>
   <div class="tabs" :style="{ height: tabsHeight + 'px' }">
@@ -12,15 +12,15 @@
       <el-tab-pane v-for="item in tabsList" :key="item.value" :label="item.label" :name="item.value" :closable="!item.closable" />
     </el-tabs>
     <div class="tabs-dropdown" :style="{ 'line-height': tabsHeight + 'px' }">
-      <el-dropdown>
+      <el-dropdown trigger="click">
         <i class="el-icon-arrow-down el-icon--right"></i>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>刷新当前标签</el-dropdown-item>
-            <el-dropdown-item @click="del('current', tabsActive)">关闭当前标签</el-dropdown-item>
-            <el-dropdown-item @click="del('left', tabsActive)">关闭至最左侧</el-dropdown-item>
-            <el-dropdown-item @click="del('right', tabsActive)">关闭至最右侧</el-dropdown-item>
-            <el-dropdown-item @click="del('other', tabsActive)">关闭其他标签</el-dropdown-item>
+            <el-dropdown-item @click="del('current', tabsActive)" :disabled="isDisabled()">关闭当前标签</el-dropdown-item>
+            <el-dropdown-item @click="del('left', tabsActive)" :disabled="isDisabled('left')">关闭至最左侧</el-dropdown-item>
+            <el-dropdown-item @click="del('right', tabsActive)" :disabled="isDisabled('right')">关闭至最右侧</el-dropdown-item>
+            <el-dropdown-item @click="del('other', tabsActive)" :disabled="isDisabled('other')">关闭其他标签</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -30,6 +30,7 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
+import { Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { ITab, ITabDelParam } from '@/store/modules/tabs/index.type'
 
@@ -44,6 +45,8 @@ export default class extends Vue {
   tabsList!: Array<ITab>
   @tabsModule.State('tabsActive')
   tabsActive!: string
+  @tabsModule.State('activeIndex')
+  activeIndex!: number
   @tabsModule.Action('setTabsActive')
   setTabsActive!: (arg: string) => void
   @tabsModule.Action('delTab')
@@ -58,6 +61,10 @@ export default class extends Vue {
     this.setTabsActive(val)
   }
 
+  mounted() {
+    this.setTabsActive(this.$route.meta.id || this.$route.name)
+  }
+
   /**
    * @description: 标签点击事件 路由跳转
    * @param {*}
@@ -70,7 +77,7 @@ export default class extends Vue {
 
   /**
    * @description: 删除标签事件
-   * @param {*}
+   * @param {string} val
    * @return {*}
    * @author: gumingchen
    */
@@ -78,12 +85,47 @@ export default class extends Vue {
     this.del('current', val)
   }
 
+  /**
+   * @description: 删除事件
+   * @param {string} type
+   * @param {string} val
+   * @return {*}
+   * @author: gumingchen
+   */
   del(type: string, val: string): void {
     const param: ITabDelParam = {
       type: type,
       value: val
     }
     this.delTab(param)
+  }
+
+  isDisabled(type: string): boolean {
+    let result: boolean = false
+    switch (type) {
+      case 'left':
+        if (this.activeIndex === 0 || this.tabsList.length <= 1) {
+          result = true
+        }
+        break
+      case 'right':
+        if (this.activeIndex === this.tabsList.length - 1 || this.tabsList.length <= 1) {
+          result = true
+        }
+        break
+      case 'other':
+        if (this.tabsList.length <= 1) {
+          result = true
+        }
+        break
+      default:
+        if (this.tabsList.length <= 0) {
+          result = true
+        }
+        break
+    }
+
+    return result
   }
 }
 </script>
