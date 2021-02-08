@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 17:24:00
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 14:41:12
+ * @LastEditTime: 2021-02-08 11:17:00
 -->
 <template>
   <div class="tools">
@@ -150,8 +150,9 @@ export default class extends Vue {
   & > .tool-item {
     float: left;
   }
-  & > .tool-item + .tool-item {
+  ::v-deep(.tool-item + .tool-item) {
     margin-left: 10px;
+    cursor: pointer;
   }
   .portrait {
     width: 40px;

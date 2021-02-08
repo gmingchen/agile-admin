@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:36:27
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-29 14:53:15
+ * @LastEditTime: 2021-02-08 13:18:25
  */
 import { ContentType, PromptComponentType, PromptMesssageType } from '@/config/index.type'
 import { ILoadingOptions } from 'element-plus/lib/el-loading/src/loading.type'
@@ -48,12 +48,18 @@ export const loadOptions: ILoadingOptions = {
 export const tokenKey: string = 'token'
 // token存储位置 cookie / sessionStorage / localStorage
 export const storage: string = 'cookie'
+// 是否获取权限信息key
+export const isGetAuthKey: string = 'isGetAuth'
+// 菜单存储key
+export const menuKey: string = 'menus'
+// 权限存储key
+export const permissionKey: string = 'permissions'
+// 授权信息存储位置 cookie / sessionStorage / localStorage
+export const authStorage: string = 'sessionStorage'
 // TODO: theme
 // 是否固定导航栏
 export const fixedNavigation: boolean = true
 // 是否显示标签栏
 export const showTabs: boolean = true
-// 是否固定标签栏
-export const fixedTabs: boolean = true
 // 是否显示全屏组件
 export const showFullScreen: boolean = true

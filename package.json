@@ -17,6 +17,7 @@
     "element-plus": "^1.0.1-beta.24",
     "js-cookie": "^3.0.0-rc.1",
     "lodash": "^4.17.20",
+    "nprogress": "^0.2.0",
     "screenfull": "^5.1.0",
     "vue": "^3.0.5",
     "vue-class-component": "^8.0.0-0",

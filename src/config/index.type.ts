@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-29 10:02:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-18 14:28:48
+ * @LastEditTime: 2021-02-08 11:51:52
  */
 export enum ContentType {
   JSON = 'application/json;charset=UTF-8',

@@ -4,10 +4,12 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 16:45:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 15:10:45
+ * @LastEditTime: 2021-02-08 16:03:30
 -->
 <template>
-  <div class="sidebar">侧边栏</div>
+  <div class="sidebar">
+    <el-scrollbar :style="{ height: 100 + '%' }"> </el-scrollbar>
+  </div>
 </template>
 
 <script lang="ts">

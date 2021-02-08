@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 15:08:27
+ * @LastEditTime: 2021-02-08 15:25:13
 -->
 <template>
   <fog>
@@ -68,8 +68,8 @@ export default class extends Vue {
 
   protected captchaPath: string = ''
   protected form = {
-    username: 'admin',
-    password: 'gumingchen',
+    username: 'test',
+    password: 'test',
     uuid: '',
     captcha: ''
   }
@@ -106,7 +106,7 @@ export default class extends Vue {
         const r = await login(this.form)
         if (r && r.code === 0) {
           this.setToken(r.token)
-          this.$router.replace({ name: 'layout' })
+          this.$router.push({ name: 'home' })
         } else {
           this.getCaptcha()
         }
