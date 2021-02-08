@@ -4,17 +4,18 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 15:35:17
+ * @LastEditTime: 2021-02-08 16:58:34
  */
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
-import { getIsGet, getMenus, setAuth, setIsGet } from '@U/auth'
+import { getIsGet, setAuth, setIsGet } from '@U/auth'
 import { getUserMenus } from '@API/common/index'
 import { getToken } from '@/utils/token'
 import { $clearLoginInfo } from '@/utils'
-
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { IMenu } from '@/store/modules/auth/index.type'
+import { isURL } from '@/utils/regular'
+import store from '@/store'
 
 setIsGet(false)
 
@@ -75,6 +76,13 @@ function currentRouteType(route: RouteLocationNormalized, commonRoutes: Array<Ro
   return temp.length >= 1 ? currentRouteType(route, temp) : 'main'
 }
 
+/**
+ * @description: 动态添加路由
+ * @param {Array} menus
+ * @param {Array} routeList
+ * @return {*}
+ * @author: gumingchen
+ */
 function addRoutes(menus: Array<IMenu> = [], routeList: Array<RouteRecordRaw> = []): void {
   let list: Array<IMenu> = []
   menus.forEach((item: IMenu, index: number) => {
@@ -95,6 +103,11 @@ function addRoutes(menus: Array<IMenu> = [], routeList: Array<RouteRecordRaw> = 
           iframeUrl: '',
           type: item.type
         }
+      }
+      if (isURL(item.url)) {
+        route['path'] = `i-${item.id}`
+        route['name'] = `i-${item.id}`
+        route['meta']!['iframeUrl'] = item.url // eslint-disable-line
       }
       routeList.push(route)
     }
@@ -120,6 +133,7 @@ router.beforeEach(async (to: RouteLocationNormalized, _from, next) => {
       setAuth(r.menuList, r.permissions)
       setIsGet(true)
       addRoutes(r.menuList)
+      store.dispatch['auth/setAuth']
     }
     next({ ...to, replace: true })
   }

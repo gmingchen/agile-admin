@@ -6,13 +6,23 @@ import { IObject } from "@/utils/index.type";
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 13:28:59
+ * @LastEditTime: 2021-02-08 16:58:52
  */
 
 export enum MenuType {
   CATALOG = 0,
   MENU = 1,
   BUTTON = 2
+}
+export interface ISideMenu {
+  id: number
+  parentId: number
+  name: string
+  icon: string
+  routePath: string
+  routeName: string
+  type: number
+  children?: Array<ISideMenu>
 }
 export interface IMenu {
   id: number

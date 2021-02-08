@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 15:12:22
+ * @LastEditTime: 2021-02-08 17:26:01
  */
 import { ICommon } from './index.type'
 

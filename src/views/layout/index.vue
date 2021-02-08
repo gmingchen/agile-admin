@@ -4,11 +4,11 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:56:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 11:45:56
+ * @LastEditTime: 2021-02-08 17:30:56
 -->
 <template>
   <div>
-    <sidebar class="sidebar" :style="{ width: sidebarWidth + 'px' }" />
+    <sidebar class="sidebar" />
     <Main class="main" :style="{ height: documentClientHeight + 'px', 'margin-left': sidebarWidth + 'px' }" />
   </div>
 </template>

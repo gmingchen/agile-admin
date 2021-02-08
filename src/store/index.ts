@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 14:56:11
+ * @LastEditTime: 2021-02-08 16:50:52
  */
 import { createStore } from 'vuex'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
