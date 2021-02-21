@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 17:24:00
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 11:17:00
+ * @LastEditTime: 2021-02-21 13:48:44
 -->
 <template>
   <div class="tools">
@@ -21,7 +21,9 @@
       </el-tooltip>
     </div>
     <div class="tool-item" :style="{ 'line-height': navbarHeight + 'px' }">
-      <svg-icon name="full-screen" size="20px" @click="fullScreen" />
+      <span>
+        <svg-icon name="full-screen" size="20px" @click="fullScreen" class="tool-svg" />
+      </span>
     </div>
     <el-dropdown class="tool-item" trigger="click" @command="commandHandle" :style="{ 'margin-top': (navbarHeight - 40) / 2 + 'px' }">
       <el-image class="portrait" :src="portrait" />
@@ -149,10 +151,16 @@ export default class extends Vue {
   height: 100%;
   & > .tool-item {
     float: left;
+    & > span {
+      font-size: 20px;
+    }
   }
   ::v-deep(.tool-item + .tool-item) {
     margin-left: 10px;
     cursor: pointer;
+  }
+  .tool-svg {
+    font-size: 20px;
   }
   .portrait {
     width: 40px;

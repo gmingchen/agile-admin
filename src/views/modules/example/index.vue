@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <svg-icon name="home"></svg-icon>
+    <svg-icon name="menu-home"></svg-icon>
     <hr />
     <el-button type="primary" @click="Loading" ref="load">Loading</el-button>
     <hr />

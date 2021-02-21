@@ -4,13 +4,19 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 16:45:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 09:54:51
+ * @LastEditTime: 2021-02-21 14:09:17
 -->
 <template>
   <aside class="sidebar" :style="{ width: sidebarWidth + 'px' }">
     <el-scrollbar :style="{ height: 100 + '%' }">
-      <el-menu default-active="1" @open="openHandle" @close="closeHandle" :collapse="!isCollapse">
-        <item />
+      <el-menu :default-active="menuActive || 'home'" :collapse="!isCollapse">
+        <el-menu-item index="home" @click="$router.push({ name: 'home' })">
+          <svg-icon name="menu-home" class="sidebar-menu-icon" size="14px"></svg-icon>
+          <template #title>
+            <span>首页</span>
+          </template>
+        </el-menu-item>
+        <sub-menu v-for="menu in getMenus" :key="menu.id" :menu="menu" />
       </el-menu>
     </el-scrollbar>
   </aside>
@@ -19,14 +25,14 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import { namespace } from 'vuex-class'
-import Item from './item.vue'
 import { IMenu } from '@/store/modules/auth/index.type'
+import SubMenu from './sub-menu.vue'
 
 const authModule = namespace('auth')
 const commonModule = namespace('common')
 
 @Options({
-  components: { Item }
+  components: { SubMenu }
 })
 export default class extends Vue {
   @commonModule.State('sidebarOpend')
@@ -37,6 +43,8 @@ export default class extends Vue {
   @commonModule.State('sidebarWidth')
   sidebarWidth!: number
 
+  @commonModule.State('menuActive')
+  menuActive!: string
   @authModule.Getter('getMenus')
   getMenus!: Array<IMenu>
 
@@ -50,13 +58,6 @@ export default class extends Vue {
   mounted() {
     console.log(this.getMenus)
   }
-
-  openHandle(index: number): void {
-    console.log(index)
-  }
-  closeHandle(index: number): void {
-    console.log(index)
-  }
 }
 </script>
 
@@ -69,5 +70,12 @@ export default class extends Vue {
   ::v-deep(.el-menu) {
     border: none;
   }
+}
+</style>
+
+<style lang="scss">
+.sidebar-menu-icon {
+  margin: 0 5px;
+  font-size: 12px;
 }
 </style>

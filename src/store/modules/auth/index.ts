@@ -4,8 +4,9 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 17:05:11
+ * @LastEditTime: 2021-02-21 14:07:53
  */
+import { isURL } from '@/utils/regular'
 import { getMenus, getPermissions, getIsGet } from '@U/auth'
 import { IAuth, IMenu, ISideMenu } from './index.type'
 
@@ -24,8 +25,8 @@ function menuProcessing(list: Array<IMenu> = []): Array<ISideMenu> {
         parentId: item.parentId,
         name: item.name,
         icon: item.icon,
-        routePath: item.url ? `/${item.url.replace(/\//gu, '-')}` : '',
-        routeName: item.url ? item.url.replace(/\//gu, '-') : '',
+        routePath: isURL(item.url) ? item.url : (item.url ? `/${item.url.replace(/\//gu, '-')}` : ''),
+        routeName: isURL(item.url) ? item.url : (item.url ? item.url.replace(/\//gu, '-') : ''),
         type: item.type,
         children: []
       }
@@ -42,6 +43,7 @@ export default {
   namespaced: true,
   state: {
     menus: getMenus(),
+    menuActive: 'home',
     permissions: getPermissions(),
     isGetAuth: getIsGet()
   },

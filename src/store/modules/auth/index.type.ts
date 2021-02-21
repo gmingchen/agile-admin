@@ -6,7 +6,7 @@ import { IObject } from "@/utils/index.type";
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 16:58:52
+ * @LastEditTime: 2021-02-21 14:08:06
  */
 
 export enum MenuType {
@@ -42,6 +42,7 @@ export interface IMenu {
 
 export interface IAuth {
   menus: Array<IMenu>
+  menuActive: string
   permissions: string[]
   isGetAuth: boolean
 }

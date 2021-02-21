@@ -4,14 +4,12 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-14 13:30:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-04 10:27:25
+ * @LastEditTime: 2021-02-21 13:22:59
 -->
 <template>
-  <span :style="{ 'font-size': size }">
-    <svg aria-hidden="true" :class="iconClass" :width="size" :height="size" :color="color">
-      <use :xlink:href="iconName" />
-    </svg>
-  </span>
+  <svg aria-hidden="true" :class="iconClass" :width="size" :height="size" :color="color">
+    <use :xlink:href="iconName" />
+  </svg>
 </template>
 <!--
  * 使用:
