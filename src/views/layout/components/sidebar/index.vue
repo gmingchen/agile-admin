@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 16:45:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 15:39:40
+ * @LastEditTime: 2021-02-21 16:04:00
 -->
 <template>
   <aside class="sidebar" :style="{ width: sidebarWidth + 'px' }">
@@ -14,6 +14,12 @@
           <svg-icon name="menu-home" class="sidebar-menu-icon" size="14px"></svg-icon>
           <template #title>
             <span>首页</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="example" @click="$router.push({ name: 'example' })">
+          <svg-icon name="menu-star" class="sidebar-menu-icon" size="14px"></svg-icon>
+          <template #title>
+            <span>demo</span>
           </template>
         </el-menu-item>
         <sub-menu v-for="menu in getMenus" :key="menu.id" :menu="menu" />

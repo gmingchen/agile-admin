@@ -4,12 +4,12 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-05 10:07:59
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 17:20:03
+ * @LastEditTime: 2021-02-21 16:54:58
 -->
 <template>
   <div class="contant" :style="style">
     <router-view v-slot="{ Component }">
-      <transition>
+      <transition name="leftIn-rightOut" mode="out-in">
         <keep-alive>
           <component :is="Component" class="component"></component>
         </keep-alive>
@@ -61,7 +61,8 @@ export default class extends Vue {
   position: relative;
   background-color: $bgColor;
   .component {
-    padding: 0 10px;
+    padding: 10px 10px 10px 10px;
+    text-align: left;
   }
 }
 </style>
