@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 16:45:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 15:35:17
+ * @LastEditTime: 2021-02-21 15:39:40
 -->
 <template>
   <aside class="sidebar" :style="{ width: sidebarWidth + 'px' }">
@@ -76,6 +76,12 @@ export default class extends Vue {
     this.routeHandle(this.$route)
   }
 
+  /**
+   * @description: 路由变化事件
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
   routeHandle(route: IObject): void {
     if (route.meta.isTab) {
       const tabsExist = this.tabsList.filter(item => {
