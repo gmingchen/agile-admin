@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 16:45:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 14:09:17
+ * @LastEditTime: 2021-02-21 15:35:17
 -->
 <template>
   <aside class="sidebar" :style="{ width: sidebarWidth + 'px' }">
@@ -27,9 +27,13 @@ import { Vue, Options } from 'vue-class-component'
 import { namespace } from 'vuex-class'
 import { IMenu } from '@/store/modules/auth/index.type'
 import SubMenu from './sub-menu.vue'
+import { Watch } from 'vue-property-decorator'
+import { IObject } from '@/utils/index.type'
+import { ITab } from '@/store/modules/tabs/index.type'
 
-const authModule = namespace('auth')
 const commonModule = namespace('common')
+const authModule = namespace('auth')
+const tabsModule = namespace('tabs')
 
 @Options({
   components: { SubMenu }
@@ -43,10 +47,23 @@ export default class extends Vue {
   @commonModule.State('sidebarWidth')
   sidebarWidth!: number
 
-  @commonModule.State('menuActive')
+  @authModule.State('menuActive')
   menuActive!: string
+  @authModule.Action('setMenuActive')
+  setMenuActive!: (arg: string) => void
+
   @authModule.Getter('getMenus')
   getMenus!: Array<IMenu>
+
+  @tabsModule.State('tabsList')
+  tabsList!: Array<ITab>
+  @tabsModule.Action('addTab')
+  addTab!: (arg: ITab) => void
+
+  @Watch('$route')
+  onRoute(val: IObject) {
+    this.routeHandle(val)
+  }
 
   get isCollapse(): boolean {
     return this.sidebarOpend
@@ -55,8 +72,28 @@ export default class extends Vue {
     this.setSidebarOpend(val)
   }
 
-  mounted() {
-    console.log(this.getMenus)
+  created() {
+    this.routeHandle(this.$route)
+  }
+
+  routeHandle(route: IObject): void {
+    if (route.meta.isTab) {
+      const tabsExist = this.tabsList.filter(item => {
+        return item.value === route.meta.id + ''
+      })
+      if (tabsExist.length === 0) {
+        const tab: ITab = {
+          label: route.meta.title,
+          value: route.name,
+          name: route.name,
+          path: route.path,
+          query: route.query,
+          params: route.params
+        }
+        this.addTab(tab)
+      }
+      this.setMenuActive(route.name)
+    }
   }
 }
 </script>

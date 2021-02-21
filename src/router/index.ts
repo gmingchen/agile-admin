@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 16:58:34
+ * @LastEditTime: 2021-02-21 15:22:44
  */
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { getIsGet, setAuth, setIsGet } from '@U/auth'
@@ -34,7 +34,7 @@ const main: RouteRecordRaw = {
   component: () => import('@/views/layout/index.vue'),
   meta: { title: '主入口整体布局' },
   children: [
-    { path: '/home', name: 'home', component: () => import('@/views/modules/home/index.vue'), meta: { title: 'home' } },
+    { path: '/home', name: 'home', component: () => import('@/views/modules/home/index.vue'), meta: { title: '首页', isTab: true } },
     { path: '/example', name: 'example', component: () => import('@/views/modules/example/index.vue'), meta: { title: 'example' } }
   ],
   beforeEnter(_to, _from, next) {

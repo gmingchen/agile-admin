@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-07 16:09:17
+ * @LastEditTime: 2021-02-21 15:11:48
  */
 import router from '@/router'
 import { ITab, ITabDelParam, ITabs } from './index.type'
@@ -20,17 +20,9 @@ export default {
         query: {}, // 路由参数
         params: {}, // 路由参数
         closable: false // true：不可以关闭
-      },
-      {
-        label: '例子', // 名称
-        value: 'example', // 主键
-        name: 'example', // 路由名称
-        path: '/example', // 路由地址
-        query: {}, // 路由参数
-        params: {} // 路由参数
       }
     ],
-    tabsActive: '0',
+    tabsActive: 'home',
     activeIndex: 0
   },
   getters: {
@@ -78,7 +70,7 @@ export default {
         commit('ADD_TAB', tab)
       } else {
         const isExit: boolean =
-          state.tabsList.filters((item: ITab) => {
+          state.tabsList.filter((item: ITab) => {
             return item.value === tab.value
           }).length !== 0
         if (!isExit) {

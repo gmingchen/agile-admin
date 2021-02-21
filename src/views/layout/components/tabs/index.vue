@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 17:11:58
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 17:27:15
+ * @LastEditTime: 2021-02-21 14:42:27
 -->
 <template>
   <div class="tabs" :style="{ height: tabsHeight + 'px' }">
@@ -60,7 +60,7 @@ export default class extends Vue {
     this.setTabsActive(val)
   }
 
-  mounted() {
+  created() {
     this.setTabsActive(this.$route.name as string)
   }
 

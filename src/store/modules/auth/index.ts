@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 14:07:53
+ * @LastEditTime: 2021-02-21 15:15:44
  */
 import { isURL } from '@/utils/regular'
 import { getMenus, getPermissions, getIsGet } from '@U/auth'
@@ -25,8 +25,8 @@ function menuProcessing(list: Array<IMenu> = []): Array<ISideMenu> {
         parentId: item.parentId,
         name: item.name,
         icon: item.icon,
-        routePath: isURL(item.url) ? item.url : (item.url ? `/${item.url.replace(/\//gu, '-')}` : ''),
-        routeName: isURL(item.url) ? item.url : (item.url ? item.url.replace(/\//gu, '-') : ''),
+        routePath: isURL(item.url) ? item.url : item.url ? `/${item.url.replace(/\//gu, '-')}` : '',
+        routeName: isURL(item.url) ? item.url : item.url ? item.url.replace(/\//gu, '-') : '',
         type: item.type,
         children: []
       }
@@ -57,6 +57,9 @@ export default {
     SET_MENU: (state: IAuth, menus: Array<IMenu>): void => {
       state.menus = menus
     },
+    SET_MENU_ACTIVE: (state: IAuth, menuActive: string): void => {
+      state.menuActive = menuActive
+    },
     SET_PERMISSION: (state: IAuth, permissions: string[]): void => {
       state.permissions = permissions
     },
@@ -69,6 +72,9 @@ export default {
       commit('SET_MENU', getMenus())
       commit('SET_PERMISSION', getPermissions())
       commit('SET_IS_GET_AUTH', getIsGet())
+    },
+    setMenuActive: ({ commit }, menuActive: string): void => {
+      commit('SET_MENU_ACTIVE', menuActive)
     }
   }
 }
