@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 17:26:01
+ * @LastEditTime: 2021-02-21 09:53:52
  */
 import { ICommon } from './index.type'
 
@@ -15,6 +15,10 @@ export default {
     documentClientHeight: 0,
     // 侧边栏宽度
     sidebarWidth: 200,
+    // 侧边栏展开宽度
+    sidebarOpenWidth: 200,
+    // 侧边栏折叠宽度
+    sidebarFoldWidth: 64,
     // 顶部导航高度
     navbarHeight: 50,
     // 标签栏高度
@@ -68,11 +72,21 @@ export default {
     setDocunentClientHeight({ commit }, documentClientHeight: number): void {
       commit('SET_DOCUMENT_CLIENT_HEIGHT', documentClientHeight)
     },
+    setSidebarWidth({ commit }, sidebarWidth: number): void {
+      commit('SET_SIDEBAR_WIDTH', sidebarWidth)
+    },
     setTabsDisplay({ commit }, tabsDisplay: boolean): void {
       commit('SET_TAVS_DISPLAY', tabsDisplay)
     },
-    setSidebarOpend({ commit }, sidebarOpend: boolean): void {
+    setSidebarOpend({ commit, state }, sidebarOpend: boolean): void {
       commit('SET_SIDEBAR_OPEND', sidebarOpend)
+      let width: number
+      if (sidebarOpend) {
+        width = state.sidebarOpenWidth
+      } else {
+        width = state.sidebarFoldWidth
+      }
+      commit('SET_SIDEBAR_WIDTH', width)
     },
     setHeaderFixed({ commit }, headerFixed: boolean): void {
       commit('SET_HEADER_FIXED', headerFixed)

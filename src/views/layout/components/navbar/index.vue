@@ -4,10 +4,13 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 15:41:07
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 11:03:12
+ * @LastEditTime: 2021-02-21 09:45:42
 -->
 <template>
   <div class="navbar" :style="navbarStyle">
+    <span class="collapse" :style="{ 'line-height': navbarStyle['height'] }" @click="foldHandle">
+      <i :class="sidebarOpend ? 'el-icon-s-fold' : 'el-icon-s-unfold'"></i>
+    </span>
     <crumbs class="crumbs" :style="{ 'line-height': navbarStyle['height'] }" />
     <tools class="tools" />
   </div>
@@ -27,8 +30,14 @@ const commonModule = namespace('common')
 export default class extends Vue {
   @commonModule.State('navbarHeight')
   navbarHeight!: number
+  @commonModule.State('sidebarOpend')
+  sidebarOpend!: boolean
+  @commonModule.Action('setSidebarOpend')
+  setSidebarOpend!: (arg: boolean) => void
+  @commonModule.Action('setSidebarWidth')
+  setSidebarWidth!: (arg: number) => void
 
-  private navbarStyle = {
+  protected navbarStyle = {
     height: ''
   }
 
@@ -36,6 +45,19 @@ export default class extends Vue {
     this.navbarStyle = {
       height: `${this.navbarHeight}px`
     }
+  }
+
+  /**
+   * @description: 菜单折叠张开事件
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
+  foldHandle(): void {
+    this.setSidebarOpend(!this.sidebarOpend)
+    // this.$nextTick(() => {
+    //   this.setSidebarWidth(64)
+    // })
   }
 }
 </script>
@@ -45,6 +67,12 @@ export default class extends Vue {
 .navbar {
   @include shadow;
   padding: 0 10px;
+  .collapse {
+    float: left;
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
   .crumbs {
     float: left;
   }

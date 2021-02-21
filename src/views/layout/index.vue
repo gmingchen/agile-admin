@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:56:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 17:30:56
+ * @LastEditTime: 2021-02-21 10:51:49
 -->
 <template>
   <div>
@@ -90,5 +90,11 @@ export default class extends Vue {
 }
 .main {
   position: relative;
+}
+.sidebar,
+.main,
+.main .header {
+  transition-duration: 0.4s;
+  transition-property: width, margin-left;
 }
 </style>

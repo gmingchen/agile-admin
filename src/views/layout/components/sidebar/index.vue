@@ -4,16 +4,16 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 16:45:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 17:32:27
+ * @LastEditTime: 2021-02-21 09:54:51
 -->
 <template>
-  <div class="sidebar">
+  <aside class="sidebar" :style="{ width: sidebarWidth + 'px' }">
     <el-scrollbar :style="{ height: 100 + '%' }">
-      <el-menu default-active="1-4-1" :style="{ width: sidebarWidth + 'px' }" @open="openHandle" @close="closeHandle" :collapse="!isCollapse">
+      <el-menu default-active="1" @open="openHandle" @close="closeHandle" :collapse="!isCollapse">
         <item />
       </el-menu>
     </el-scrollbar>
-  </div>
+  </aside>
 </template>
 
 <script lang="ts">
@@ -31,7 +31,7 @@ const commonModule = namespace('common')
 export default class extends Vue {
   @commonModule.State('sidebarOpend')
   sidebarOpend!: boolean
-  @commonModule.State('setSidebarOpend')
+  @commonModule.Action('setSidebarOpend')
   setSidebarOpend!: (arg: boolean) => void
 
   @commonModule.State('sidebarWidth')
@@ -64,6 +64,7 @@ export default class extends Vue {
 @import '@SASS/mixin.scss';
 .sidebar {
   @include shadow;
+  text-align: left;
   background-color: white;
   ::v-deep(.el-menu) {
     border: none;
