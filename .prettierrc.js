@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-15 16:34:03
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-03 16:16:17
+ * @LastEditTime: 2021-02-22 11:27:57
  */
 module.exports = {
   "printWidth": 150, // 超过最大值换行

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-05 10:07:59
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 16:54:58
+ * @LastEditTime: 2021-02-22 11:43:54
 -->
 <template>
   <div class="contant" :style="style">
@@ -61,7 +61,6 @@ export default class extends Vue {
   position: relative;
   background-color: $bgColor;
   .component {
-    padding: 10px 10px 10px 10px;
     text-align: left;
   }
 }

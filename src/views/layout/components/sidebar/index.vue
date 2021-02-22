@@ -4,12 +4,19 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 16:45:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 09:02:48
+ * @LastEditTime: 2021-02-22 13:40:43
 -->
 <template>
   <aside class="sidebar" :style="{ width: sidebarWidth + 'px' }">
     <el-scrollbar :style="{ height: 100 + '%' }">
-      <el-menu :default-active="menuActive || 'home'" :collapse="!isCollapse">
+      <el-menu
+        background-color="#304156"
+        text-color="#bfcbb9"
+        active-text-color="#409EFF"
+        class="sidebar-menu"
+        :default-active="menuActive || 'home'"
+        :collapse="!isCollapse"
+      >
         <el-menu-item index="home" @click="$router.push({ name: 'home' })">
           <svg-icon name="menu-home" class="sidebar-menu-icon" size="14px"></svg-icon>
           <template #title>
@@ -115,15 +122,26 @@ export default class extends Vue {
 .sidebar {
   @include shadow;
   text-align: left;
-  background-color: white;
   ::v-deep(.el-menu) {
     border: none;
   }
 }
 </style>
 
-<style lang="scss">
-.sidebar-menu-icon {
+<style lang="scss" scoped>
+.sidebar,
+::v-deep(.el-menu) {
+  background-color: #304156;
+}
+::v-deep(.el-menu-item:hover, .el-menu-item:focus, .el-menu-item:active),
+::v-deep(.el-submenu__title:hover) {
+  background-color: #1f2d3d;
+}
+.sidebar-menu {
+  min-height: 100%;
+  background-color: transparent;
+}
+::v-deep(.sidebar-menu-icon) {
   margin: 0 5px;
   font-size: 12px;
 }

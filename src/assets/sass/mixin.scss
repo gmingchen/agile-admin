@@ -20,3 +20,10 @@
 @mixin shadow($color: rgba(0, 0, 0, 0.1)) {
   box-shadow: 0 2px 12px 0 $color
 }
+
+// 单行文字省略...
+@mixin single-ellipse {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}

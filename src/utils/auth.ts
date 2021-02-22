@@ -4,12 +4,13 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-08 10:23:26
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 15:05:06
+ * @LastEditTime: 2021-02-22 09:49:42
  */
 import cookie from 'js-cookie'
 import { isGetAuthKey, menuKey, permissionKey, authStorage } from '@C/index'
 import { IObject } from './index.type'
 import { IMenu } from '@/store/modules/auth/index.type'
+import store from '@/store'
 
 /**
  * @description: 设置是否已经请求权限信息
@@ -207,4 +208,16 @@ export function clearAuth(): void {
       break
   }
   setIsGet(false)
+}
+
+/**
+ * @description: 判断是否有按钮级权限
+ * @param {string} key
+ * @return {boolean}
+ * @author: gumingchen
+ */
+export function isAuth(key: string): boolean {
+  let result: boolean = false
+  result = store.getters['auth/permissions'].indexOf(key) !== -1 || false
+  return result
 }

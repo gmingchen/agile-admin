@@ -4,10 +4,16 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-19 15:33:15
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-29 14:35:03
+ * @LastEditTime: 2021-02-22 11:31:15
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import 'element-plus/lib/theme-chalk/index.css'
+
+import lang from 'element-plus/lib/locale/lang/zh-cn'
+import locale from 'element-plus/lib/locale'
+
+locale.use(lang)
+
 import {
   ElAlert,
   ElAside,

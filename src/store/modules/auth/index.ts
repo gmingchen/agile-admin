@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 08:59:48
+ * @LastEditTime: 2021-02-22 09:38:29
  */
 import { isURL } from '@/utils/regular'
 import { getMenus, getPermissions, getIsGet } from '@U/auth'
@@ -48,6 +48,8 @@ export default {
     isGetAuth: getIsGet()
   },
   getters: {
+    menus: (state: IAuth): Array<IMenu> => state.menus,
+    permissions: (state: IAuth): string[] => state.permissions,
     getMenus: (state: IAuth): Array<ISideMenu> => {
       const result: Array<ISideMenu> = menuProcessing(state.menus)
       return result
