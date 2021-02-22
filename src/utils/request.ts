@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 15:23:26
+ * @LastEditTime: 2021-02-22 16:06:30
  */
 'use strict'
 import axios from 'axios'
@@ -14,6 +14,7 @@ import store from '@/store/index'
 import { ContentType, PromptComponentType } from '@/config/index.type'
 import { timeout, contentType, successCode, promptComponent, promptMessage, promptDuration, loadSwitch, loadTimeout, loadOptions } from '@C/index'
 import { ElMessage, ElNotification, ElMessageBox, ElLoading } from 'element-plus'
+import router from '@/router'
 
 let loadingService
 
@@ -70,6 +71,9 @@ const codeHandle = (code: number | null, msg: string | ''): void => {
   switch (code) {
     case 401:
       prompt(msg)
+      router.push({
+        name: 'login'
+      })
       break
   }
 }

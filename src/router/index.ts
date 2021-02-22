@@ -4,17 +4,17 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 15:03:46
+ * @LastEditTime: 2021-02-22 16:14:18
  */
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { getIsGet, setAuth, setIsGet } from '@U/auth'
 import { getUserMenus } from '@API/common/index'
-import { getToken } from '@/utils/token'
-import { $clearLoginInfo } from '@/utils'
+import { getToken } from '@U/token'
+import { $clearLoginInfo } from '@U/.'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { IMenu } from '@/store/modules/auth/index.type'
-import { isURL } from '@/utils/regular'
+import { isURL } from '@U/regular'
 import store from '@/store'
 
 setIsGet(false)
@@ -40,10 +40,10 @@ const main: RouteRecordRaw = {
   beforeEnter(_to, _from, next) {
     const token = getToken()
     if (!token || !/\S/u.test(token)) {
-      $clearLoginInfo()
       next({ name: 'login' })
+    } else {
+      next()
     }
-    next()
   }
 }
 
@@ -136,8 +136,8 @@ router.beforeEach(async (to: RouteLocationNormalized, _from, next) => {
       setIsGet(true)
       addRoutes(r.menuList)
       store.dispatch('auth/setAuth')
+      next({ ...to, replace: true })
     }
-    next({ ...to, replace: true })
   }
 })
 
