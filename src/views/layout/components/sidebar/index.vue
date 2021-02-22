@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 16:45:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 16:04:00
+ * @LastEditTime: 2021-02-22 09:02:48
 -->
 <template>
   <aside class="sidebar" :style="{ width: sidebarWidth + 'px' }">

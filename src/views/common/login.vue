@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 15:25:13
+ * @LastEditTime: 2021-02-22 08:42:12
 -->
 <template>
   <fog>
@@ -130,6 +130,7 @@ export default class extends Vue {
   .form {
     .login-captcha img {
       @include width-full;
+      cursor: pointer;
     }
     .login-btn {
       @include width-full;

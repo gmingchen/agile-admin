@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 15:15:44
+ * @LastEditTime: 2021-02-22 08:59:48
  */
 import { isURL } from '@/utils/regular'
 import { getMenus, getPermissions, getIsGet } from '@U/auth'
