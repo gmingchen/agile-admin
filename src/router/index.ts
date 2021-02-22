@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 09:45:26
+ * @LastEditTime: 2021-02-22 15:03:46
  */
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { getIsGet, setAuth, setIsGet } from '@U/auth'
@@ -86,7 +86,6 @@ function currentRouteType(route: RouteLocationNormalized, commonRoutes: Array<Ro
 function addRoutes(menus: Array<IMenu> = [], routeList: Array<RouteRecordRaw> = []): void {
   let list: Array<IMenu> = []
   menus.forEach((item: IMenu, index: number) => {
-    if (index === 2) return
     if (item.list && item.list.length > 0) {
       list = list.concat(item.list)
     }
@@ -116,6 +115,9 @@ function addRoutes(menus: Array<IMenu> = [], routeList: Array<RouteRecordRaw> = 
     addRoutes(list, routeList)
   } else {
     main.children = main.children!.concat(routeList) // eslint-disable-line
+    console.log('%c!<-------------------- 动态(菜单)路由 s -------------------->', 'color:blue')
+    console.log(main.children)
+    console.log('%c!<-------------------- 动态(菜单)路由 e -------------------->', 'color:blue')
     router.addRoute(main)
   }
 }

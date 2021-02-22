@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:56:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 14:13:03
+ * @LastEditTime: 2021-02-22 15:30:36
 -->
 <template>
   <div>
@@ -86,7 +86,7 @@ export default class extends Vue {
   position: fixed;
   left: 0;
   height: 100%;
-  z-index: 2;
+  z-index: 11;
 }
 .main {
   position: relative;

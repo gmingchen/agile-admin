@@ -1,13 +1,15 @@
 /*
- * @Description: 商品模型
+ * @Description: 备份
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 10:24:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 14:35:06
+ * @LastEditTime: 2021-02-22 15:24:05
  */
 import service from '@U/request'
 import { IObject } from '@/utils/index.type'
+import { $parseJson2Param } from '@/utils'
+import store from '@/store'
 
 /**
  * @description: 列表
@@ -17,52 +19,54 @@ import { IObject } from '@/utils/index.type'
  */
 export function pageList(params: IObject) {
   return service({
-    url: '/admin/goodsmodel/page',
+    url: '/admin/backups/page',
     method: 'get',
     params: params
   })
 }
 
 /**
- * @description: 详情
+ * @description: 备份
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function info(params: IObject) {
+export function save() {
   return service({
-    url: '/admin/goodsmodel/info',
+    url: '/admin/backups/save',
+    method: 'post'
+  })
+}
+
+/**
+ * @description: 恢复
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function recovery(params: number) {
+  return service({
+    url: '/admin/backups/recovery',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 下载
+ * @param {IObject} params
+ * @return {string}
+ * @author: gumingchen
+ */
+export function download(id: number): string {
+  let result: string = ''
+  const options: IObject = {
+    url: '/admin/backups/download',
     method: 'get',
-    params: params
-  })
-}
-
-/**
- * @description: 新增
- * @param {IObject} params
- * @return {*}
- * @author: gumingchen
- */
-export function save(params: IObject) {
-  return service({
-    url: '/admin/goodsmodel/save',
-    method: 'post',
-    data: params
-  })
-}
-
-/**
- * @description: 编辑
- * @param {IObject} params
- * @return {*}
- * @author: gumingchen
- */
-export function edit(params: IObject) {
-  return service({
-    url: '/admin/goodsmodel/update',
-    method: 'post',
-    data: params
-  })
+    params: id
+  }
+  result = `${process.env.VUE_APP_BASE_API + options.url}/${options.params}?token=${store.getters['user/token']}`
+  return result
 }
 
 /**
@@ -73,21 +77,21 @@ export function edit(params: IObject) {
  */
 export function del(params: number[]) {
   return service({
-    url: '/admin/goodsmodel/delete',
+    url: '/admin/backups/delete',
     method: 'post',
     data: params
   })
 }
 
 /**
- * @description: 下拉选择
+ * @description: 清库
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function select() {
+export function truncate() {
   return service({
-    url: '/admin/goodsmodel/select',
-    method: 'get'
+    url: '/admin/backups/truncate',
+    method: 'post'
   })
 }

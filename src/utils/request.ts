@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-29 14:56:25
+ * @LastEditTime: 2021-02-22 15:23:26
  */
 'use strict'
 import axios from 'axios'
@@ -102,7 +102,7 @@ service.interceptors.request.use(
     }
     if (config.data) {
       // 过滤 key
-      config.data = _.pickBy(config.data, _.identity)
+      // config.data = _.pickBy(config.data, _.identity)
       if (config.headers['Content-Type'] === ContentType.FORM) {
         config.data = qs.stringify(config.data)
       }

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 15:45:53
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 10:30:45
+ * @LastEditTime: 2021-02-22 15:29:47
 -->
 <template>
   <div class="main">
@@ -52,7 +52,7 @@ export default class extends Vue {
         position: 'fixed',
         top: 0,
         right: 0,
-        'z-index': 1,
+        'z-index': 10,
         width: `calc(100% - ${this.sidebarWidth}px)`
       }
     }

@@ -1,10 +1,10 @@
 <!--
- * @Description:
+ * @Description: 商品模型
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 14:14:48
+ * @LastEditTime: 2021-02-22 14:23:18
 -->
 <template>
   <div class="base-container">
