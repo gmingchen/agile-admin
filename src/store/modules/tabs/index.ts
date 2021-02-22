@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 15:11:48
+ * @LastEditTime: 2021-02-22 16:28:34
  */
 import router from '@/router'
 import { ITab, ITabDelParam, ITabs } from './index.type'
@@ -125,6 +125,18 @@ export default {
           commit('SET_TABS_LIST', [state.tabsList[index]])
           break
       }
+    },
+    delAllTab({ commit }) {
+      const tab = {
+        label: '首页', // 名称
+        value: 'home', // 主键
+        name: 'home', // 路由名称
+        path: '/home', // 路由地址
+        query: {}, // 路由参数
+        params: {}, // 路由参数
+        closable: false // true：不可以关闭
+      }
+      commit('SET_TABS_LIST', [tab])
     }
   }
 }

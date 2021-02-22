@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 16:06:30
+ * @LastEditTime: 2021-02-22 16:19:13
  */
 'use strict'
 import axios from 'axios'
@@ -74,6 +74,9 @@ const codeHandle = (code: number | null, msg: string | ''): void => {
       router.push({
         name: 'login'
       })
+      break
+    case 500:
+      prompt(msg)
       break
   }
 }

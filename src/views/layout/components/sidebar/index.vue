@@ -4,15 +4,15 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 16:45:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 13:40:43
+ * @LastEditTime: 2021-02-22 16:36:51
 -->
 <template>
   <aside class="sidebar" :style="{ width: sidebarWidth + 'px' }">
     <el-scrollbar :style="{ height: 100 + '%' }">
       <el-menu
-        background-color="#304156"
-        text-color="#bfcbb9"
-        active-text-color="#409EFF"
+        background-color="#263238"
+        text-color="#8a979e"
+        active-text-color="#ffffff"
         class="sidebar-menu"
         :default-active="menuActive || 'home'"
         :collapse="!isCollapse"
@@ -131,11 +131,11 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .sidebar,
 ::v-deep(.el-menu) {
-  background-color: #304156;
+  background-color: #263238;
 }
 ::v-deep(.el-menu-item:hover, .el-menu-item:focus, .el-menu-item:active),
 ::v-deep(.el-submenu__title:hover) {
-  background-color: #1f2d3d;
+  background-color: #263238;
 }
 .sidebar-menu {
   min-height: 100%;

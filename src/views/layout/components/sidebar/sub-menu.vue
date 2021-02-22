@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-21 08:47:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 15:34:02
+ * @LastEditTime: 2021-02-22 16:38:05
 -->
 <template>
   <el-submenu :index="menu.routeName || menu.id + ''" v-if="menu.children.length">
@@ -51,3 +51,10 @@ export default class extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+::v-deep(.sidebar-menu-icon) {
+  margin: 0 5px;
+  font-size: 12px;
+}
+</style>

@@ -4,8 +4,9 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-19 14:41:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 11:34:31
+ * @LastEditTime: 2021-02-22 16:29:22
  */
+import store from '@/store'
 import { clearAuth } from './auth'
 import { IObject } from './index.type'
 import { clearToken } from './token'
@@ -191,4 +192,5 @@ export function $clearJson(json: IObject): void {
 export function $clearLoginInfo(): void {
   clearToken()
   clearAuth()
+  store.dispatch('tabs/delAllTab')
 }
