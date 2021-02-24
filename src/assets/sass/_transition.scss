@@ -11,12 +11,12 @@
 // 左浅入右浅出
 .leftIn-rightOut-leave-active,
 .leftIn-rightOut-enter-active {
-  transition: all 0.5s;
+  transition: all 0.2s;
 }
 .leftIn-rightOut-enter {
-  transform: translateX(-30px);
+  transform: translateX(-20px);
 }
 .leftIn-rightOut-leave-to {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateX(20px);
 }

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-24 10:15:20
+ * @LastEditTime: 2021-02-24 10:39:02
 -->
 <template>
   <div class="base-container">
@@ -21,7 +21,7 @@
       </el-form-item>
     </el-form>
     <el-table class="base-table" :data="list" border @selection-change="selectionHandle">
-      <el-table-column header-align="center" align="center" width="50" type="selection"></el-table-column>
+      <el-table-column header-align="center" align="center" width="50" type="selection" />
       <el-table-column header-align="center" align="center" type="index" label="#" width="80" />
       <el-table-column header-align="center" align="center" label="名称" prop="name" />
       <el-table-column header-align="center" align="center" label="Engine" prop="engine" />
