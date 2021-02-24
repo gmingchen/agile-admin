@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 14:15:34
+ * @LastEditTime: 2021-02-24 10:11:34
 -->
 <template>
   <div class="base-container">
@@ -19,14 +19,14 @@
       </el-form-item>
     </el-form>
     <el-table class="base-table" :data="list" border>
-      <el-table-column align="center" header-align="center" label="ID" prop="id" width="80" />
-      <el-table-column align="center" header-align="center" label="用户名" prop="username" />
-      <el-table-column align="center" header-align="center" label="用户操作" prop="operation" />
-      <el-table-column align="center" header-align="center" label="请求方法" prop="method" width="150" :show-overflow-tooltip="true" />
-      <el-table-column align="center" header-align="center" label="请求参数" prop="params" width="150" :show-overflow-tooltip="true" />
-      <el-table-column align="center" header-align="center" label="执行时长(毫秒)" prop="time" />
-      <el-table-column align="center" header-align="center" label="IP地址" prop="ip" width="150" />
-      <el-table-column align="center" header-align="center" label="创建时间" prop="create_time" width="160" />
+      <el-table-column header-align="center" align="center" label="ID" prop="id" width="80" />
+      <el-table-column header-align="center" align="center" label="用户名" prop="username" />
+      <el-table-column header-align="center" align="center" label="用户操作" prop="operation" />
+      <el-table-column header-align="center" align="center" label="请求方法" prop="method" width="150" :show-overflow-tooltip="true" />
+      <el-table-column header-align="center" align="center" label="请求参数" prop="params" width="150" :show-overflow-tooltip="true" />
+      <el-table-column header-align="center" align="center" label="执行时长(毫秒)" prop="time" />
+      <el-table-column header-align="center" align="center" label="IP地址" prop="ip" width="150" />
+      <el-table-column header-align="center" align="center" label="创建时间" prop="create_time" width="160" />
     </el-table>
     <el-pagination
       class="base-pagination"

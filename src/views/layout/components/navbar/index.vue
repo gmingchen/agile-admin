@@ -4,14 +4,14 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 15:41:07
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 09:45:42
+ * @LastEditTime: 2021-02-24 09:39:43
 -->
 <template>
   <div class="navbar" :style="navbarStyle">
     <span class="collapse" :style="{ 'line-height': navbarStyle['height'] }" @click="foldHandle">
       <i :class="sidebarOpend ? 'el-icon-s-fold' : 'el-icon-s-unfold'"></i>
     </span>
-    <crumbs class="crumbs" :style="{ 'line-height': navbarStyle['height'] }" />
+    <crumbs v-if="false" class="crumbs" :style="{ 'line-height': navbarStyle['height'] }" />
     <tools class="tools" />
   </div>
 </template>

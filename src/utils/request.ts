@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 16:19:13
+ * @LastEditTime: 2021-02-24 10:19:53
  */
 'use strict'
 import axios from 'axios'
@@ -25,7 +25,7 @@ let loadingService
  * @author: gumingchen
  */
 const loadHandle = (): void => {
-  if (loadSwitch && !loadingService) {
+  if (loadSwitch) {
     loadingService = ElLoading.service(loadOptions)
   }
 }

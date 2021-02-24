@@ -1,39 +1,38 @@
 <!--
- * @Description: 商品模型
+ * @Description: 备份
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-24 10:12:07
+ * @LastEditTime: 2021-02-24 10:15:20
 -->
 <template>
   <div class="base-container">
     <el-form ref="formRef" :inline="true" :model="form" @keyup.enter="getList()">
       <el-form-item>
-        <el-input v-model="form.name" placeholder="模型名称" clearable></el-input>
+        <el-input v-model="form.name" placeholder="表名" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getList()">查询</el-button>
         <el-button @click="clearJson(form), getList()">重置</el-button>
-        <el-button v-if="isAuth('sys:goodsmodel:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('sys:goodsmodel:delete')" type="danger" @click="deleteHandle()" :disabled="selection.length <= 0">
-          批量删除
+        <el-button v-if="isAuth('generator:table:create')" type="primary" @click="createHandle()" :disabled="selection.length <= 0">
+          批量代码生成
         </el-button>
       </el-form-item>
     </el-form>
     <el-table class="base-table" :data="list" border @selection-change="selectionHandle">
-      <el-table-column header-align="center" align="center" width="50" type="selection" />
-      <el-table-column header-align="center" align="center" label="ID" prop="id" width="80" />
-      <el-table-column header-align="center" align="center" label="模型名称" prop="name" />
-      <el-table-column header-align="center" align="center" label="规格数量" prop="spec_count" width="180" />
-      <el-table-column header-align="center" align="center" label="参数数量" prop="attr_count" width="180" />
+      <el-table-column header-align="center" align="center" width="50" type="selection"></el-table-column>
+      <el-table-column header-align="center" align="center" type="index" label="#" width="80" />
+      <el-table-column header-align="center" align="center" label="名称" prop="name" />
+      <el-table-column header-align="center" align="center" label="Engine" prop="engine" />
+      <el-table-column header-align="center" align="center" label="Rows" prop="row" width="100" />
+      <el-table-column header-align="center" align="center" label="编码集" prop="collation" width="120" :show-overflow-tooltip="true" />
+      <el-table-column header-align="center" align="center" label="备注" prop="comment" />
+      <el-table-column header-align="center" align="center" label="更新时间" prop="update_time" width="160" />
       <el-table-column header-align="center" align="center" label="创建时间" prop="create_time" width="160" />
-      <el-table-column header-align="center" align="center" label="操作" width="210" fixed="right">
+      <el-table-column header-align="center" align="center" label="操作" prop="create_time" width="90" fixed="right">
         <template v-slot="scope">
-          <!-- <el-button v-if="isAuth('sys:goodsspec:page')" type="text" size="small" @click="specHandle(scope.row.id)">查看规格</el-button>
-          <el-button v-if="isAuth('sys:goodsmodelattr:page')" type="text" size="small" @click="attrHandle(scope.row.id)">查看参数</el-button>
-          <el-button v-if="isAuth('sys:goodsmodel:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">修改</el-button> -->
-          <el-button v-if="isAuth('sys:goodsmodel:delete')" type="text" size="small" @click="delHandle(scope.row.id)">删除</el-button>
+          <el-button v-if="isAuth('generator:table:create')" type="text" @click="createHandle(scope.row.name)">代码生成</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -57,7 +56,7 @@ import { Vue, Options } from 'vue-class-component'
 import { isAuth } from '@U/auth'
 import { $clearJson } from '@U/index'
 import { IObject } from '@/utils/index.type'
-import { pageList, del } from '@API/commodity/model/index'
+import { pageList, create } from '@API/generator/index'
 
 @Options({})
 export default class extends Vue {
@@ -104,42 +103,34 @@ export default class extends Vue {
   }
 
   /**
-   * @description: 批量删除
-   * @param {*}
+   * @description: 代码生成
+   * @param {string} name
    * @return {*}
    * @author: gumingchen
    */
-  delHandle(id: number | null): void {
-    let ids: number[] = []
-    if (id) {
-      ids = [id]
+  createHandle(name: string): void {
+    let names: string[] = []
+    if (name) {
+      names = [name]
     } else {
-      ids = this.selection.map(item => {
-        return item.id
+      names = this.selection.map(item => {
+        return item.name
       })
     }
-    this['$confirm'](`确定对[id=${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '确认信息', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning'
+    create(names).then(r => {
+      if (r) {
+        const blob = new Blob([r])
+        const href = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = href
+        a.download = 'code.zip'
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        window.URL.revokeObjectURL(href)
+      }
     })
-      .then(() => {
-        del(ids).then(r => {
-          if (r && r.code === 0) {
-            this['$message']({
-              message: '操作成功',
-              type: 'success',
-              duration: 1500,
-              onClose: () => {
-                this.getList()
-              }
-            })
-          }
-        })
-      })
-      .catch(() => {
-        // to do something on canceled
-      })
+    // todo something
   }
 
   /**
