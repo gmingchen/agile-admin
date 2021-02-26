@@ -4,15 +4,16 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-05 10:07:59
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 11:43:54
+ * @LastEditTime: 2021-02-26 15:51:35
 -->
 <template>
   <div class="contant" :style="style">
     <router-view v-slot="{ Component }">
       <transition name="leftIn-rightOut" mode="out-in">
-        <keep-alive>
+        <keep-alive v-if="$route.meta.keepAlive">
           <component :is="Component" class="component"></component>
         </keep-alive>
+        <component :is="Component" class="component" v-else></component>
       </transition>
     </router-view>
   </div>
