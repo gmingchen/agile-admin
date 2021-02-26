@@ -1,3 +1,14 @@
 $--color-primary: #409EFF;
 $--font-path: '~element-plus/lib/theme-chalk/fonts';
 @import "~element-plus/packages/theme-chalk/src/index";
+
+.popper-menu-add-or-edit {
+  .icon-wrap {
+    padding-left: 10px;
+    .icon-btn {
+      padding: 7px;
+      margin: 0 10px 10px 0;
+    }
+  }
+  
+}
