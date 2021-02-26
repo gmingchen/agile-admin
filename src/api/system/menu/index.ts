@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 10:24:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-24 16:43:18
+ * @LastEditTime: 2021-02-26 16:35:35
  */
 import service from '@U/request'
 import { IObject } from '@/utils/index.type'
@@ -51,7 +51,7 @@ export function save(params: IObject) {
 }
 
 /**
- * @description: 新增
+ * @description: 编辑
  * @param {*}
  * @return {*}
  * @author: gumingchen

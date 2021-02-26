@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-26 15:26:25
+ * @LastEditTime: 2021-02-26 16:20:28
 -->
 <template>
   <div class="base-container">
@@ -14,14 +14,14 @@
       </el-form-item>
     </el-form>
     <el-table class="base-table" border :data="list" row-key="id" v-loading="loading" element-loading-spinner="el-icon-loading">
-      <el-table-column prop="name" header-align="center" min-width="150" label="名称" />
-      <el-table-column prop="parentName" header-align="center" align="center" width="120" label="上级菜单" />
+      <el-table-column header-align="center" label="名称" prop="name" min-width="150" />
+      <el-table-column header-align="center" align="center" label="上级菜单" prop="parentName" width="120" />
       <el-table-column header-align="center" align="center" label="图标">
         <template v-slot="scope">
           <svg-icon :name="scope.row.icon || ''"></svg-icon>
         </template>
       </el-table-column>
-      <el-table-column prop="type" header-align="center" align="center" label="类型">
+      <el-table-column header-align="center" align="center" label="类型" prop="type">
         <template v-slot="scope">
           <el-tag v-if="scope.row.type === 0" size="small">目录</el-tag>
           <el-tag v-else-if="scope.row.type === 1" size="small" type="success">菜单</el-tag>
@@ -29,10 +29,10 @@
           <el-tag v-else-if="scope.row.type === 3" size="small" type="warning">子页面</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="orderNum" header-align="center" align="center" label="排序号" />
-      <el-table-column prop="url" header-align="center" align="center" width="150" :show-overflow-tooltip="true" label="菜单URL" />
-      <el-table-column prop="perms" header-align="center" align="center" width="150" :show-overflow-tooltip="true" label="授权标识" />
-      <el-table-column prop="display" header-align="center" align="center" label="是否显示">
+      <el-table-column header-align="center" align="center" label="排序号" prop="orderNum" />
+      <el-table-column header-align="center" align="center" label="菜单URL" prop="url" width="150" :show-overflow-tooltip="true" />
+      <el-table-column header-align="center" align="center" label="授权标识" prop="perms" width="150" :show-overflow-tooltip="true" />
+      <el-table-column header-align="center" align="center" label="是否显示" prop="display">
         <template v-slot="scope">
           <el-switch
             :disabled="!isAuth('sys:menu:display')"
@@ -46,7 +46,7 @@
           </el-switch>
         </template>
       </el-table-column>
-      <el-table-column prop="tab" header-align="center" align="center" label="是否在tab显示">
+      <el-table-column header-align="center" align="center" label="是否在tab显示" prop="tab">
         <template v-slot="scope">
           <el-switch
             v-if="scope.row.type !== 0 && scope.row.url"
@@ -61,7 +61,7 @@
           </el-switch>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" header-align="center" align="center" width="150" label="操作">
+      <el-table-column header-align="center" align="center" label="操作" width="150" fixed="right">
         <template v-slot="scope">
           <el-button v-if="isAuth('sys:menu:update')" type="text" size="small" @click="addOrEditHandle(scope.row.id)">编辑</el-button>
           <el-button v-if="isAuth('sys:menu:delete')" type="text" size="small" @click="delHandle(scope.row.id)">删除</el-button>
