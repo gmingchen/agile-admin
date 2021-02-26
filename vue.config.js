@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-18 11:07:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-26 09:34:32
+ * @LastEditTime: 2021-02-26 10:46:35
  */
 const path = require('path')
 function resolve (dir) {
@@ -66,6 +66,15 @@ module.exports = {
   },
   // 对内部的webpack配置(比如修改、增加Loader选项)(链式操作).
   chainWebpack: (config) => {
+    if (process.env.NODE_ENV === 'production') {
+      const BundleAnalyzerPlugin  = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+      const analyzer = new BundleAnalyzerPlugin({
+        analyzerPort: 8888
+      })
+      config
+      .plugin('webpack-bundle-analyzer')
+      .use(analyzer)
+    }
     config.resolve.alias
       .set('@', resolve('src'))
       .set('@C', resolve('src/config'))
