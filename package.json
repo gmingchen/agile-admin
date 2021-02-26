@@ -6,7 +6,7 @@
     "dev": "vue-cli-service serve --mode development",
     "prod": "vue-cli-service serve --mode production",
     "test": "vue-cli-service serve --mode testing",
-    "build:dev": "vue-cli-service build --mode production",
+    "build:dev": "vue-cli-service build --mode development",
     "build:prod": "vue-cli-service build --mode production",
     "build:test": "vue-cli-service build --mode testing",
     "lint-fix": "eslint --fix --ext .js --ext .ts --ext .vue src/*"

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-18 11:07:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 09:23:44
+ * @LastEditTime: 2021-02-26 09:34:32
  */
 const path = require('path')
 function resolve (dir) {
@@ -14,15 +14,15 @@ function resolve (dir) {
 const port = process.env.VUE_APP_PORT || 95830 // dev port
 
 module.exports = {
-  publicPath: '/',                                                                  // 部署应用时的基本URL.
+  publicPath: './',                                                                  // 部署应用时的基本URL.
   outputDir: 'dist',                                                                // build时构建文件的目录,构建时传入 --no-clean 可关闭该行为.
-  assetsDir: '',                                                                    // build时放置生成的静态资源(js、css、img、fonts)的(相对于 outputDir 的)目录.
+  assetsDir: 'static',                                                              // build时放置生成的静态资源(js、css、img、fonts)的(相对于 outputDir 的)目录.
   indexPath: 'index.html',                                                          // 指定生成的index.html的输出路径(相对于 outputDir),也可以是一个绝对路径.
   filenameHashing: true,                                                            // 默认在生成的静态资源文件名中包含hash以控制缓存.
   lintOnSave: process.env.NODE_ENV !== 'production',                                // 是否在开发环境下通过eslint-loader在每次保存时lint代码(在生产构建时禁用 eslint-loader).
   runtimeCompiler: false,                                                           // 是否使用包含运行时编译器的Vue构建版本.
   transpileDependencies: [],                                                        // Babel显式转译列表.
-  productionSourceMap: true,                                                        // 如果你不需要生产环境的source map,可以将其设置为 false 以加速生产环境构建.
+  productionSourceMap: process.env.NODE_ENV !== 'production',                       // 如果你不需要生产环境的source map,可以将其设置为 false 以加速生产环境构建.
   crossorigin: '',                                                                  // 设置生成的HTML中<link rel="stylesheet">和<script>标签的crossorigin属性(注:仅影响构建时注入的标签).
   integrity: false,                                                                 // 在生成的HTML中的<link rel="stylesheet">和<script>标签上启用Subresource Integrity(SRI).
   devServer: {                                                                      // 所有webpack-dev-server的选项都支持.
