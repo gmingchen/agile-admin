@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-24 10:39:02
+ * @LastEditTime: 2021-02-26 15:28:36
 -->
 <template>
   <div class="base-container">
@@ -20,7 +20,14 @@
         </el-button>
       </el-form-item>
     </el-form>
-    <el-table class="base-table" :data="list" border @selection-change="selectionHandle">
+    <el-table
+      class="base-table"
+      :data="list"
+      border
+      @selection-change="selectionHandle"
+      v-loading="loading"
+      element-loading-spinner="el-icon-loading"
+    >
       <el-table-column header-align="center" align="center" width="50" type="selection" />
       <el-table-column header-align="center" align="center" type="index" label="#" width="80" />
       <el-table-column header-align="center" align="center" label="名称" prop="name" />
@@ -72,6 +79,8 @@ export default class extends Vue {
   protected list: Array<IObject> = []
   protected selection: Array<IObject> = []
 
+  protected loading: boolean = false
+
   activated() {
     this.getList()
   }
@@ -86,6 +95,7 @@ export default class extends Vue {
    * @author: gumingchen
    */
   getList(): void {
+    this.loading = true
     const params = {
       name: this.form.name,
       page: this.page.current,
@@ -99,6 +109,7 @@ export default class extends Vue {
         this.list = []
         this.page.total = 0
       }
+      this.loading = false
     })
   }
 

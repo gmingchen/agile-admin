@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-24 10:11:34
+ * @LastEditTime: 2021-02-26 15:28:58
 -->
 <template>
   <div class="base-container">
@@ -18,7 +18,7 @@
         <el-button v-if="isAuth('sys:log:truncate')" type="danger" @click="truncateHandle()">日志清理</el-button>
       </el-form-item>
     </el-form>
-    <el-table class="base-table" :data="list" border>
+    <el-table class="base-table" :data="list" border v-loading="loading" element-loading-spinner="el-icon-loading">
       <el-table-column header-align="center" align="center" label="ID" prop="id" width="80" />
       <el-table-column header-align="center" align="center" label="用户名" prop="username" />
       <el-table-column header-align="center" align="center" label="用户操作" prop="operation" />
@@ -62,6 +62,7 @@ export default class extends Vue {
     sizes: [20, 50, 100, 200]
   }
   protected list: Array<IObject> = []
+  protected loading: boolean = false
 
   activated() {
     this.getList()
@@ -77,6 +78,7 @@ export default class extends Vue {
    * @author: gumingchen
    */
   getList(): void {
+    this.loading = true
     const params = {
       key: this.form.key,
       page: this.page.current,
@@ -90,6 +92,7 @@ export default class extends Vue {
         this.list = []
         this.page.total = 0
       }
+      this.loading = false
     })
   }
 
