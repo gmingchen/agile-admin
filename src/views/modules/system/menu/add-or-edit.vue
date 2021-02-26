@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-26 15:09:41
+ * @LastEditTime: 2021-02-26 15:12:43
 -->
 <template>
   <el-dialog
@@ -167,7 +167,6 @@ export default class extends Vue {
    */
   submit(): void {
     this.$refs['formRef'].validate(async (valid: boolean) => {
-      console.log(this.form.parentId)
       if (valid) {
         const params = {
           id: this.form.id || null,
@@ -179,7 +178,6 @@ export default class extends Vue {
           orderNum: this.form.orderNum,
           icon: this.form.icon
         }
-        console.log(3333)
         const r = !this.form.id ? await save(params) : await edit(params)
         if (r && r.code === 0) {
           this.visible = false
@@ -208,8 +206,4 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-* {
-  text-align: left;
-}
-</style>
+<style lang="scss" scoped></style>
