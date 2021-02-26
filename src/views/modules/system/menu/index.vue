@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-26 13:53:04
+ * @LastEditTime: 2021-02-26 15:20:45
 -->
 <template>
   <div class="base-container">
@@ -13,7 +13,7 @@
         <el-button v-if="isAuth('sys:menu:save')" type="primary" @click="addOrEditHandle()">新增</el-button>
       </el-form-item>
     </el-form>
-    <el-table class="base-table" v-loading="loading" :data="list" row-key="id" border>
+    <el-table class="base-table" border :data="list" row-key="id" v-loading="loading" element-loading-spinner="el-icon-loading">
       <el-table-column prop="name" header-align="center" min-width="150" label="名称" />
       <el-table-column prop="parentName" header-align="center" align="center" width="120" label="上级菜单" />
       <el-table-column header-align="center" align="center" label="图标">

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-26 15:12:43
+ * @LastEditTime: 2021-02-26 15:23:35
 -->
 <template>
   <el-dialog
@@ -15,7 +15,15 @@
     :destroy-on-close="true"
     @closed="dialogClosedHandle"
   >
-    <el-form :model="form" :rules="rules" ref="formRef" @keyup.enter="submit()" label-width="80px">
+    <el-form
+      :model="form"
+      :rules="rules"
+      ref="formRef"
+      @keyup.enter="submit()"
+      label-width="80px"
+      v-loading="loading"
+      element-loading-spinner="el-icon-loading"
+    >
       <el-form-item label="类型" prop="type">
         <el-radio-group v-model="form.type">
           <el-radio v-for="(type, index) in form.typeList" :label="index" :key="index">{{ type }}</el-radio>
@@ -83,6 +91,7 @@ export default class extends Vue {
   }
 
   protected visible: boolean = false
+  protected loading: boolean = false
 
   protected checkUrl = (_rule: unknown, value: string, callback: (arg?: Error | undefined) => void) => {
     if (this.form.type === 1 && !/\S/u.test(value)) {
@@ -130,6 +139,7 @@ export default class extends Vue {
    */
   async init(key: number = 0) {
     this.visible = true
+    this.loading = true
     this.form.id = key
     const menu = await select()
     if (menu && menu.code === 0) {
@@ -147,6 +157,7 @@ export default class extends Vue {
         this.form.icon = r.data.icon
       }
     }
+    this.loading = false
   }
 
   /**

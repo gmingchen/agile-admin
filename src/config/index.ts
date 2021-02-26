@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:36:27
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-24 10:20:10
+ * @LastEditTime: 2021-02-26 15:17:00
  */
 import { ContentType, PromptComponentType, PromptMesssageType } from '@/config/index.type'
 import { ILoadingOptions } from 'element-plus/lib/el-loading/src/loading.type'
@@ -24,7 +24,7 @@ export const promptMessage: 'success' | 'warning' | 'info' | 'error' | undefined
 // 消息提示持续时长
 export const promptDuration: number = 3000
 // Loading
-export const loadSwitch: boolean = true
+export const loadSwitch: boolean = false
 export const loadTimeout: number = 1000
 export const loadOptions: ILoadingOptions = {
   // 显示文本
