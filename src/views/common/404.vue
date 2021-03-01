@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-07 15:56:26
+ * @LastEditTime: 2021-03-01 15:45:02
 -->
 <template>
   <div class="site-wrapper site-page--not-found">
@@ -16,8 +16,8 @@
           <em>{{ endTime }}</em
           >秒后自动返回首页
         </p>
-        <el-button @click="$router.go(-1)">返回上一页</el-button>
-        <el-button type="primary" class="not-found-btn-gohome" @click="$router.push({ name: 'home' })">进入首页</el-button>
+        <el-button @click="jump(0)">返回上一页</el-button>
+        <el-button type="primary" class="not-found-btn-gohome" @click="jump(1)">进入首页</el-button>
       </div>
     </div>
   </div>
@@ -43,8 +43,25 @@ export default class extends Vue {
   mounted() {
     this.timer = window.setInterval((): void => {
       this.endTime--
-      console.log(this.endTime)
     }, 1000)
+  }
+
+  /**
+   * @description: 跳转
+   * @param {number} type
+   * @return {*}
+   * @author: gumingchen
+   */
+  jump(type: number): void {
+    switch (type) {
+      case 0:
+        this.$router.go(-1)
+        break
+      case 1:
+        this.$router.push({ name: 'home' })
+        break
+    }
+    clearTimeout(this.timer as number)
   }
 }
 </script>

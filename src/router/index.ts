@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-26 15:52:19
+ * @LastEditTime: 2021-03-01 15:49:02
  */
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { getIsGet, setAuth, setIsGet } from '@U/auth'
@@ -24,7 +24,8 @@ const global: Array<RouteRecordRaw> = [
   { path: '/', redirect: { name: 'login' }, meta: { title: '重定向' } },
   { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title: '登录' } },
   { path: '/404', name: '404', component: () => import('@/views/common/404.vue'), meta: { title: '404' } },
-  { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title: '401' } }
+  { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title: '401' } },
+  { path: '/:pathMatch(.*)', redirect: { name: '404' } }
 ]
 
 /* 主入口 */
