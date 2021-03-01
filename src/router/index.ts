@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-01 16:27:38
+ * @LastEditTime: 2021-03-01 16:54:35
  */
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { getIsGet, setAuth, setIsGet } from '@U/auth'
@@ -24,8 +24,7 @@ const global: Array<RouteRecordRaw> = [
   { path: '/', redirect: { name: 'login' }, meta: { title: '重定向' } },
   { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title: '登录' } },
   { path: '/404', name: '404', component: () => import('@/views/common/404.vue'), meta: { title: '404' } },
-  { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title: '401' } },
-  { path: '/:pathMatch(.*)', redirect: { name: '404' } }
+  { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title: '401' } }
 ]
 
 /* 主入口 */
@@ -58,7 +57,6 @@ const routes: Array<RouteRecordRaw> = global.concat(main)
 
 // const history = createWebHistory(process.env.BASE_URL) // history
 const history = createWebHashHistory() // hash
-
 const router = createRouter({
   history: history,
   routes
@@ -131,8 +129,13 @@ function addRoutes(menus: Array<IMenu> = [], routeList: Array<RouteRecordRaw> = 
 }
 
 router.beforeEach(async (to: RouteLocationNormalized, _from, next) => {
-  console.log(222222)
   NProgress.start()
+  // 处理动态路由页 刷新跳转 404 问题
+  if (!getIsGet()) {
+    // 添加 404 重定向
+    router.addRoute({ path: '/:pathMatch(.*)', redirect: { name: '404' } })
+  }
+  
   if (currentRouteType(to, global) === 'global' || getIsGet()) {
     next()
   } else {
