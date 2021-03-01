@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-01 10:41:37
+ * @LastEditTime: 2021-03-01 13:47:49
 -->
 <template>
   <div class="base-container">
@@ -45,7 +45,7 @@
       </el-table-column>
       <el-table-column header-align="center" align="center" label="操作" width="150" fixed="right">
         <template v-slot="scope">
-          <el-button v-if="isAuth('sys:schedule:update')" type="text" size="small" @click="addOrEditHandle(scope.row.jobId)">修改</el-button>
+          <el-button v-if="isAuth('sys:schedule:update')" type="text" size="small" @click="addOrEditHandle(scope.row.jobId)">编辑</el-button>
           <el-button v-if="isAuth('sys:schedule:delete')" type="text" size="small" @click="delHandle(scope.row.jobId)">删除</el-button>
           <el-button v-if="isAuth('sys:schedule:pause')" type="text" size="small" @click="pauseHandle(scope.row.jobId)">暂停</el-button>
           <el-button v-if="isAuth('sys:schedule:resume')" type="text" size="small" @click="resumeHandle(scope.row.jobId)">恢复</el-button>
@@ -77,7 +77,7 @@ import { IObject } from '@/utils/index.type'
 import { pageList, del, pause, resume, run } from '@API/system/job/index'
 import AddOrEdit from './add-or-edit.vue'
 import Log from './log.vue'
-import { $clearJson } from '@/utils'
+import { $clearJson } from '@U/index'
 
 @Options({
   components: { AddOrEdit, Log }

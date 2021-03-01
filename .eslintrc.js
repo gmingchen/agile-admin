@@ -34,6 +34,7 @@ module.exports = {
     "@typescript-eslint/interface-name-prefix": 0,
     "@typescript-eslint/no-inferrable-types": 0,
     "@typescript-eslint/no-unused-vars": ['off'],
+    '@typescript-eslint/camelcase': ['off', { properties: 'never' }],
     // TODO: Possible Errors
     "for-direction": 2,                                                           // 强制 “for” 循环中更新子句的计数器朝着正确的方向移动
     "getter-return": 2,                                                           // 强制 getter 函数中出现 return 语句
@@ -190,7 +191,7 @@ module.exports = {
       'allowSingleLine': true
     }],
     "camelcase": [0, {                                                            // 强制使用骆驼拼写法命名约定
-      'properties': 'always'
+      'properties': 'never'
     }],
     "capitalized-comments": 0,                                                    // 强制或禁止对注释的第一个字母大写
     "comma-dangle": [2, 'never'],                                                 // 要求或禁止末尾逗号
