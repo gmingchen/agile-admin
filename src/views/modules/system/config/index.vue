@@ -1,55 +1,41 @@
 <!--
- * @Description: 版本控制
+ * @Description: 参数管理
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-01 14:46:04
+ * @LastEditTime: 2021-03-01 14:45:25
 -->
 <template>
   <div class="base-container">
     <el-form ref="formRef" :inline="true" @keyup.enter="getList()">
       <el-form-item>
-        <el-input v-model="form.beanName" placeholder="bean名称" clearable></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-select v-model="form.type" placeholder="升级方式" clearable>
-          <el-option label="不升级" :value="0"></el-option>
-          <el-option label="升级" :value="1"></el-option>
-          <el-option label="强制升级" :value="2"></el-option>
-        </el-select>
+        <el-input v-model="form.paramKey" placeholder="参数名" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getList()">查询</el-button>
         <el-button @click="clearJson(form), getList()">重置</el-button>
-        <el-button v-if="isAuth('sys:goodsmodel:save')" type="primary" @click="addOrEditHandle()">新增</el-button>
+        <el-button v-if="isAuth('sys:config:save')" type="primary" @click="addOrEditHandle()">新增</el-button>
+        <el-button v-if="isAuth('sys:config:delete')" type="danger" @click="delHandle()" :disabled="selection.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
-    <el-table class="base-table" border :data="list" v-loading="loading" element-loading-spinner="el-icon-loading">
+    <el-table
+      class="base-table"
+      border
+      :data="list"
+      @selection-change="selectionHandle"
+      v-loading="loading"
+      element-loading-spinner="el-icon-loading"
+    >
+      <el-table-column header-align="center" align="center" type="selection" width="50" />
       <el-table-column header-align="center" align="center" label="ID" prop="id" width="80" />
-      <el-table-column header-align="center" align="center" label="APPKey" prop="app" />
-      <el-table-column header-align="center" align="center" label="版本号" prop="version" width="100" />
-      <el-table-column header-align="center" align="center" label="APK-URL" prop="apk" :show-overflow-tooltip="true" />
-      <el-table-column header-align="center" align="center" label="升级方式" prop="apk">
+      <el-table-column header-align="center" align="center" label="参数名" prop="paramKey" />
+      <el-table-column header-align="center" align="center" label="参数值" prop="paramValue" />
+      <el-table-column header-align="center" align="center" label="备注" prop="remark" />
+      <el-table-column header-align="center" align="center" label="操作" width="150" fixed="right">
         <template v-slot="scope">
-          <span v-if="scope.row.type === 0">不升级</span>
-          <span v-if="scope.row.type === 1">升级</span>
-          <span v-if="scope.row.type === 2">强制升级</span>
-        </template>
-      </el-table-column>
-      <el-table-column header-align="center" align="center" label="升级提示" prop="upgrade_prompt" :show-overflow-tooltip="true" />
-      <el-table-column header-align="center" align="center" label="更新内容" prop="content" :show-overflow-tooltip="true" />
-      <el-table-column header-align="center" align="center" label="更新时间" prop="create_time" width="160" />
-      <el-table-column header-align="center" align="center" label="操作" width="90" fixed="right">
-        <template v-slot="scope">
-          <el-button
-            v-if="isAuth('sys:goodsmodel:update') && scope.row.deleted === 0"
-            type="text"
-            size="small"
-            @click="addOrEditHandle(scope.row.id)"
-          >
-            编辑
-          </el-button>
+          <el-button v-if="isAuth('sys:config:update')" type="text" size="small" @click="addOrEditHandle(scope.row.id)">修改</el-button>
+          <el-button v-if="isAuth('sys:config:delete')" type="text" size="small" @click="delHandle(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -73,7 +59,7 @@
 import { Vue, Options } from 'vue-class-component'
 import { isAuth } from '@U/auth'
 import { IObject } from '@/utils/index.type'
-import { pageList } from '@API/system/version/index'
+import { pageList, del } from '@API/system/config/index'
 import AddOrEdit from './add-or-edit.vue'
 import { $clearJson } from '@U/index'
 
@@ -86,8 +72,7 @@ export default class extends Vue {
   }
 
   protected form = {
-    app: '',
-    type: ''
+    paramKey: ''
   }
   protected page = {
     current: 1,
@@ -97,6 +82,7 @@ export default class extends Vue {
   }
 
   protected list: Array<IObject> = []
+  protected selection: Array<IObject> = []
   protected loading: boolean = false
   protected visible: boolean = false
 
@@ -116,8 +102,7 @@ export default class extends Vue {
   getList(): void {
     this.loading = true
     const params = {
-      app: this.form.app,
-      type: this.form.type,
+      paramKey: this.form.paramKey,
       page: this.page.current,
       size: this.page.size
     }
@@ -144,6 +129,55 @@ export default class extends Vue {
     this.$nextTick(() => {
       this.$refs.addOrEdit.init(id)
     })
+  }
+
+  /**
+   * @description: 批量删除
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
+  delHandle(id: number | null): void {
+    let ids: number[] = []
+    if (id) {
+      ids = [id]
+    } else {
+      ids = this.selection.map(item => {
+        return item.jobId
+      })
+    }
+    this['$confirm'](`确定对[id=${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '确认信息', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+      .then(() => {
+        del(ids).then(r => {
+          if (r && r.code === 0) {
+            this['$message']({
+              message: '操作成功',
+              type: 'success',
+              duration: 1500,
+              onClose: () => {
+                this.getList()
+              }
+            })
+          }
+        })
+      })
+      .catch(() => {
+        // to do something on canceled
+      })
+  }
+
+  /**
+   * @description: table多选事件
+   * @param {*} val
+   * @return {*}
+   * @author: gumingchen
+   */
+  selectionHandle(val: Array<IObject>): void {
+    this.selection = val
   }
 
   /**
