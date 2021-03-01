@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-21 08:47:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 16:38:05
+ * @LastEditTime: 2021-03-01 16:04:47
 -->
 <template>
   <el-submenu :index="menu.routeName || menu.id + ''" v-if="menu.children.length">
@@ -27,6 +27,7 @@ import { Options, Vue } from 'vue-class-component'
 import { Prop } from 'vue-property-decorator'
 import SubMenu from './sub-menu.vue'
 import { ISideMenu } from '@/store/modules/auth/index.type'
+import { isURL } from '@U/regular'
 
 @Options({
   components: { SubMenu }
@@ -47,7 +48,11 @@ export default class extends Vue {
    * @author: gumingchen
    */
   routeHandle(): void {
-    this.$router.push({ name: this.menu.routeName })
+    if (isURL(this.menu.routePath)) {
+      this.$router.push({ name: 'iframe', query: { url: this.menu.routePath } })
+    } else {
+      this.$router.push({ name: this.menu.routeName })
+    }
   }
 }
 </script>

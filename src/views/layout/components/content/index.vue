@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-05 10:07:59
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-26 15:51:35
+ * @LastEditTime: 2021-03-01 16:14:05
 -->
 <template>
   <div class="contant" :style="style">

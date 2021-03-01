@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-01 15:49:02
+ * @LastEditTime: 2021-03-01 16:01:14
  */
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { getIsGet, setAuth, setIsGet } from '@U/auth'
@@ -35,6 +35,12 @@ const main: RouteRecordRaw = {
   component: () => import('@/views/layout/index.vue'),
   meta: { title: '主入口整体布局' },
   children: [
+    {
+      path: '/iframe',
+      name: 'iframe',
+      component: () => import('@/views/components/iframe/index.vue'),
+      meta: { title: 'iframe', isTab: true, keepAlive: true }
+    },
     { path: '/home', name: 'home', component: () => import('@/views/modules/home/index.vue'), meta: { title: '首页', isTab: true, keepAlive: true } },
     { path: '/example', name: 'example', component: () => import('@/views/modules/example/index.vue'), meta: { title: 'demo', isTab: true } }
   ],
