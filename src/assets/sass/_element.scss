@@ -10,5 +10,12 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
       margin: 0 10px 10px 0;
     }
   }
+}
+
+.el-message-box__wrapper {
+  z-index: 3000!important;
+  & + .v-modal {
+    z-index: 2999!important;
+  }
   
 }

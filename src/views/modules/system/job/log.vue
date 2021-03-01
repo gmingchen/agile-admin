@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-26 17:35:16
+ * @LastEditTime: 2021-03-01 10:58:10
 -->
 <template>
   <el-dialog width="60%" v-model="visible" title="日志列表" :close-on-click-modal="false" :destroy-on-close="true" @closed="dialogClosedHandle">
@@ -25,7 +25,7 @@
       <el-table-column header-align="center" align="center" label="状态" prop="status">
         <template v-slot="scope">
           <el-tag v-if="scope.row.status === 0" size="small">成功</el-tag>
-          <el-tag v-else @click="showErrorInfo(scope.row.logId)" size="small" type="danger" style="cursor: pointer">失败</el-tag>
+          <el-tag v-else @click="getErrorInfo(scope.row.logId)" size="small" type="danger" style="cursor: pointer">失败</el-tag>
         </template>
       </el-table-column>
       <el-table-column header-align="center" align="center" label="耗时(单位: 毫秒)" prop="times"> </el-table-column>
@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
-import { logPageList } from '@API/system/job/index'
+import { logPageList, logErrorInfo } from '@API/system/job/index'
 import { IObject } from '@/utils/index.type'
 import { $clearJson } from '@/utils'
 
@@ -108,6 +108,24 @@ export default class extends Vue {
         this.page.total = 0
       }
       this.loading = false
+    })
+  }
+
+  /**
+   * @description: 获取日志error信息
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
+  getErrorInfo(id: number): void {
+    logErrorInfo(id).then(r => {
+      if (r && r.code === 0) {
+        this['$alert'](r.data.error, '提示', {
+          confirmButtonText: '确定'
+        }).catch(() => {
+          // to do something
+        })
+      }
     })
   }
 

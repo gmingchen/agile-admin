@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 10:24:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-26 17:00:43
+ * @LastEditTime: 2021-03-01 10:22:29
  */
 import service from '@U/request'
 import { IObject } from '@/utils/index.type'
@@ -29,7 +29,7 @@ export function pageList(params: IObject) {
  * @return {*}
  * @author: gumingchen
  */
-export function info (params: number) {
+export function info(params: number) {
   return service({
     url: `/admin/schedule/info/${params}`,
     method: 'get'
@@ -140,7 +140,7 @@ export function logPageList(params: IObject) {
  * @return {*}
  * @author: gumingchen
  */
-export function logInfo (params: number) {
+export function logErrorInfo(params: number) {
   return service({
     url: `/admin/scheduleLog/info/${params}`,
     method: 'get'
