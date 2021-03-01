@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-01 16:01:14
+ * @LastEditTime: 2021-03-01 16:27:38
  */
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { getIsGet, setAuth, setIsGet } from '@U/auth'
@@ -131,6 +131,7 @@ function addRoutes(menus: Array<IMenu> = [], routeList: Array<RouteRecordRaw> = 
 }
 
 router.beforeEach(async (to: RouteLocationNormalized, _from, next) => {
+  console.log(222222)
   NProgress.start()
   if (currentRouteType(to, global) === 'global' || getIsGet()) {
     next()

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-03-01 15:53:12
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-01 16:19:23
+ * @LastEditTime: 2021-03-01 16:27:58
 -->
 <template>
   <div class="base-container" :style="style">
@@ -27,12 +27,14 @@ export default class extends Vue {
   navbarHeight!: number
   @commonModule.State('tabsHeight')
   tabsHeight!: number
+  @commonModule.State('tabsDisplay')
+  tabsDisplay!: boolean
 
   protected url: string = ''
 
   get style(): IObject {
     const result: IObject = {
-      height: this.documentClientHeight - this.navbarHeight - this.tabsHeight + 'px'
+      height: `${this.documentClientHeight - this.navbarHeight - (this.tabsDisplay ? this.tabsHeight : 0)}px`
     }
     return result
   }
