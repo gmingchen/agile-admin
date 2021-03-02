@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 17:11:58
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-02 16:27:04
+ * @LastEditTime: 2021-03-02 17:02:58
 -->
 <template>
   <div class="tabs" :style="{ height: tabsHeight + 'px' }">
@@ -16,7 +16,7 @@
         <i class="el-icon-arrow-down el-icon--right"></i>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>刷新当前标签</el-dropdown-item>
+            <el-dropdown-item @click="refresh()">刷新当前标签</el-dropdown-item>
             <el-dropdown-item @click="del('current', tabsActive)" :disabled="isDisabled()">关闭当前标签</el-dropdown-item>
             <el-dropdown-item @click="del('left', tabsActive)" :disabled="isDisabled('left')">关闭至最左侧</el-dropdown-item>
             <el-dropdown-item @click="del('right', tabsActive)" :disabled="isDisabled('right')">关闭至最右侧</el-dropdown-item>
@@ -40,6 +40,9 @@ const tabsModule = namespace('tabs')
 export default class extends Vue {
   @commonModule.State('tabsHeight')
   tabsHeight!: number
+  @commonModule.Action('setContentRefresh')
+  setContentRefresh!: (arg: boolean) => void
+
   @tabsModule.State('tabsList')
   tabsList!: Array<ITab>
   @tabsModule.State('tabsActive')
@@ -85,6 +88,19 @@ export default class extends Vue {
   }
 
   /**
+   * @description: 刷新当前路由页
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
+  refresh(): void {
+    this.setContentRefresh(true)
+    this.$nextTick(() => {
+      this.setContentRefresh(false)
+    })
+  }
+
+  /**
    * @description: 删除事件
    * @param {string} type
    * @param {string} val
@@ -96,10 +112,15 @@ export default class extends Vue {
       type: type,
       value: val
     }
-    console.log(param)
     this.delTab(param)
   }
 
+  /**
+   * @description: 判断功能按键是否可以点击
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
   isDisabled(type: string): boolean {
     let result: boolean = false
     switch (type) {
@@ -124,7 +145,6 @@ export default class extends Vue {
         }
         break
     }
-
     return result
   }
 }

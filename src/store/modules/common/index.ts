@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 13:34:30
+ * @LastEditTime: 2021-03-02 17:01:40
  */
 import { ICommon } from './index.type'
 
@@ -30,7 +30,9 @@ export default {
     // 页头是否固定
     headerFixed: true,
     // 是否全屏
-    isFillScreen: false
+    isFillScreen: false,
+    // 是否需要刷新
+    contentRefresh: false,
   },
   getters: {
     documentClientHeight: (state: ICommon): number => state.documentClientHeight,
@@ -40,7 +42,8 @@ export default {
     tabsDisplay: (state: ICommon): boolean => state.tabsDisplay,
     sidebarOpend: (state: ICommon): boolean => state.sidebarOpend,
     headerFixed: (state: ICommon): boolean => state.headerFixed,
-    isFillScreen: (state: ICommon): boolean => state.isFillScreen
+    isFillScreen: (state: ICommon): boolean => state.isFillScreen,
+    contentRefresh: (state: ICommon): boolean => state.contentRefresh,
   },
   mutations: {
     SET_DOCUMENT_CLIENT_HEIGHT: (state: ICommon, documentClientHeight: number): void => {
@@ -66,6 +69,9 @@ export default {
     },
     SET_IS_FULL_SCREEN: (state: ICommon, isFillScreen: boolean): void => {
       state.isFillScreen = isFillScreen
+    },
+    SET_CONTENT_REFRESH: (state: ICommon, contentRefresh: boolean): void => {
+      state.contentRefresh = contentRefresh
     }
   },
   actions: {
@@ -93,6 +99,9 @@ export default {
     },
     setScreenFull({ commit }, isFillScreen: boolean): void {
       commit('SET_IS_FULL_SCREEN', isFillScreen)
+    },
+    setContentRefresh({ commit }, contentRefresh: boolean): void {
+      commit('SET_CONTENT_REFRESH', contentRefresh)
     }
   }
 }

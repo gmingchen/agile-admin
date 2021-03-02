@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-02 15:45:53
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 15:29:47
+ * @LastEditTime: 2021-03-02 17:00:39
 -->
 <template>
   <div class="main">
@@ -13,7 +13,7 @@
         <navbar />
         <tabs v-if="tabsDisplay" />
       </div>
-      <content />
+      <content v-if="!contentRefresh" />
     </el-scrollbar>
   </div>
 </template>
@@ -44,6 +44,8 @@ export default class extends Vue {
   headerFixed!: boolean
   @commonModule.State('tabsDisplay')
   tabsDisplay!: boolean
+  @commonModule.State('contentRefresh')
+  contentRefresh!: boolean
 
   get style(): IObject {
     let result: IObject = {}
