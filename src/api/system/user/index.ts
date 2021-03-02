@@ -1,10 +1,10 @@
 /*
- * @Description: 角色管理
+ * @Description: 管理员管理
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 10:24:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-02 15:59:35
+ * @LastEditTime: 2021-03-02 16:17:32
  */
 import service from '@U/request'
 import { IObject } from '@/utils/index.type'
@@ -17,7 +17,7 @@ import { IObject } from '@/utils/index.type'
  */
 export function pageList(params: IObject) {
   return service({
-    url: '/admin/role/page',
+    url: '/admin/user/page',
     method: 'get',
     params: params
   })
@@ -31,7 +31,7 @@ export function pageList(params: IObject) {
  */
 export function info(params: number) {
   return service({
-    url: `/admin/role/info/${params}`,
+    url: `/admin/user/info/${params}`,
     method: 'get'
   })
 }
@@ -44,7 +44,7 @@ export function info(params: number) {
  */
 export function save(params: IObject) {
   return service({
-    url: '/admin/role/save',
+    url: '/admin/user/save',
     method: 'post',
     data: params
   })
@@ -58,7 +58,7 @@ export function save(params: IObject) {
  */
 export function edit(params: IObject) {
   return service({
-    url: '/admin/role/update',
+    url: '/admin/user/update',
     method: 'post',
     data: params
   })
@@ -72,21 +72,8 @@ export function edit(params: IObject) {
  */
 export function del(params: number[]) {
   return service({
-    url: '/admin/role/delete',
+    url: '/admin/user/delete',
     method: 'post',
     data: params
-  })
-}
-
-/**
- * @description: 下拉列表
- * @param {IObject} params
- * @return {*}
- * @author: gumingchen
- */
-export function select() {
-  return service({
-    url: '/admin/role/select',
-    method: 'get'
   })
 }

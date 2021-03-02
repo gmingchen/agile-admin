@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-08 16:07:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 16:18:09
+ * @LastEditTime: 2021-03-02 16:10:04
  */
 
 /**
@@ -26,5 +26,14 @@ export function isEmail(input: string): boolean {
  */
 export function isURL(input: string): boolean {
   const reg: RegExp = /^http[s]?:\/\/.*/u
+  return reg.test(input)
+}
+
+/**
+ * 手机号码
+ * @param {*} input
+ */
+export function isMobile(input: string): boolean {
+  const reg: RegExp = /^1[0-9]{10}$/u
   return reg.test(input)
 }
