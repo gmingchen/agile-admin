@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-04 17:11:58
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-21 14:42:27
+ * @LastEditTime: 2021-03-02 16:27:04
 -->
 <template>
   <div class="tabs" :style="{ height: tabsHeight + 'px' }">
@@ -96,6 +96,7 @@ export default class extends Vue {
       type: type,
       value: val
     }
+    console.log(param)
     this.delTab(param)
   }
 

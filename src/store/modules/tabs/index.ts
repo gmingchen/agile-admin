@@ -4,9 +4,10 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 16:28:34
+ * @LastEditTime: 2021-03-02 16:42:58
  */
 import router from '@/router'
+import { IObject } from '@/utils/index.type'
 import { ITab, ITabDelParam, ITabs } from './index.type'
 export default {
   namespaced: true,
@@ -40,16 +41,17 @@ export default {
     ADD_TAB: (state: ITabs, tab: ITab): void => {
       state.tabsList.push(tab)
     },
-    DEL_TAB_BY_INDEX: (state: ITabs, index: number, number: number = 1): void => {
-      state.tabsList.splice(index, number)
+    DEL_TAB_BY_INDEX: (state: ITabs, arg: IObject): void => {
+      state.tabsList.splice(arg.index, arg.number)
     },
     SET_ACTIVE_INDEX: (state: ITabs, index: number): void => {
       state.activeIndex = index
     }
   },
   actions: {
-    setTabsActive({ commit }, tabsActive: string): void {
+    setTabsActive({ commit, dispatch }, tabsActive: string): void {
       commit('SET_TABS_ACTIVE', tabsActive)
+      dispatch('updateActiveIndex')
     },
     clickTab({ state, commit }): void {
       for (let i = 0; i < state.tabsList.length; i++) {
@@ -65,7 +67,7 @@ export default {
         }
       }
     },
-    addTab({ commit, state }, tab: ITab) {
+    addTab({ commit, dispatch, state }, tab: ITab) {
       if (tab.multiple) {
         commit('ADD_TAB', tab)
       } else {
@@ -78,6 +80,7 @@ export default {
         }
       }
       commit('SET_TABS_ACTIVE', tab.value)
+      dispatch('updateActiveIndex')
       router.push({
         name: tab.name,
         query: tab.query,
@@ -102,9 +105,15 @@ export default {
         params: {},
         closable: false
       }
+      const params = {
+        index: 0,
+        number: 0
+      }
       switch (arg.type) {
         case 'current':
-          commit('DEL_TAB_BY_INDEX', index, 1)
+          params.index = index
+          params.number = 1
+          commit('DEL_TAB_BY_INDEX', params)
           if (state.tabsList.length) {
             tab = state.tabsList[state.tabsList.length - 1]
           }
@@ -116,17 +125,22 @@ export default {
           })
           break
         case 'left':
-          commit('DEL_TAB_BY_INDEX', 0, index)
+          params.index = 0
+          params.number = index
+          commit('DEL_TAB_BY_INDEX', params)
           break
         case 'right':
-          commit('DEL_TAB_BY_INDEX', index + 1, state.tabsList.length - 1 - index)
+          params.index = index + 1
+          params.number = state.tabsList.length - 1 - index
+          commit('DEL_TAB_BY_INDEX', params)
           break
         case 'other':
           commit('SET_TABS_LIST', [state.tabsList[index]])
           break
       }
+      dispatch('updateActiveIndex')
     },
-    delAllTab({ commit }) {
+    delAllTab({ commit, dispatch }) {
       const tab = {
         label: '首页', // 名称
         value: 'home', // 主键
@@ -137,6 +151,16 @@ export default {
         closable: false // true：不可以关闭
       }
       commit('SET_TABS_LIST', [tab])
+      dispatch('updateActiveIndex')
+    },
+    updateActiveIndex({ state, commit }) {
+      for (let i = 0; i < state.tabsList.length; i++) {
+        const tab = state.tabsList[i]
+        if (tab.value === state.tabsActive) {
+          commit('SET_ACTIVE_INDEX', i)
+          break
+        }
+      }
     }
   }
 }
