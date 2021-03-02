@@ -4,11 +4,11 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 10:54:49
+ * @LastEditTime: 2021-03-02 17:20:12
 -->
 <template>
   <fog>
-    <el-card class="login-card">
+    <el-card class="login-card" v-loading="loading" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.2)">
       <el-form :model="form" :rules="rules" ref="formRef" @keyup.enter="submit()" class="form" status-icon>
         <el-form-item prop="username">
           <el-input v-model="form.username" placeholder="帐号">
@@ -66,6 +66,7 @@ export default class extends Vue {
   @userModule.Action('setToken')
   setToken!: (arg: string) => void
 
+  protected loading: boolean = false
   protected captchaPath: string = ''
   protected form = {
     username: 'test',
@@ -103,6 +104,7 @@ export default class extends Vue {
   submit(): void {
     this.$refs['formRef'].validate(async (valid: boolean) => {
       if (valid) {
+        this.loading = true
         const r = await login(this.form)
         if (r && r.code === 0) {
           this.setToken(r.token)
@@ -110,6 +112,7 @@ export default class extends Vue {
         } else {
           this.getCaptcha()
         }
+        this.loading = false
       }
     })
   }

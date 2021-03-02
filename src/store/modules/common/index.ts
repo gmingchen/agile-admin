@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-16 14:50:54
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-02 17:01:40
+ * @LastEditTime: 2021-03-02 17:20:56
  */
 import { ICommon } from './index.type'
 
@@ -32,7 +32,7 @@ export default {
     // 是否全屏
     isFillScreen: false,
     // 是否需要刷新
-    contentRefresh: false,
+    contentRefresh: false
   },
   getters: {
     documentClientHeight: (state: ICommon): number => state.documentClientHeight,
@@ -43,7 +43,7 @@ export default {
     sidebarOpend: (state: ICommon): boolean => state.sidebarOpend,
     headerFixed: (state: ICommon): boolean => state.headerFixed,
     isFillScreen: (state: ICommon): boolean => state.isFillScreen,
-    contentRefresh: (state: ICommon): boolean => state.contentRefresh,
+    contentRefresh: (state: ICommon): boolean => state.contentRefresh
   },
   mutations: {
     SET_DOCUMENT_CLIENT_HEIGHT: (state: ICommon, documentClientHeight: number): void => {
