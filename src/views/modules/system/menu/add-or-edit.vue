@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-02 13:43:13
+ * @LastEditTime: 2021-03-02 15:13:30
 -->
 <template>
   <el-dialog
@@ -106,7 +106,7 @@ export default class extends Vue {
     type: 1,
     typeList: ['目录', '菜单', '按钮'],
     name: '',
-    parentId: [0],
+    parentId: 0,
     parentName: '',
     url: '',
     perms: '',
@@ -121,6 +121,7 @@ export default class extends Vue {
   }
   protected menuList: Array<IObject> = []
   protected menuListProps = {
+    emitPath: false,
     checkStrictly: true,
     value: 'id',
     label: 'name',
@@ -183,7 +184,7 @@ export default class extends Vue {
           id: this.form.id || null,
           type: this.form.type,
           name: this.form.name,
-          parentId: typeof this.form.parentId === 'number' ? this.form.parentId : this.form.parentId[this.form.parentId.length - 1],
+          parentId: this.form.parentId,
           url: this.form.url,
           perms: this.form.perms,
           orderNum: this.form.orderNum,
