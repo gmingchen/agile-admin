@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-24 10:12:07
+ * @LastEditTime: 2021-03-03 11:08:37
 -->
 <template>
   <div class="base-container">
@@ -15,7 +15,7 @@
       <el-form-item>
         <el-button @click="getList()">查询</el-button>
         <el-button @click="clearJson(form), getList()">重置</el-button>
-        <el-button v-if="isAuth('sys:goodsmodel:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('sys:goodsmodel:save')" type="primary" @click="addOrEditHandle()">新增</el-button>
         <el-button v-if="isAuth('sys:goodsmodel:delete')" type="danger" @click="deleteHandle()" :disabled="selection.length <= 0">
           批量删除
         </el-button>
@@ -30,9 +30,9 @@
       <el-table-column header-align="center" align="center" label="创建时间" prop="create_time" width="160" />
       <el-table-column header-align="center" align="center" label="操作" width="210" fixed="right">
         <template v-slot="scope">
-          <!-- <el-button v-if="isAuth('sys:goodsspec:page')" type="text" size="small" @click="specHandle(scope.row.id)">查看规格</el-button>
+          <el-button v-if="isAuth('sys:goodsspec:page')" type="text" size="small" @click="specHandle(scope.row.id)">查看规格</el-button>
           <el-button v-if="isAuth('sys:goodsmodelattr:page')" type="text" size="small" @click="attrHandle(scope.row.id)">查看参数</el-button>
-          <el-button v-if="isAuth('sys:goodsmodel:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">修改</el-button> -->
+          <el-button v-if="isAuth('sys:goodsmodel:update')" type="text" size="small" @click="addOrEditHandle(scope.row.id)">修改</el-button>
           <el-button v-if="isAuth('sys:goodsmodel:delete')" type="text" size="small" @click="delHandle(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
@@ -49,6 +49,9 @@
       layout="total, sizes, prev, pager, next, jumper"
     >
     </el-pagination>
+    <add-or-edit ref="addOrEdit" v-if="visible" @refresh="getList" />
+    <attr ref="attr" v-if="attrVisible" @refresh="getList"></attr>
+    <spec ref="spec" v-if="specVisible" @refresh="getList"></spec>
   </div>
 </template>
 
@@ -58,9 +61,18 @@ import { isAuth } from '@U/auth'
 import { $clearJson } from '@U/index'
 import { IObject } from '@/utils/index.type'
 import { pageList, del } from '@API/commodity/model/index'
+import AddOrEdit from './add-or-edit.vue'
+import Attr from '../attr/index.vue'
+import Spec from '../spec/index.vue'
 
-@Options({})
+@Options({
+  components: { AddOrEdit, Attr, Spec }
+})
 export default class extends Vue {
+  $refs!: {
+    [key: string]: HTMLFormElement
+  }
+
   protected form = {
     name: ''
   }
@@ -72,6 +84,10 @@ export default class extends Vue {
   }
   protected list: Array<IObject> = []
   protected selection: Array<IObject> = []
+  protected loading: boolean = false
+  protected visible: boolean = false
+  protected attrVisible: boolean = false
+  protected specVisible: boolean = false
 
   activated() {
     this.getList()
@@ -100,6 +116,45 @@ export default class extends Vue {
         this.list = []
         this.page.total = 0
       }
+    })
+  }
+
+  /**
+   * @description: 新增/编辑弹窗
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
+  addOrEditHandle(id: number): void {
+    this.visible = true
+    this.$nextTick(() => {
+      this.$refs.addOrEdit.init(id)
+    })
+  }
+
+  /**
+   * @description: 模型参数弹窗
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
+  attrHandle(id: number): void {
+    this.attrVisible = true
+    this.$nextTick(() => {
+      this.$refs.attr.init(id)
+    })
+  }
+
+  /**
+   * @description: 模型参数弹窗
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
+  specHandle(id: number): void {
+    this.specVisible = true
+    this.$nextTick(() => {
+      this.$refs.spec.init(id)
     })
   }
 
