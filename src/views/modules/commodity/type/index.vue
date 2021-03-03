@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-03 13:48:48
+ * @LastEditTime: 2021-03-03 15:38:33
 -->
 <template>
   <div class="base-container">
@@ -17,9 +17,7 @@
         <el-button @click="clearJson(form), getList()">重置</el-button>
         <el-button type="primary" @click="levelHandle()" :disabled="form.parentId === 0">查看上级</el-button>
         <el-button v-if="isAuth('sys:goodstype:save')" type="primary" @click="addOrEditHandle()">新增</el-button>
-        <el-button v-if="isAuth('sys:goodstype:delete')" type="danger" @click="deleteHandle()" :disabled="selection.length <= 0">
-          批量删除
-        </el-button>
+        <el-button v-if="isAuth('sys:goodstype:delete')" type="danger" @click="delHandle()" :disabled="selection.length <= 0">批量删除 </el-button>
       </el-form-item>
     </el-form>
     <el-table class="base-table" :data="list" border @selection-change="selectionHandle">

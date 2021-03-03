@@ -1,10 +1,10 @@
 /*
- * @Description: 商品模型
+ * @Description: 商品
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 10:24:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-03 15:24:39
+ * @LastEditTime: 2021-03-03 15:29:29
  */
 import service from '@U/request'
 import { IObject } from '@/utils/index.type'
@@ -17,7 +17,7 @@ import { IObject } from '@/utils/index.type'
  */
 export function pageList(params: IObject) {
   return service({
-    url: '/admin/goodstype/page',
+    url: '/admin/goods/page',
     method: 'get',
     params: params
   })
@@ -31,7 +31,7 @@ export function pageList(params: IObject) {
  */
 export function info(params: IObject) {
   return service({
-    url: '/admin/goodstype/info',
+    url: '/admin/goods/info',
     method: 'get',
     params: params
   })
@@ -45,7 +45,7 @@ export function info(params: IObject) {
  */
 export function save(params: IObject) {
   return service({
-    url: '/admin/goodstype/save',
+    url: '/admin/goods/save',
     method: 'post',
     data: params
   })
@@ -59,7 +59,7 @@ export function save(params: IObject) {
  */
 export function edit(params: IObject) {
   return service({
-    url: '/admin/goodstype/update',
+    url: '/admin/goods/update',
     method: 'post',
     data: params
   })
@@ -73,50 +73,36 @@ export function edit(params: IObject) {
  */
 export function del(params: number[]) {
   return service({
-    url: '/admin/goodstype/delete',
+    url: '/admin/goods/delete',
     method: 'post',
     data: params
   })
 }
 
 /**
- * @description: 是否显示
- * @param {IObject} params
+ * @description: 上下架
+ * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function display(params: IObject) {
+export function status(params: IObject) {
   return service({
-    url: '/admin/goodstype/display',
+    url: '/admin/goods/status',
     method: 'post',
     data: params
   })
 }
 
 /**
- * @description: 下拉选择
- * @param {IObject} params
+ * @description: 推荐
+ * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function select(params: IObject) {
+export function recommended(params: IObject) {
   return service({
-    url: '/admin/goodstype/select',
-    method: 'get',
-    params: params
-  })
-}
-
-/**
- * @description: 分类查询模型
- * @param {IObject} params
- * @return {*}
- * @author: gumingchen
- */
-export function typeModel(params: IObject) {
-  return service({
-    url: '/admin/goodstype/model',
-    method: 'get',
-    params: params
+    url: '/admin/goods/recommended',
+    method: 'post',
+    data: params
   })
 }
