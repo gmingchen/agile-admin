@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-01 16:54:35
+ * @LastEditTime: 2021-03-03 16:48:28
  */
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { getIsGet, setAuth, setIsGet } from '@U/auth'
@@ -135,7 +135,6 @@ router.beforeEach(async (to: RouteLocationNormalized, _from, next) => {
     // 添加 404 重定向
     router.addRoute({ path: '/:pathMatch(.*)', redirect: { name: '404' } })
   }
-  
   if (currentRouteType(to, global) === 'global' || getIsGet()) {
     next()
   } else {
