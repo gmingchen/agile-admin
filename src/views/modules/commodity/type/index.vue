@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-22 09:08:38
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-03 15:38:33
+ * @LastEditTime: 2021-03-04 08:55:14
 -->
 <template>
   <div class="base-container">
@@ -159,23 +159,21 @@ export default class extends Vue {
    * @author: gumingchen
    */
   displayHandle(data: IObject): void {
-    if (data.id) {
-      const params = {
-        id: data.id,
-        display: data.display
-      }
-      display(params).then(r => {
-        if (r && r.code === 0) {
-          this['$message']({
-            message: '操作成功',
-            type: 'success',
-            duration: 1500
-          })
-        } else {
-          this.getList()
-        }
-      })
+    const params = {
+      id: data.id,
+      display: data.display
     }
+    display(params).then(r => {
+      if (r && r.code === 0) {
+        this['$message']({
+          message: '操作成功',
+          type: 'success',
+          duration: 1500
+        })
+      } else {
+        this.getList()
+      }
+    })
   }
 
   // 级别切换
