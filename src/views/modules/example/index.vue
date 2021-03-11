@@ -2,6 +2,8 @@
   <div class="base-container">
     <svg-icon name="menu-home"></svg-icon>
     <hr />
+    <el-button @click="Lang">{{ $t('message.text') }}</el-button>
+    <hr />
     <el-button type="primary" @click="Loading" ref="load">Loading</el-button>
     <hr />
     <el-button type="primary" @click="Message">Message</el-button>
@@ -35,6 +37,11 @@ export default class extends Vue {
       background: 'rgba(0, 0, 0, 0.0)',
       customClass: ''
     })
+  }
+
+  Lang(): void {
+    // to do something
+    this['$i18n'].locale = this['$i18n'].locale === 'cn' ? 'en' : 'cn'
   }
 
   Loading(): void {
