@@ -18,7 +18,3 @@ const i18n = createI18n({
 ElementLocale.i18n(i18n.global.t)
 
 export default i18n
-
-// export default {
-//   install: function (app: any): void {}
-// }
