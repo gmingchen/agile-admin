@@ -20,7 +20,7 @@ import { ILoginParams } from './index.type'
 export function getCaptcha(params: IObject): string {
   let result: string = ''
   const options: IObject = {
-    url: '/captcha.jpg',
+    url: '/base/captcha.jpg',
     method: 'get',
     params: params
   }
