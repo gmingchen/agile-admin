@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-04 15:15:52
+ * @LastEditTime: 2021-04-18 16:24:06
  */
 import { $parseJson2Param } from '@/utils'
 import { IObject } from '@/utils/index.type'
@@ -20,7 +20,7 @@ import { ILoginParams } from './index.type'
 export function getCaptcha(params: IObject): string {
   let result: string = ''
   const options: IObject = {
-    url: '/base/captcha.jpg',
+    url: '/captcha.jpg',
     method: 'get',
     params: params
   }
