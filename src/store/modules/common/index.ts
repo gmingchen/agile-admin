@@ -1,107 +1,93 @@
 /*
- * @Description: 布局设置
+ * @Description:
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
- * @Date: 2020-12-16 14:50:54
+ * @Date: 2021-04-06 13:58:51
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-02 17:20:56
+ * @LastEditTime: 2021-04-21 15:24:45
  */
-import { ICommon } from './index.type'
+import { LanguageType } from '@/utils/index.type'
+import { clear, exit, getLanguage, setLanguage } from '@/utils/storage'
+import { ActionContext } from 'vuex'
+import { ICommonState } from './index.type'
 
 export default {
-  namespaced: true,
   state: {
-    // 页面文档可视高度(随窗口改变大小)
-    documentClientHeight: 0,
-    // 侧边栏宽度
-    sidebarWidth: 200,
-    // 侧边栏展开宽度
-    sidebarOpenWidth: 200,
-    // 侧边栏折叠宽度
-    sidebarFoldWidth: 64,
-    // 顶部导航高度
-    navbarHeight: 50,
-    // 标签栏高度
-    tabsHeight: 40,
-    // 标签栏是否显示
-    tabsDisplay: true,
-    // 侧边栏是否打开
-    sidebarOpend: true,
-    // 页头是否固定
-    headerFixed: true,
-    // 是否全屏
-    isFillScreen: false,
-    // 是否需要刷新
-    contentRefresh: false
+    document: {
+      clientHeight: 0 // 页面文档可视高度(随窗口改变大小)
+    },
+    sidebar: {
+      width: 200, // 侧边栏宽度 // todo: 需要与sidebar 组件css 样式保持一致
+      openWidth: 200, // 侧边栏展开宽度 // todo: 需要与sidebar 组件css 样式保持一致
+      foldWidth: 64 // 侧边栏折叠宽度 // todo: 这个为 element menu 组件 默认折叠宽度
+    },
+    navbar: {
+      headHeight: 50, // 导航头部高度
+      tabsHeight: 50, // 标签栏高度
+      fixed: true, // 是否固定
+      tabsDisplay: true // 标签栏是否显示
+    },
+    set: {
+      language: getLanguage() || LanguageType.Chinese, // 语言 默认中文
+      fullScreen: false, // 是否全屏
+      refresh: false // 用于组件刷新
+    }
   },
   getters: {
-    documentClientHeight: (state: ICommon): number => state.documentClientHeight,
-    sidebarWidth: (state: ICommon): number => state.sidebarWidth,
-    navbarHeight: (state: ICommon): number => state.navbarHeight,
-    tabsHeight: (state: ICommon): number => state.tabsHeight,
-    tabsDisplay: (state: ICommon): boolean => state.tabsDisplay,
-    sidebarOpend: (state: ICommon): boolean => state.sidebarOpend,
-    headerFixed: (state: ICommon): boolean => state.headerFixed,
-    isFillScreen: (state: ICommon): boolean => state.isFillScreen,
-    contentRefresh: (state: ICommon): boolean => state.contentRefresh
+    language: (state: ICommonState): string => {
+      return state.set.language
+    }
   },
   mutations: {
-    SET_DOCUMENT_CLIENT_HEIGHT: (state: ICommon, documentClientHeight: number): void => {
-      state.documentClientHeight = documentClientHeight
+    SET_DOCUMENT_CLIENT_HEIGHT: (state: ICommonState, clientHeight: number): void => {
+      state.document.clientHeight = clientHeight
     },
-    SET_SIDEBAR_WIDTH: (state: ICommon, sidebarWidth: number): void => {
-      state.sidebarWidth = sidebarWidth
+    SET_SIDEBAR_WIDTH: (state: ICommonState, width: number): void => {
+      state.sidebar.width = width
     },
-    SET_NAVBAR_HEIGHT: (state: ICommon, navbarHeight: number): void => {
-      state.navbarHeight = navbarHeight
+    SET_LANGUAGE: (state: ICommonState, language: string): void => {
+      state.set.language = language
     },
-    SET_TABS_HEIGHT: (state: ICommon, tabsHeight: number): void => {
-      state.tabsHeight = tabsHeight
+    SET_FULL_SCREEN: (state: ICommonState, fullScreen: boolean): void => {
+      state.set.fullScreen = fullScreen
     },
-    SET_TAVS_DISPLAY: (state: ICommon, tabsDisplay: boolean): void => {
-      state.tabsDisplay = tabsDisplay
-    },
-    SET_SIDEBAR_OPEND: (state: ICommon, sidebarOpend: boolean): void => {
-      state.sidebarOpend = sidebarOpend
-    },
-    SET_HEADER_FIXED: (state: ICommon, headerFixed: boolean): void => {
-      state.headerFixed = headerFixed
-    },
-    SET_IS_FULL_SCREEN: (state: ICommon, isFillScreen: boolean): void => {
-      state.isFillScreen = isFillScreen
-    },
-    SET_CONTENT_REFRESH: (state: ICommon, contentRefresh: boolean): void => {
-      state.contentRefresh = contentRefresh
+    SET_REFRESH: (state: ICommonState, refresh: boolean): void => {
+      state.set.refresh = refresh
     }
   },
   actions: {
-    setDocunentClientHeight({ commit }, documentClientHeight: number): void {
-      commit('SET_DOCUMENT_CLIENT_HEIGHT', documentClientHeight)
+    setDocunentClientHeight({ commit }: ActionContext<ICommonState, null>, clientHeight: number): void {
+      commit('SET_DOCUMENT_CLIENT_HEIGHT', clientHeight)
     },
-    setSidebarWidth({ commit }, sidebarWidth: number): void {
-      commit('SET_SIDEBAR_WIDTH', sidebarWidth)
-    },
-    setTabsDisplay({ commit }, tabsDisplay: boolean): void {
-      commit('SET_TAVS_DISPLAY', tabsDisplay)
-    },
-    setSidebarOpend({ commit, state }, sidebarOpend: boolean): void {
-      commit('SET_SIDEBAR_OPEND', sidebarOpend)
-      let width: number
-      if (sidebarOpend) {
-        width = state.sidebarOpenWidth
+    setSidebarWidth({ commit, state }: ActionContext<ICommonState, null>, isCollapse: boolean = false): void {
+      if (isCollapse) {
+        commit('SET_SIDEBAR_WIDTH', state.sidebar.foldWidth)
       } else {
-        width = state.sidebarFoldWidth
+        commit('SET_SIDEBAR_WIDTH', state.sidebar.openWidth)
       }
-      commit('SET_SIDEBAR_WIDTH', width)
     },
-    setHeaderFixed({ commit }, headerFixed: boolean): void {
-      commit('SET_HEADER_FIXED', headerFixed)
+    setLanguage({ commit }: ActionContext<ICommonState, null>, language: string): void {
+      setLanguage(language)
+      commit('SET_LANGUAGE', language)
     },
-    setScreenFull({ commit }, isFillScreen: boolean): void {
-      commit('SET_IS_FULL_SCREEN', isFillScreen)
+    setFullScreen({ commit }: ActionContext<ICommonState, null>, fullScreen: boolean = false): void {
+      commit('SET_FULL_SCREEN', fullScreen)
     },
-    setContentRefresh({ commit }, contentRefresh: boolean): void {
-      commit('SET_CONTENT_REFRESH', contentRefresh)
+    setRefresh({ commit }: ActionContext<ICommonState, null>, refresh: boolean = false): void {
+      commit('SET_REFRESH', refresh)
+    },
+    clearStore({ dispatch }: ActionContext<ICommonState, null>, type: boolean = false): void {
+      dispatch('user/clear', { type: type }, { root: true })
+      dispatch('menu/clear', {}, { root: true })
+    },
+    clear({ dispatch }: ActionContext<ICommonState, null>): void {
+      clear()
+      dispatch('clearStore', false)
+      window.location.reload()
+    },
+    exit({ dispatch }: ActionContext<ICommonState, null>): void {
+      exit()
+      dispatch('clearStore', true)
     }
   }
 }

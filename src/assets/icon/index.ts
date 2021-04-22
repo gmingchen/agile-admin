@@ -10,9 +10,9 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-15 08:45:46
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-01-27 14:46:36
+ * @LastEditTime: 2021-04-21 16:45:30
  */
-const requireAll = requireContext => requireContext.keys().map(requireContext)
+const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().map(requireContext)
 const req = require.context('./svg', false, /\.svg$/u)
 requireAll(req)
 
@@ -23,7 +23,7 @@ const iconList: string[] = svgFiles.keys().map((item: string): string => {
 
 export default {
   // 获取图标(*).svg名称列表, 例如[shouye, xitong, zhedie, ...]
-  getNameList(): string[] {
+  getNames (): string[] {
     return iconList
   }
 }

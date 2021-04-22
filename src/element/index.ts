@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /*
  * @Description: element-plus 按需加载 将不需要的组件注释掉
  * @Author: gumingchen
@@ -6,8 +7,8 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-02-26 10:14:24
  */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import 'element-plus/lib/theme-chalk/index.css'
+import { IApp } from '@/utils/index.type'
 
 import {
   ElAlert,
@@ -191,7 +192,7 @@ const components = [
 const plugins = [ElInfiniteScroll, ElLoading, ElMessage, ElMessageBox, ElNotification]
 
 export default {
-  install: function (app: any): void {
+  install: function (app: IApp): void {
     components.forEach(component => {
       app.component(component.name, component)
     })
@@ -199,7 +200,7 @@ export default {
       app.use(plugin)
     })
     const option = {
-      size: 'small',
+      size: 'medium',
       zIndex: 2000
     }
     app.config.globalProperties.$ELEMENT = option

@@ -9,9 +9,11 @@
 import { createI18n } from 'vue-i18n'
 import ElementLocale from 'element-plus/lib/locale'
 import messages from './langs'
+import store from '@/store'
 
 const i18n = createI18n({
-  locale: localStorage.lang || 'cn', // 初始未选择默认 cn 中文
+  locale: store.getters['common/language'], // 初始语言设置
+  fallbackLocale: 'cn',
   messages
 })
 

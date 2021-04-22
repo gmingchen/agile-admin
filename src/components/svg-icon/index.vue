@@ -7,7 +7,12 @@
  * @LastEditTime: 2021-02-21 13:22:59
 -->
 <template>
-  <svg aria-hidden="true" :class="iconClass" :width="size" :height="size" :color="color">
+  <svg
+    aria-hidden="true"
+    :class="iconClass"
+    :width="size"
+    :height="size"
+    :color="color">
     <use :xlink:href="iconName" />
   </svg>
 </template>
@@ -33,16 +38,16 @@ import { Prop } from 'vue-property-decorator'
 export default class extends Vue {
   // icon 名称 必传
   @Prop(String)
-  name!: string
+  readonly name!: string
   // 自定义class name
   @Prop({ type: String, default: '' })
-  svgClass?: string
+  readonly svgClass?: string
   // size 大小
   @Prop({ type: String, default: '16px' })
-  size?: string
+  readonly size?: string
   // color 颜色
   @Prop({ type: String, default: '' })
-  color?: string
+  readonly color?: string
 
   /**
    * @description: 名称处理
@@ -50,8 +55,8 @@ export default class extends Vue {
    * @return {*}
    * @author: gumingchen
    */
-  get iconName(): string {
-    const result: string = `#icon-${this.name}`
+  get iconName (): string {
+    const result: string = `#${ this.name }`
     return result
   }
 
@@ -61,7 +66,7 @@ export default class extends Vue {
    * @return {*}
    * @author: gumingchen
    */
-  get iconClass(): string {
+  get iconClass (): string {
     let result: string
     if (this.svgClass) {
       result = 'svg-icon-set ' + this.svgClass

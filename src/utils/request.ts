@@ -4,60 +4,30 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-24 10:19:53
+ * @LastEditTime: 2021-04-17 13:20:12
  */
 'use strict'
 import axios from 'axios'
 import qs from 'qs'
-import _ from 'lodash'
-import store from '@/store/index'
-import { ContentType, PromptComponentType } from '@/config/index.type'
-import { timeout, contentType, successCode, promptComponent, promptMessage, promptDuration, loadSwitch, loadTimeout, loadOptions } from '@C/index'
-import { ElMessage, ElNotification, ElMessageBox, ElLoading } from 'element-plus'
 import router from '@/router'
-
-let loadingService
+import store from '@/store'
+import { ElMessage } from 'element-plus'
+import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, TOKEN_KEY } from './constants'
+import { ContentType } from './index.type'
+import { IResponse } from '@/api/index.type'
 
 /**
- * @description: loading
- * @param {*}
+ * @description: 异常消息提示
+ * @param {string} string
  * @return {*}
  * @author: gumingchen
  */
-const loadHandle = (): void => {
-  if (loadSwitch) {
-    loadingService = ElLoading.service(loadOptions)
-  }
-}
-
-/**
- * 异常消息提示
- * @param msg
- */
-const prompt = (msg: string | ''): void => {
-  switch (promptComponent) {
-    case PromptComponentType.MESSAGE:
-      ElMessage({
-        message: msg,
-        type: promptMessage,
-        duration: promptDuration
-      })
-      break
-    case PromptComponentType.NOTIFY:
-      ElNotification({
-        message: msg,
-        type: promptMessage,
-        duration: promptDuration
-      })
-      break
-    case PromptComponentType.ALERT:
-      ElMessageBox({
-        message: msg,
-        type: promptMessage,
-        showConfirmButton: true
-      })
-      break
-  }
+const prompt = (message?: string): void => {
+  ElMessage({
+    message: message,
+    type: 'warning',
+    duration: 3000
+  })
 }
 
 /**
@@ -67,16 +37,17 @@ const prompt = (msg: string | ''): void => {
  * @return {*}
  * @author: gumingchen
  */
-const codeHandle = (code: number | null, msg: string | ''): void => {
+const codeHandle = (code?: number, message?: string): void => {
   switch (code) {
-    case 401:
-      prompt(msg)
-      router.push({
+    case 5001:
+    case 5005:
+      prompt(message)
+      router.replace({
         name: 'login'
       })
       break
-    case 500:
-      prompt(msg)
+    default:
+      prompt(message)
       break
   }
 }
@@ -89,9 +60,9 @@ const codeHandle = (code: number | null, msg: string | ''): void => {
  */
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
-  timeout: timeout,
+  timeout: TIME_OUT,
   headers: {
-    'Content-Type': contentType
+    'Content-Type': CONTENT_TYPE
   }
 })
 
@@ -103,13 +74,11 @@ const service = axios.create({
  */
 service.interceptors.request.use(
   config => {
-    loadHandle()
-    if (store.getters['user/token']) {
-      config.headers['token'] = store.getters['user/token']
+    const tokenVal = store.getters['user/tokenVal']
+    if (tokenVal) {
+      config.headers[TOKEN_KEY] = tokenVal
     }
     if (config.data) {
-      // 过滤 key
-      // config.data = _.pickBy(config.data, _.identity)
       if (config.headers['Content-Type'] === ContentType.FORM) {
         config.data = qs.stringify(config.data)
       }
@@ -130,18 +99,13 @@ service.interceptors.request.use(
  */
 service.interceptors.response.use(
   response => {
-    if (loadSwitch) {
-      setTimeout(() => {
-        loadingService.close()
-      }, loadTimeout)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { code, message }: IResponse<any> = response.data
+    if (!SUCCESS_CODE.includes(code)) {
+      codeHandle(code, message)
+      return null
     }
-    const { code, msg } = response.data
-    if (successCode.includes(code)) {
-      return response.data
-    } else {
-      codeHandle(code, msg)
-      return response.data || ''
-    }
+    return response.data || null
   },
   error => {
     if (error && error.response) {
@@ -150,7 +114,6 @@ service.interceptors.response.use(
           console.log('错误请求')
           break
         case 401:
-          store.dispatch('user/clearToken')
           console.log('未授权，请重新登录')
           break
         case 403:
@@ -196,7 +159,7 @@ service.interceptors.response.use(
           console.log('http版本不支持该请求')
           break
         default:
-          console.log(`连接错误${error.response.status}`)
+          console.log(`连接错误${ error.response.status }`)
       }
     } else {
       console.log('连接到服务器失败')

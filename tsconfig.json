@@ -3,7 +3,6 @@
     "target": "esnext",
     "module": "esnext",
     "strict": true,
-    "noImplicitAny": false,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
@@ -18,13 +17,9 @@
     ],
     "paths": {
       "@/*": ["src/*"],
-      "@C/*": ["src/config/*"],
-      "@API/*": ["src/api/*"],
-      "@AST/*": ["src/assets/*"],
-      "@U/*": ["src/utils/*"],
-      "@V/*": ["src/views/*"],
       "@SASS/*": ["src/assets/sass/*"],
-      "@D/*": ["src/decorator/*"]
+      "@IMG/*": ["src/assets/images/*"],
+      "@V/*": ["src/views/*"]
     },
     "lib": [
       "esnext",
@@ -38,9 +33,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx",
-    "src/assets/images/images.d.ts",
-    "src/api/axios.d.ts"
+    "tests/**/*.tsx"
   ],
   "exclude": [
     "node_modules"

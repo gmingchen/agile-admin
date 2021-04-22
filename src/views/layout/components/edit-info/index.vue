@@ -4,113 +4,175 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-05 15:11:00
+ * @LastEditTime: 2021-04-21 18:50:35
 -->
 <template>
-  <el-dialog width="500px" title="修改密码" v-model="visible" :close-on-click-modal="false">
-    <el-form :model="form" :rules="rules" ref="formRef" @keyup.enter="submit()" label-width="80px">
-      <el-form-item label="账号">
-        <span>{{ username }}</span>
+  <el-dialog
+    width="500px"
+    :title="$t('button.edit')"
+    v-model="visible"
+    :close-on-click-modal="false"
+    @closed="dialogClosedHandle">
+    <el-form
+      :model="form"
+      :rules="rules"
+      ref="formR"
+      @keyup.enter="submit()"
+      label-position="top">
+      <el-form-item :label="$t('field.account')">
+        <el-input v-model="user.username" :placeholder="$t('field.account')" readonly />
       </el-form-item>
-      <el-form-item label="原密码" prop="password">
-        <el-input type="password" v-model="form.password"></el-input>
+      <el-form-item :label="$t('field.nickname')" prop="nickname">
+        <el-input v-model="form.nickname" :placeholder="$t('field.nickname')" />
       </el-form-item>
-      <el-form-item label="新密码" prop="newPassword">
-        <el-input type="password" v-model="form.newPassword"></el-input>
+      <el-form-item :label="$t('field.mobile')" prop="mobile">
+        <el-input v-model="form.mobile" :placeholder="$t('field.mobile')" />
       </el-form-item>
-      <el-form-item label="确认密码" prop="confirmPassword">
-        <el-input type="password" v-model="form.confirmPassword"></el-input>
+      <el-form-item :label="$t('field.email')" prop="email">
+        <el-input v-model="form.email" :placeholder="$t('field.email')" />
+      </el-form-item>
+      <el-form-item :label="$t('field.oldPassword')" prop="oldPassword">
+        <el-input v-model="form.oldPassword" :placeholder="$t('field.oldPassword')" show-password />
+      </el-form-item>
+      <el-form-item :label="$t('field.newPassword')" prop="newPassword">
+        <el-input v-model="form.newPassword" :placeholder="$t('field.newPassword')" show-password />
+      </el-form-item>
+      <el-form-item :label="$t('field.confirmPassword')" prop="confirmPassword">
+        <el-input v-model="form.confirmPassword" :placeholder="$t('field.confirmPassword')" show-password />
       </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="visible = false">取 消</el-button>
-        <el-button type="primary" @click="submit()">确 定</el-button>
+        <el-button @click="visible = false">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" @click="submit()">{{ $t('button.confirm') }}</el-button>
       </span>
     </template>
   </el-dialog>
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
-import { Model } from 'vue-property-decorator'
+import { Vue } from 'vue-class-component'
 import { namespace } from 'vuex-class'
-import { UPDATE_MODEL_EVENT } from '@U/constants'
-import { editUserInfo } from '@API/common/index'
+import { IObject } from '@/utils/index.type'
+import { isEmail, isMobile } from '@/utils/regular'
+import { editUserInfo, getUserInfo } from '@/api/login'
+import { IUser } from '@/api/login/index.type'
 
 const userModule = namespace('user')
 
-@Options({
-  emits: [UPDATE_MODEL_EVENT]
-})
 export default class extends Vue {
-  @Model(UPDATE_MODEL_EVENT, { type: Boolean })
-  modelValue!: boolean
+  @userModule.State('user')
+  readonly user!: IUser
 
-  @userModule.State('username')
-  username!: string
+  @userModule.Action('setUser')
+  setUser!: (arg: IUser) => void
 
-  $refs!: {
-    [key: string]: HTMLFormElement
-  }
-
-  get visible(): boolean {
-    return this.modelValue
-  }
-  set visible(val: boolean) {
-    this.$emit(UPDATE_MODEL_EVENT, val)
-  }
-
-  protected checkConfirmPassword = (_rule: unknown, value: string, callback: (arg?: Error | undefined) => void) => {
-    if (this.form.newPassword !== value) {
-      callback(new Error('确认密码与新密码不一致'))
-    } else {
-      callback()
-    }
-  }
+  protected visible: boolean = false
 
   protected form = {
-    password: '',
+    nickname: '',
+    mobile: '',
+    email: '',
+    oldPassword: '',
     newPassword: '',
     confirmPassword: ''
   }
-  protected rules = {
-    password: [{ required: true, message: '原密码不能为空', trigger: 'blur' }],
-    newPassword: [{ required: true, message: '新密码不能为空', trigger: 'blur' }],
-    confirmPassword: [
-      { required: true, message: '确认密码不能为空', trigger: 'blur' },
-      { validator: this.checkConfirmPassword, trigger: 'blur' }
-    ]
+  get rules(): IObject {
+    const checkMobile = (_rule: unknown, value: string, callback: (arg?: Error | undefined) => void): void => {
+      if (this.form.mobile !== '' && !isMobile(value)) {
+        callback(new Error(this.$t('rule.incorrect', [this.$t('field.mobile')])))
+      } else {
+        callback()
+      }
+    }
+    const checkEmail = (_rule: unknown, value: string, callback: (arg?: Error | undefined) => void): void => {
+      if (this.form.mobile !== '' && !isEmail(value)) {
+        callback(new Error(this.$t('rule.incorrect', [this.$t('field.email')])))
+      } else {
+        callback()
+      }
+    }
+    const checkOldPassword = (_rule: unknown, value: string, callback: (arg?: Error | undefined) => void): void => {
+      if (this.form.newPassword !== '' && value === '') {
+        callback(new Error(this.$t('rule.notBlank', [this.$t('field.oldPassword')])))
+      } else {
+        callback()
+      }
+    }
+    const checkConfirmPassword = (_rule: unknown, value: string, callback: (arg?: Error | undefined) => void): void => {
+      if (this.form.newPassword !== value) {
+        callback(new Error(this.$t('rule.notConsistent', [this.$t('field.confirmPassword'), this.$t('field.newPassword')])))
+      } else {
+        callback()
+      }
+    }
+    const rules = {
+      nickname: [{ required: true, message: this.$t('rule.notBlank', [this.$t('field.nickname')]), trigger: 'blur' }],
+      mobile: [{ validator: checkMobile, trigger: 'blur' }],
+      email: [{ validator: checkEmail, trigger: 'blur' }],
+      oldPassword: [{ validator: checkOldPassword, trigger: 'blur' }],
+      confirmPassword: [{ validator: checkConfirmPassword, trigger: 'blur' }]
+    }
+    this.$nextTick(() => {
+      this.$refs.formR.clearValidate()
+    })
+    return rules
   }
 
-  submit() {
-    this.$refs['formRef'].validate(async (valid: boolean) => {
+  init(): void {
+    this.visible = true
+    this.form.nickname = this.user.nickname
+    this.form.mobile = this.user.mobile
+    this.form.email = this.user.email
+  }
+
+  /**
+   * @description: 表单验证提交
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
+  submit(): void {
+    this.$refs.formR.validate(async (valid: boolean) => {
       if (valid) {
         const params = {
-          password: this.form.password,
-          newPassword: this.form.newPassword
+          nickname: this.form.nickname,
+          mobile: this.form.mobile,
+          email: this.form.email,
+          old_password: this.form.oldPassword,
+          new_password: this.form.newPassword
         }
         const r = await editUserInfo(params)
-        if (r && r.code === 0) {
+        if (r) {
           this.visible = false
-          this['$message']({
-            message: '操作成功',
+          this.$message({
+            message: this.$t('tip.success'),
             type: 'success',
             onClose: () => {
-              this.$nextTick(() => {
+              if (r.data === 1) {
                 this.$router.replace({ name: 'login' })
-              })
+              } else {
+                getUserInfo().then(res => {
+                  if (res && res.code === 0) {
+                    this.setUser(res.data)
+                  }
+                })
+              }
             }
           })
         }
       }
     })
   }
+
+  /**
+   * @description: 弹窗关闭动画结束时的回调
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
+  dialogClosedHandle(): void {
+    this.$refs['formR'].resetFields()
+  }
 }
 </script>
-
-<style lang="scss" scoped>
-* {
-  text-align: left;
-}
-</style>

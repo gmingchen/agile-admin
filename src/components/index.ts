@@ -8,12 +8,11 @@
  */
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+import { IApp } from '@/utils/index.type'
 const path = require('path')
 
 export default {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  install: function (app: any) {
+  install: function (app: IApp): void {
     const globalComponents = require.context('./', true, /index\.(vue|js)$/iu)
     globalComponents.keys().forEach((filePath: string): void => {
       const component = globalComponents(filePath)

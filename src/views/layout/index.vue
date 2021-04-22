@@ -2,51 +2,88 @@
  * @Description:
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
- * @Date: 2020-12-17 09:56:55
+ * @Date: 2021-04-03 23:39:44
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-22 15:30:36
+ * @LastEditTime: 2021-04-21 17:36:39
 -->
 <template>
-  <div>
+  <el-container>
     <sidebar class="sidebar" />
-    <Main class="main" :style="{ height: documentClientHeight + 'px', 'margin-left': sidebarWidth + 'px' }" />
-  </div>
+    <!-- // todo: 处理动画问题 -->
+    <div
+      class="main-wrap"
+      :style="{
+        'width': `calc(100% - ${ sidebar.width }px)`,
+        'transition-duration': isCollapse ? '0s' : '0.9s'
+      }">
+      <el-scrollbar :style="{ height: document.clientHeight + 'px' }">
+        <div :class="{ 'head-wrap': navbar.fixed }">
+          <headbar class="headbar" :style="{ 'height': `${ navbar.headHeight }px` }" />
+          <tabsbar class="tabsbar" v-if="navbar.tabsDisplay" :style="{ 'height': `${ navbar.tabsHeight }px` }" />
+        </div>
+        <div v-if="!set.refresh" :style="{ 'padding-top': navbar.fixed ? `${ navbar.headHeight + (navbar.tabsDisplay ? navbar.tabsHeight : 0) }px` : '0px' }">
+          <!-- <el-scrollbar :style="navbar.fixed ? { 'height': `${ document.clientHeight - navbar.headHeight - (navbar.tabsDisplay ? navbar.tabsHeight : 0) }px` } : {}"> -->
+          <router-view v-slot="{ Component }">
+            <transition name="el-fade-in">
+              <keep-alive v-if="$route.meta.keepAlive">
+                <component :is="Component" class="component" />
+              </keep-alive>
+              <component :is="Component" class="component" v-else />
+            </transition>
+          </router-view>
+          <!-- </el-scrollbar> -->
+        </div>
+      </el-scrollbar>
+    </div>
+  </el-container>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { namespace } from 'vuex-class'
+import { Provide } from 'vue-property-decorator'
 import Sidebar from './components/sidebar/index.vue'
-import Main from './components/main/index.vue'
-import { getUserInfo } from '@API/common'
+import Headbar from './components/headbar/index.vue'
+import Tabsbar from './components/tabsbar/index.vue'
+import { getUserInfo } from '@/api/login'
+import { IUser } from '@/api/login/index.type'
+import { IDocument, INavbar, ISet, ISidebar } from '@/store/modules/common/index.type'
+import { $isAuth, $clearJson } from '@/utils/index'
+import { IObject } from '@/utils/index.type'
 
-const commonModule = namespace('common')
 const userModule = namespace('user')
+const commonModule = namespace('common')
+const menuModule = namespace('menu')
 
 @Options({
-  components: { Sidebar, Main }
+  components: { Sidebar, Headbar, Tabsbar }
 })
 export default class extends Vue {
-  @commonModule.State('documentClientHeight')
-  documentClientHeight!: number
-
-  @commonModule.State('sidebarWidth')
-  sidebarWidth!: number
-
+  @commonModule.State('document')
+  @Provide('document') readonly document!: IDocument
+  @commonModule.State('sidebar')
+  readonly sidebar!: ISidebar
+  @commonModule.State('navbar')
+  @Provide('navbar') readonly navbar!: INavbar
+  @commonModule.State('set')
+  @Provide('set') readonly set!: ISet
   @commonModule.Action('setDocunentClientHeight')
   setDocunentClientHeight!: (arg: number) => void
 
-  @userModule.Action('setId')
-  setId!: (arg: string) => void
+  @menuModule.State('isCollapse')
+  readonly isCollapse!: boolean
 
-  @userModule.Action('setUsername')
-  setUsername!: (arg: string) => void
+  @userModule.Action('setUser')
+  setUser!: (arg: IUser) => void
 
-  created() {
+  @Provide('isAuth') isAuth: (arg: string) => boolean = $isAuth
+  @Provide('clearJson') clearJson: (arg: IObject) => void = $clearJson
+
+  created(): void {
     this.getUserInfo()
   }
 
-  mounted() {
+  mounted(): void {
     this.resizeDocumentClientHeight()
   }
 
@@ -66,35 +103,42 @@ export default class extends Vue {
   }
 
   /**
-   * @description: 获取当前用户信息
+   * @description: 获取登录用户信息存储到vuex
    * @param {*}
    * @return {*}
    * @author: gumingchen
    */
-  async getUserInfo(): Promise<void> {
-    const r = await getUserInfo()
-    if (r && r.code === 0) {
-      this.setId(r.data.id)
-      this.setUsername(r.data.username)
-    }
+  getUserInfo(): void {
+    getUserInfo().then(r => {
+      if (r) {
+        this.setUser(r.data)
+      }
+    })
   }
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
+@import '@SASS/_mixin.scss';
 .sidebar {
-  position: fixed;
-  left: 0;
-  height: 100%;
-  z-index: 11;
+  @include box-shadow;
 }
-.main {
-  position: relative;
+.headbar, .tabsbar {
+  @include box-shadow1;
 }
-.sidebar,
-.main,
-.main .header {
-  transition-duration: 0.5s;
-  transition-property: width, margin-left;
+.el-fade-in-leave-active { // 处理动画不流畅闪烁的问题
+  display: none;
 }
+.main-wrap {
+  .head-wrap {
+    width: 100%;
+    position: absolute;
+    z-index: 20;
+    background-color: white;
+  }
+  .component {
+    padding: 20px 10px;
+  }
+}
+
 </style>

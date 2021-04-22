@@ -1,8 +1,19 @@
 $--color-primary: #409EFF;
 $--font-path: '~element-plus/lib/theme-chalk/fonts';
 @import "~element-plus/packages/theme-chalk/src/index";
+@import "mixin";
 
-.popper-menu-add-or-edit {
+// form label 超出 显示省略号
+.el-form-item__label {
+  @include single-ellipse;
+  line-height: 18px !important;
+}
+// dialog body padding 调整
+.el-dialog__body {
+  padding: 10px 20px 0px 20px;
+}
+// 菜单新增编辑弹窗 popper 图标样式
+.popper-menu-add-edit {
   .icon-wrap {
     padding-left: 10px;
     .icon-btn {
@@ -10,12 +21,4 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
       margin: 0 10px 10px 0;
     }
   }
-}
-
-.el-message-box__wrapper {
-  z-index: 3000!important;
-  & + .v-modal {
-    z-index: 2999!important;
-  }
-  
 }

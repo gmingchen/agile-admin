@@ -4,12 +4,10 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-19 14:41:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-24 11:28:49
+ * @LastEditTime: 2021-04-21 17:42:11
  */
 import store from '@/store'
-import { clearAuth } from './auth'
 import { IObject } from './index.type'
-import { clearToken } from './token'
 
 /**
  * @description: 生成UUID
@@ -37,27 +35,27 @@ export function $getUUID(): string {
  * @return {Array}
  * @author: gumingchen
  */
-export function $parseData2Tree(
-  data: Array<IObject>,
+export function $parseData2Tree<T>(
+  data: T[],
   key: string = 'id',
   parentKey: string = 'parentId',
   childrenKey: string = 'children'
-): Array<IObject> {
-  const result: Array<IObject> = []
-  const temp = {}
+): T[] {
+  const result: T[] = []
+  const temp: IObject = {}
   for (let i = 0; i < data.length; i++) {
-    temp[data[i][key]] = data[i]
+    temp[(data[i] as IObject)[key]] = data[i]
   }
   for (let k = 0; k < data.length; k++) {
-    if (temp[data[k][parentKey]] && data[k][key] !== data[k][parentKey]) {
-      if (!temp[data[k][parentKey]][childrenKey]) {
-        temp[data[k][parentKey]][childrenKey] = []
+    if (temp[(data[k] as IObject)[parentKey]] && (data[k] as IObject)[key] !== (data[k] as IObject)[parentKey]) {
+      if (!temp[(data[k] as IObject)[parentKey]][childrenKey]) {
+        temp[(data[k] as IObject)[parentKey]][childrenKey] = []
       }
-      if (!temp[data[k][parentKey]]['_level']) {
-        temp[data[k][parentKey]]['_level'] = 1
+      if (!temp[(data[k] as IObject)[parentKey]]['_level']) {
+        temp[(data[k] as IObject)[parentKey]]['_level'] = 1
       }
-      data[k]['_level'] = temp[data[k][parentKey]]._level + 1
-      temp[data[k][parentKey]][childrenKey].push(data[k])
+      (data[k] as IObject)['_level'] = temp[(data[k] as IObject)[parentKey]]._level + 1
+      temp[(data[k] as IObject)[parentKey]][childrenKey].push(data[k])
     } else {
       result.push(data[k])
     }
@@ -90,8 +88,8 @@ export function $parseDate2Str(time: Date | number = new Date(), format: string 
     s: date.getSeconds(),
     a: date.getDay()
   }
-  result = format.replace(/\{[yMdhmsa]+\}/gu, (val: string) => {
-    const key: string = val.replace(/\{|\}/gu, '')
+  result = format.replace(/\{[yMdhmsa]+\}/g, (val: string) => {
+    const key: string = val.replace(/\{|\}/g, '')
     const value = formatObj[key]
     if (key === 'a') {
       return ['日', '一', '二', '三', '四', '五', '六'][value]
@@ -110,7 +108,7 @@ export function $parseDate2Str(time: Date | number = new Date(), format: string 
  */
 export function $parseStr2Date(time: string = '', separator: string[] = ['-', ' ', ':']): Date {
   let result: Date = new Date()
-  const regexp: string = `/[${separator.join('')}]/gu`
+  const regexp: string = `/[${ separator.join('') }]/g`
   const data: string[] = time.split(eval(regexp))
   switch (data.length) {
     case 3:
@@ -184,13 +182,13 @@ export function $clearJson(json: IObject): void {
 }
 
 /**
- * @description: 清除登录信息
- * @param {*}
- * @return {*}
+ * @description: 判断是否有按钮级权限
+ * @param {string} key
+ * @return {boolean}
  * @author: gumingchen
  */
-export function $clearLoginInfo(): void {
-  clearToken()
-  clearAuth()
-  store.dispatch('tabs/delAllTab')
+export function $isAuth(key: string): boolean {
+  let result: boolean = false
+  result = store.getters['menu/permissions'].indexOf(key) !== -1 || false
+  return result
 }

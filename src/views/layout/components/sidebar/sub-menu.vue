@@ -4,20 +4,20 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-21 08:47:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-01 16:04:47
+ * @LastEditTime: 2021-04-15 14:52:24
 -->
 <template>
   <el-submenu :index="menu.routeName || menu.id + ''" v-if="menu.children.length">
     <template #title>
-      <svg-icon :name="menu.icon" class="sidebar-menu-icon" size="14px"></svg-icon>
-      <span>{{ menu.name }}</span>
+      <svg-icon :name="menu.icon" class="sidebar-menu-icon" size="14px" />
+      <span>{{ menu[`name_${ language }`] }}</span>
     </template>
     <sub-menu v-for="item in menu.children" :key="item.id" :menu="item" />
   </el-submenu>
   <el-menu-item :index="menu.routeName || menu.id + ''" @click="routeHandle()" v-else>
-    <svg-icon :name="menu.icon" class="sidebar-menu-icon" size="14px"></svg-icon>
+    <svg-icon :name="menu.icon" class="sidebar-menu-icon" size="14px" />
     <template #title>
-      <span>{{ menu.name }}</span>
+      <span>{{ menu[`name_${ language }`] }}</span>
     </template>
   </el-menu-item>
 </template>
@@ -25,15 +25,22 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { Prop } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 import SubMenu from './sub-menu.vue'
-import { ISideMenu } from '@/store/modules/auth/index.type'
-import { isURL } from '@U/regular'
+import { isURL } from '@/utils/regular'
+import { ISideMenu } from '@/store/modules/menu/index.type'
+
+const commonModule = namespace('common')
 
 @Options({
   components: { SubMenu }
 })
 export default class extends Vue {
   name = 'sub-menu'
+
+  @commonModule.Getter('language')
+  readonly language!: string
+
   @Prop({
     type: Object,
     requited: true,

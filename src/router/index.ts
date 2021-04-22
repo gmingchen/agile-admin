@@ -1,64 +1,111 @@
 /*
- * @Description: 路由
+ * @Description:
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
- * @Date: 2020-12-15 08:45:46
+ * @Date: 2021-04-01 18:46:08
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-03 16:48:28
+ * @LastEditTime: 2021-04-18 17:46:46
  */
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
-import { getIsGet, setAuth, setIsGet } from '@U/auth'
-import { getUserMenus } from '@API/common/index'
-import { getToken } from '@U/token'
-import { $clearLoginInfo } from '@U/.'
 import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
-import { IMenu } from '@/store/modules/auth/index.type'
-import { isURL } from '@U/regular'
 import store from '@/store'
+import I18n from '@/i18n'
+import { getUserMenus } from '@/api/login'
+import { IMenu } from '@/api/login/index.type'
+import { isURL } from '@/utils/regular'
 
-setIsGet(false)
+let refresh = true
 
 /* 通用 */
-const global: Array<RouteRecordRaw> = [
+const global: RouteRecordRaw[] = [
   { path: '/', redirect: { name: 'login' }, meta: { title: '重定向' } },
-  { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title: '登录' } },
-  { path: '/404', name: '404', component: () => import('@/views/common/404.vue'), meta: { title: '404' } },
-  { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title: '401' } }
+  { path: '/login', name: 'login', component: () => import('@V/global/login.vue'), meta: { title: 'Login' } },
+  { path: '/404', name: '404', component: () => import('@V/global/404.vue'), meta: { title: '404' } },
+  { path: '/401', name: '401', component: () => import('@V/global/401.vue'), meta: { title: '401' } }
 ]
 
 /* 主入口 */
 const main: RouteRecordRaw = {
-  path: '/',
-  name: 'main',
-  component: () => import('@/views/layout/index.vue'),
+  path: '/layout',
+  name: 'layout',
+  component: () => import('@V/layout/index.vue'),
   meta: { title: '主入口整体布局' },
   children: [
     {
+      path: '/home',
+      name: 'home',
+      component: () => import('@V/modules/home/index.vue'),
+      meta: {
+        id: 'home',
+        title_cn: I18n.global.messages.cn.menu.home,
+        title_en: I18n.global.messages.en.menu.home,
+        isTab: true,
+        type: 1,
+        isDynamic: false,
+        keepAlive: true,
+        multiple: false
+      }
+    },
+    {
+      path: '/demo',
+      name: 'demo',
+      component: () => import('@V/modules/demo/index.vue'),
+      meta: {
+        id: 'demo',
+        title_cn: I18n.global.messages.cn.menu.demo,
+        title_en: I18n.global.messages.en.menu.demo,
+        isTab: true,
+        type: 1,
+        isDynamic: false,
+        keepAlive: true,
+        multiple: true
+      }
+    },
+    {
+      path: '/set',
+      name: 'set',
+      component: () => import('@V/modules/set/index.vue'),
+      meta: {
+        id: 'set',
+        title_cn: I18n.global.messages.cn.menu.set,
+        title_en: I18n.global.messages.en.menu.set,
+        isTab: true,
+        type: 1,
+        isDynamic: false,
+        keepAlive: true,
+        multiple: false
+      }
+    },
+    {
       path: '/iframe',
       name: 'iframe',
-      component: () => import('@/views/components/iframe/index.vue'),
-      meta: { title: 'iframe', isTab: true, keepAlive: true }
-    },
-    { path: '/home', name: 'home', component: () => import('@/views/modules/home/index.vue'), meta: { title: '首页', isTab: true, keepAlive: true } },
-    { path: '/example', name: 'example', component: () => import('@/views/modules/example/index.vue'), meta: { title: 'demo', isTab: true } }
+      component: () => import('@V/components/iframe/index.vue'),
+      meta: {
+        id: 'iframe',
+        title_cn: 'iframe',
+        title_en: 'iframe',
+        isTab: true,
+        type: 1,
+        isDynamic: false,
+        keepAlive: true,
+        multiple: true
+      }
+    }
   ],
   beforeEnter(_to, _from, next) {
-    const token = getToken()
+    const token = store.getters['user/tokenVal']
     if (!token || !/\S/u.test(token)) {
-      next({ name: 'login' })
+      next({ name: 'login', replace: true })
     } else {
       next()
     }
   }
 }
 
-const routes: Array<RouteRecordRaw> = global.concat(main)
+const routes: RouteRecordRaw[] = global.concat(main)
 
-// const history = createWebHistory(process.env.BASE_URL) // history
-const history = createWebHashHistory() // hash
 const router = createRouter({
-  history: history,
+  history: createWebHashHistory(),
   routes
 })
 
@@ -69,8 +116,8 @@ const router = createRouter({
  * @return {*}
  * @author: gumingchen
  */
-function currentRouteType(route: RouteLocationNormalized, commonRoutes: Array<RouteRecordRaw> = []): string {
-  let temp: Array<RouteRecordRaw> = []
+function currentRouteType(route: RouteLocationNormalized, commonRoutes: RouteRecordRaw[] = []): string {
+  let temp: RouteRecordRaw[] = []
   for (let i = 0; i < commonRoutes.length; i++) {
     if (route.path === commonRoutes[i].path) {
       return 'global'
@@ -88,30 +135,31 @@ function currentRouteType(route: RouteLocationNormalized, commonRoutes: Array<Ro
  * @return {*}
  * @author: gumingchen
  */
-function addRoutes(menus: Array<IMenu> = [], routeList: Array<RouteRecordRaw> = []): void {
-  let list: Array<IMenu> = []
-  menus.forEach((item: IMenu, index: number) => {
-    if (item.list && item.list.length > 0) {
-      list = list.concat(item.list)
+function addRoutes(menus: IMenu[] = [], routeList: RouteRecordRaw[] = []): void {
+  let list: IMenu[] = []
+  menus.forEach((item: IMenu, _index: number) => {
+    if (item.children && item.children.length > 0) {
+      list = list.concat(item.children)
     }
     if (item.url && /\S/u.test(item.url)) {
       const route: RouteRecordRaw = {
-        path: '/' + item.url.replace(/\//gu, '-'),
-        name: item.url.replace(/\//gu, '-'),
-        component: () => import(`@/views/modules/${item.url}.vue`) || null,
+        path: '/' + item.url.replace(/\//g, '-'),
+        name: item.url.replace(/\//g, '-'),
+        component: () => import(`@V/modules/${ item.url }.vue`) || null,
         meta: {
           id: item.id,
-          title: item.name,
+          title_cn: item.name_cn,
+          title_en: item.name_en,
           isDynamic: true,
-          isTab: item.tab,
-          iframeUrl: '',
+          isTab: item.is_tab === 1,
           type: item.type,
-          keepAlive: true
+          keepAlive: item.is_alive === 1,
+          multiple: item.is_multiple === 1
         }
       }
       if (isURL(item.url)) {
-        route['path'] = `i-${item.id}`
-        route['name'] = `i-${item.id}`
+        route['path'] = `i-${ item.id }`
+        route['name'] = `i-${ item.id }`
         route['meta']!['iframeUrl'] = item.url // eslint-disable-line
       }
       routeList.push(route)
@@ -129,30 +177,45 @@ function addRoutes(menus: Array<IMenu> = [], routeList: Array<RouteRecordRaw> = 
 }
 
 router.beforeEach(async (to: RouteLocationNormalized, _from, next) => {
+  // 跳转到登录页清除所有信息
+  if (to.name === 'login') {
+    store.dispatch('common/exit')
+  }
   NProgress.start()
   // 处理动态路由页 刷新跳转 404 问题
-  if (!getIsGet()) {
+  if (refresh) {
     // 添加 404 重定向
     router.addRoute({ path: '/:pathMatch(.*)', redirect: { name: '404' } })
   }
-  if (currentRouteType(to, global) === 'global' || getIsGet()) {
+  // todo: 动态添加路由
+  const isGlobal = currentRouteType(to, global) === 'global'
+  if (isGlobal) {
     next()
   } else {
-    const r = await getUserMenus()
-    if (r && r.code === 0) {
-      setAuth(r.menuList, r.permissions)
-      setIsGet(true)
-      addRoutes(r.menuList)
-      store.dispatch('auth/setAuth')
-      next({ ...to, replace: true })
+    const isGet = store.getters['menu/isGet']
+    if (isGet) {
+      if (!refresh) {
+        next()
+        return
+      }
+    } else {
+      const r = await getUserMenus()
+      if (r) {
+        store.dispatch('menu/setMenuAndPermission', r.data)
+      } else {
+        next()
+        return
+      }
     }
+    refresh = false
+    const menus: IMenu[] = store.getters['menu/menus']
+    addRoutes(menus)
+    next({ ...to, replace: true })
   }
 })
 
-router.afterEach((to, _from) => {
-  if (to.name === 'login') {
-    $clearLoginInfo()
-  }
+router.afterEach((_to, _from) => {
   NProgress.done()
 })
+
 export default router

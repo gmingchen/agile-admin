@@ -14,7 +14,7 @@
  * @author: gumingchen
  */
 export function isEmail(input: string): boolean {
-  const reg: RegExp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/u
+  const reg: RegExp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/
   return reg.test(input)
 }
 
@@ -25,7 +25,7 @@ export function isEmail(input: string): boolean {
  * @author: gumingchen
  */
 export function isURL(input: string): boolean {
-  const reg: RegExp = /^http[s]?:\/\/.*/u
+  const reg: RegExp = /^http[s]?:\/\/.*/
   return reg.test(input)
 }
 
@@ -34,6 +34,6 @@ export function isURL(input: string): boolean {
  * @param {*} input
  */
 export function isMobile(input: string): boolean {
-  const reg: RegExp = /^1[0-9]{10}$/u
+  const reg: RegExp = /^1[0-9]{10}$/
   return reg.test(input)
 }

@@ -1,16 +1,8 @@
-/*
- * @Description: vuex主入口 模块导入
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2020-12-15 08:45:46
- * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-08 16:50:52
- */
-import { createStore } from 'vuex'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+import { createStore, ModuleTree } from 'vuex'
+
 const path = require('path')
 const requireModules = require.context('./modules', true, /index\.(ts|js)$/iu)
-const modules = {}
+const modules: ModuleTree<{test: string}> = {}
 requireModules.keys().forEach((filePath: string): void => {
   const modular = requireModules(filePath)
   let name = path.resolve(filePath, '..')

@@ -1,5 +1,5 @@
 {
-  "name": "vue3.0-ts",
+  "name": "vue3",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,25 +12,27 @@
     "lint-fix": "eslint --fix --ext .js --ext .ts --ext .vue src/*"
   },
   "dependencies": {
+    "@types/js-cookie": "^2.2.6",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "element-plus": "^1.0.2-beta.33",
+    "element-plus": "^1.0.2-beta.40",
     "js-cookie": "^3.0.0-rc.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "nprogress": "^0.2.0",
     "screenfull": "^5.1.0",
-    "vue": "^3.0.5",
+    "svg-sprite-loader": "^6.0.2",
+    "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0",
-    "vue-i18n": "^9.0.0",
+    "vue-i18n": "^9.1.6",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0",
     "vuex-class": "^0.3.2"
   },
   "devDependencies": {
-    "@types/reflect-metadata": "^0.1.0",
-    "@typescript-eslint/eslint-plugin": "^2.33.0",
-    "@typescript-eslint/parser": "^2.33.0",
+    "@types/lodash": "^4.14.168",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
@@ -38,17 +40,13 @@
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "@vue/eslint-config-typescript": "^5.0.2",
+    "@vue/eslint-config-typescript": "^7.0.0",
     "babel-plugin-component": "^1.1.1",
-    "eslint": "^7.17.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^7.0.0-0",
-    "prettier": "^2.2.1",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
-    "svg-sprite-loader": "^5.1.1",
-    "typescript": "^3.9.7",
+    "typescript": "^4.2.3",
     "webpack-bundle-analyzer": "^4.4.0"
   }
 }

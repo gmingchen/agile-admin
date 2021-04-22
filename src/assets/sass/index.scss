@@ -1,16 +1,4 @@
 @import "normalize"; /* 页面标准化文件导入 */
 @import "element"; /* element */
 @import "transition";
-@import "base";
-
-// width 包括内外边距
-* { box-sizing: border-box; }
-
-// 通用ul li
-ul {
-  margin: 0;
-  padding: 0;
-  li {
-    list-style-type: none;
-  }
-}
+@import "global";

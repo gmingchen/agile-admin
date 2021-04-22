@@ -4,11 +4,16 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-03-01 15:53:12
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-03-01 16:27:58
+ * @LastEditTime: 2021-04-15 14:42:02
 -->
 <template>
-  <div class="base-container" :style="style">
-    <iframe :src="url" width="100%" height="100%" frameborder="0" scrolling="yes"></iframe>
+  <div :style="style">
+    <iframe
+      :src="url"
+      width="100%"
+      height="100%"
+      frameborder="0"
+      scrolling="yes" />
   </div>
 </template>
 
@@ -16,30 +21,27 @@
 import { Vue, Options } from 'vue-class-component'
 import { namespace } from 'vuex-class'
 import { IObject } from '@/utils/index.type'
+import { IDocument, INavbar } from '@/store/modules/common/index.type'
 
 const commonModule = namespace('common')
 
 @Options({})
 export default class extends Vue {
-  @commonModule.State('documentClientHeight')
-  documentClientHeight!: number
-  @commonModule.State('navbarHeight')
-  navbarHeight!: number
-  @commonModule.State('tabsHeight')
-  tabsHeight!: number
-  @commonModule.State('tabsDisplay')
-  tabsDisplay!: boolean
+  @commonModule.State('document')
+  readonly document!: IDocument
+  @commonModule.State('navbar')
+  readonly navbar!: INavbar
 
   protected url: string = ''
 
   get style(): IObject {
     const result: IObject = {
-      height: `${this.documentClientHeight - this.navbarHeight - (this.tabsDisplay ? this.tabsHeight : 0)}px`
+      height: `${ this.document.clientHeight - this.navbar.headHeight - (this.navbar.tabsDisplay ? this.navbar.tabsHeight : 0) }px`
     }
     return result
   }
 
-  activated() {
+  activated(): void {
     this.url = this.$route.query.url as string
   }
 }
