@@ -158,8 +158,10 @@ export default class extends Vue {
   selfHandle(command: string): void {
     switch (command) {
       case 'webHub':
+        window.open('https://github.com/1240235512/vue3.git')
         break
       case 'javaHub':
+        window.open('https://github.com/1240235512/spring-boot.git')
         break
       case 'webEe':
         window.open('https://gitee.com/shychen/vue3.git')
