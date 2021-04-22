@@ -214,7 +214,9 @@ export default class extends Vue {
   async setList(): Promise<void> {
     this.loading = true
     this.list = (await this.getList()).data || []
-    this.loading = false
+    this.$nextTick(() => {
+      this.loading = false
+    })
   }
 
   /**

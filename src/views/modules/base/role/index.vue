@@ -116,11 +116,15 @@ export default class extends mixins(page) {
       current: this.page.current,
       size: this.page.size
     }
+    this.loading = true
     getPage(params).then(r => {
       if (r) {
         this.list = r.data.list
         this.page.total = r.data.total
       }
+      this.$nextTick(() => {
+        this.loading = false
+      })
     })
   }
 
