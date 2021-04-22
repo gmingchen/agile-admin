@@ -4,26 +4,33 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-21 18:50:35
+ * @LastEditTime: 2021-04-21 22:42:39
 -->
 <template>
   <el-dialog
     width="500px"
-    :title="$t('button.edit')"
+    :title="$t(!form.id ? 'button.add' : 'button.edit')"
     v-model="visible"
     :close-on-click-modal="false"
     @closed="dialogClosedHandle">
     <el-form
       :model="form"
       :rules="rules"
+      v-loading="loading"
       ref="formR"
       @keyup.enter="submit()"
       label-position="top">
-      <el-form-item :label="$t('field.account')">
-        <el-input v-model="user.username" :placeholder="$t('field.account')" readonly />
+      <el-form-item :label="$t('field.account')" prop="username">
+        <el-input v-model="form.username" :placeholder="$t('field.account')" />
       </el-form-item>
       <el-form-item :label="$t('field.nickname')" prop="nickname">
         <el-input v-model="form.nickname" :placeholder="$t('field.nickname')" />
+      </el-form-item>
+      <el-form-item :label="$t('field.password')" prop="password">
+        <el-input v-model="form.password" :placeholder="$t('field.password')" show-password />
+      </el-form-item>
+      <el-form-item :label="$t('field.confirmPassword')" prop="confirmPassword">
+        <el-input v-model="form.confirmPassword" :placeholder="$t('field.confirmPassword')" show-password />
       </el-form-item>
       <el-form-item :label="$t('field.mobile')" prop="mobile">
         <el-input v-model="form.mobile" :placeholder="$t('field.mobile')" />
@@ -31,14 +38,16 @@
       <el-form-item :label="$t('field.email')" prop="email">
         <el-input v-model="form.email" :placeholder="$t('field.email')" />
       </el-form-item>
-      <el-form-item :label="$t('field.oldPassword')" prop="oldPassword">
-        <el-input v-model="form.oldPassword" :placeholder="$t('field.oldPassword')" show-password />
+      <el-form-item :label="$t('base.role.roleName')" size="mini" prop="role_ids">
+        <el-checkbox-group v-model="form.role_ids">
+          <el-checkbox v-for="role in roles" :key="role.id" :label="role.id">{{ role.name }}</el-checkbox>
+        </el-checkbox-group>
       </el-form-item>
-      <el-form-item :label="$t('field.newPassword')" prop="newPassword">
-        <el-input v-model="form.newPassword" :placeholder="$t('field.newPassword')" show-password />
-      </el-form-item>
-      <el-form-item :label="$t('field.confirmPassword')" prop="confirmPassword">
-        <el-input v-model="form.confirmPassword" :placeholder="$t('field.confirmPassword')" show-password />
+      <el-form-item :label="$t('field.state')" size="mini" prop="status">
+        <el-radio-group v-model="form.status">
+          <el-radio :label="0">{{ $t('button.disable') }}</el-radio>
+          <el-radio :label="1">{{ $t('button.enable') }}</el-radio>
+        </el-radio-group>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -51,30 +60,31 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component'
-import { namespace } from 'vuex-class'
+import { Options, Vue } from 'vue-class-component'
+import { add, edit, info } from '@/api/base/user'
+import { select } from '@/api/base/role'
 import { IObject } from '@/utils/index.type'
+import { IRole } from '@/api/base/role/index.type'
+import { IUser } from '@/api/base/user/index.type'
 import { isEmail, isMobile } from '@/utils/regular'
-import { editUserInfo, getUserInfo } from '@/api/login'
-import { IUser } from '@/api/login/index.type'
 
-const userModule = namespace('user')
-
+@Options({
+  emits: ['refresh']
+})
 export default class extends Vue {
-  @userModule.State('user')
-  readonly user!: IUser
-
-  @userModule.Action('setUser')
-  setUser!: (arg: IUser) => void
-
   protected visible: boolean = false
+  protected loading: boolean = false
 
-  protected form = {
+  protected roles: IRole[] = []
+  protected form: IUser = {
+    id: null,
+    username: '',
     nickname: '',
+    password: '',
     mobile: '',
     email: '',
-    oldPassword: '',
-    newPassword: '',
+    status: 0,
+    role_ids: [],
     confirmPassword: ''
   }
   get rules(): IObject {
@@ -92,26 +102,23 @@ export default class extends Vue {
         callback()
       }
     }
-    const checkOldPassword = (_rule: unknown, value: string, callback: (arg?: Error | undefined) => void): void => {
-      if (this.form.newPassword !== '' && value === '') {
-        callback(new Error(this.$t('rule.notBlank', [this.$t('field.oldPassword')])))
-      } else {
-        callback()
-      }
-    }
     const checkConfirmPassword = (_rule: unknown, value: string, callback: (arg?: Error | undefined) => void): void => {
-      if (this.form.newPassword !== value) {
-        callback(new Error(this.$t('rule.notConsistent', [this.$t('field.confirmPassword'), this.$t('field.newPassword')])))
+      if (this.form.password !== value) {
+        callback(new Error(this.$t('rule.notConsistent', [this.$t('field.confirmPassword'), this.$t('field.password')])))
       } else {
         callback()
       }
     }
     const rules = {
+      username: [{ required: true, message: this.$t('rule.notBlank', [this.$t('field.account')]), trigger: 'blur' }],
       nickname: [{ required: true, message: this.$t('rule.notBlank', [this.$t('field.nickname')]), trigger: 'blur' }],
+      password: [{ required: true, message: this.$t('rule.notBlank', [this.$t('field.password')]), trigger: 'blur' }],
+      confirmPassword: [
+        { required: true, message: this.$t('rule.notBlank', [this.$t('field.confirmPassword')]), trigger: 'blur' },
+        { validator: checkConfirmPassword, trigger: 'blur' }
+      ],
       mobile: [{ validator: checkMobile, trigger: 'blur' }],
-      email: [{ validator: checkEmail, trigger: 'blur' }],
-      oldPassword: [{ validator: checkOldPassword, trigger: 'blur' }],
-      confirmPassword: [{ validator: checkConfirmPassword, trigger: 'blur' }]
+      email: [{ validator: checkEmail, trigger: 'blur' }]
     }
     this.$nextTick(() => {
       this.$refs.formR.clearValidate()
@@ -119,11 +126,27 @@ export default class extends Vue {
     return rules
   }
 
-  init(): void {
+  async init(id?: number): Promise<void> {
     this.visible = true
-    this.form.nickname = this.user.nickname
-    this.form.mobile = this.user.mobile
-    this.form.email = this.user.email
+    this.form.id = id
+    const res = await select()
+    if (res) {
+      this.roles = res.data
+    }
+    if (this.form.id) {
+      info(this.form.id).then(r => {
+        if (r) {
+          this.form.username = r.data.username
+          this.form.nickname = r.data.username
+          this.form.mobile = r.data.mobile
+          this.form.email = r.data.email
+          this.form.status = r.data.status
+          this.form.role_ids = r.data.roles!.map(item => {
+            return item.id
+          })
+        }
+      })
+    }
   }
 
   /**
@@ -135,31 +158,14 @@ export default class extends Vue {
   submit(): void {
     this.$refs.formR.validate(async (valid: boolean) => {
       if (valid) {
-        const params = {
-          nickname: this.form.nickname,
-          mobile: this.form.mobile,
-          email: this.form.email,
-          old_password: this.form.oldPassword,
-          new_password: this.form.newPassword
-        }
-        const r = await editUserInfo(params)
+        const r = !this.form.id ? await add(this.form) : await edit(this.form)
         if (r) {
           this.visible = false
           this.$message({
             message: this.$t('tip.success'),
-            type: 'success',
-            onClose: () => {
-              if (r.data === 1) {
-                this.$router.replace({ name: 'login' })
-              } else {
-                getUserInfo().then(res => {
-                  if (res && res.code === 0) {
-                    this.setUser(res.data)
-                  }
-                })
-              }
-            }
+            type: 'success'
           })
+          this.$emit('refresh')
         }
       }
     })

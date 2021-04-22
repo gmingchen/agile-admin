@@ -12,7 +12,7 @@ import { IMenu, IMenuParams, IMenuSelect } from './index.type'
 
 /**
  * @description: 获取权限菜单
- * @param {params} IGetListParams
+ * @param {*}
  * @return {*}
  * @author: gumingchen
  */
@@ -67,7 +67,7 @@ export function edit(params: IMenuParams): Promise<IResponse<null>> {
 
 /**
  * @description: 删除
- * @param {IStatusParams} params
+ * @param {*}
  * @return {*}
  * @author: gumingchen
  */
@@ -81,7 +81,7 @@ export function del(params: { id: number }): Promise<IResponse<null>> {
 
 /**
  * @description: 是否显示
- * @param {IStatusParams} params
+ * @param {*}
  * @return {*}
  * @author: gumingchen
  */
@@ -95,7 +95,7 @@ export function setDisplay(params: IStatusParams): Promise<IResponse<null>> {
 
 /**
  * @description: 是否缓存
- * @param {IStatusParams} params
+ * @param {*}
  * @return {*}
  * @author: gumingchen
  */
@@ -109,7 +109,7 @@ export function setAlive(params: IStatusParams): Promise<IResponse<null>> {
 
 /**
  * @description: 是否显示在标签栏
- * @param {IStatusParams} params
+ * @param {*}
  * @return {*}
  * @author: gumingchen
  */
@@ -123,7 +123,7 @@ export function setTab(params: IStatusParams): Promise<IResponse<null>> {
 
 /**
  * @description: 是否在标签栏多开
- * @param {IStatusParams} params
+ * @param {*}
  * @return {*}
  * @author: gumingchen
  */
@@ -137,7 +137,7 @@ export function setMultiple(params: IStatusParams): Promise<IResponse<null>> {
 
 /**
  * @description: 下拉列表
- * @param {params} IGetListParams
+ * @param {*}
  * @return {*}
  * @author: gumingchen
  */
@@ -150,7 +150,7 @@ export function select(): Promise<IResponse<IMenuSelect[]>> {
 
 /**
  * @description: 下拉列表
- * @param {params} IGetListParams
+ * @param {*}
  * @return {*}
  * @author: gumingchen
  */

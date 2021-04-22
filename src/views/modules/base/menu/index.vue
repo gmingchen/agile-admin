@@ -91,11 +91,11 @@
         :label="$t('field.is', [$t('base.menu.display')])"
         prop="is_display"
         min-width="90">
-        <template v-slot="scope">
+        <template v-slot="{ row }">
           <el-switch
             :disabled="!isAuth('base:menu:display')"
-            @change="displayHandle(scope.row)"
-            v-model="scope.row.is_display"
+            @change="displayHandle(row)"
+            v-model="row.is_display"
             active-color="#13ce66"
             inactive-color="#ff4949"
             :active-value="1"
@@ -107,12 +107,12 @@
         :label="$t('field.is', [$t('base.menu.alive')])"
         prop="is_alive"
         min-width="110">
-        <template v-slot="scope">
+        <template v-slot="{ row }">
           <el-switch
-            v-if="scope.row.type !== 0 && scope.row.url"
+            v-if="row.type !== 0 && row.url"
             :disabled="!isAuth('base:menu:alive')"
-            @change="keepAliveHandle(scope.row)"
-            v-model="scope.row.is_alive"
+            @change="keepAliveHandle(row)"
+            v-model="row.is_alive"
             active-color="#13ce66"
             inactive-color="#ff4949"
             :active-value="1"
@@ -125,12 +125,12 @@
         :label="$t('field.is', [$t('base.menu.tab')])"
         prop="is_tab"
         min-width="130">
-        <template v-slot="scope">
+        <template v-slot="{ row }">
           <el-switch
-            v-if="scope.row.type !== 0 && scope.row.url"
-            :disabled="scope.row.is_display === 0 || !isAuth('base:menu:tab')"
-            @change="tabHandle(scope.row)"
-            v-model="scope.row.is_tab"
+            v-if="row.type !== 0 && row.url"
+            :disabled="row.is_display === 0 || !isAuth('base:menu:tab')"
+            @change="tabHandle(row)"
+            v-model="row.is_tab"
             active-color="#13ce66"
             inactive-color="#ff4949"
             :active-value="1"
@@ -143,12 +143,12 @@
         :label="$t('field.is', [$t('base.menu.multiple')])"
         prop="is_multiple"
         min-width="160">
-        <template v-slot="scope">
+        <template v-slot="{ row }">
           <el-switch
-            v-if="scope.row.type !== 0 && scope.row.url"
-            :disabled="scope.row.is_display === 0 || scope.row.is_tab === 0 || !isAuth('base:menu:multiple')"
-            @change="multipleHandle(scope.row)"
-            v-model="scope.row.is_multiple"
+            v-if="row.type !== 0 && row.url"
+            :disabled="row.is_display === 0 || row.is_tab === 0 || !isAuth('base:menu:multiple')"
+            @change="multipleHandle(row)"
+            v-model="row.is_multiple"
             active-color="#13ce66"
             inactive-color="#ff4949"
             :active-value="1"
@@ -161,17 +161,17 @@
         :label="$t('field.operation')"
         width="100"
         fixed="right">
-        <template v-slot="scope">
+        <template v-slot="{ row }">
           <el-button
             v-if="isAuth('base:menu:update')"
             type="text"
             size="small"
-            @click="addEditHandle(scope.row.id)">{{ $t('button.edit') }}</el-button>
+            @click="addEditHandle(row.id)">{{ $t('button.edit') }}</el-button>
           <el-button
             v-if="isAuth('base:menu:delete')"
             type="text"
             size="small"
-            @click="delHandle(scope.row.id)">{{ $t('button.delete') }}</el-button>
+            @click="delHandle(row.id)">{{ $t('button.delete') }}</el-button>
         </template>
       </el-table-column>
     </el-table>

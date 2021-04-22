@@ -10,14 +10,17 @@
   <div class="g-container">
     <el-form ref="formR" :inline="true" @keyup.enter="getList()">
       <el-form-item>
-        <el-input v-model="form.name" :placeholder="$t('base.role.roleName')" clearable />
+        <el-input v-model="form.username" :placeholder="$t('field.account')" clearable />
+      </el-form-item>
+      <el-form-item>
+        <el-input v-model="form.nickname" :placeholder="$t('field.nickname')" clearable />
       </el-form-item>
       <el-form-item>
         <el-button @click="getList()">{{ $t('button.query') }}</el-button>
         <el-button @click="clearJson(form), getList()">{{ $t('button.reset') }}</el-button>
-        <el-button v-if="isAuth('base:role:create')" type="primary" @click="addEditHandle()">{{ $t('button.add') }}</el-button>
+        <el-button v-if="isAuth('base:user:create')" type="primary" @click="addEditHandle()">{{ $t('button.add') }}</el-button>
         <el-button
-          v-if="isAuth('base:role:delete')"
+          v-if="isAuth('base:user:delete')"
           type="danger"
           @click="delHandle()"
           :disabled="selection.length <= 0">{{ $t('button.batchDelete') }}</el-button>
@@ -38,12 +41,29 @@
         width="80" />
       <el-table-column
         align="center"
-        :label="$t('base.role.roleName')"
-        prop="name" />
+        :label="$t('field.account')"
+        prop="username" />
       <el-table-column
         align="center"
-        :label="$t('field.remark')"
-        prop="remark" />
+        :label="$t('field.nickname')"
+        prop="nickname" />
+      <el-table-column
+        align="center"
+        :label="$t('field.mobile')"
+        prop="mobile"
+        width="120" />
+      <el-table-column
+        align="center"
+        :label="$t('field.email')"
+        prop="email" />
+      <el-table-column
+        align="center"
+        :label="$t('base.role.roleName')"
+        prop="roles">
+        <template v-slot="{ row }">
+          <span class="role-name-span" v-for="item in row.roles" :key="item.id">{{ item.name }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         :label="$t('field.time', [$t('field.create')])"
@@ -52,16 +72,21 @@
       <el-table-column
         align="center"
         :label="$t('field.operation')"
-        width="100"
+        width="150"
         fixed="right">
         <template v-slot="{ row }">
           <el-button
-            v-if="isAuth('base:role:update')"
+            v-if="isAuth('base:user:status')"
+            type="text"
+            size="small"
+            @click="statusHandle(row)">{{ $t( row.status === 1 ? 'button.disable' : 'button.enable') }}</el-button>
+          <el-button
+            v-if="isAuth('base:user:update')"
             type="text"
             size="small"
             @click="addEditHandle(row.id)">{{ $t('button.edit') }}</el-button>
           <el-button
-            v-if="isAuth('base:role:delete')"
+            v-if="isAuth('base:user:delete')"
             type="text"
             size="small"
             @click="delHandle(row.id)">{{ $t('button.delete') }}</el-button>
@@ -82,8 +107,8 @@ import AddEdit from './components/add-edit.vue'
 import { IPage } from '@/mixins/page.typs'
 import { IObject } from '@/utils/index.type'
 
-import { del, getPage } from '@/api/base/role'
-import { IRole } from '@/api/base/role/index.type'
+import { del, getPage, setStatus } from '@/api/base/user'
+import { IUser } from '@/api/base/user/index.type'
 
 @Options({
   components: { Page, AddEdit }
@@ -96,10 +121,11 @@ export default class extends mixins(page) {
   protected visible: boolean = false
 
   protected form = {
-    name: ''
+    username: '',
+    nickname: ''
   }
-  protected list: IRole[] = []
-  protected selection: IRole[] = []
+  protected list: IUser[] = []
+  protected selection: IUser[] = []
 
   created(): void {
     this.getList()
@@ -177,12 +203,44 @@ export default class extends mixins(page) {
   }
 
   /**
+   * @description: 状态
+   * @param {number} id
+   * @return {*}
+   * @author: gumingchen
+   */
+  statusHandle(row: IUser): void {
+    this.$confirm(this.$t('tip.confirmTips', [row.id, this.$t(row.status === 1 ? 'button.disable' : 'button.enable')]), this.$t('tip.tips'), {
+      confirmButtonText: this.$t('button.confirm'),
+      cancelButtonText: this.$t('button.cancel'),
+      type: 'warning'
+    })
+      .then(() => {
+        const params = {
+          key: row.id!,
+          value: row.status === 1 ? 0 : 1
+        }
+        setStatus(params).then(r => {
+          if (r) {
+            this.$message({
+              message: this.$t('tip.success'),
+              type: 'success'
+            })
+            this.getList()
+          }
+        })
+      })
+      .catch(() => {
+        // to do something on canceled
+      })
+  }
+
+  /**
    * @description: table多选事件
    * @param {*} val
    * @return {*}
    * @author: gumingchen
    */
-  selectionHandle(val: IRole[]): void {
+  selectionHandle(val: IUser[]): void {
     this.selection = val
   }
 
@@ -199,3 +257,9 @@ export default class extends mixins(page) {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.role-name-span + .role-name-span {
+  margin-left: 10px;
+}
+</style>

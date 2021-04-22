@@ -31,7 +31,9 @@ const cn = {
     editInfo: '编辑信息',
     maximize: '最大化',
     reduction: '还原',
-    clear: '清除'
+    clear: '清除',
+    enable: '启用',
+    disable: '禁用'
   },
   field: {
     account: '账户',

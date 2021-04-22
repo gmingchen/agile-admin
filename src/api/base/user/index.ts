@@ -7,18 +7,18 @@
  * @LastEditTime: 2021-04-21 22:59:24
  */
 import service from '@/utils/request'
-import { IPageData, IResponse } from '@/api/index.type'
-import { IRole, IRolePageParams } from './index.type'
+import { IPageData, IResponse, IStatusParams } from '@/api/index.type'
+import { IUser, IUserPageParams } from './index.type'
 
 /**
- * @description: 获取角色
+ * @description: 获取用户
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function getPage(params: IRolePageParams): Promise<IResponse<IPageData<IRole>>> {
+export function getPage(params: IUserPageParams): Promise<IResponse<IPageData<IUser>>> {
   return service({
-    url: '/base/role/page',
+    url: '/base/user/page',
     method: 'get',
     params: params
   })
@@ -30,9 +30,9 @@ export function getPage(params: IRolePageParams): Promise<IResponse<IPageData<IR
  * @return {*}
  * @author: gumingchen
  */
-export function info(params: number): Promise<IResponse<IRole>> {
+export function info(params: number): Promise<IResponse<IUser>> {
   return service({
-    url: `/base/role/info/${ params }`,
+    url: `/base/user/info/${ params }`,
     method: 'get'
   })
 }
@@ -43,9 +43,9 @@ export function info(params: number): Promise<IResponse<IRole>> {
  * @return {*}
  * @author: gumingchen
  */
-export function add(params: IRole): Promise<IResponse<null>> {
+export function add(params: IUser): Promise<IResponse<null>> {
   return service({
-    url: '/base/role/create',
+    url: '/base/user/create',
     method: 'post',
     data: params
   })
@@ -57,9 +57,9 @@ export function add(params: IRole): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function edit(params: IRole): Promise<IResponse<null>> {
+export function edit(params: IUser): Promise<IResponse<null>> {
   return service({
-    url: '/base/role/update',
+    url: '/base/user/update',
     method: 'post',
     data: params
   })
@@ -67,27 +67,28 @@ export function edit(params: IRole): Promise<IResponse<null>> {
 
 /**
  * @description: 删除
- * @param {*}
+ * @param {*} params
  * @return {*}
  * @author: gumingchen
  */
 export function del(params: number[]): Promise<IResponse<null>> {
   return service({
-    url: '/base/role/delete',
+    url: '/base/user/delete',
     method: 'post',
     data: params
   })
 }
 
 /**
- * @description: 下拉列表
- * @param {*}
+ * @description: 是否在标签栏多开
+ * @param {*} params
  * @return {*}
  * @author: gumingchen
  */
-export function select(): Promise<IResponse<IRole[]>> {
+export function setStatus(params: IStatusParams): Promise<IResponse<null>> {
   return service({
-    url: '/base/role/select',
-    method: 'get'
+    url: '/base/user/status',
+    method: 'post',
+    data: params
   })
 }

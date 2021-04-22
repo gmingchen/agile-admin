@@ -31,7 +31,9 @@ const en = {
     editInfo: 'Edit information',
     maximize: 'Maximize',
     reduction: 'Reduction',
-    clear: 'Clear'
+    clear: 'Clear',
+    enable: 'Enable',
+    disable: 'Disable'
   },
   field: {
     account: 'Account',

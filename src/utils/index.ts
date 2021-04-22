@@ -168,7 +168,8 @@ export function $parseParam2Json(url: string): IObject {
  * @return {*}
  * @author: gumingchen
  */
-export function $clearJson(json: IObject): void {
+export function $clearJson<T>(data: T): void {
+  const json = data as IObject
   let key: string
   for (key in json) {
     if (json[key] instanceof Array) {
