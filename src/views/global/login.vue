@@ -78,8 +78,8 @@ export default class extends Vue {
   protected loading: boolean = false
   protected captchaPath: string = ''
   protected form = {
-    username: '',
-    password: '',
+    username: 'test',
+    password: 'test',
     uuid: '',
     code: ''
   }
