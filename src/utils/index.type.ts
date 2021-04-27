@@ -6,7 +6,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-25 16:39:22
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-04 10:13:57
+ * @LastEditTime: 2021-04-27 09:31:11
  */
 export interface IObject {
   [key: string]: any
@@ -27,6 +27,7 @@ export interface IApp {
       }
     }
   }
+  directive: (arg0: string, arg1: (el: any, binding: any) => void) => void
 }
 
 export enum ContentType {
