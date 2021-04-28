@@ -94,22 +94,22 @@ import { Inject } from 'vue-property-decorator'
 import Icon from '@/assets/icon'
 import { add, edit, info, select } from '@/api/base/menu'
 import { $parseData2Tree } from '@/utils/index'
-import { IObject } from '@/utils/index.type'
-import { IMenuParams, IMenuSelect } from '@/api/base/menu/index.type'
-import { ISet } from '@/store/modules/common/index.type'
-import { CascaderProps } from 'node_modules/element-plus/lib/el-cascader-panel/src/types'
+import { Set } from '@/store/modules/common'
+import { IObject } from '@/types'
+import { El } from '@/types/el'
+import { Menu } from '@/types/menu'
 
 @Options({
   emits: ['refresh']
 })
 export default class extends Vue {
-  @Inject('set') readonly set!: ISet
+  @Inject('set') readonly set!: Set
   protected visible: boolean = false
   protected loading: boolean = false
 
   protected icons: string[] = []
-  protected menus: IMenuSelect[] = []
-  protected form: IMenuParams = {
+  protected menus: Menu.Simple[] = []
+  protected form: Menu.Dto = {
     id: null,
     parent_id: 0,
     name_cn: '',
@@ -120,7 +120,7 @@ export default class extends Vue {
     icon: null,
     sort: 0
   }
-  get menusProps(): CascaderProps {
+  get menusProps(): El.CascaderProps {
     const prop = {
       emitPath: false,
       checkStrictly: true,

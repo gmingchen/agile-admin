@@ -6,14 +6,14 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-04-19 17:51:59
  */
-import { ActionContext } from 'vuex'
-import { IMenu, IMenuResponseData } from '@/api/login/index.type'
-import { IMenuState, ISideMenu } from './index.type'
 import { getIsGet, getMenuAndPermissions, setIsGet, setMenuAndPermissions } from '@/utils/storage'
 import { isURL } from '@/utils/regular'
+import { UserMenus } from '@/api/login'
+import { Vuex } from '@/types/vuex'
+import { Menu } from '@/types/menu'
 
 // 初始化菜单数据
-const initVal: IMenuResponseData = getMenuAndPermissions()
+const initVal: UserMenus = getMenuAndPermissions()
 function init(type: number = 1) {
   if (type === 1) {
     return initVal.menus
@@ -30,11 +30,11 @@ function init(type: number = 1) {
  * @return {*}
  * @author: gumingchen
  */
-function menuProcessing(list: IMenu[] = []): ISideMenu[] {
-  const result: ISideMenu[] = []
+function menuProcessing(list: Menu.Vo[] = []): Menu.Side[] {
+  const result: Menu.Side[] = []
   list.forEach(item => {
     if (item.type === 0 || item.type === 1) {
-      const obj: ISideMenu = {
+      const obj: Menu.Side = {
         id: item.id,
         parentId: item.parent_id,
         name_cn: item.name_cn,
@@ -54,6 +54,14 @@ function menuProcessing(list: IMenu[] = []): ISideMenu[] {
   return result
 }
 
+interface State {
+  active: string
+  isCollapse: boolean
+  isGet: boolean
+  menus: Menu.Vo[],
+  permissions: string[]
+}
+
 export default {
   state: {
     active: '', // 当前选中
@@ -63,36 +71,36 @@ export default {
     permissions: init(2)
   },
   getters: {
-    isGet: (state: IMenuState): boolean => {
+    isGet: (state: State): boolean => {
       return state.isGet
     },
-    menus: (state: IMenuState): IMenu[] => {
+    menus: (state: State): Menu.Vo[] => {
       return state.menus
     },
-    permissions: (state: IMenuState): string[] => {
+    permissions: (state: State): string[] => {
       return state.permissions
     },
-    processedMenu: (state: IMenuState): ISideMenu[] => {
+    processedMenu: (state: State): Menu.Side[] => {
       return menuProcessing(state.menus)
     }
   },
   mutations: {
-    SET_IS_GET: (state: IMenuState, isGet: boolean): void => {
+    SET_IS_GET: (state: State, isGet: boolean): void => {
       state.isGet = isGet
     },
-    SET_MENU: (state: IMenuState, menus: IMenu[]): void => {
+    SET_MENU: (state: State, menus: Menu.Vo[]): void => {
       state.menus = menus
     },
-    SET_PERMISSION: (state: IMenuState, permissions: string[]): void => {
+    SET_PERMISSION: (state: State, permissions: string[]): void => {
       state.permissions = permissions
     },
-    SET_ACTIVE: (state: IMenuState, active: string): void => {
+    SET_ACTIVE: (state: State, active: string): void => {
       state.active = active
     },
-    SET_IS_COLLAPSE: (state: IMenuState, isCollapse: boolean): void => {
+    SET_IS_COLLAPSE: (state: State, isCollapse: boolean): void => {
       state.isCollapse = isCollapse
     },
-    CLEAR: (state: IMenuState): void => {
+    CLEAR: (state: State): void => {
       state.isCollapse = false
       state.isGet = false
       state.menus = []
@@ -100,23 +108,23 @@ export default {
     }
   },
   actions: {
-    setIsGet({ commit }: ActionContext<IMenuState, null>, val: boolean = true): void {
+    setIsGet({ commit }: Vuex.Action<State, null>, val: boolean = true): void {
       setIsGet(val)
       commit('SET_IS_GET', val)
     },
-    setMenuAndPermission({ commit, dispatch }: ActionContext<IMenuState, null>, data: IMenuResponseData): void {
+    setMenuAndPermission({ commit, dispatch }: Vuex.Action<State, null>, data: UserMenus): void {
       setMenuAndPermissions(data)
       commit('SET_MENU', data.menus)
       commit('SET_PERMISSION', data.permissions)
       dispatch('setIsGet', true)
     },
-    setActive({ commit }: ActionContext<IMenuState, null>, active: string): void {
+    setActive({ commit }: Vuex.Action<State, null>, active: string): void {
       commit('SET_ACTIVE', active)
     },
-    setIsCollapse({ commit }: ActionContext<IMenuState, null>, isCollapse: boolean = false): void {
+    setIsCollapse({ commit }: Vuex.Action<State, null>, isCollapse: boolean = false): void {
       commit('SET_IS_COLLAPSE', isCollapse)
     },
-    clear({ commit }: ActionContext<IMenuState, null>): void {
+    clear({ commit }: Vuex.Action<State, null>): void {
       commit('CLEAR')
     }
   }

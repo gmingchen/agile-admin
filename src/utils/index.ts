@@ -7,12 +7,12 @@
  * @LastEditTime: 2021-04-21 17:42:11
  */
 import store from '@/store'
-import { IObject } from './index.type'
+import { IObject } from '@/types'
 
 /**
  * @description: 生成UUID
  * @param {*}
- * @return {string}
+ * @return {*}
  * @author: gumingchen
  */
 export function $getUUID(): string {
@@ -28,11 +28,11 @@ export function $getUUID(): string {
 
 /**
  * @description: 树形数据转换
- * @param {Array} data
- * @param {string} key
- * @param {string} parentKey
- * @param {string} childrenKey
- * @return {Array}
+ * @param {*} data
+ * @param {*} key
+ * @param {*} parentKey
+ * @param {*} childrenKey
+ * @return {*}
  * @author: gumingchen
  */
 export function $parseData2Tree<T>(
@@ -65,9 +65,9 @@ export function $parseData2Tree<T>(
 
 /**
  * @description: 日期转字符串
- * @param {Date} time 日期 默认当前日期
- * @param {string} format 格式
- * @return {string}
+ * @param {*} time 日期 默认当前日期
+ * @param {*} format 格式
+ * @return {*}
  * @author: gumingchen
  */
 export function $parseDate2Str(time: Date | number = new Date(), format: string = '{y}-{M}-{d} {h}:{m}:{s}'): string {
@@ -101,9 +101,9 @@ export function $parseDate2Str(time: Date | number = new Date(), format: string 
 
 /**
  * @description: 字符串转日期
- * @param {string} time 日期字符串
- * @param {string} separator 分隔符
- * @return {Date}
+ * @param {*} time 日期字符串
+ * @param {*} separator 分隔符
+ * @return {*}
  * @author: gumingchen
  */
 export function $parseStr2Date(time: string = '', separator: string[] = ['-', ' ', ':']): Date {
@@ -123,8 +123,8 @@ export function $parseStr2Date(time: string = '', separator: string[] = ['-', ' 
 
 /**
  * @description: json 转 param
- * @param {IObject} json
- * @return {string}
+ * @param {*} json
+ * @return {*}
  * @author: gumingchen
  */
 export function $parseJson2Param(json: IObject): string {
@@ -141,8 +141,8 @@ export function $parseJson2Param(json: IObject): string {
 
 /**
  * @description: param 转 json
- * @param {string} url
- * @return {IObject}
+ * @param {*} url
+ * @return {*}
  * @author: gumingchen
  */
 export function $parseParam2Json(url: string): IObject {
@@ -164,7 +164,7 @@ export function $parseParam2Json(url: string): IObject {
 
 /**
  * @description: 置空json数据
- * @param {IObject} json
+ * @param {*} json
  * @return {*}
  * @author: gumingchen
  */
@@ -174,7 +174,7 @@ export function $clearJson<T>(data: T): void {
   for (key in json) {
     if (json[key] instanceof Array) {
       json[key] = []
-    } else if (typeof json[key] === 'object' && Object.prototype.toString.call(json[key]).toLowerCase() === '[object object]' && !json[key].length) {
+    } else if (typeof json[key] === 'object' && IObject.prototype.toString.call(json[key]).toLowerCase() === '[object object]' && !json[key].length) {
       json[key] = {}
     } else {
       json[key] = ''
@@ -184,8 +184,8 @@ export function $clearJson<T>(data: T): void {
 
 /**
  * @description: 判断是否有按钮级权限
- * @param {string} key
- * @return {boolean}
+ * @param {*} key
+ * @return {*}
  * @author: gumingchen
  */
 export function $isAuth(key: string): boolean {

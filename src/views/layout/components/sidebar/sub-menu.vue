@@ -28,7 +28,7 @@ import { Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import SubMenu from './sub-menu.vue'
 import { isURL } from '@/utils/regular'
-import { ISideMenu } from '@/store/modules/menu/index.type'
+import { Menu } from '@/types/menu'
 
 const commonModule = namespace('common')
 
@@ -46,7 +46,7 @@ export default class extends Vue {
     requited: true,
     default: []
   })
-  readonly menu!: ISideMenu
+  readonly menu!: Menu.Side
 
   /**
    * @description: 路由跳转处理

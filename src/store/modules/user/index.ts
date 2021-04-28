@@ -6,11 +6,16 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-04-18 09:16:20
  */
-import { IToken, IUser } from '@/api/login/index.type'
 import { $clearJson } from '@/utils/index'
 import { getToken, setToken } from '@/utils/storage'
-import { ActionContext } from 'vuex'
-import { IUserState } from './index.type'
+import { Vuex } from '@/types/vuex'
+import { Token } from '@/types/token'
+import { User } from '@/types/user'
+
+interface State {
+  user: User.Vo
+  token: Token.Base
+}
 
 export default {
   state: {
@@ -32,33 +37,33 @@ export default {
     }
   },
   getters: {
-    tokenVal: (state: IUserState): string | null => {
+    tokenVal: (state: State): string | null => {
       return state.token.token
     }
   },
   mutations: {
-    SET_USER: (state: IUserState, user: IUser): void => {
+    SET_USER: (state: State, user: User.Vo): void => {
       state.user = user
     },
-    SET_TOKEN: (state: IUserState, token: IToken): void => {
+    SET_TOKEN: (state: State, token: Token.Base): void => {
       state.token = token
     },
-    CLEAR_USER: (state: IUserState): void => {
+    CLEAR_USER: (state: State): void => {
       $clearJson(state.user)
     },
-    CLEAR_TOKEN: (state: IUserState): void => {
+    CLEAR_TOKEN: (state: State): void => {
       $clearJson(state.token)
     }
   },
   actions: {
-    setUser({ commit }: ActionContext<IUserState, null>, user: IUser): void {
+    setUser({ commit }: Vuex.Action<State, null>, user: User.Vo): void {
       commit('SET_USER', user)
     },
-    setToken({ commit }: ActionContext<IUserState, null>, token: IToken): void {
+    setToken({ commit }: Vuex.Action<State, null>, token: Token.Base): void {
       setToken(token.token)
       commit('SET_TOKEN', token)
     },
-    clear({ commit }: ActionContext<IUserState, null>, flag: boolean = false): void {
+    clear({ commit }: Vuex.Action<State, null>, flag: boolean = false): void {
       if (flag) {
         commit('CLEAR_TOKEN')
       }

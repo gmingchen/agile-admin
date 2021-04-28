@@ -104,11 +104,10 @@ import { Inject } from 'vue-property-decorator'
 import page from '@/mixins/page'
 import Page from '@V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
-import { IPage } from '@/mixins/page.typs'
-import { IObject } from '@/utils/index.type'
-
 import { del, getPage, setStatus } from '@/api/base/user'
-import { IUser } from '@/api/base/user/index.type'
+import { IObject } from '@/types'
+import { User } from '@/types/user'
+import { Mixins } from '@/types/mixins'
 
 @Options({
   components: { Page, AddEdit }
@@ -124,8 +123,8 @@ export default class extends mixins(page) {
     username: '',
     nickname: ''
   }
-  protected list: IUser[] = []
-  protected selection: IUser[] = []
+  protected list: User.Vo[] = []
+  protected selection: User.Vo[] = []
 
   created(): void {
     this.getList()
@@ -208,7 +207,7 @@ export default class extends mixins(page) {
    * @return {*}
    * @author: gumingchen
    */
-  statusHandle(row: IUser): void {
+  statusHandle(row: User.Vo): void {
     this.$confirm(this.$t('tip.confirmTips', [row.id, this.$t(row.status === 1 ? 'button.disable' : 'button.enable')]), this.$t('tip.tips'), {
       confirmButtonText: this.$t('button.confirm'),
       cancelButtonText: this.$t('button.cancel'),
@@ -240,7 +239,7 @@ export default class extends mixins(page) {
    * @return {*}
    * @author: gumingchen
    */
-  selectionHandle(val: IUser[]): void {
+  selectionHandle(val: User.Vo[]): void {
     this.selection = val
   }
 
@@ -250,7 +249,7 @@ export default class extends mixins(page) {
    * @return {*}
    * @author: gumingchen
    */
-  pageChangeHandle(data: IPage): void {
+  pageChangeHandle(data: Mixins.Page): void {
     this.page.current = data.current
     this.page.size = data.size
     this.getList()

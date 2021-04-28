@@ -27,10 +27,9 @@
 import { Vue } from 'vue-class-component'
 import { Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import { ITab } from '@/store/modules/tab/index.type'
+import { Tab } from '@/store/modules/tab'
 import { Pane } from 'element-plus/lib/el-tabs/src/tabs.vue'
-import { RouteLocation } from 'vue-router'
-import { IMeta } from '@/router/index.type'
+import { Router } from '@/types/router'
 
 const commonModule = namespace('common')
 const tabModule = namespace('tab')
@@ -44,11 +43,11 @@ export default class extends Vue {
   @tabModule.State('active')
   readonly tabActive!: string
   @tabModule.State('tabs')
-  readonly tabs!: ITab[]
+  readonly tabs!: Tab[]
   @tabModule.Action('setActive')
   setActive!: (arg: string) => void
   @tabModule.Action('changeHandle')
-  changeHandle!: (arg: RouteLocation) => void
+  changeHandle!: (arg: Router.RouteLocal) => void
   @tabModule.Action('removeHandle')
   remove!: (arg: string[]) => void
 
@@ -60,9 +59,9 @@ export default class extends Vue {
   }
 
   @Watch('$route')
-  onRoute(route: RouteLocation): void {
+  onRoute(route: Router.RouteLocal): void {
     this.changeHandle(route)
-    const meta = route.meta as unknown as IMeta
+    const meta = route.meta as unknown as Router.Meta
     if (meta.multiple) {
       this.setRefresh(true)
       this.$nextTick(() => {

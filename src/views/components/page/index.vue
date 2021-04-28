@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { Prop } from 'vue-property-decorator'
-import { IPage } from '@/mixins/page.typs'
+import { Mixins } from '@/types/mixins'
 
 @Options({
   emits: ['change']
@@ -26,7 +26,7 @@ export default class extends Vue {
     type: Object,
     require: true
   })
-  readonly page!: IPage
+  readonly page!: Mixins.Page
 
   currentChangeHandle(val: number): void {
     this.$emit('change', { current: val, size: this.page.size })

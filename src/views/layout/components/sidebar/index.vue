@@ -37,9 +37,9 @@ import { Options, Vue } from 'vue-class-component'
 import { Inject, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import SubMenu from './sub-menu.vue'
-import { IDocument } from '@/store/modules/common/index.type'
-import { ISideMenu } from '@/store/modules/menu/index.type'
-import { RouteLocationNormalizedLoaded } from 'vue-router'
+import { Document } from '@/store/modules/common'
+import { Router } from '@/types/router'
+import { Menu } from '@/types/menu'
 
 const menuModule = namespace('menu')
 
@@ -47,7 +47,7 @@ const menuModule = namespace('menu')
   components: { SubMenu }
 })
 export default class extends Vue {
-  @Inject('document') readonly document!: IDocument
+  @Inject('document') readonly document!: Document
 
   @menuModule.State('active')
   readonly active!: string
@@ -55,13 +55,13 @@ export default class extends Vue {
   readonly isCollapse!: boolean
 
   @menuModule.Getter('processedMenu')
-  readonly menus!: ISideMenu[]
+  readonly menus!: Menu.Side[]
 
   @menuModule.Action('setActive')
   setActive!: (arg: string) => void
 
   @Watch('$route')
-  onRoute(route: RouteLocationNormalizedLoaded): void {
+  onRoute(route: Router.RouteLocalNormalizedLoaded): void {
     this.routeHandle(route)
   }
 
@@ -75,7 +75,7 @@ export default class extends Vue {
    * @return {*}
    * @author: gumingchen
    */
-  routeHandle(route: RouteLocationNormalizedLoaded): void {
+  routeHandle(route: Router.RouteLocalNormalizedLoaded): void {
     const active: string = route.name as string
     this.setActive(active)
   }

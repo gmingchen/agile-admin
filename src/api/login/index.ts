@@ -7,19 +7,41 @@
  * @LastEditTime: 2021-04-19 17:42:06
  */
 import service from '@/utils/request'
-import { IRequest, IResponse } from '@/api/index.type'
-import { ILoginParams, IMenuResponseData, IToken, IUser, IUserEditParams } from './index.type'
 import { $parseJson2Param } from '@/utils/index'
+import { Axios } from '@/types/axios'
+import { Token } from '@/types/token'
+import { User } from '@/types/user'
+import { Menu } from '@/types/menu'
+
+interface LoginParams {
+  username: string
+  password: string
+  uuid: string
+  code: string
+}
+
+export interface UserMenus {
+  menus: Menu.Vo[]
+  permissions: string[]
+}
+interface UserEditParams {
+  nickname?: string
+  mobile?: string
+  email?: string
+  old_password?: string
+  new_password?: string
+  confirm_password?: string
+}
 
 /**
  * @description: 获取验证码
- * @param {IObject} params
- * @return {string}
+ * @param {*} params
+ * @return {*}
  * @author: gumingchen
  */
 export function getCaptcha(params: { uuid: string }): string {
   let result: string = ''
-  const options: IRequest = {
+  const options: Axios.Request = {
     url: '/base/captcha.jpg',
     method: 'get',
     params: params
@@ -30,11 +52,11 @@ export function getCaptcha(params: { uuid: string }): string {
 
 /**
  * @description: 登录
- * @param {ILoginParams} params
+ * @param {*} params
  * @return {*}
  * @author: gumingchen
  */
-export function login(params: ILoginParams): Promise<IResponse<IToken>> {
+export function login(params: LoginParams): Promise<Axios.Response<Token.Base>> {
   return service({
     url: '/base/login',
     method: 'post',
@@ -48,7 +70,7 @@ export function login(params: ILoginParams): Promise<IResponse<IToken>> {
  * @return {*}
  * @author: gumingchen
  */
-export function getUserInfo(): Promise<IResponse<IUser>> {
+export function getUserInfo(): Promise<Axios.Response<User.Vo>> {
   return service({
     url: '/base/user/self/info',
     method: 'get'
@@ -61,7 +83,7 @@ export function getUserInfo(): Promise<IResponse<IUser>> {
  * @return {*}
  * @author: gumingchen
  */
-export function getUserMenus(): Promise<IResponse<IMenuResponseData>> {
+export function getUserMenus(): Promise<Axios.Response<UserMenus>> {
   return service({
     url: '/base/menu/self/info',
     method: 'get'
@@ -70,11 +92,11 @@ export function getUserMenus(): Promise<IResponse<IMenuResponseData>> {
 
 /**
  * @description: 修改用户信息
- * @param {IUserEditParams} params
+ * @param {*} params
  * @return {*}
  * @author: gumingchen
  */
-export function editUserInfo(params: IUserEditParams): Promise<IResponse<number>> {
+export function editUserInfo(params: UserEditParams): Promise<Axios.Response<number>> {
   return service({
     url: '/base/user/self/update',
     method: 'post',
@@ -88,7 +110,7 @@ export function editUserInfo(params: IUserEditParams): Promise<IResponse<number>
  * @return {*}
  * @author: gumingchen
  */
-export function logout(): Promise<IResponse<null>> {
+export function logout(): Promise<Axios.Response<null>> {
   return service({
     url: '/base/logout',
     method: 'post'

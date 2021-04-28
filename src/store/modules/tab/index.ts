@@ -6,11 +6,10 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-04-18 17:42:39
  */
-import { ActionContext } from 'vuex'
-import { ITab, ITabState } from './index.type'
-import { RouteLocation } from 'vue-router'
 import router from '@/router'
-import { IMeta } from '@/router/index.type'
+import { IObject } from '@/types'
+import { Router } from '@/types/router'
+import { Vuex } from '@/types/vuex'
 
 // todo: ITab value 格式：{a}-{b}-{c}-{d}
 // todo: a: 路由name b: 菜单ID c: 路由query字符串 d: 路由params字符串
@@ -27,6 +26,22 @@ const defaultTabs = [{
   closable: false // true：可以关闭
 }]
 
+export interface Tab {
+  value: string
+  label_cn: string
+  label_en: string
+  name: string
+  path: string
+  query: IObject
+  params: IObject
+  closable: boolean
+}
+
+interface State {
+  active: string
+  tabs: Tab[]
+}
+
 export default {
   state: {
     active: 'home',
@@ -35,22 +50,22 @@ export default {
   getters: {
   },
   mutations: {
-    SET_ACTIVE: (state: ITabState, active: string): void => {
+    SET_ACTIVE: (state: State, active: string): void => {
       state.active = active
     },
-    SET_TABS: (state: ITabState, tabs: ITab[]): void => {
+    SET_TABS: (state: State, tabs: Tab[]): void => {
       state.tabs = tabs
     },
-    ADD_TAB: (state: ITabState, tab: ITab): void => {
+    ADD_TAB: (state: State, tab: Tab): void => {
       state.tabs.push(tab)
     }
   },
   actions: {
-    setActive({ commit }: ActionContext<ITabState, null>, active: string): void {
+    setActive({ commit }: Vuex.Action<State, null>, active: string): void {
       commit('SET_ACTIVE', active)
     },
-    changeHandle({ commit, state }: ActionContext<ITabState, null>, route: RouteLocation): void {
-      const meta = route.meta as unknown as IMeta
+    changeHandle({ commit, state }: Vuex.Action<State, null>, route: Router.RouteLocal): void {
+      const meta = route.meta as unknown as Router.Meta
       if (meta.isTab) {
         const queryStr = JSON.stringify(route.query)
         const paramsStr = JSON.stringify(route.params)
@@ -58,7 +73,7 @@ export default {
         if (meta.multiple) {
           val += `-${ queryStr }-${ paramsStr }`
         }
-        const tab: ITab = {
+        const tab: Tab = {
           value: val,
           label_cn: meta.title_cn,
           label_en: meta.title_en,
@@ -77,7 +92,7 @@ export default {
         commit('SET_ACTIVE', val)
       }
     },
-    removeHandle({ commit, state }: ActionContext<ITabState, null>, values: string[]): void {
+    removeHandle({ commit, state }: Vuex.Action<State, null>, values: string[]): void {
       let tabs = state.tabs.filter(item => {
         return values.indexOf(item.value) === -1
       })

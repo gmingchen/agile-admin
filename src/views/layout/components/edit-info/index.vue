@@ -53,19 +53,19 @@
 <script lang="ts">
 import { Vue } from 'vue-class-component'
 import { namespace } from 'vuex-class'
-import { IObject } from '@/utils/index.type'
 import { isEmail, isMobile } from '@/utils/regular'
 import { editUserInfo, getUserInfo } from '@/api/login'
-import { IUser } from '@/api/login/index.type'
+import { IObject } from '@/types'
+import { User } from '@/types/user'
 
 const userModule = namespace('user')
 
 export default class extends Vue {
   @userModule.State('user')
-  readonly user!: IUser
+  readonly user!: User.Vo
 
   @userModule.Action('setUser')
-  setUser!: (arg: IUser) => void
+  setUser!: (arg: User.Vo) => void
 
   protected visible: boolean = false
 

@@ -8,7 +8,6 @@
  * @LastEditTime: 2021-02-26 10:14:24
  */
 import 'element-plus/lib/theme-chalk/index.css'
-import { IApp } from '@/utils/index.type'
 
 import {
   ElAlert,
@@ -101,6 +100,7 @@ import {
   ElSpace,
   ElVirtualList
 } from 'element-plus'
+import { App } from '@/types'
 
 const components = [
   ElAlert,
@@ -192,7 +192,7 @@ const components = [
 const plugins = [ElInfiniteScroll, ElLoading, ElMessage, ElMessageBox, ElNotification]
 
 export default {
-  install: function (app: IApp): void {
+  install: function (app: App): void {
     components.forEach(component => {
       app.component(component.name, component)
     })

@@ -20,22 +20,22 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import { namespace } from 'vuex-class'
-import { IObject } from '@/utils/index.type'
-import { IDocument, INavbar } from '@/store/modules/common/index.type'
+import { IObject } from '@/types'
+import { Document, Navbar } from '@/store/modules/common'
 
 const commonModule = namespace('common')
 
 @Options({})
 export default class extends Vue {
   @commonModule.State('document')
-  readonly document!: IDocument
+  readonly document!: Document
   @commonModule.State('navbar')
-  readonly navbar!: INavbar
+  readonly navbar!: Navbar
 
   protected url: string = ''
 
   get style(): IObject {
-    const result: IObject = {
+    const result = {
       height: `${ this.document.clientHeight - this.navbar.headHeight - (this.navbar.tabsDisplay ? this.navbar.tabsHeight : 0) }px`
     }
     return result

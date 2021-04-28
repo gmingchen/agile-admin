@@ -7,8 +7,13 @@
  * @LastEditTime: 2021-04-21 22:59:24
  */
 import service from '@/utils/request'
-import { IPageData, IResponse, IStatusParams } from '@/api/index.type'
-import { IUser, IUserPageParams } from './index.type'
+import { Axios } from '@/types/axios'
+import { User } from '@/types/user'
+
+interface pageParams extends Axios.PageParams {
+  username: string
+  nickname: string
+}
 
 /**
  * @description: 获取用户
@@ -16,7 +21,7 @@ import { IUser, IUserPageParams } from './index.type'
  * @return {*}
  * @author: gumingchen
  */
-export function getPage(params: IUserPageParams): Promise<IResponse<IPageData<IUser>>> {
+export function getPage(params: pageParams): Promise<Axios.Response<Axios.PageData<User.Vo>>> {
   return service({
     url: '/base/user/page',
     method: 'get',
@@ -30,7 +35,7 @@ export function getPage(params: IUserPageParams): Promise<IResponse<IPageData<IU
  * @return {*}
  * @author: gumingchen
  */
-export function info(params: number): Promise<IResponse<IUser>> {
+export function info(params: number): Promise<Axios.Response<User.Vo>> {
   return service({
     url: `/base/user/info/${ params }`,
     method: 'get'
@@ -43,7 +48,7 @@ export function info(params: number): Promise<IResponse<IUser>> {
  * @return {*}
  * @author: gumingchen
  */
-export function add(params: IUser): Promise<IResponse<null>> {
+export function add(params: User.Dto): Promise<Axios.Response<null>> {
   return service({
     url: '/base/user/create',
     method: 'post',
@@ -57,7 +62,7 @@ export function add(params: IUser): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function edit(params: IUser): Promise<IResponse<null>> {
+export function edit(params: User.Dto): Promise<Axios.Response<null>> {
   return service({
     url: '/base/user/update',
     method: 'post',
@@ -71,7 +76,7 @@ export function edit(params: IUser): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function del(params: number[]): Promise<IResponse<null>> {
+export function del(params: number[]): Promise<Axios.Response<null>> {
   return service({
     url: '/base/user/delete',
     method: 'post',
@@ -85,7 +90,7 @@ export function del(params: number[]): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function setStatus(params: IStatusParams): Promise<IResponse<null>> {
+export function setStatus(params: Axios.StatusParams): Promise<Axios.Response<null>> {
   return service({
     url: '/base/user/status',
     method: 'post',

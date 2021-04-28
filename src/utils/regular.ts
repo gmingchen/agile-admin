@@ -9,7 +9,7 @@
 
 /**
  * @description: 邮箱
- * @param {string} input
+ * @param {*} input
  * @return {*}
  * @author: gumingchen
  */

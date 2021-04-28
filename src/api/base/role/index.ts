@@ -7,8 +7,12 @@
  * @LastEditTime: 2021-04-21 22:59:24
  */
 import service from '@/utils/request'
-import { IPageData, IResponse } from '@/api/index.type'
-import { IRole, IRolePageParams } from './index.type'
+import { Axios } from '@/types/axios'
+import { Role } from '@/types/role'
+
+interface pageParams extends Axios.PageParams {
+  name: string
+}
 
 /**
  * @description: 获取角色
@@ -16,7 +20,7 @@ import { IRole, IRolePageParams } from './index.type'
  * @return {*}
  * @author: gumingchen
  */
-export function getPage(params: IRolePageParams): Promise<IResponse<IPageData<IRole>>> {
+export function getPage(params: pageParams): Promise<Axios.Response<Axios.PageData<Role.Base>>> {
   return service({
     url: '/base/role/page',
     method: 'get',
@@ -30,7 +34,7 @@ export function getPage(params: IRolePageParams): Promise<IResponse<IPageData<IR
  * @return {*}
  * @author: gumingchen
  */
-export function info(params: number): Promise<IResponse<IRole>> {
+export function info(params: number): Promise<Axios.Response<Role.Dto>> {
   return service({
     url: `/base/role/info/${ params }`,
     method: 'get'
@@ -43,7 +47,7 @@ export function info(params: number): Promise<IResponse<IRole>> {
  * @return {*}
  * @author: gumingchen
  */
-export function add(params: IRole): Promise<IResponse<null>> {
+export function add(params: Role.Dto): Promise<Axios.Response<null>> {
   return service({
     url: '/base/role/create',
     method: 'post',
@@ -57,7 +61,7 @@ export function add(params: IRole): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function edit(params: IRole): Promise<IResponse<null>> {
+export function edit(params: Role.Dto): Promise<Axios.Response<null>> {
   return service({
     url: '/base/role/update',
     method: 'post',
@@ -71,7 +75,7 @@ export function edit(params: IRole): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function del(params: number[]): Promise<IResponse<null>> {
+export function del(params: number[]): Promise<Axios.Response<null>> {
   return service({
     url: '/base/role/delete',
     method: 'post',
@@ -85,7 +89,7 @@ export function del(params: number[]): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function select(): Promise<IResponse<IRole[]>> {
+export function select(): Promise<Axios.Response<Role.Simple[]>> {
   return service({
     url: '/base/role/select',
     method: 'get'

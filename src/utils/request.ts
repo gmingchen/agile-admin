@@ -13,8 +13,8 @@ import router from '@/router'
 import store from '@/store'
 import { ElMessage } from 'element-plus'
 import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, TOKEN_KEY } from './constants'
-import { ContentType } from './index.type'
-import { IResponse } from '@/api/index.type'
+import { ContentType } from '@/types'
+import { Axios } from '@/types/axios'
 
 /**
  * @description: 异常消息提示
@@ -100,7 +100,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { code, message }: IResponse<any> = response.data
+    const { code, message }: Axios.Response<any> = response.data
     if (!SUCCESS_CODE.includes(code)) {
       codeHandle(code, message)
       return null

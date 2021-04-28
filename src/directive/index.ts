@@ -7,10 +7,10 @@
  * @LastEditTime: 2021-04-27 09:34:06
  */
 import { $isAuth } from '@/utils'
-import { IApp } from '@/utils/index.type'
+import { App } from '@/types'
 
 export default {
-  install: function (app: IApp): void {
+  install: function (app: App): void {
     app.directive('permission', (el, binding): void => {
       const permission = binding.value
       const result = $isAuth(permission)

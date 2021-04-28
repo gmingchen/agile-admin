@@ -6,10 +6,35 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-04-21 15:24:45
  */
-import { LanguageType } from '@/utils/index.type'
 import { clear, exit, getLanguage, setLanguage } from '@/utils/storage'
-import { ActionContext } from 'vuex'
-import { ICommonState } from './index.type'
+import { Vuex } from '@/types/vuex'
+import { LanguageType } from '@/types'
+
+export interface Document {
+  clientHeight: number
+}
+export interface Sidebar {
+  width: number
+  openWidth: number
+  foldWidth: number
+}
+export interface Navbar {
+  headHeight: number
+  tabsHeight: number
+  fixed: boolean
+  tabsDisplay: boolean
+}
+export interface Set {
+  language: string
+  fullScreen: boolean
+  refresh: boolean
+}
+interface State {
+  document: Document
+  sidebar: Sidebar
+  navbar: Navbar
+  set: Set
+}
 
 export default {
   state: {
@@ -34,58 +59,58 @@ export default {
     }
   },
   getters: {
-    language: (state: ICommonState): string => {
+    language: (state: State): string => {
       return state.set.language
     }
   },
   mutations: {
-    SET_DOCUMENT_CLIENT_HEIGHT: (state: ICommonState, clientHeight: number): void => {
+    SET_DOCUMENT_CLIENT_HEIGHT: (state: State, clientHeight: number): void => {
       state.document.clientHeight = clientHeight
     },
-    SET_SIDEBAR_WIDTH: (state: ICommonState, width: number): void => {
+    SET_SIDEBAR_WIDTH: (state: State, width: number): void => {
       state.sidebar.width = width
     },
-    SET_LANGUAGE: (state: ICommonState, language: string): void => {
+    SET_LANGUAGE: (state: State, language: string): void => {
       state.set.language = language
     },
-    SET_FULL_SCREEN: (state: ICommonState, fullScreen: boolean): void => {
+    SET_FULL_SCREEN: (state: State, fullScreen: boolean): void => {
       state.set.fullScreen = fullScreen
     },
-    SET_REFRESH: (state: ICommonState, refresh: boolean): void => {
+    SET_REFRESH: (state: State, refresh: boolean): void => {
       state.set.refresh = refresh
     }
   },
   actions: {
-    setDocunentClientHeight({ commit }: ActionContext<ICommonState, null>, clientHeight: number): void {
+    setDocunentClientHeight({ commit }: Vuex.Action<State, null>, clientHeight: number): void {
       commit('SET_DOCUMENT_CLIENT_HEIGHT', clientHeight)
     },
-    setSidebarWidth({ commit, state }: ActionContext<ICommonState, null>, isCollapse: boolean = false): void {
+    setSidebarWidth({ commit, state }: Vuex.Action<State, null>, isCollapse: boolean = false): void {
       if (isCollapse) {
         commit('SET_SIDEBAR_WIDTH', state.sidebar.foldWidth)
       } else {
         commit('SET_SIDEBAR_WIDTH', state.sidebar.openWidth)
       }
     },
-    setLanguage({ commit }: ActionContext<ICommonState, null>, language: string): void {
+    setLanguage({ commit }: Vuex.Action<State, null>, language: string): void {
       setLanguage(language)
       commit('SET_LANGUAGE', language)
     },
-    setFullScreen({ commit }: ActionContext<ICommonState, null>, fullScreen: boolean = false): void {
+    setFullScreen({ commit }: Vuex.Action<State, null>, fullScreen: boolean = false): void {
       commit('SET_FULL_SCREEN', fullScreen)
     },
-    setRefresh({ commit }: ActionContext<ICommonState, null>, refresh: boolean = false): void {
+    setRefresh({ commit }: Vuex.Action<State, null>, refresh: boolean = false): void {
       commit('SET_REFRESH', refresh)
     },
-    clearStore({ dispatch }: ActionContext<ICommonState, null>, type: boolean = false): void {
+    clearStore({ dispatch }: Vuex.Action<State, null>, type: boolean = false): void {
       dispatch('user/clear', { type: type }, { root: true })
       dispatch('menu/clear', {}, { root: true })
     },
-    clear({ dispatch }: ActionContext<ICommonState, null>): void {
+    clear({ dispatch }: Vuex.Action<State, null>): void {
       clear()
       dispatch('clearStore', false)
       window.location.reload()
     },
-    exit({ dispatch }: ActionContext<ICommonState, null>): void {
+    exit({ dispatch }: Vuex.Action<State, null>): void {
       exit()
       dispatch('clearStore', true)
     }

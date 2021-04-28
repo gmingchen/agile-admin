@@ -7,8 +7,8 @@
  * @LastEditTime: 2021-04-21 23:00:11
  */
 import service from '@/utils/request'
-import { IResponse, IStatusParams } from '@/api/index.type'
-import { IMenu, IMenuParams, IMenuSelect } from './index.type'
+import { Axios } from '@/types/axios'
+import { Menu } from '@/types/menu'
 
 /**
  * @description: 获取权限菜单
@@ -16,7 +16,7 @@ import { IMenu, IMenuParams, IMenuSelect } from './index.type'
  * @return {*}
  * @author: gumingchen
  */
-export function getList(params: { parent_id: number }): Promise<IResponse<IMenu[]>> {
+export function getList(params: { parent_id: number }): Promise<Axios.Response<Menu.Vo[]>> {
   return service({
     url: '/base/menu/list',
     method: 'get',
@@ -30,7 +30,7 @@ export function getList(params: { parent_id: number }): Promise<IResponse<IMenu[
  * @return {*}
  * @author: gumingchen
  */
-export function info(params: number): Promise<IResponse<IMenuParams>> {
+export function info(params: number): Promise<Axios.Response<Menu.Dto>> {
   return service({
     url: `/base/menu/info/${ params }`,
     method: 'get'
@@ -43,7 +43,7 @@ export function info(params: number): Promise<IResponse<IMenuParams>> {
  * @return {*}
  * @author: gumingchen
  */
-export function add(params: IMenuParams): Promise<IResponse<null>> {
+export function add(params: Menu.Base): Promise<Axios.Response<null>> {
   return service({
     url: '/base/menu/create',
     method: 'post',
@@ -57,7 +57,7 @@ export function add(params: IMenuParams): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function edit(params: IMenuParams): Promise<IResponse<null>> {
+export function edit(params: Menu.Base): Promise<Axios.Response<null>> {
   return service({
     url: '/base/menu/update',
     method: 'post',
@@ -71,7 +71,7 @@ export function edit(params: IMenuParams): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function del(params: { id: number }): Promise<IResponse<null>> {
+export function del(params: { id: number }): Promise<Axios.Response<null>> {
   return service({
     url: '/base/menu/delete',
     method: 'post',
@@ -85,7 +85,7 @@ export function del(params: { id: number }): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function setDisplay(params: IStatusParams): Promise<IResponse<null>> {
+export function setDisplay(params: Axios.StatusParams): Promise<Axios.Response<null>> {
   return service({
     url: '/base/menu/display',
     method: 'post',
@@ -99,7 +99,7 @@ export function setDisplay(params: IStatusParams): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function setAlive(params: IStatusParams): Promise<IResponse<null>> {
+export function setAlive(params: Axios.StatusParams): Promise<Axios.Response<null>> {
   return service({
     url: '/base/menu/alive',
     method: 'post',
@@ -113,7 +113,7 @@ export function setAlive(params: IStatusParams): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function setTab(params: IStatusParams): Promise<IResponse<null>> {
+export function setTab(params: Axios.StatusParams): Promise<Axios.Response<null>> {
   return service({
     url: '/base/menu/tab',
     method: 'post',
@@ -127,7 +127,7 @@ export function setTab(params: IStatusParams): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function setMultiple(params: IStatusParams): Promise<IResponse<null>> {
+export function setMultiple(params: Axios.StatusParams): Promise<Axios.Response<null>> {
   return service({
     url: '/base/menu/multiple',
     method: 'post',
@@ -141,7 +141,7 @@ export function setMultiple(params: IStatusParams): Promise<IResponse<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function select(): Promise<IResponse<IMenuSelect[]>> {
+export function select(): Promise<Axios.Response<Menu.Simple[]>> {
   return service({
     url: '/base/menu/select',
     method: 'get'
@@ -149,12 +149,12 @@ export function select(): Promise<IResponse<IMenuSelect[]>> {
 }
 
 /**
- * @description: 下拉列表
+ * @description: 当前用户下拉列表
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function selfSelect(): Promise<IResponse<IMenuSelect[]>> {
+export function selfSelect(): Promise<Axios.Response<Menu.Simple[]>> {
   return service({
     url: '/base/menu/self/select',
     method: 'get'

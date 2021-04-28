@@ -58,11 +58,11 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { namespace } from 'vuex-class'
-import { IObject } from '@/utils/index.type'
 import { getCaptcha, login } from '@/api/login'
 import { $getUUID } from '@/utils/index'
-import { IToken } from '@/api/login/index.type'
 import Language from '@V/components/language/index.vue'
+import { IObject } from '@/types'
+import { Token } from '@/types/token'
 
 const userModule = namespace('user')
 
@@ -71,7 +71,7 @@ const userModule = namespace('user')
 })
 export default class extends Vue {
   @userModule.Action('setToken')
-  setToken!: (arg: IToken) => void
+  setToken!: (arg: Token.Base) => void
 
   protected list = []
 

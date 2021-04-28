@@ -6,7 +6,7 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-02-04 10:17:20
  */
-import { TokenKey, ContentType, ModelKey, StorageType, SuccessCode, TimeOut, LanguageKey } from './index.type'
+import { ContentType, LanguageKey, ModelKey, StorageType, SuccessCode, TimeOut, TokenKey } from '@/types'
 // 请求数据类型
 export const CONTENT_TYPE: string = ContentType.JSON
 // 请求超时时长

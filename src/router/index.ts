@@ -6,18 +6,19 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-04-18 17:46:46
  */
-import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteLocationNormalized } from 'vue-router'
 import NProgress from 'nprogress'
 import store from '@/store'
 import I18n from '@/i18n'
 import { getUserMenus } from '@/api/login'
-import { IMenu } from '@/api/login/index.type'
 import { isURL } from '@/utils/regular'
+import { Router } from '@/types/router'
+import { Menu } from '@/types/menu'
 
 let refresh = true
 
 /* 通用 */
-const global: RouteRecordRaw[] = [
+const global: Router.Route[] = [
   { path: '/', redirect: { name: 'login' }, meta: { title: '重定向' } },
   { path: '/login', name: 'login', component: () => import('@V/global/login.vue'), meta: { title: 'Login' } },
   { path: '/404', name: '404', component: () => import('@V/global/404.vue'), meta: { title: '404' } },
@@ -25,7 +26,7 @@ const global: RouteRecordRaw[] = [
 ]
 
 /* 主入口 */
-const main: RouteRecordRaw = {
+const main: Router.Route = {
   path: '/layout',
   name: 'layout',
   component: () => import('@V/layout/index.vue'),
@@ -102,7 +103,7 @@ const main: RouteRecordRaw = {
   }
 }
 
-const routes: RouteRecordRaw[] = global.concat(main)
+const routes: Router.Route[] = global.concat(main)
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -116,8 +117,8 @@ const router = createRouter({
  * @return {*}
  * @author: gumingchen
  */
-function currentRouteType(route: RouteLocationNormalized, commonRoutes: RouteRecordRaw[] = []): string {
-  let temp: RouteRecordRaw[] = []
+function currentRouteType(route: RouteLocationNormalized, commonRoutes: Router.Route[] = []): string {
+  let temp: Router.Route[] = []
   for (let i = 0; i < commonRoutes.length; i++) {
     if (route.path === commonRoutes[i].path) {
       return 'global'
@@ -135,14 +136,14 @@ function currentRouteType(route: RouteLocationNormalized, commonRoutes: RouteRec
  * @return {*}
  * @author: gumingchen
  */
-function addRoutes(menus: IMenu[] = [], routeList: RouteRecordRaw[] = []): void {
-  let list: IMenu[] = []
-  menus.forEach((item: IMenu, _index: number) => {
+function addRoutes(menus: Menu.Vo[] = [], routeList: Router.Route[] = []): void {
+  let list: Menu.Vo[] = []
+  menus.forEach((item: Menu.Vo, _index: number) => {
     if (item.children && item.children.length > 0) {
       list = list.concat(item.children)
     }
     if (item.url && /\S/u.test(item.url)) {
-      const route: RouteRecordRaw = {
+      const route: Router.Route = {
         path: '/' + item.url.replace(/\//g, '-'),
         name: item.url.replace(/\//g, '-'),
         component: () => import(`@V/modules/${ item.url }.vue`) || null,
@@ -208,7 +209,7 @@ router.beforeEach(async (to: RouteLocationNormalized, _from, next) => {
       }
     }
     refresh = false
-    const menus: IMenu[] = store.getters['menu/menus']
+    const menus: Menu.Vo[] = store.getters['menu/menus']
     addRoutes(menus)
     next({ ...to, replace: true })
   }

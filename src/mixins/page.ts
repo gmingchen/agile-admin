@@ -7,7 +7,14 @@
  * @LastEditTime: 2021-04-19 17:25:13
  */
 import { Vue } from 'vue-class-component'
-import { IPage } from './page.typs'
+
+export interface IPage {
+  current: number
+  size: number
+  total: number
+  sizes: number[]
+}
+
 export default class extends Vue {
   protected page: IPage = {
     current: 1,

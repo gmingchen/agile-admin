@@ -46,10 +46,10 @@ import Sidebar from './components/sidebar/index.vue'
 import Headbar from './components/headbar/index.vue'
 import Tabsbar from './components/tabsbar/index.vue'
 import { getUserInfo } from '@/api/login'
-import { IUser } from '@/api/login/index.type'
-import { IDocument, INavbar, ISet, ISidebar } from '@/store/modules/common/index.type'
 import { $isAuth, $clearJson } from '@/utils/index'
-import { IObject } from '@/utils/index.type'
+import { IObject } from '@/types'
+import { User } from '@/types/user'
+import { Document, Navbar, Set, Sidebar as ISidebar } from '@/store/modules/common'
 
 const userModule = namespace('user')
 const commonModule = namespace('common')
@@ -60,13 +60,13 @@ const menuModule = namespace('menu')
 })
 export default class extends Vue {
   @commonModule.State('document')
-  @Provide('document') readonly document!: IDocument
+  @Provide('document') readonly document!: Document
   @commonModule.State('sidebar')
   readonly sidebar!: ISidebar
   @commonModule.State('navbar')
-  @Provide('navbar') readonly navbar!: INavbar
+  @Provide('navbar') readonly navbar!: Navbar
   @commonModule.State('set')
-  @Provide('set') readonly set!: ISet
+  @Provide('set') readonly set!: Set
   @commonModule.Action('setDocunentClientHeight')
   setDocunentClientHeight!: (arg: number) => void
 
@@ -74,7 +74,7 @@ export default class extends Vue {
   readonly isCollapse!: boolean
 
   @userModule.Action('setUser')
-  setUser!: (arg: IUser) => void
+  setUser!: (arg: User.Vo) => void
 
   @Provide('isAuth') isAuth: (arg: string) => boolean = $isAuth
   @Provide('clearJson') clearJson: (arg: IObject) => void = $clearJson

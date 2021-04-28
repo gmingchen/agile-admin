@@ -23,11 +23,11 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import { namespace } from 'vuex-class'
-import { INavbar } from '@/store/modules/common/index.type'
-import { IObject } from '@/utils/index.type'
-import Actionbar from './actionbar.vue'
 import { Provide } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
+import Actionbar from './actionbar.vue'
+import { Navbar } from '@/store/modules/common'
+import { IObject } from '@/types'
 
 const commonModule = namespace('common')
 const menuModule = namespace('menu')
@@ -37,9 +37,9 @@ const menuModule = namespace('menu')
 })
 export default class extends Vue {
   @commonModule.State('navbar')
-  @Provide('navbar') readonly navbar!: INavbar
+  @Provide('navbar') readonly navbar!: Navbar
   @menuModule.State('isCollapse')
-  readonly isCollapse!: INavbar
+  readonly isCollapse!: Navbar
   @menuModule.Action('setIsCollapse')
   setIsCollapse!: (arg: boolean) => void
   @commonModule.Action('setSidebarWidth')

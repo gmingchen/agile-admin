@@ -8,8 +8,8 @@
  */
 import cookie from 'js-cookie'
 import { IS_GET_MENU_KEY, LANGUAGE_KEY, LANGUAGE_STORAGE, MENU_KEY, MENU_STORAGE, PERMISSION_KEY, TOKEN_KEY, TOKEN_STORAGE } from '@/utils/constants'
-import { IMenuResponseData } from '@/api/login/index.type'
-import { LanguageType, StorageType } from '@/utils/index.type'
+import { LanguageType, StorageType } from '@/types'
+import { UserMenus } from '@/api/login'
 
 /**
  * @description: token-存储、获取、清除
@@ -74,8 +74,8 @@ export function clearToken(): void {
  * @return {*}
  * @author: gumingchen
  */
-export function getMenuAndPermissions(): IMenuResponseData {
-  let result: IMenuResponseData
+export function getMenuAndPermissions(): UserMenus {
+  let result: UserMenus
   switch (MENU_STORAGE) {
     case StorageType.COOKIE:
       result = {
@@ -104,7 +104,7 @@ export function getMenuAndPermissions(): IMenuResponseData {
   }
   return result
 }
-export function setMenuAndPermissions(data: IMenuResponseData): void {
+export function setMenuAndPermissions(data: UserMenus): void {
   switch (MENU_STORAGE) {
     case StorageType.COOKIE:
       cookie.set(MENU_KEY, JSON.stringify(data.menus))

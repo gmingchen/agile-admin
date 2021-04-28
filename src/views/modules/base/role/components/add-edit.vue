@@ -52,28 +52,28 @@ import { Inject } from 'vue-property-decorator'
 import { add, edit, info } from '@/api/base/role'
 import { selfSelect } from '@/api/base/menu'
 import { $parseData2Tree } from '@/utils/index'
-import { IObject } from '@/utils/index.type'
-import { IRole } from '@/api/base/role/index.type'
-import { IMenuSelect } from '@/api/base/menu/index.type'
-import { CascaderProps } from 'node_modules/element-plus/lib/el-cascader-panel/src/types'
-import { ISet } from '@/store/modules/common/index.type'
+import { Set } from '@/store/modules/common'
+import { El } from '@/types/el'
+import { IObject } from '@/types'
+import { Menu } from '@/types/menu'
+import { Role } from '@/types/role'
 
 @Options({
   emits: ['refresh']
 })
 export default class extends Vue {
-  @Inject('set') readonly set!: ISet
+  @Inject('set') readonly set!: Set
   protected visible: boolean = false
   protected loading: boolean = false
 
-  protected menus: IMenuSelect[] = []
-  protected form: IRole = {
+  protected menus: Menu.Simple[] = []
+  protected form: Role.Dto = {
     id: null,
     name: '',
     remark: '',
     menu_ids: []
   }
-  get menusProps(): CascaderProps {
+  get menusProps(): El.CascaderProps {
     const prop = {
       multiple: true,
       emitPath: false,
@@ -103,7 +103,8 @@ export default class extends Vue {
         id: 0,
         parent_id: 0,
         name_cn: '一级菜单',
-        name_en: 'First level menu'
+        name_en: 'First level menu',
+        children: []
       })
       this.menus = $parseData2Tree(res.data, 'id', 'parent_id')
     }

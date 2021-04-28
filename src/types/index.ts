@@ -1,22 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-shadow */
-/*
- * @Description:
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2021-01-25 16:39:22
- * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-27 09:31:11
- */
+export namespace Po {
+  export interface Base {
+    id?: number | null
+    creator?: number
+    updater?: number
+  }
+  export interface BaseSmallHump extends Base {
+    createdAt?: string
+    updatedAt?: string
+  }
+  export interface BaseUnderline extends Base {
+    created_at?: string
+    updated_at?: string
+  }
+}
+
 export interface IObject {
   [key: string]: any
 }
 
 export interface IFn {
-  (...args: any[]): any;
+  (...args: any[]): any
 }
 
-export interface IApp {
+export interface App {
   component: (arg0: any, arg1: any) => void
   use: (arg0: any) => void
   config: {
@@ -27,7 +34,7 @@ export interface IApp {
       }
     }
   }
-  directive: (arg0: string, arg1: (el: any, binding: any) => void) => void
+  directive: (arg0: string, arg1: (el: any, binding: any) => void) => void 
 }
 
 export enum ContentType {

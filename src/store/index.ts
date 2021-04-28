@@ -1,8 +1,10 @@
-import { createStore, ModuleTree } from 'vuex'
+import { createStore } from 'vuex'
+import { Vuex } from '@/types/vuex'
 
 const path = require('path')
 const requireModules = require.context('./modules', true, /index\.(ts|js)$/iu)
-const modules: ModuleTree<{test: string}> = {}
+const modules: Vuex.Module<null> = {}
+
 requireModules.keys().forEach((filePath: string): void => {
   const modular = requireModules(filePath)
   let name = path.resolve(filePath, '..')
@@ -14,9 +16,6 @@ requireModules.keys().forEach((filePath: string): void => {
 })
 
 const store = createStore({
-  state: {
-    test: 'test'
-  },
   modules: {
     ...modules
   }

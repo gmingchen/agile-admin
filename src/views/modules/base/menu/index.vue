@@ -183,11 +183,11 @@
 import { Options, Vue } from 'vue-class-component'
 import { Inject } from 'vue-property-decorator'
 import { setTab, setAlive, setDisplay, getList, setMultiple, del } from '@/api/base/menu'
-import { IMenu } from '@/api/base/menu/index.type'
-import { IResponse } from '@/api/index.type'
-import { ITreeNode } from '@/element/index.type'
-import { IFn } from '@/utils/index.type'
 import AddEdit from './components/add-edit.vue'
+import { IFn } from '@/types'
+import { Axios } from '@/types/axios'
+import { Menu } from '@/types/menu'
+import { El } from '@/types/el'
 
 @Options({
   components: { AddEdit }
@@ -199,7 +199,7 @@ export default class extends Vue {
   protected visible: boolean = false
 
   protected props = { children: 'children', hasChildren: 'hasChildren' }
-  protected list: IMenu[] = []
+  protected list: Menu.Vo[] = []
 
   created(): void {
     this.setList()
@@ -225,7 +225,7 @@ export default class extends Vue {
    * @return {*}
    * @author: gumingchen
    */
-  async getList(parentId = 0): Promise<IResponse<IMenu[]>> {
+  async getList(parentId = 0): Promise<Axios.Response<Menu.Vo[]>> {
     const params = {
       parent_id: parentId
     }
@@ -246,7 +246,7 @@ export default class extends Vue {
    * @return {*}
    * @author: gumingchen
    */
-  loadHandle(row: IMenu, _treeNode: ITreeNode<IMenu>, resolve: IFn): void {
+  loadHandle(row: Menu.Vo, _treeNode: El.TreeNode<Menu.Vo>, resolve: IFn): void {
     this.getList(row.id!).then(r => {
       if (r) {
         resolve(r.data)
@@ -306,7 +306,7 @@ export default class extends Vue {
    * @return {*}
    * @author: gumingchen
    */
-  displayHandle(row: IMenu): void {
+  displayHandle(row: Menu.Vo): void {
     if (row.id) {
       const params = {
         key: row.id,
@@ -331,7 +331,7 @@ export default class extends Vue {
    * @return {*}
    * @author: gumingchen
    */
-  keepAliveHandle(row: IMenu): void {
+  keepAliveHandle(row: Menu.Vo): void {
     if (row.id) {
       const params = {
         key: row.id,
@@ -356,7 +356,7 @@ export default class extends Vue {
    * @return {*}
    * @author: gumingchen
    */
-  tabHandle(row: IMenu): void {
+  tabHandle(row: Menu.Vo): void {
     if (row.id) {
       const params = {
         key: row.id,
@@ -381,7 +381,7 @@ export default class extends Vue {
    * @return {*}
    * @author: gumingchen
    */
-  multipleHandle(row: IMenu): void {
+  multipleHandle(row: Menu.Vo): void {
     if (row.id) {
       const params = {
         key: row.id,

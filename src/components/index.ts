@@ -8,11 +8,12 @@
  */
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
-import { IApp } from '@/utils/index.type'
+import { App } from '@/types'
+
 const path = require('path')
 
 export default {
-  install: function (app: IApp): void {
+  install: function (app: App): void {
     const globalComponents = require.context('./', true, /index\.(vue|js)$/iu)
     globalComponents.keys().forEach((filePath: string): void => {
       const component = globalComponents(filePath)

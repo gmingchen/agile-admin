@@ -79,11 +79,10 @@ import { Inject } from 'vue-property-decorator'
 import page from '@/mixins/page'
 import Page from '@V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
-import { IPage } from '@/mixins/page.typs'
-import { IObject } from '@/utils/index.type'
-
 import { del, getPage } from '@/api/base/role'
-import { IRole } from '@/api/base/role/index.type'
+import { IObject } from '@/types'
+import { Role } from '@/types/role'
+import { Mixins } from '@/types/mixins'
 
 @Options({
   components: { Page, AddEdit }
@@ -98,8 +97,8 @@ export default class extends mixins(page) {
   protected form = {
     name: ''
   }
-  protected list: IRole[] = []
-  protected selection: IRole[] = []
+  protected list: Role.Base[] = []
+  protected selection: Role.Base[] = []
 
   created(): void {
     this.getList()
@@ -182,7 +181,7 @@ export default class extends mixins(page) {
    * @return {*}
    * @author: gumingchen
    */
-  selectionHandle(val: IRole[]): void {
+  selectionHandle(val: Role.Base[]): void {
     this.selection = val
   }
 
@@ -192,7 +191,7 @@ export default class extends mixins(page) {
    * @return {*}
    * @author: gumingchen
    */
-  pageChangeHandle(data: IPage): void {
+  pageChangeHandle(data: Mixins.Page): void {
     this.page.current = data.current
     this.page.size = data.size
     this.getList()

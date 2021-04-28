@@ -73,10 +73,10 @@ import screenfull from 'screenfull'
 import Language from '@V/components/language/index.vue'
 import EditInfo from '../edit-info/index.vue'
 import portrait from '@IMG/portrait.gif'
-import { INavbar, ISet } from '@/store/modules/common/index.type'
 import { logout } from '@/api/login'
-import { IUser } from '@/api/login/index.type'
-import { IObject } from '@/utils/index.type'
+import { Navbar, Set } from '@/store/modules/common'
+import { IObject } from '@/types'
+import { User } from '@/types/user'
 
 const commonModule = namespace('common')
 const userModule = namespace('user')
@@ -86,13 +86,13 @@ const userModule = namespace('user')
 })
 export default class extends Vue {
   protected portrait: string = portrait + '?' + +new Date()
-  @Inject('navbar') readonly navbar!: INavbar
+  @Inject('navbar') readonly navbar!: Navbar
   @Inject('style') readonly style!: IObject
 
   @userModule.State('user')
-  readonly user!: IUser
+  readonly user!: User.Vo
   @commonModule.State('set')
-  readonly set!: ISet
+  readonly set!: Set
   @commonModule.Action('setFullScreen')
   setFullScreen!: (arg: boolean) => void
   @commonModule.Action('setRefresh')

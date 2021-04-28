@@ -25,9 +25,9 @@
 </template>
 
 <script lang="ts">
-import { LanguageType } from '@/utils/index.type'
 import { Vue } from 'vue-class-component'
 import { namespace } from 'vuex-class'
+import { LanguageType } from '@/types'
 
 const commonModule = namespace('common')
 export default class extends Vue {

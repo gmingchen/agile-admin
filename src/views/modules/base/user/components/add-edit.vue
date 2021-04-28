@@ -63,10 +63,10 @@
 import { Options, Vue } from 'vue-class-component'
 import { add, edit, info } from '@/api/base/user'
 import { select } from '@/api/base/role'
-import { IObject } from '@/utils/index.type'
-import { IRole } from '@/api/base/role/index.type'
-import { IUser } from '@/api/base/user/index.type'
 import { isEmail, isMobile } from '@/utils/regular'
+import { IObject } from '@/types'
+import { User } from '@/types/user'
+import { Role } from '@/types/role'
 
 @Options({
   emits: ['refresh']
@@ -75,8 +75,8 @@ export default class extends Vue {
   protected visible: boolean = false
   protected loading: boolean = false
 
-  protected roles: IRole[] = []
-  protected form: IUser = {
+  protected roles: Role.Simple[] = []
+  protected form: User.Dto = {
     id: null,
     username: '',
     nickname: '',
