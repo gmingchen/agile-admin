@@ -1,4 +1,13 @@
+/*
+ * @Description:
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2021-04-29 14:55:34
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2021-04-29 15:20:17
+ */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-shadow */
 export namespace Po {
   export interface Base {
     id?: number | null
@@ -34,7 +43,7 @@ export interface App {
       }
     }
   }
-  directive: (arg0: string, arg1: (el: any, binding: any) => void) => void 
+  directive: (arg0: string, arg1: (el: any, binding: any) => void) => void
 }
 
 export enum ContentType {

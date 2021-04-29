@@ -33,6 +33,7 @@ module.exports = {
     '@typescript-eslint/camelcase': [0, { properties: 'never' }],
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-non-null-assertion': 0, // 允许非空断言
+    '@typescript-eslint/no-namespace': 0, // 允许自定义命名空间
     // todo: eslint
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",

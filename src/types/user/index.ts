@@ -1,5 +1,13 @@
+/*
+ * @Description: 
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2021-04-29 14:55:34
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2021-04-29 15:06:32
+ */
 import { Po } from '@/types'
-import { Role } from '@/types/role';
+import { Role } from '@/types/role'
 
 export namespace User {
 
