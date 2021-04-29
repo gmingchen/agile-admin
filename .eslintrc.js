@@ -94,7 +94,7 @@ module.exports = {
     'indent': [1, 2, { 'SwitchCase': 1 }], // 强制使用一致的缩进 switch case 使用1个空格
     'key-spacing': [1, { 'beforeColon': false, 'afterColon': true }], // 强制在对象字面量的属性中键和值之间使用一致的间距
     'keyword-spacing': [1, { 'before': true, 'after': true }], // 强制在关键字前后使用一致的空格
-    'lines-around-comment': [1, { 'beforeBlockComment': true }], // 在块注释之前需要空行
+    'lines-around-comment': [1, { 'beforeBlockComment': true, 'allowBlockStart': true }], // 在块注释之前需要空行
     'new-cap': [1, { 'newIsCap': true, 'capIsNew': false }], // 要求构造函数首字母大写
     'new-parens': 1, // 强制或禁止调用无参构造函数时有圆括号
     'no-mixed-spaces-and-tabs': 1, // 禁止空格和 tab 的混合缩进
