@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 16:45:49
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-17 13:20:12
+ * @LastEditTime: 2021-04-29 13:13:16
  */
 'use strict'
 import axios from 'axios'
@@ -39,8 +39,7 @@ const prompt = (message?: string): void => {
  */
 const codeHandle = (code?: number, message?: string): void => {
   switch (code) {
-    case 5001:
-    case 5005:
+    case 401:
       prompt(message)
       router.replace({
         name: 'login'

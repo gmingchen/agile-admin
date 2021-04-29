@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-21 22:42:39
+ * @LastEditTime: 2021-04-29 14:11:28
 -->
 <template>
   <el-dialog
@@ -128,25 +128,28 @@ export default class extends Vue {
 
   async init(id?: number): Promise<void> {
     this.visible = true
+    this.loading = true
     this.form.id = id
     const res = await select()
     if (res) {
       this.roles = res.data
     }
     if (this.form.id) {
-      info(this.form.id).then(r => {
-        if (r) {
-          this.form.username = r.data.username
-          this.form.nickname = r.data.username
-          this.form.mobile = r.data.mobile
-          this.form.email = r.data.email
-          this.form.status = r.data.status
-          this.form.role_ids = r.data.roles!.map(item => {
-            return item.id
-          })
-        }
-      })
+      const r = await info(this.form.id)
+      if (r) {
+        this.form.username = r.data.username
+        this.form.nickname = r.data.username
+        this.form.mobile = r.data.mobile
+        this.form.email = r.data.email
+        this.form.status = r.data.status
+        this.form.role_ids = r.data.roles!.map(item => {
+          return item.id
+        })
+      }
     }
+    this.$nextTick(() => {
+      this.loading = false
+    })
   }
 
   /**

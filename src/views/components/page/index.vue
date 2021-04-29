@@ -1,3 +1,11 @@
+<!--
+ * @Description:
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2021-04-26 16:58:39
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2021-04-29 11:39:19
+-->
 <template>
   <el-pagination
     class="page"
@@ -16,7 +24,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { Prop } from 'vue-property-decorator'
-import { Mixins } from '@/types/mixins'
+import { IPage } from '@/mixins/page'
 
 @Options({
   emits: ['change']
@@ -26,7 +34,7 @@ export default class extends Vue {
     type: Object,
     require: true
   })
-  readonly page!: Mixins.Page
+  readonly page!: IPage
 
   currentChangeHandle(val: number): void {
     this.$emit('change', { current: val, size: this.page.size })

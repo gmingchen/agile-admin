@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-21 22:42:39
+ * @LastEditTime: 2021-04-29 14:12:49
 -->
 <template>
   <el-dialog
@@ -157,6 +157,7 @@ export default class extends Vue {
 
   async init(id?: number): Promise<void> {
     this.visible = true
+    this.loading = true
     this.form.id = id
     const res = await select()
     if (res) {
@@ -169,12 +170,14 @@ export default class extends Vue {
       this.menus = $parseData2Tree(res.data, 'id', 'parent_id')
     }
     if (this.form.id) {
-      info(this.form.id).then(r => {
-        if (r) {
-          this.form = r.data
-        }
-      })
+      const r = await info(this.form.id)
+      if (r) {
+        this.form = r.data
+      }
     }
+    this.$nextTick(() => {
+      this.loading = false
+    })
   }
 
   /**

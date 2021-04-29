@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-19 14:41:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-21 17:42:11
+ * @LastEditTime: 2021-04-29 11:38:07
  */
 import store from '@/store'
 import { IObject } from '@/types'
@@ -174,7 +174,7 @@ export function $clearJson<T>(data: T): void {
   for (key in json) {
     if (json[key] instanceof Array) {
       json[key] = []
-    } else if (typeof json[key] === 'object' && IObject.prototype.toString.call(json[key]).toLowerCase() === '[object object]' && !json[key].length) {
+    } else if (typeof json[key] === 'object' && Object.prototype.toString.call(json[key]).toLowerCase() === '[object object]' && !json[key].length) {
       json[key] = {}
     } else {
       json[key] = ''

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-21 22:42:39
+ * @LastEditTime: 2021-04-29 14:08:04
 -->
 <template>
   <el-dialog
@@ -52,7 +52,7 @@ import { Inject } from 'vue-property-decorator'
 import { add, edit, info } from '@/api/base/role'
 import { selfSelect } from '@/api/base/menu'
 import { $parseData2Tree } from '@/utils/index'
-import { Set } from '@/store/modules/common'
+import { Set as ISet } from '@/store/modules/common'
 import { El } from '@/types/el'
 import { IObject } from '@/types'
 import { Menu } from '@/types/menu'
@@ -62,7 +62,7 @@ import { Role } from '@/types/role'
   emits: ['refresh']
 })
 export default class extends Vue {
-  @Inject('set') readonly set!: Set
+  @Inject('set') readonly set!: ISet
   protected visible: boolean = false
   protected loading: boolean = false
 
@@ -77,7 +77,7 @@ export default class extends Vue {
     const prop = {
       multiple: true,
       emitPath: false,
-      checkStrictly: true,
+      checkStrictly: false,
       value: 'id',
       label: `name_${ this.set.language }`,
       children: 'children'
@@ -96,6 +96,7 @@ export default class extends Vue {
 
   async init(id?: number): Promise<void> {
     this.visible = true
+    this.loading = true
     this.form.id = id
     const res = await selfSelect()
     if (res) {
@@ -109,12 +110,14 @@ export default class extends Vue {
       this.menus = $parseData2Tree(res.data, 'id', 'parent_id')
     }
     if (this.form.id) {
-      info(this.form.id).then(r => {
-        if (r) {
-          this.form = r.data
-        }
-      })
+      const r = await info(this.form.id)
+      if (r) {
+        this.form = r.data
+      }
     }
+    this.$nextTick(() => {
+      this.loading = false
+    })
   }
 
   /**
@@ -126,6 +129,17 @@ export default class extends Vue {
   submit(): void {
     this.$refs.formR.validate(async (valid: boolean) => {
       if (valid) {
+        // 处理菜单权限ID
+        const checkedNodes = this.$refs.cascaderR.getCheckedNodes(true) as El.CascaderCheckedNode<number>[]
+        let menuIds: number[] = []
+        checkedNodes.forEach(item => {
+          menuIds.push.apply(menuIds, item.pathValues)
+        })
+        menuIds = Array.from(new Set(menuIds)).filter(item => {
+          return item !== 0
+        })
+        this.form.menu_ids = menuIds
+
         const r = !this.form.id ? await add(this.form) : await edit(this.form)
         if (r) {
           this.visible = false

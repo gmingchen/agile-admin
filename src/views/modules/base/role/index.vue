@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-21 23:19:02
+ * @LastEditTime: 2021-04-29 11:40:58
 -->
 <template>
   <div class="g-container">
@@ -76,13 +76,12 @@
 <script lang="ts">
 import { mixins, Options } from 'vue-class-component'
 import { Inject } from 'vue-property-decorator'
-import page from '@/mixins/page'
+import page, { IPage } from '@/mixins/page'
 import Page from '@V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 import { del, getPage } from '@/api/base/role'
 import { IObject } from '@/types'
 import { Role } from '@/types/role'
-import { Mixins } from '@/types/mixins'
 
 @Options({
   components: { Page, AddEdit }
@@ -191,7 +190,7 @@ export default class extends mixins(page) {
    * @return {*}
    * @author: gumingchen
    */
-  pageChangeHandle(data: Mixins.Page): void {
+  pageChangeHandle(data: IPage): void {
     this.page.current = data.current
     this.page.size = data.size
     this.getList()
