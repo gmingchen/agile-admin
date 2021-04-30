@@ -1,12 +1,23 @@
-import { createStore } from 'vuex'
+import { createStore, ModuleTree } from 'vuex'
 
-export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
+const path = require('path')
+const requireModules = require.context('./modules', true, /index\.(ts|js)$/iu)
+const modules: ModuleTree<null> = {}
+
+requireModules.keys().forEach((filePath: string): void => {
+  const modular = requireModules(filePath)
+  let name = path.resolve(filePath, '..')
+  name = name.split('/').pop()
+  modules[name] = {
+    namespaced: true,
+    ...modular.default
   }
 })
+
+const store = createStore({
+  modules: {
+    ...modules
+  }
+})
+
+export default store

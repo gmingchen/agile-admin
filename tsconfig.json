@@ -16,9 +16,10 @@
     ],
     "paths": {
       "@/*": ["src/*"],
-      "@SASS/*": ["src/assets/sass/*"],
-      "@IMG/*": ["src/assets/images/*"],
-      "@V/*": ["src/views/*"]
+      "Sass/*": ["src/assets/sass/*"],
+      "Img/*": ["src/assets/images/*"],
+      "V/*": ["src/views/*"],
+      "Type/*": ["src/types/*"]
     },
     "lib": [
       "esnext",

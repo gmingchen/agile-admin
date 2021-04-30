@@ -82,9 +82,10 @@ module.exports = {
     }
     config.resolve.alias
       .set('@', resolve('src'))
-      .set('@IMG', resolve('src/assets/images'))
-      .set('@SASS', resolve('src/assets/sass'))
-      .set('@V', resolve('src/views'))
+      .set('Sass', resolve('src/assets/sass'))
+      .set('Img', resolve('src/assets/images'))
+      .set('V', resolve('src/views'))
+      .set('Type', resolve('src/types'))
     config.module.rules.delete('svg')
     config.module
       .rule('svg-smart')

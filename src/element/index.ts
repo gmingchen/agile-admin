@@ -97,7 +97,12 @@ import {
   ElSkeletonItem,
   ElEmpty,
   ElImageViewer,
-  ElSpace
+  ElSpace,
+  ElAffix,
+  ElCheckTag,
+  ElDescriptions,
+  ElDescriptionsItem,
+  ElResult
 } from 'element-plus'
 import { createApp } from 'vue'
 
@@ -184,7 +189,12 @@ const components = [
   ElSkeletonItem,
   ElEmpty,
   ElImageViewer,
-  ElSpace
+  ElSpace,
+  ElAffix,
+  ElCheckTag,
+  ElDescriptions,
+  ElDescriptionsItem,
+  ElResult
 ]
 
 const plugins = [ElInfiniteScroll, ElLoading, ElMessage, ElMessageBox, ElNotification]

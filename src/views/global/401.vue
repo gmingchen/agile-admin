@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-03 14:42:01
+ * @LastEditTime: 2021-04-30 10:41:49
 -->
 <template>
   <div class="errPage-container">
@@ -38,7 +38,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { useRouter, Router, useRoute, RouteLocationNormalizedLoaded } from 'vue-router'
-import errGif from '@IMG/401/401.gif'
+import errGif from 'Img/401/401.gif'
 
 export default defineComponent({
   setup() {
