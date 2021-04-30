@@ -4,9 +4,9 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-01-19 14:41:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 11:58:56
+ * @LastEditTime: 2021-04-30 17:32:53
  */
-import store from '@/store'
+import { store } from '@/store'
 import { IObject } from 'Type/index'
 
 /**

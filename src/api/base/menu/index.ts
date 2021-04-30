@@ -8,7 +8,7 @@
  */
 import service from '@/utils/request'
 import { ResponseData, StatusParams } from 'axios'
-import { Menu } from 'Type/index/menu'
+import { Menu } from 'Type/menu'
 
 /**
  * @description: 获取权限菜单

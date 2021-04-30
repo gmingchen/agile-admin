@@ -8,7 +8,7 @@
  */
 import service from '@/utils/request'
 import { PageData, PageParams, ResponseData } from 'axios'
-import { Role } from 'Type/index/role'
+import { Role } from 'Type/role'
 
 interface pageParams extends PageParams {
   name: string

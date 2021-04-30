@@ -9,9 +9,9 @@
 import service from '@/utils/request'
 import { $parseJson2Param } from '@/utils/index'
 import { AxiosRequestConfig, ResponseData } from 'axios'
-import { Token } from 'Type/index/token'
-import { User } from 'Type/index/user'
-import { Menu } from 'Type/index/menu'
+import { Token } from 'Type/token'
+import { User } from 'Type/user'
+import { Menu } from 'Type/menu'
 
 interface LoginParams {
   username: string

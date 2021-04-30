@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-06 13:58:51
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 14:01:34
+ * @LastEditTime: 2021-04-30 16:44:22
  */
 import { ActionContext } from 'vuex'
 import { clear, exit, getLanguage, setLanguage } from '@/utils/storage'
@@ -29,7 +29,7 @@ export interface Set {
   fullScreen: boolean
   refresh: boolean
 }
-interface State {
+export interface State {
   document: Document
   sidebar: Sidebar
   navbar: Navbar

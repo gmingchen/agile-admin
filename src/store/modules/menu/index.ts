@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-02 18:59:43
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-19 17:51:59
+ * @LastEditTime: 2021-04-30 17:35:09
  */
 import { ActionContext } from 'vuex'
 import { getIsGet, getMenuAndPermissions, setIsGet, setMenuAndPermissions } from '@/utils/storage'
@@ -54,7 +54,7 @@ function menuProcessing(list: Menu.Vo[] = []): Menu.Side[] {
   return result
 }
 
-interface State {
+export interface State {
   active: string
   isCollapse: boolean
   isGet: boolean

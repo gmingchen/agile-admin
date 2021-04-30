@@ -10,7 +10,7 @@
 import axios, { ResponseData } from 'axios'
 import qs from 'qs'
 import router from '@/router'
-import store from '@/store'
+import { store } from '@/store'
 import { ElMessage } from 'element-plus'
 import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, TOKEN_KEY } from './constants'
 import { ContentType } from 'Type/index'

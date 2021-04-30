@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-02 18:59:43
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-18 17:42:39
+ * @LastEditTime: 2021-04-30 16:48:28
  */
 
 import { ActionContext } from 'vuex'
@@ -38,7 +38,7 @@ export interface Tab {
   closable: boolean
 }
 
-interface State {
+export interface State {
   active: string
   tabs: Tab[]
 }

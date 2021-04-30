@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-15 19:20:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-21 23:16:33
+ * @LastEditTime: 2021-04-30 15:47:26
  */
 import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
 
@@ -46,6 +46,7 @@ const cn = {
     newPassword: '新密码',
     confirmPassword: '确认密码',
     name: '名称',
+    fullName: '{0}名称',
     title: '标题',
     type: '类型',
     remark: '备注',
@@ -78,8 +79,8 @@ const cn = {
   },
   base: {
     menu: {
-      chineseName: '中文名称',
-      englishName: '英文名称',
+      chinese: '中文',
+      english: '英文',
       authMark: '授权标识',
       display: '显示',
       alive: '缓存',
@@ -92,7 +93,7 @@ const cn = {
       authPlaceholder: '多个用分号分隔, 如: user:page;user:create'
     },
     role: {
-      roleName: '角色名称',
+      role: '角色',
       auth: '授权'
     }
   }

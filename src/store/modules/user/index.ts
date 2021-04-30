@@ -12,7 +12,7 @@ import { getToken, setToken } from '@/utils/storage'
 import { Token } from '@/types/token'
 import { User } from '@/types/user'
 
-interface State {
+export interface State {
   user: User.Vo
   token: Token.Base
 }

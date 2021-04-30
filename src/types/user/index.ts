@@ -4,10 +4,10 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-29 14:55:34
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-29 15:06:32
+ * @LastEditTime: 2021-04-30 17:43:07
  */
 import { Po } from 'Type/index'
-import { Role } from 'Type/index/role'
+import { Role } from 'Type/role'
 
 export namespace User {
 
