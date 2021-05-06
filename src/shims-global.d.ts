@@ -6,15 +6,13 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-04-30 14:03:08
  */
-import { ElMessage } from 'element-plus'
-
-declare module 'nprogress'
+import { ElMessage, ElLoading } from 'element-plus'
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $message: ElMessage
+    $message: typeof ElMessage
     $confirm: ElMessageBoxShortcutMethod
-    $loading: ILoadingInstance
+    $loading: typeof ElLoading.service
   }
 }
 
