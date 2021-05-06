@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-03-11 20:11:47
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 17:28:57
+ * @LastEditTime: 2021-05-06 10:43:16
  */
 import { createI18n } from 'vue-i18n'
 import ElementLocale from 'element-plus/lib/locale'
