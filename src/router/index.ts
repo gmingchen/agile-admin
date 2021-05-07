@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-29 17:23:32
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-06 16:55:12
+ * @LastEditTime: 2021-05-07 12:01:50
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw, RouteLocationNormalizedLoaded } from 'vue-router'
 import { store } from '@/store'

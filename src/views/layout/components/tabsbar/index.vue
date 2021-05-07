@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-15 19:20:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-06 15:21:01
+ * @LastEditTime: 2021-05-07 11:40:03
 -->
 <template>
   <div class="tabs">
@@ -24,8 +24,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, onBeforeMount, watchEffect } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed, defineComponent, nextTick, onBeforeMount } from 'vue'
+import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { key, useStore } from '@/store'
 import { TabsPane } from 'Type/el'
 
@@ -49,16 +49,20 @@ export default defineComponent({
       }
     })
 
-    // watchEffect(() => {
-    //   store.dispatch('tab/changeHandle', route)
-    //   const meta = route.meta
-    //   if (meta.multiple) {
-    //     store.dispatch('setting/setRefresh', true)
-    //     nextTick(() => {
-    //       store.dispatch('setting/setRefresh', false)
-    //     })
-    //   }
-    // })
+    onBeforeRouteUpdate((to) => {
+      store.dispatch('tab/changeHandle', to)
+      const meta = to.meta
+      if (meta.multiple) {
+        store.dispatch('setting/setRefresh', true)
+        nextTick(() => {
+          store.dispatch('setting/setRefresh', false)
+        })
+      }
+    })
+
+    onBeforeMount(() => {
+      store.dispatch('tab/changeHandle', route)
+    })
 
     /**
      * @description: 标签点击路由跳转事件

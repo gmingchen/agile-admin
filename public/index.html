@@ -30,6 +30,7 @@
       width: 100%;
       height: 100%;
       z-index: 999999;
+      background-color: #fff;
     }
 
     #loader {
@@ -142,55 +143,6 @@
       }
     }
 
-
-    #loader-wrapper .loader-section {
-      position: fixed;
-      top: 0;
-      width: 51%;
-      height: 100%;
-      background: #fff;
-      /* Old browsers */
-      z-index: 1000;
-      -webkit-transform: translateX(0);
-      /* Chrome, Opera 15+, Safari 3.1+ */
-      -ms-transform: translateX(0);
-      /* IE 9 */
-      transform: translateX(0);
-      /* Firefox 16+, IE 10+, Opera */
-    }
-
-    #loader-wrapper .loader-section.section-left {
-      left: 0;
-    }
-
-    #loader-wrapper .loader-section.section-right {
-      right: 0;
-    }
-
-    /* Loaded */
-
-    .loaded #loader-wrapper .loader-section.section-left {
-      -webkit-transform: translateX(-100%);
-      /* Chrome, Opera 15+, Safari 3.1+ */
-      -ms-transform: translateX(-100%);
-      /* IE 9 */
-      transform: translateX(-100%);
-      /* Firefox 16+, IE 10+, Opera */
-      -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
-      transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
-    }
-
-    .loaded #loader-wrapper .loader-section.section-right {
-      -webkit-transform: translateX(100%);
-      /* Chrome, Opera 15+, Safari 3.1+ */
-      -ms-transform: translateX(100%);
-      /* IE 9 */
-      transform: translateX(100%);
-      /* Firefox 16+, IE 10+, Opera */
-      -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
-      transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
-    }
-
     .loaded #loader {
       opacity: 0;
       -webkit-transition: all 0.3s ease-out;
@@ -227,7 +179,7 @@
       text-align: center;
       z-index: 9999999999999;
       position: absolute;
-      top: 55%;
+      top: calc(50% + 60px);
       opacity: 1;
       line-height: 30px;
     }
@@ -240,8 +192,6 @@
     <div id="app">
       <div id="loader-wrapper">
         <div id="loader"></div>
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
         <div class="load_title">正在加载，请耐心等待!</div>
       </div>
     </div>

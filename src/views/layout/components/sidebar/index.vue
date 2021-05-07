@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-07 13:58:47
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-07 10:12:56
+ * @LastEditTime: 2021-05-07 11:38:43
 -->
 <template>
   <el-scrollbar class="sidebar" :style="{ 'height': `${ document.clientHeight }px` }">
@@ -63,12 +63,7 @@ export default defineComponent({
       store.dispatch('menu/setActive', name)
     }
 
-    // bug
-    // watchEffect(() => {
-    //   routeHandle(route)
-    // })
-
-    onBeforeMount(() => {
+    watchEffect(() => {
       routeHandle(route)
     })
 

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-01 16:37:45
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-06 16:50:17
+ * @LastEditTime: 2021-05-07 10:27:47
 -->
 <template>
   <div class="demo">
@@ -14,13 +14,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
     const router = useRouter()
 
+    onBeforeMount(() => {
+      console.log('init')
+    })
     return {
       router
     }
