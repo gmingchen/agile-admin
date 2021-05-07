@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-07 13:58:47
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-06 17:46:55
+ * @LastEditTime: 2021-05-07 10:12:56
 -->
 <template>
   <el-scrollbar class="sidebar" :style="{ 'height': `${ document.clientHeight }px` }">
@@ -87,7 +87,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import 'Sass/_mixin.scss';
 .sidebar-menu:not(.el-menu--collapse) {
-  width: 200px; // todo: 此处的width 需要和 store/common 中 sidebar.width、sidebar.openWidth 保持一致
+  width: 200px; // todo: 此处的width 需要和 store/setting 中 sidebar.width、sidebar.openWidth 保持一致
 }
 .sidebar,
 .sidebar-menu,
