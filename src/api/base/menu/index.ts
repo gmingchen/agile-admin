@@ -30,7 +30,7 @@ export function getList(params: { parent_id: number }): Promise<ResponseData<Men
  * @return {*}
  * @author: gumingchen
  */
-export function info(params: number): Promise<ResponseData<Menu.Dto>> {
+export function getInfo(params: number): Promise<ResponseData<Menu.Dto>> {
   return service({
     url: `/base/menu/info/${ params }`,
     method: 'get'
@@ -141,7 +141,7 @@ export function setMultiple(params: StatusParams): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function select(): Promise<ResponseData<Menu.Simple[]>> {
+export function getSelect(): Promise<ResponseData<Menu.Simple[]>> {
   return service({
     url: '/base/menu/select',
     method: 'get'
@@ -154,7 +154,7 @@ export function select(): Promise<ResponseData<Menu.Simple[]>> {
  * @return {*}
  * @author: gumingchen
  */
-export function selfSelect(): Promise<ResponseData<Menu.Simple[]>> {
+export function getSelfSelect(): Promise<ResponseData<Menu.Simple[]>> {
   return service({
     url: '/base/menu/self/select',
     method: 'get'

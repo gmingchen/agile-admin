@@ -10,7 +10,7 @@ import { ActionContext } from 'vuex'
 import { getIsGet, getMenuAndPermissions, setIsGet, setMenuAndPermissions } from '@/utils/storage'
 import { isURL } from '@/utils/regular'
 import { UserMenus } from '@/api/login'
-import { Menu } from '@/types/menu'
+import { Menu } from 'Type/menu'
 
 // 初始化菜单数据
 const initVal: UserMenus = getMenuAndPermissions()

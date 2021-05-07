@@ -29,7 +29,7 @@ import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore, key } from '@/store'
 
-import { LanguageType } from '@/types'
+import { LanguageType } from 'Type/index'
 
 export default defineComponent({
   setup() {

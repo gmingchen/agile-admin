@@ -16,7 +16,7 @@
     <el-form
       :model="form"
       :rules="rules"
-      ref="formR"
+      ref="refForm"
       @keyup.enter="submit()"
       label-position="top">
       <el-form-item :label="t('field.account')">

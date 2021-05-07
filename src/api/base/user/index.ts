@@ -35,7 +35,7 @@ export function getPage(params: pageParams): Promise<ResponseData<PageData<User.
  * @return {*}
  * @author: gumingchen
  */
-export function info(params: number): Promise<ResponseData<User.Vo>> {
+export function getInfo(params: number): Promise<ResponseData<User.Vo>> {
   return service({
     url: `/base/user/info/${ params }`,
     method: 'get'

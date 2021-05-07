@@ -79,8 +79,8 @@ const en = {
   },
   base: {
     menu: {
-      chineseName: 'Chinese name',
-      englishName: 'English name',
+      chinese: 'Chinese',
+      english: 'English',
       authMark: 'Authorization mark',
       display: 'display',
       alive: 'keep alive',
@@ -93,7 +93,7 @@ const en = {
       authPlaceholder: 'Multiple items are separated by semicolons, such as: user:page,user:create'
     },
     role: {
-      roleName: 'Role name',
+      role: 'Role',
       auth: 'Authorize'
     }
   }

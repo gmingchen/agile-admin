@@ -9,7 +9,7 @@
 /* eslint-disable */
 import { reactive } from 'vue'
 
-export interface Page {
+export interface IPage {
   current: number
   size: number
   total: number
@@ -17,7 +17,7 @@ export interface Page {
 }
 
 export default function () {
-  const page: Page = reactive({
+  const page: IPage = reactive({
     current: 1,
     size: 10,
     total: 0,

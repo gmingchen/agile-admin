@@ -15,7 +15,7 @@ import { IObject } from 'Type/index'
  * @return {*}
  * @author: gumingchen
  */
-export function $getUUID(): string {
+export function getUUID(): string {
   let result: string = ''
   const str = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
   result = str.replace(/[xy]/gu, c => {
@@ -35,7 +35,7 @@ export function $getUUID(): string {
  * @return {*}
  * @author: gumingchen
  */
-export function $parseData2Tree<T>(
+export function parseData2Tree<T>(
   data: T[],
   key: string = 'id',
   parentKey: string = 'parentId',
@@ -70,7 +70,7 @@ export function $parseData2Tree<T>(
  * @return {*}
  * @author: gumingchen
  */
-export function $parseDate2Str(time: Date | number = new Date(), format: string = '{y}-{M}-{d} {h}:{m}:{s}'): string {
+export function parseDate2Str(time: Date | number = new Date(), format: string = '{y}-{M}-{d} {h}:{m}:{s}'): string {
   let result: string = ''
   let date: Date = new Date()
   const type: string = typeof time
@@ -106,7 +106,7 @@ export function $parseDate2Str(time: Date | number = new Date(), format: string 
  * @return {*}
  * @author: gumingchen
  */
-export function $parseStr2Date(time: string = '', separator: string[] = ['-', ' ', ':']): Date {
+export function parseStr2Date(time: string = '', separator: string[] = ['-', ' ', ':']): Date {
   let result: Date = new Date()
   const regexp: string = `/[${ separator.join('') }]/g`
   const data: string[] = time.split(eval(regexp))
@@ -127,7 +127,7 @@ export function $parseStr2Date(time: string = '', separator: string[] = ['-', ' 
  * @return {*}
  * @author: gumingchen
  */
-export function $parseJson2Param(json: IObject): string {
+export function parseJson2Param(json: IObject): string {
   let result: string = ''
   result = Object.keys(json)
     .map(key => {
@@ -145,7 +145,7 @@ export function $parseJson2Param(json: IObject): string {
  * @return {*}
  * @author: gumingchen
  */
-export function $parseParam2Json(url: string): IObject {
+export function parseParam2Json(url: string): IObject {
   const result: IObject = {}
   const search = decodeURIComponent(url.split('?')[1]).replace(/\+/gu, ' ')
   if (search) {
@@ -168,7 +168,7 @@ export function $parseParam2Json(url: string): IObject {
  * @return {*}
  * @author: gumingchen
  */
-export function $clearJson<T>(data: T): void {
+export function clearJson<T>(data: T): void {
   const json = data as IObject
   let key: string
   for (key in json) {
@@ -188,7 +188,7 @@ export function $clearJson<T>(data: T): void {
  * @return {*}
  * @author: gumingchen
  */
-export function $isAuth(key: string): boolean {
+export function isAuth(key: string): boolean {
   let result: boolean = false
   result = store.getters['menu/permissions'].indexOf(key) !== -1 || false
   return result

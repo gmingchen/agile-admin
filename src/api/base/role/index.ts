@@ -34,7 +34,7 @@ export function getPage(params: pageParams): Promise<ResponseData<PageData<Role.
  * @return {*}
  * @author: gumingchen
  */
-export function info(params: number): Promise<ResponseData<Role.Dto>> {
+export function getInfo(params: number): Promise<ResponseData<Role.Dto>> {
   return service({
     url: `/base/role/info/${ params }`,
     method: 'get'
@@ -89,7 +89,7 @@ export function del(params: number[]): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function select(): Promise<ResponseData<Role.Simple[]>> {
+export function getSelect(): Promise<ResponseData<Role.Simple[]>> {
   return service({
     url: '/base/role/select',
     method: 'get'

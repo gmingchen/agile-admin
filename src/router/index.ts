@@ -12,7 +12,7 @@ import I18n from '@/i18n'
 import NProgress from 'nprogress'
 import { isURL } from '@/utils/regular'
 import { getUserMenus } from '@/api/login'
-import { Menu } from '@/types/menu'
+import { Menu } from 'Type/menu'
 
 let refresh = true
 
@@ -179,7 +179,7 @@ function addRoutes(menus: Menu.Vo[] = [], routeList: RouteRecordRaw[] = []): voi
 router.beforeEach(async (to: RouteLocationNormalizedLoaded, _from, next) => {
   // 跳转到登录页清除所有信息
   if (to.name === 'login') {
-    store.dispatch('common/exit')
+    store.dispatch('setting/exit')
   }
   NProgress.start()
   // 处理动态路由页 刷新跳转 404 问题

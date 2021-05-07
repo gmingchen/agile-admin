@@ -58,7 +58,7 @@
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs, nextTick, ref, onBeforeMount } from 'vue'
 import { getCaptcha, login } from '@/api/login'
-import { $getUUID } from '@/utils/index'
+import { getUUID } from '@/utils/index'
 import Language from 'V/components/language/index.vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -102,7 +102,7 @@ export default defineComponent({
      * @author: gumingchen
      */
     const captcha = (): void => {
-      form.uuid = $getUUID()
+      form.uuid = getUUID()
       data.captchaPath = getCaptcha({ uuid: form.uuid })
     }
 

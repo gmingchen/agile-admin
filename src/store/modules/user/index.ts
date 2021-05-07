@@ -7,10 +7,10 @@
  * @LastEditTime: 2021-04-18 09:16:20
  */
 import { ActionContext } from 'vuex'
-import { $clearJson } from '@/utils/index'
+import { clearJson } from '@/utils/index'
 import { getToken, setToken } from '@/utils/storage'
-import { Token } from '@/types/token'
-import { User } from '@/types/user'
+import { Token } from 'Type/token'
+import { User } from 'Type/user'
 
 export interface State {
   user: User.Vo
@@ -49,10 +49,10 @@ export default {
       state.token = token
     },
     CLEAR_USER: (state: State): void => {
-      $clearJson(state.user)
+      clearJson(state.user)
     },
     CLEAR_TOKEN: (state: State): void => {
-      $clearJson(state.token)
+      clearJson(state.token)
     }
   },
   actions: {

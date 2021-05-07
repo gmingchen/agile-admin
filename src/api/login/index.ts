@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-04-30 13:31:20
  */
 import service from '@/utils/request'
-import { $parseJson2Param } from '@/utils/index'
+import { parseJson2Param } from '@/utils/index'
 import { AxiosRequestConfig, ResponseData } from 'axios'
 import { Token } from 'Type/token'
 import { User } from 'Type/user'
@@ -46,7 +46,7 @@ export function getCaptcha(params: { uuid: string }): string {
     method: 'get',
     params: params
   }
-  result = `${ process.env.VUE_APP_BASE_API! + options.url }?${ $parseJson2Param(options.params) }`
+  result = `${ process.env.VUE_APP_BASE_API! + options.url }?${ parseJson2Param(options.params) }`
   return result
 }
 

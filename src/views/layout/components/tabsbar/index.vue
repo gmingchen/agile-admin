@@ -27,6 +27,7 @@
 import { computed, defineComponent, nextTick, onBeforeMount } from 'vue'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { key, useStore } from '@/store'
+
 import { TabsPane } from 'Type/el'
 
 export default defineComponent({
