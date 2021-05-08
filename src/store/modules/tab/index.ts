@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-02 18:59:43
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 16:48:28
+ * @LastEditTime: 2021-05-08 17:05:24
  */
 
 import { ActionContext } from 'vuex'
@@ -17,14 +17,15 @@ import { RouteLocationNormalizedLoaded } from 'vue-router'
 // todo: c、d 支持多开的时候需要
 
 const defaultTabs = [{
-  value: 'home-home',
+  value: 'home-home-{}-{}',
   label_cn: '首页',
   label_en: 'Home',
   name: 'home',
   path: '/home',
   query: {}, // 路由参数
   params: {}, // 路由参数
-  closable: false // true：可以关闭
+  closable: false, // true：可以关闭
+  menuId: 'home'
 }]
 
 export interface Tab {
@@ -36,6 +37,7 @@ export interface Tab {
   query: IObject
   params: IObject
   closable: boolean
+  menuId?: string | number | null
 }
 
 export interface State {
@@ -45,7 +47,7 @@ export interface State {
 
 export default {
   state: {
-    active: 'home',
+    active: 'home-home-{}-{}',
     tabs: JSON.parse(JSON.stringify(defaultTabs))
   },
   getters: {
@@ -71,9 +73,8 @@ export default {
         const queryStr = JSON.stringify(route.query)
         const paramsStr = JSON.stringify(route.params)
         let val = `${ route.name as string }-${ meta.id }`
-        if (meta.multiple) {
-          val += `-${ queryStr }-${ paramsStr }`
-        }
+        val += `-${ queryStr }-${ paramsStr }`
+
         const tab: Tab = {
           value: val,
           label_cn: meta.title_cn,
@@ -82,7 +83,8 @@ export default {
           path: route.path,
           query: route.query,
           params: route.params,
-          closable: true
+          closable: true,
+          menuId: meta.id
         }
         const exist = state.tabs.filter(item => {
           return item.value === val
@@ -111,7 +113,20 @@ export default {
         tabs = JSON.parse(JSON.stringify(defaultTabs))
       }
       commit('SET_TABS', tabs)
-      router.push(route)
+      // 判断删除的是否是当前路由
+      let check = false
+      tabs.forEach(tab => {
+        const queryStr = JSON.stringify(tab.query)
+        const paramsStr = JSON.stringify(tab.params)
+        let val = `${ tab.name as string }-${ tab.menuId }`
+        val += `-${ queryStr }-${ paramsStr }`
+        if (val === state.active) {
+          check = true
+        }
+      })
+      if (!check) {
+        router.push(route)
+      }
     }
   }
 }
