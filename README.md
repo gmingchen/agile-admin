@@ -109,6 +109,5 @@ npm run build:test  # 测试环境
 ### 联系方式
 
 <center>
-  <img src="https://1240235512.github.io/vue3/wechat.jpg" width="200px" title="微信" alt="WeChat:Gy1240235512" />
-  <img src="https://1240235512.github.io/vue3/qicq.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
+  <img src="https://1240235512.github.io/vue3/wechat.jpg" width="200px" title="微信" alt="WeChat:Gy1240235512" /><img src="https://1240235512.github.io/vue3/qicq.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
 </center>
