@@ -117,4 +117,4 @@ npm run build:test  # 测试环境
       <img src="https://1240235512.github.io/vue3/qicq.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
     </td>
   </tr>
-</center>
+</table>

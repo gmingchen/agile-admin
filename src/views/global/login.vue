@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 15:49:42
+ * @LastEditTime: 2021-05-08 16:14:31
 -->
 <template>
   <language class="language" />
@@ -150,7 +150,7 @@ export default defineComponent({
 .language {
   position: absolute;
   top: 10px;
-  right: 20px;
+  right: 28px;
 }
 .login-card {
   position: absolute;

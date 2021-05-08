@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-03 23:39:44
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-06 16:41:43
+ * @LastEditTime: 2021-05-08 16:15:20
 -->
 <template>
   <el-container>
@@ -16,7 +16,7 @@
         'width': `calc(100% - ${ sidebar.width }px)`,
         'transition-duration': isCollapse ? '0s' : '0.9s'
       }">
-      <el-scrollbar :style="{ height: dom.clientHeight + 'px' }">
+      <el-scrollbar :height="dom.clientHeight + 'px'">
         <div :class="{ 'head-wrap': navbar.fixed }">
           <headbar class="headbar" :style="{ 'height': `${ navbar.headHeight }px` }" />
           <tabsbar class="tabsbar" v-if="navbar.tabsDisplay" :style="{ 'height': `${ navbar.tabsHeight }px` }" />

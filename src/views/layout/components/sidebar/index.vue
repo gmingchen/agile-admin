@@ -4,10 +4,10 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-07 13:58:47
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-07 11:38:43
+ * @LastEditTime: 2021-05-08 16:15:49
 -->
 <template>
-  <el-scrollbar class="sidebar" :style="{ 'height': `${ document.clientHeight }px` }">
+  <el-scrollbar class="sidebar" :height="document.clientHeight + 'px'">
     <el-menu
       background-color="#263238"
       text-color="#ffffff"
