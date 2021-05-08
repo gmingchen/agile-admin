@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-19 16:53:30
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-07 23:21:16
+ * @LastEditTime: 2021-05-08 11:16:13
 -->
 <template>
   <div class="g-container">
@@ -93,7 +93,7 @@
         min-width="90">
         <template v-slot="{ row }">
           <el-switch
-            v-permission="'base:menu:display1'"
+            v-permission="'base:menu:display'"
             @change="displayHandle(row)"
             v-model="row.is_display"
             active-color="#13ce66"
