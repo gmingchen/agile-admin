@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-29 11:41:32
+ * @LastEditTime: 2021-05-09 16:45:46
 -->
 <template>
   <div class="g-container">
@@ -94,7 +94,7 @@
       </el-table-column>
     </el-table>
     <page :page="page" @change="pageChangeHandle" />
-    <add-edit ref="addEdit" v-if="visible" @refresh="getList" />
+    <add-edit ref="refAddEdit" v-if="visible" @refresh="get" />
   </div>
 </template>
 

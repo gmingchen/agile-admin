@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-29 14:11:28
+ * @LastEditTime: 2021-05-09 16:46:14
 -->
 <template>
   <el-dialog
@@ -17,7 +17,7 @@
       :model="form"
       :rules="rules"
       v-loading="loading"
-      ref="formR"
+      ref="refForm"
       @keyup.enter="submit()"
       label-position="top">
       <el-form-item :label="t('field.account')" prop="username">
@@ -38,7 +38,7 @@
       <el-form-item :label="t('field.email')" prop="email">
         <el-input v-model="form.email" :placeholder="t('field.email')" />
       </el-form-item>
-      <el-form-item :label="t('base.role.roleName')" size="mini" prop="role_ids">
+      <el-form-item :label="t('base.role.role')" size="mini" prop="role_ids">
         <el-checkbox-group v-model="form.role_ids">
           <el-checkbox v-for="role in roles" :key="role.id" :label="role.id">{{ role.name }}</el-checkbox>
         </el-checkbox-group>
