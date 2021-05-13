@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-29 14:12:49
+ * @LastEditTime: 2021-05-13 15:44:57
 -->
 <template>
   <el-dialog
@@ -46,7 +46,7 @@
       <el-form-item v-if="form.type !== 0" :label="t('base.menu.authMark')" prop="permission">
         <el-input v-model="form.permission" :placeholder="t('base.menu.authPlaceholder')" />
       </el-form-item>
-      <el-form-item v-if="form.type !== 2" :label="t('field.sort')" prop="sort">
+      <el-form-item :label="t('field.sort')" prop="sort">
         <el-input-number
           v-model="form.sort"
           controls-position="right"

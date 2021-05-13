@@ -95,6 +95,14 @@ const cn = {
     role: {
       role: '角色',
       auth: '授权'
+    },
+    task: {
+      immediately: '立即执行',
+      resume: '恢复',
+      pause: '暂停',
+      parameter: '参数',
+      expression: '{0}表达式',
+      batch: '批量{0}'
     }
   }
 }

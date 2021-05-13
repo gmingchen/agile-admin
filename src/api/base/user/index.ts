@@ -1,5 +1,5 @@
 /*
- * @Description:
+ * @Description: 用户
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
@@ -16,7 +16,7 @@ interface pageParams extends PageParams {
 }
 
 /**
- * @description: 获取用户
+ * @description: 分页列表
  * @param {*}
  * @return {*}
  * @author: gumingchen
@@ -30,7 +30,7 @@ export function getPage(params: pageParams): Promise<ResponseData<PageData<User.
 }
 
 /**
- * @description: 详情
+ * @description: 信息
  * @param {*}
  * @return {*}
  * @author: gumingchen
@@ -85,7 +85,7 @@ export function del(params: number[]): Promise<ResponseData<null>> {
 }
 
 /**
- * @description: 是否在标签栏多开
+ * @description: 是否禁用
  * @param {*} params
  * @return {*}
  * @author: gumingchen

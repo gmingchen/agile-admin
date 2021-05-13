@@ -1,5 +1,5 @@
 /*
- * @Description:
+ * @Description: 登录
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
@@ -34,7 +34,7 @@ interface UserEditParams {
 }
 
 /**
- * @description: 获取验证码
+ * @description: 验证码
  * @param {*} params
  * @return {*}
  * @author: gumingchen

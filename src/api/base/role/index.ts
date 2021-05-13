@@ -1,5 +1,5 @@
 /*
- * @Description:
+ * @Description: 角色
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
@@ -15,7 +15,7 @@ interface pageParams extends PageParams {
 }
 
 /**
- * @description: 获取角色
+ * @description: 分页列表
  * @param {*}
  * @return {*}
  * @author: gumingchen
@@ -29,7 +29,7 @@ export function getPage(params: pageParams): Promise<ResponseData<PageData<Role.
 }
 
 /**
- * @description: 详情
+ * @description: 信息
  * @param {*}
  * @return {*}
  * @author: gumingchen

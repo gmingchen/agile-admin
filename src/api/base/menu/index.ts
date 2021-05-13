@@ -1,5 +1,5 @@
 /*
- * @Description:
+ * @Description: 菜单权限
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
@@ -11,7 +11,7 @@ import { ResponseData, StatusParams } from 'axios'
 import { Menu } from 'Type/menu'
 
 /**
- * @description: 获取权限菜单
+ * @description: 列表
  * @param {*}
  * @return {*}
  * @author: gumingchen
@@ -25,7 +25,7 @@ export function getList(params: { parent_id: number }): Promise<ResponseData<Men
 }
 
 /**
- * @description: 详情
+ * @description: 信息
  * @param {*}
  * @return {*}
  * @author: gumingchen

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-15 19:20:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 15:46:56
+ * @LastEditTime: 2021-05-13 17:09:25
  */
 import enLocale from 'element-plus/lib/locale/lang/en'
 
@@ -95,6 +95,14 @@ const en = {
     role: {
       role: 'Role',
       auth: 'Authorize'
+    },
+    task: {
+      immediately: 'Immediately',
+      resume: 'Resume',
+      pause: 'Pause',
+      parameter: 'Parameter',
+      expression: '{0} expression',
+      batch: 'Batch {0}'
     }
   }
 }

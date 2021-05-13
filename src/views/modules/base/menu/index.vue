@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-19 16:53:30
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-08 11:16:13
+ * @LastEditTime: 2021-05-13 17:05:35
 -->
 <template>
   <div class="g-container">
@@ -237,6 +237,7 @@ export default defineComponent({
      */
     const setList = async (): Promise<void> => {
       data.loading = true
+      data.list = []
       data.list = (await get()).data || []
       nextTick(() => {
         data.loading = false
