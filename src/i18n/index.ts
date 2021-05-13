@@ -4,10 +4,9 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-03-11 20:11:47
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-06 10:43:16
+ * @LastEditTime: 2021-05-13 23:36:18
  */
 import { createI18n } from 'vue-i18n'
-import ElementLocale from 'element-plus/lib/locale'
 import messages from './langs'
 import { store } from '@/store'
 
@@ -16,7 +15,5 @@ const i18n = createI18n({
   fallbackLocale: 'cn',
   messages
 })
-
-ElementLocale.i18n(i18n.global.t)
 
 export default i18n

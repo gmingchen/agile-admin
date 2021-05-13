@@ -5,7 +5,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-19 15:33:15
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-29 18:15:10
+ * @LastEditTime: 2021-05-13 23:36:46
  */
 import 'element-plus/lib/theme-chalk/index.css'
 
@@ -105,6 +105,10 @@ import {
   ElResult
 } from 'element-plus'
 import { createApp } from 'vue'
+import ElementLocale from 'element-plus/lib/locale'
+import i18n from '@/i18n'
+
+ElementLocale.i18n(i18n.global.t)
 
 const components = [
   ElAlert,
@@ -209,7 +213,8 @@ export default {
     })
     const option = {
       size: 'medium',
-      zIndex: 2000
+      zIndex: 2000,
+      i18n: i18n.global.t
     }
     app.config.globalProperties.$ELEMENT = option
   }
