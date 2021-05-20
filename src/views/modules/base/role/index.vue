@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-13 17:05:28
+ * @LastEditTime: 2021-05-20 15:58:55
 -->
 <template>
   <div class="g-container">
@@ -82,7 +82,7 @@ import Page from 'V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 
 import { clearJson } from '@/utils'
-import { del, getPage } from '@/api/base/role'
+import { delApi, pageApi } from '@/api/base/role'
 import { Role } from 'Type/role'
 
 export default defineComponent({
@@ -114,7 +114,7 @@ export default defineComponent({
         size: page.size
       }
       data.loading = true
-      getPage(params).then(r => {
+      pageApi(params).then(r => {
         if (r) {
           data.list = r.data.list
           page.total = r.data.total
@@ -156,7 +156,7 @@ export default defineComponent({
         cancelButtonText: t('button.cancel'),
         type: 'warning'
       }).then(() => {
-        del(params).then(r => {
+        delApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),

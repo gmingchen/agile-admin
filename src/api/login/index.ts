@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 13:31:20
+ * @LastEditTime: 2021-05-20 15:47:56
  */
 import service from '@/utils/request'
 import { parseJson2Param } from '@/utils/index'
@@ -39,7 +39,7 @@ interface UserEditParams {
  * @return {*}
  * @author: gumingchen
  */
-export function getCaptcha(params: { uuid: string }): string {
+export function captchaApi(params: { uuid: string }): string {
   let result: string = ''
   const options: AxiosRequestConfig = {
     url: '/base/captcha.jpg',
@@ -56,7 +56,7 @@ export function getCaptcha(params: { uuid: string }): string {
  * @return {*}
  * @author: gumingchen
  */
-export function login(params: LoginParams): Promise<ResponseData<Token.Base>> {
+export function loginApi(params: LoginParams): Promise<ResponseData<Token.Base>> {
   return service({
     url: '/base/login',
     method: 'post',
@@ -70,7 +70,7 @@ export function login(params: LoginParams): Promise<ResponseData<Token.Base>> {
  * @return {*}
  * @author: gumingchen
  */
-export function getUserInfo(): Promise<ResponseData<User.Vo>> {
+export function userInfoApi(): Promise<ResponseData<User.Vo>> {
   return service({
     url: '/base/user/self/info',
     method: 'get'
@@ -83,7 +83,7 @@ export function getUserInfo(): Promise<ResponseData<User.Vo>> {
  * @return {*}
  * @author: gumingchen
  */
-export function getUserMenus(): Promise<ResponseData<UserMenus>> {
+export function userMenusApi(): Promise<ResponseData<UserMenus>> {
   return service({
     url: '/base/menu/self/info',
     method: 'get'
@@ -96,7 +96,7 @@ export function getUserMenus(): Promise<ResponseData<UserMenus>> {
  * @return {*}
  * @author: gumingchen
  */
-export function editUserInfo(params: UserEditParams): Promise<ResponseData<number>> {
+export function editUserInfoApi(params: UserEditParams): Promise<ResponseData<number>> {
   return service({
     url: '/base/user/self/update',
     method: 'post',
@@ -110,7 +110,7 @@ export function editUserInfo(params: UserEditParams): Promise<ResponseData<numbe
  * @return {*}
  * @author: gumingchen
  */
-export function logout(): Promise<ResponseData<null>> {
+export function logoutApi(): Promise<ResponseData<null>> {
   return service({
     url: '/base/logout',
     method: 'post'

@@ -75,7 +75,7 @@ import Language from 'V/components/language/index.vue'
 import EditInfo from '../edit-info/index.vue'
 import screenfull from 'screenfull'
 import portrait from 'Img/portrait.gif'
-import { logout } from '@/api/login'
+import { logoutApi } from '@/api/login'
 
 export default defineComponent({
   components: { Language, EditInfo },
@@ -179,7 +179,7 @@ export default defineComponent({
             cancelButtonText: t('button.cancel'),
             type: 'warning'
           }).then((): void => {
-            logout().then(r => {
+            logoutApi().then(r => {
               if (r) {
                 router.replace({ name: 'login' })
               }

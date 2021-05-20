@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-29 14:08:04
+ * @LastEditTime: 2021-05-20 15:58:28
 -->
 <template>
   <el-dialog
@@ -51,8 +51,8 @@ import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import { key, useStore } from '@/store'
 import { useI18n } from 'vue-i18n'
 import useInstance from '@/mixins/instance'
-import { add, edit, getInfo } from '@/api/base/role'
-import { getSelfSelect } from '@/api/base/menu'
+import { addApi, editApi, infoApi } from '@/api/base/role'
+import { selfSelectListApi } from '@/api/base/menu'
 import { parseData2Tree } from '@/utils'
 
 import { CascaderCheckedNode, CascaderProps } from 'Type/el'
@@ -112,7 +112,7 @@ export default defineComponent({
       data.visible = true
       data.loading = true
       data.form.id = id
-      const res = await getSelfSelect()
+      const res = await selfSelectListApi()
       if (res) {
         res.data.push({
           id: 0,
@@ -124,7 +124,7 @@ export default defineComponent({
         data.menus = parseData2Tree(res.data, 'id', 'parent_id')
       }
       if (data.form.id) {
-        const r = await getInfo(data.form.id)
+        const r = await infoApi(data.form.id)
         if (r) {
           data.form = r.data
         }
@@ -154,7 +154,7 @@ export default defineComponent({
           })
           data.form.menu_ids = menuIds
 
-          const r = !data.form.id ? await add(data.form) : await edit(data.form)
+          const r = !data.form.id ? await addApi(data.form) : await editApi(data.form)
           if (r) {
             data.visible = false
             $message({

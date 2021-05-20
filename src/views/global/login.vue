@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-08 16:14:31
+ * @LastEditTime: 2021-05-20 15:49:00
 -->
 <template>
   <language class="language" />
@@ -57,7 +57,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs, nextTick, ref, onBeforeMount } from 'vue'
-import { getCaptcha, login } from '@/api/login'
+import { captchaApi, loginApi } from '@/api/login'
 import { getUUID } from '@/utils/index'
 import Language from 'V/components/language/index.vue'
 import { useI18n } from 'vue-i18n'
@@ -103,7 +103,7 @@ export default defineComponent({
      */
     const captcha = (): void => {
       form.uuid = getUUID()
-      data.captchaPath = getCaptcha({ uuid: form.uuid })
+      data.captchaPath = captchaApi({ uuid: form.uuid })
     }
 
     /**
@@ -116,7 +116,7 @@ export default defineComponent({
       refForm.value.validate((valid: boolean) => {
         if (valid) {
           data.loading = true
-          login(form).then(r => {
+          loginApi(form).then(r => {
             if (r) {
               store.dispatch('user/setToken', r.data)
               router.push({ name: 'home' })

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-29 14:11:28
+ * @LastEditTime: 2021-05-20 16:00:13
 -->
 <template>
   <el-dialog
@@ -64,8 +64,8 @@ import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useInstance from '@/mixins/instance'
 import { isEmail, isMobile } from '@/utils/regular'
-import { add, edit, getInfo } from '@/api/base/user'
-import { getSelect } from '@/api/base/role'
+import { addApi, editApi, infoApi } from '@/api/base/user'
+import { selectListApi } from '@/api/base/role'
 
 import { User } from 'Type/user'
 import { Role } from 'Type/role'
@@ -137,12 +137,12 @@ export default defineComponent({
       data.visible = true
       data.loading = true
       data.form.id = id
-      const res = await getSelect()
+      const res = await selectListApi()
       if (res) {
         data.roles = res.data
       }
       if (data.form.id) {
-        const r = await getInfo(data.form.id)
+        const r = await infoApi(data.form.id)
         if (r) {
           data.form.username = r.data.username
           data.form.nickname = r.data.username
@@ -168,7 +168,7 @@ export default defineComponent({
     const submit = (): void => {
       refForm.value.validate(async (valid: boolean) => {
         if (valid) {
-          const r = !data.form.id ? await add(data.form) : await edit(data.form)
+          const r = !data.form.id ? await addApi(data.form) : await editApi(data.form)
           if (r) {
             data.visible = false
             $message({

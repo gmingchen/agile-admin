@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-19 16:53:30
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-13 17:05:35
+ * @LastEditTime: 2021-05-20 15:57:34
 -->
 <template>
   <div class="g-container">
@@ -186,7 +186,7 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 import { useI18n } from 'vue-i18n'
 import useInstance from '@/mixins/instance'
 import AddEdit from './components/add-edit.vue'
-import { setTab, setAlive, setDisplay, getList, setMultiple, del } from '@/api/base/menu'
+import { tabApi, aliveApi, displayApi, listApi, multipleApi, delApi } from '@/api/base/menu'
 
 import { Menu } from 'Type/menu'
 import { TreeNode } from 'Type/el'
@@ -218,7 +218,7 @@ export default defineComponent({
       const params = {
         parent_id: parentId
       }
-      const r = await getList(params)
+      const r = await listApi(params)
       if (r) {
         r.data.forEach(item => {
           if (item.type !== 2) {
@@ -288,7 +288,7 @@ export default defineComponent({
         const params = {
           id: id
         }
-        del(params).then(r => {
+        delApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
@@ -314,7 +314,7 @@ export default defineComponent({
           key: row.id,
           value: row.is_display
         }
-        setDisplay(params).then(r => {
+        displayApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
@@ -339,7 +339,7 @@ export default defineComponent({
           key: row.id,
           value: row.is_alive
         }
-        setAlive(params).then(r => {
+        aliveApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
@@ -364,7 +364,7 @@ export default defineComponent({
           key: row.id,
           value: row.is_tab
         }
-        setTab(params).then(r => {
+        tabApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
@@ -389,7 +389,7 @@ export default defineComponent({
           key: row.id,
           value: row.is_multiple
         }
-        setMultiple(params).then(r => {
+        multipleApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),

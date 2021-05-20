@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-13 17:07:32
+ * @LastEditTime: 2021-05-20 15:46:39
  */
 import service from '@/utils/request'
 import { PageData, PageParams, ResponseData } from 'axios'
@@ -20,7 +20,7 @@ interface pageParams extends PageParams {
  * @return {*}
  * @author: gumingchen
  */
-export function getPage(params: pageParams): Promise<ResponseData<PageData<Task.Base>>> {
+export function pageApi(params: pageParams): Promise<ResponseData<PageData<Task.Base>>> {
   return service({
     url: '/base/schedule/task/page',
     method: 'get',
@@ -34,7 +34,7 @@ export function getPage(params: pageParams): Promise<ResponseData<PageData<Task.
  * @return {*}
  * @author: gumingchen
  */
-export function getInfo(params: number): Promise<ResponseData<Task.Base>> {
+export function infoApi(params: number): Promise<ResponseData<Task.Base>> {
   return service({
     url: `/base/schedule/task/info/${ params }`,
     method: 'get'
@@ -47,7 +47,7 @@ export function getInfo(params: number): Promise<ResponseData<Task.Base>> {
  * @return {*}
  * @author: gumingchen
  */
-export function add(params: Task.Base): Promise<ResponseData<null>> {
+export function addApi(params: Task.Base): Promise<ResponseData<null>> {
   return service({
     url: '/base/schedule/task/create',
     method: 'post',
@@ -61,7 +61,7 @@ export function add(params: Task.Base): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function edit(params: Task.Base): Promise<ResponseData<null>> {
+export function editApi(params: Task.Base): Promise<ResponseData<null>> {
   return service({
     url: '/base/schedule/task/update',
     method: 'post',
@@ -75,7 +75,7 @@ export function edit(params: Task.Base): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function del(params: number[]): Promise<ResponseData<null>> {
+export function delApi(params: number[]): Promise<ResponseData<null>> {
   return service({
     url: '/base/schedule/task/delete',
     method: 'post',
@@ -89,7 +89,7 @@ export function del(params: number[]): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function run(params: number[]): Promise<ResponseData<null>> {
+export function runApi(params: number[]): Promise<ResponseData<null>> {
   return service({
     url: '/base/schedule/task/run',
     method: 'post',
@@ -103,7 +103,7 @@ export function run(params: number[]): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function resume(params: number[]): Promise<ResponseData<null>> {
+export function resumeApi(params: number[]): Promise<ResponseData<null>> {
   return service({
     url: '/base/schedule/task/resume',
     method: 'post',
@@ -117,7 +117,7 @@ export function resume(params: number[]): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function pause(params: number[]): Promise<ResponseData<null>> {
+export function pauseApi(params: number[]): Promise<ResponseData<null>> {
   return service({
     url: '/base/schedule/task/pause',
     method: 'post',

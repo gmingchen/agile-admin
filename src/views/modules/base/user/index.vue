@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-13 17:05:19
+ * @LastEditTime: 2021-05-20 16:00:52
 -->
 <template>
   <div class="g-container">
@@ -107,7 +107,7 @@ import Page from 'V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 import { clearJson } from '@/utils'
 
-import { del, getPage, setStatus } from '@/api/base/user'
+import { delApi, pageApi, statusApi } from '@/api/base/user'
 import { User } from 'Type/user'
 
 export default defineComponent({
@@ -136,7 +136,7 @@ export default defineComponent({
         size: page.size
       }
       data.loading = true
-      getPage(params).then(r => {
+      pageApi(params).then(r => {
         if (r) {
           data.list = r.data.list
           page.total = r.data.total
@@ -178,7 +178,7 @@ export default defineComponent({
         cancelButtonText: t('button.cancel'),
         type: 'warning'
       }).then(() => {
-        del(params).then(r => {
+        delApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
@@ -208,7 +208,7 @@ export default defineComponent({
           key: row.id!,
           value: row.status === 1 ? 0 : 1
         }
-        setStatus(params).then(r => {
+        statusApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),

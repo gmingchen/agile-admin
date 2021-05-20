@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-06 16:27:39
+ * @LastEditTime: 2021-05-20 15:49:50
 -->
 <template>
   <el-dialog
@@ -57,7 +57,7 @@ import { key, useStore } from '@/store'
 import { useI18n } from 'vue-i18n'
 import useInstance from '@/mixins/instance'
 import { isEmail, isMobile } from '@/utils/regular'
-import { editUserInfo, getUserInfo } from '@/api/login'
+import { editUserInfoApi, userInfoApi } from '@/api/login'
 
 export default defineComponent({
   setup() {
@@ -136,7 +136,7 @@ export default defineComponent({
             old_password: form.oldPassword,
             new_password: form.newPassword
           }
-          const r = await editUserInfo(params)
+          const r = await editUserInfoApi(params)
           if (r) {
             visible.value = false
             $message({
@@ -146,7 +146,7 @@ export default defineComponent({
                 if (r.data === 1) {
                   router.replace({ name: 'login' })
                 } else {
-                  getUserInfo().then(res => {
+                  userInfoApi().then(res => {
                     if (res && res.code === 0) {
                       store.dispatch('user/setUser', res.data)
                     }

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-03 23:39:44
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-08 16:15:20
+ * @LastEditTime: 2021-05-20 15:49:22
 -->
 <template>
   <el-container>
@@ -44,7 +44,7 @@ import { key, useStore } from '@/store'
 import Sidebar from './components/sidebar/index.vue'
 import Headbar from './components/headbar/index.vue'
 import Tabsbar from './components/tabsbar/index.vue'
-import { getUserInfo } from '@/api/login'
+import { userInfoApi } from '@/api/login'
 
 export default defineComponent({
   components: { Sidebar, Headbar, Tabsbar },
@@ -64,7 +64,7 @@ export default defineComponent({
      * @author: gumingchen
      */
     onBeforeMount(() => {
-      getUserInfo().then(r => {
+      userInfoApi().then(r => {
         if (r) {
           store.dispatch('user/setUser', r.data)
         }
