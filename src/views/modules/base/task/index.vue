@@ -225,7 +225,7 @@ export default defineComponent({
       } else {
         params = data.selection.map(item => item.id!)
       }
-      $confirm(t('tip.confirmTips', [params.join(','), t(id ? 'button.delete' : 'button.batchDelete')]), t('tip.tips'), {
+      $confirm(t('tip.confirmTips', [params.join(','), id ? t('base.task.immediately') : t('base.task.batch', [t('base.task.immediately')])]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
@@ -257,7 +257,7 @@ export default defineComponent({
       } else {
         params = data.selection.map(item => item.id!)
       }
-      $confirm(t('tip.confirmTips', [params.join(','), t(id ? 'button.delete' : 'button.batchDelete')]), t('tip.tips'), {
+      $confirm(t('tip.confirmTips', [params.join(','), id ? t('base.task.resume') : t('base.task.batch', [t('base.task.resume')])]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
@@ -289,7 +289,7 @@ export default defineComponent({
       } else {
         params = data.selection.map(item => item.id!)
       }
-      $confirm(t('tip.confirmTips', [params.join(','), t(id ? 'button.delete' : 'button.batchDelete')]), t('tip.tips'), {
+      $confirm(t('tip.confirmTips', [params.join(','), id ? t('base.task.pause') : t('base.task.batch', [t('base.task.pause')])]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
