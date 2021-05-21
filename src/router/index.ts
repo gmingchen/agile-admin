@@ -4,14 +4,14 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-29 17:23:32
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-07 12:01:50
+ * @LastEditTime: 2021-05-20 15:48:29
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw, RouteLocationNormalizedLoaded } from 'vue-router'
 import { store } from '@/store'
 import I18n from '@/i18n'
 import NProgress from 'nprogress'
 import { isURL } from '@/utils/regular'
-import { getUserMenus } from '@/api/login'
+import { userMenusApi } from '@/api/login'
 import { Menu } from 'Type/menu'
 
 let refresh = true
@@ -199,7 +199,7 @@ router.beforeEach(async (to: RouteLocationNormalizedLoaded, _from, next) => {
         return
       }
     } else {
-      const r = await getUserMenus()
+      const r = await userMenusApi()
       if (r) {
         store.dispatch('menu/setMenuAndPermission', r.data)
       } else {

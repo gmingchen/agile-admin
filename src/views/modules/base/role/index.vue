@@ -4,17 +4,17 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-07 17:32:15
+ * @LastEditTime: 2021-05-20 15:58:55
 -->
 <template>
   <div class="g-container">
-    <el-form ref="formR" :inline="true" @keyup.enter="get()">
+    <el-form ref="formR" :inline="true" @keyup.enter="getList()">
       <el-form-item>
         <el-input v-model="form.name" :placeholder="t('field.fullName',[t('base.role.role')])" clearable />
       </el-form-item>
       <el-form-item>
-        <el-button @click="get()">{{ t('button.query') }}</el-button>
-        <el-button @click="clearJson(form), get()">{{ t('button.reset') }}</el-button>
+        <el-button @click="getList()">{{ t('button.query') }}</el-button>
+        <el-button @click="clearJson(form), getList()">{{ t('button.reset') }}</el-button>
         <el-button v-permission="'base:role:create'" type="primary" @click="addEditHandle()">{{ t('button.add') }}</el-button>
         <el-button
           v-permission="'base:role:delete'"
@@ -69,7 +69,7 @@
       </el-table-column>
     </el-table>
     <page :page="page" @change="pageChangeHandle" />
-    <add-edit ref="refAddEdit" v-if="visible" @refresh="get" />
+    <add-edit ref="refAddEdit" v-if="visible" @refresh="getList" />
   </div>
 </template>
 
@@ -82,7 +82,7 @@ import Page from 'V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 
 import { clearJson } from '@/utils'
-import { del, getPage } from '@/api/base/role'
+import { delApi, pageApi } from '@/api/base/role'
 import { Role } from 'Type/role'
 
 export default defineComponent({
@@ -107,14 +107,14 @@ export default defineComponent({
      * @return {*}
      * @author: gumingchen
      */
-    const get = (): void => {
+    const getList = (): void => {
       const params = {
         ...data.form,
         current: page.current,
         size: page.size
       }
       data.loading = true
-      getPage(params).then(r => {
+      pageApi(params).then(r => {
         if (r) {
           data.list = r.data.list
           page.total = r.data.total
@@ -156,13 +156,13 @@ export default defineComponent({
         cancelButtonText: t('button.cancel'),
         type: 'warning'
       }).then(() => {
-        del(params).then(r => {
+        delApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
               type: 'success'
             })
-            get()
+            getList()
           }
         })
       })
@@ -190,18 +190,18 @@ export default defineComponent({
     const pageChangeHandle = (argPage: IPage): void => {
       page.current = argPage.current
       page.size = argPage.size
-      get()
+      getList()
     }
 
     onBeforeMount(() => {
-      get()
+      getList()
     })
 
     return {
       refAddEdit,
       page,
       ...toRefs(data),
-      get,
+      getList,
       addEditHandle,
       delHandle,
       selectionHandle,

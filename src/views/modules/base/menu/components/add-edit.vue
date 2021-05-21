@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-29 14:12:49
+ * @LastEditTime: 2021-05-20 15:50:58
 -->
 <template>
   <el-dialog
@@ -46,7 +46,7 @@
       <el-form-item v-if="form.type !== 0" :label="t('base.menu.authMark')" prop="permission">
         <el-input v-model="form.permission" :placeholder="t('base.menu.authPlaceholder')" />
       </el-form-item>
-      <el-form-item v-if="form.type !== 2" :label="t('field.sort')" prop="sort">
+      <el-form-item :label="t('field.sort')" prop="sort">
         <el-input-number
           v-model="form.sort"
           controls-position="right"
@@ -92,7 +92,7 @@ import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRe
 import { key, useStore } from '@/store'
 import { useI18n } from 'vue-i18n'
 import useInstance from '@/mixins/instance'
-import { add, edit, getInfo, getSelect } from '@/api/base/menu'
+import { addApi, editApi, infoApi, selectListApi } from '@/api/base/menu'
 import { parseData2Tree } from '@/utils'
 import Icon from '@/assets/icon'
 
@@ -166,7 +166,7 @@ export default defineComponent({
       data.visible = true
       data.loading = true
       data.form.id = id
-      const res = await getSelect()
+      const res = await selectListApi()
       if (res) {
         res.data.push({
           id: 0,
@@ -177,7 +177,7 @@ export default defineComponent({
         data.menus = parseData2Tree(res.data, 'id', 'parent_id')
       }
       if (data.form.id) {
-        const r = await getInfo(data.form.id)
+        const r = await infoApi(data.form.id)
         if (r) {
           data.form = r.data
         }
@@ -196,7 +196,7 @@ export default defineComponent({
     const submit = (): void => {
       refForm.value.validate(async (valid: boolean) => {
         if (valid) {
-          const r = !data.form.id ? await add(data.form) : await edit(data.form)
+          const r = !data.form.id ? await addApi(data.form) : await editApi(data.form)
           if (r) {
             data.visible = false
             $message({

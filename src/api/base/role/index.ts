@@ -1,10 +1,10 @@
 /*
- * @Description:
+ * @Description: 角色
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 13:26:48
+ * @LastEditTime: 2021-05-20 15:46:05
  */
 import service from '@/utils/request'
 import { PageData, PageParams, ResponseData } from 'axios'
@@ -15,12 +15,12 @@ interface pageParams extends PageParams {
 }
 
 /**
- * @description: 获取角色
+ * @description: 分页列表
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function getPage(params: pageParams): Promise<ResponseData<PageData<Role.Base>>> {
+export function pageApi(params: pageParams): Promise<ResponseData<PageData<Role.Base>>> {
   return service({
     url: '/base/role/page',
     method: 'get',
@@ -29,12 +29,12 @@ export function getPage(params: pageParams): Promise<ResponseData<PageData<Role.
 }
 
 /**
- * @description: 详情
+ * @description: 信息
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function getInfo(params: number): Promise<ResponseData<Role.Dto>> {
+export function infoApi(params: number): Promise<ResponseData<Role.Dto>> {
   return service({
     url: `/base/role/info/${ params }`,
     method: 'get'
@@ -47,7 +47,7 @@ export function getInfo(params: number): Promise<ResponseData<Role.Dto>> {
  * @return {*}
  * @author: gumingchen
  */
-export function add(params: Role.Dto): Promise<ResponseData<null>> {
+export function addApi(params: Role.Dto): Promise<ResponseData<null>> {
   return service({
     url: '/base/role/create',
     method: 'post',
@@ -61,7 +61,7 @@ export function add(params: Role.Dto): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function edit(params: Role.Dto): Promise<ResponseData<null>> {
+export function editApi(params: Role.Dto): Promise<ResponseData<null>> {
   return service({
     url: '/base/role/update',
     method: 'post',
@@ -75,7 +75,7 @@ export function edit(params: Role.Dto): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function del(params: number[]): Promise<ResponseData<null>> {
+export function delApi(params: number[]): Promise<ResponseData<null>> {
   return service({
     url: '/base/role/delete',
     method: 'post',
@@ -89,7 +89,7 @@ export function del(params: number[]): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function getSelect(): Promise<ResponseData<Role.Simple[]>> {
+export function selectListApi(): Promise<ResponseData<Role.Simple[]>> {
   return service({
     url: '/base/role/select',
     method: 'get'

@@ -1,22 +1,22 @@
 /*
- * @Description:
+ * @Description: 菜单权限
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 13:25:07
+ * @LastEditTime: 2021-05-20 15:45:34
  */
 import service from '@/utils/request'
 import { ResponseData, StatusParams } from 'axios'
 import { Menu } from 'Type/menu'
 
 /**
- * @description: 获取权限菜单
+ * @description: 列表
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function getList(params: { parent_id: number }): Promise<ResponseData<Menu.Vo[]>> {
+export function listApi(params: { parent_id: number }): Promise<ResponseData<Menu.Vo[]>> {
   return service({
     url: '/base/menu/list',
     method: 'get',
@@ -25,12 +25,12 @@ export function getList(params: { parent_id: number }): Promise<ResponseData<Men
 }
 
 /**
- * @description: 详情
+ * @description: 信息
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function getInfo(params: number): Promise<ResponseData<Menu.Dto>> {
+export function infoApi(params: number): Promise<ResponseData<Menu.Dto>> {
   return service({
     url: `/base/menu/info/${ params }`,
     method: 'get'
@@ -43,7 +43,7 @@ export function getInfo(params: number): Promise<ResponseData<Menu.Dto>> {
  * @return {*}
  * @author: gumingchen
  */
-export function add(params: Menu.Base): Promise<ResponseData<null>> {
+export function addApi(params: Menu.Base): Promise<ResponseData<null>> {
   return service({
     url: '/base/menu/create',
     method: 'post',
@@ -57,7 +57,7 @@ export function add(params: Menu.Base): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function edit(params: Menu.Base): Promise<ResponseData<null>> {
+export function editApi(params: Menu.Base): Promise<ResponseData<null>> {
   return service({
     url: '/base/menu/update',
     method: 'post',
@@ -71,7 +71,7 @@ export function edit(params: Menu.Base): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function del(params: { id: number }): Promise<ResponseData<null>> {
+export function delApi(params: { id: number }): Promise<ResponseData<null>> {
   return service({
     url: '/base/menu/delete',
     method: 'post',
@@ -85,7 +85,7 @@ export function del(params: { id: number }): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function setDisplay(params: StatusParams): Promise<ResponseData<null>> {
+export function displayApi(params: StatusParams): Promise<ResponseData<null>> {
   return service({
     url: '/base/menu/display',
     method: 'post',
@@ -99,7 +99,7 @@ export function setDisplay(params: StatusParams): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function setAlive(params: StatusParams): Promise<ResponseData<null>> {
+export function aliveApi(params: StatusParams): Promise<ResponseData<null>> {
   return service({
     url: '/base/menu/alive',
     method: 'post',
@@ -113,7 +113,7 @@ export function setAlive(params: StatusParams): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function setTab(params: StatusParams): Promise<ResponseData<null>> {
+export function tabApi(params: StatusParams): Promise<ResponseData<null>> {
   return service({
     url: '/base/menu/tab',
     method: 'post',
@@ -127,7 +127,7 @@ export function setTab(params: StatusParams): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function setMultiple(params: StatusParams): Promise<ResponseData<null>> {
+export function multipleApi(params: StatusParams): Promise<ResponseData<null>> {
   return service({
     url: '/base/menu/multiple',
     method: 'post',
@@ -141,7 +141,7 @@ export function setMultiple(params: StatusParams): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function getSelect(): Promise<ResponseData<Menu.Simple[]>> {
+export function selectListApi(): Promise<ResponseData<Menu.Simple[]>> {
   return service({
     url: '/base/menu/select',
     method: 'get'
@@ -154,7 +154,7 @@ export function getSelect(): Promise<ResponseData<Menu.Simple[]>> {
  * @return {*}
  * @author: gumingchen
  */
-export function getSelfSelect(): Promise<ResponseData<Menu.Simple[]>> {
+export function selfSelectListApi(): Promise<ResponseData<Menu.Simple[]>> {
   return service({
     url: '/base/menu/self/select',
     method: 'get'
