@@ -17,37 +17,20 @@
       :model="form"
       :rules="rules"
       v-loading="loading"
-      ref="formR"
+      ref="refForm"
       @keyup.enter="submit()"
       label-position="top">
-      <el-form-item :label="t('field.account')" prop="username">
-        <el-input v-model="form.username" :placeholder="t('field.account')" />
+      <el-form-item :label="t('field.fullName', ['Bean'])" prop="bean_name">
+        <el-input v-model="form.bean_name" :placeholder="t('field.fullName', ['Bean'])" />
       </el-form-item>
-      <el-form-item :label="t('field.nickname')" prop="nickname">
-        <el-input v-model="form.nickname" :placeholder="t('field.nickname')" />
+      <el-form-item :label="t('base.task.expression', ['Cron'])" prop="cron_expression">
+        <el-input v-model="form.cron_expression" :placeholder="t('base.task.expression', ['Cron'])" />
       </el-form-item>
-      <el-form-item :label="t('field.password')" prop="password">
-        <el-input v-model="form.password" :placeholder="t('field.password')" show-password />
+      <el-form-item :label="t('base.task.parameter')" prop="params">
+        <el-input v-model="form.params" :placeholder="t('base.task.parameter')" />
       </el-form-item>
-      <el-form-item :label="t('field.confirmPassword')" prop="confirmPassword">
-        <el-input v-model="form.confirmPassword" :placeholder="t('field.confirmPassword')" show-password />
-      </el-form-item>
-      <el-form-item :label="t('field.mobile')" prop="mobile">
-        <el-input v-model="form.mobile" :placeholder="t('field.mobile')" />
-      </el-form-item>
-      <el-form-item :label="t('field.email')" prop="email">
-        <el-input v-model="form.email" :placeholder="t('field.email')" />
-      </el-form-item>
-      <el-form-item :label="t('base.role.roleName')" size="mini" prop="role_ids">
-        <el-checkbox-group v-model="form.role_ids">
-          <el-checkbox v-for="role in roles" :key="role.id" :label="role.id">{{ role.name }}</el-checkbox>
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item :label="t('field.state')" size="mini" prop="status">
-        <el-radio-group v-model="form.status">
-          <el-radio :label="0">{{ t('button.disable') }}</el-radio>
-          <el-radio :label="1">{{ t('button.enable') }}</el-radio>
-        </el-radio-group>
+      <el-form-item :label="t('field.remark')" prop="params">
+        <el-input v-model="form.remark" :placeholder="t('field.remark')" type="textarea" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -63,12 +46,9 @@
 import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useInstance from '@/mixins/instance'
-import { isEmail, isMobile } from '@/utils/regular'
-import { addApi, editApi, infoApi } from '@/api/base/user'
-import { selectListApi } from '@/api/base/role'
+import { addApi, editApi, infoApi } from '@/api/base/task'
 
-import { User } from 'Type/user'
-import { Role } from 'Type/role'
+import { Task } from 'Type/task'
 
 export default defineComponent({
   emits: ['refresh'],
@@ -80,52 +60,20 @@ export default defineComponent({
     const data = reactive({
       visible: false,
       loading: false,
-      roles: [] as Role.Simple[],
       form: {
         id: null,
-        username: '',
-        nickname: '',
-        password: '',
-        mobile: '',
-        email: '',
-        status: 0,
-        role_ids: [],
-        confirmPassword: ''
-      } as User.Dto
+        bean_name: '',
+        cron_expression: '',
+        params: '',
+        remark: '',
+        status: 1
+      } as Task.Base
     })
 
     const rules = computed(() => {
-      const checkMobile = (_rule: unknown, value: string, callback: (arg?: Error | undefined) => void): void => {
-        if (data.form.mobile !== '' && !isMobile(value)) {
-          callback(new Error(t('rule.incorrect', [t('field.mobile')])))
-        } else {
-          callback()
-        }
-      }
-      const checkEmail = (_rule: unknown, value: string, callback: (arg?: Error | undefined) => void): void => {
-        if (data.form.email !== '' && !isEmail(value)) {
-          callback(new Error(t('rule.incorrect', [t('field.email')])))
-        } else {
-          callback()
-        }
-      }
-      const checkConfirmPassword = (_rule: unknown, value: string, callback: (arg?: Error | undefined) => void): void => {
-        if (data.form.password !== value) {
-          callback(new Error(t('rule.notConsistent', [t('field.confirmPassword'), t('field.password')])))
-        } else {
-          callback()
-        }
-      }
       const rule = {
-        username: [{ required: true, message: t('rule.notBlank', [t('field.account')]), trigger: 'blur' }],
-        nickname: [{ required: true, message: t('rule.notBlank', [t('field.nickname')]), trigger: 'blur' }],
-        password: [{ required: true, message: t('rule.notBlank', [t('field.password')]), trigger: 'blur' }],
-        confirmPassword: [
-          { required: true, message: t('rule.notBlank', [t('field.confirmPassword')]), trigger: 'blur' },
-          { validator: checkConfirmPassword, trigger: 'blur' }
-        ],
-        mobile: [{ validator: checkMobile, trigger: 'blur' }],
-        email: [{ validator: checkEmail, trigger: 'blur' }]
+        bean_name: [{ required: true, message: t('rule.notBlank', [t('field.fullName', ['Bean'])]), trigger: 'blur' }],
+        cron_expression: [{ required: true, message: t('rule.notBlank', [t('base.task.expression', ['Cron'])]), trigger: 'blur' }]
       }
       nextTick(() => {
         refForm.value.clearValidate()
@@ -137,21 +85,14 @@ export default defineComponent({
       data.visible = true
       data.loading = true
       data.form.id = id
-      const res = await selectListApi()
-      if (res) {
-        data.roles = res.data
-      }
       if (data.form.id) {
         const r = await infoApi(data.form.id)
         if (r) {
-          data.form.username = r.data.username
-          data.form.nickname = r.data.username
-          data.form.mobile = r.data.mobile
-          data.form.email = r.data.email
+          data.form.bean_name = r.data.bean_name
+          data.form.cron_expression = r.data.cron_expression
+          data.form.params = r.data.params
+          data.form.remark = r.data.remark
           data.form.status = r.data.status
-          data.form.role_ids = r.data.roles!.map(item => {
-            return item.id
-          })
         }
       }
       nextTick(() => {

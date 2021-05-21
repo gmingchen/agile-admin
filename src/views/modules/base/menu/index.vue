@@ -214,7 +214,7 @@ export default defineComponent({
      * @return {*}
      * @author: gumingchen
      */
-    const get = async (parentId = 0): Promise<ResponseData<Menu.Vo[]>> => {
+    const getList = async (parentId = 0): Promise<ResponseData<Menu.Vo[]>> => {
       const params = {
         parent_id: parentId
       }
@@ -238,7 +238,7 @@ export default defineComponent({
     const setList = async (): Promise<void> => {
       data.loading = true
       data.list = []
-      data.list = (await get()).data || []
+      data.list = (await getList()).data || []
       nextTick(() => {
         data.loading = false
       })
@@ -251,7 +251,7 @@ export default defineComponent({
      * @author: gumingchen
      */
     const loadHandle = (row: Menu.Vo, _treeNode: TreeNode<Menu.Vo>, resolve: IFn): void => {
-      get(row.id!).then(r => {
+      getList(row.id!).then(r => {
         if (r) {
           resolve(r.data)
         } else {

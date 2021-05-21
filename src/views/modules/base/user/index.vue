@@ -8,7 +8,7 @@
 -->
 <template>
   <div class="g-container">
-    <el-form ref="formR" :inline="true" @keyup.enter="get()">
+    <el-form ref="formR" :inline="true" @keyup.enter="getList()">
       <el-form-item>
         <el-input v-model="form.username" :placeholder="t('field.account')" clearable />
       </el-form-item>
@@ -16,8 +16,8 @@
         <el-input v-model="form.nickname" :placeholder="t('field.nickname')" clearable />
       </el-form-item>
       <el-form-item>
-        <el-button @click="get()">{{ t('button.query') }}</el-button>
-        <el-button @click="clearJson(form), get()">{{ t('button.reset') }}</el-button>
+        <el-button @click="getList()">{{ t('button.query') }}</el-button>
+        <el-button @click="clearJson(form), getList()">{{ t('button.reset') }}</el-button>
         <el-button v-permission="'base:user:create'" type="primary" @click="addEditHandle()">{{ t('button.add') }}</el-button>
         <el-button
           v-permission="'base:user:delete'"
@@ -94,7 +94,7 @@
       </el-table-column>
     </el-table>
     <page :page="page" @change="pageChangeHandle" />
-    <add-edit ref="addEdit" v-if="visible" @refresh="getList" />
+    <add-edit ref="refAddEdit" v-if="visible" @refresh="getList" />
   </div>
 </template>
 
@@ -129,7 +129,7 @@ export default defineComponent({
       selection: [] as User.Vo[]
     })
 
-    const get = (): void => {
+    const getList = (): void => {
       const params = {
         ...data.form,
         current: page.current,
@@ -184,7 +184,7 @@ export default defineComponent({
               message: t('tip.success'),
               type: 'success'
             })
-            get()
+            getList()
           }
         })
       }).catch(() => {
@@ -214,7 +214,7 @@ export default defineComponent({
               message: t('tip.success'),
               type: 'success'
             })
-            get()
+            getList()
           }
         })
       }).catch(() => {
@@ -241,18 +241,18 @@ export default defineComponent({
     const pageChangeHandle = (argPage: IPage): void => {
       page.current = argPage.current
       page.size = argPage.size
-      get()
+      getList()
     }
 
     onBeforeMount(() => {
-      get()
+      getList()
     })
 
     return {
       refAddEdit,
       page,
       ...toRefs(data),
-      get,
+      getList,
       addEditHandle,
       delHandle,
       statusHandle,

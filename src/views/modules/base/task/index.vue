@@ -8,13 +8,13 @@
 -->
 <template>
   <div class="g-container">
-    <el-form ref="formR" :inline="true" @keyup.enter="get()">
+    <el-form ref="formR" :inline="true" @keyup.enter="getList()">
       <el-form-item>
         <el-input v-model="form.bean_name" :placeholder="t('field.fullName', ['Bean'])" clearable />
       </el-form-item>
       <el-form-item>
-        <el-button @click="get()">{{ t('button.query') }}</el-button>
-        <el-button @click="clearJson(form), get()">{{ t('button.reset') }}</el-button>
+        <el-button @click="getList()">{{ t('button.query') }}</el-button>
+        <el-button @click="clearJson(form), getList()">{{ t('button.reset') }}</el-button>
         <el-button v-permission="'base:schedule:task:create'" type="primary" @click="addEditHandle()">{{ t('button.add') }}</el-button>
         <el-button
           v-permission="'base:schedule:task:run'"
@@ -57,13 +57,13 @@
         prop="bean_name" />
       <el-table-column
         align="center"
-        :label="t('base.task.parameter')"
-        prop="params" />
-      <el-table-column
-        align="center"
         :label="t('base.task.expression', ['Cron'])"
         prop="cron_expression"
         width="200px" />
+      <el-table-column
+        align="center"
+        :label="t('base.task.parameter')"
+        prop="params" />
       <el-table-column
         align="center"
         :label="t('field.state')"
@@ -93,19 +93,19 @@
             v-permission="'base:schedule:task:run'"
             type="text"
             size="small"
-            @click="delHandle(row.id)">{{ t('base.task.immediately') }}</el-button>
+            @click="runHandle(row.id)">{{ t('base.task.immediately') }}</el-button>
           <el-button
             v-if="row.status === 0"
             v-permission="'base:schedule:task:resume'"
             type="text"
             size="small"
-            @click="delHandle(row.id)">{{ t('base.task.resume') }}</el-button>
+            @click="resumeHandle(row.id)">{{ t('base.task.resume') }}</el-button>
           <el-button
             v-if="row.status === 1"
             v-permission="'base:schedule:task:pause'"
             type="text"
             size="small"
-            @click="delHandle(row.id)">{{ t('base.task.pause') }}</el-button>
+            @click="pauseHandle(row.id)">{{ t('base.task.pause') }}</el-button>
           <el-button
             v-permission="'base:schedule:task:delete'"
             type="text"
@@ -115,7 +115,7 @@
       </el-table-column>
     </el-table>
     <page :page="page" @change="pageChangeHandle" />
-    <add-edit ref="addEdit" v-if="visible" @refresh="getList" />
+    <add-edit ref="refAddEdit" v-if="visible" @refresh="getList" />
   </div>
 </template>
 
@@ -128,7 +128,7 @@ import Page from 'V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 import { clearJson } from '@/utils'
 
-import { delApi, pageApi } from '@/api/base/task'
+import { delApi, pageApi, pauseApi, resumeApi, runApi } from '@/api/base/task'
 import { Task } from 'Type/task'
 
 export default defineComponent({
@@ -149,7 +149,7 @@ export default defineComponent({
       selection: [] as Task.Base[]
     })
 
-    const get = (): void => {
+    const getList = (): void => {
       const params = {
         ...data.form,
         current: page.current,
@@ -204,7 +204,7 @@ export default defineComponent({
               message: t('tip.success'),
               type: 'success'
             })
-            get()
+            getList()
           }
         })
       }).catch(() => {
@@ -230,13 +230,13 @@ export default defineComponent({
         cancelButtonText: t('button.cancel'),
         type: 'warning'
       }).then(() => {
-        delApi(params).then(r => {
+        runApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
               type: 'success'
             })
-            get()
+            getList()
           }
         })
       }).catch(() => {
@@ -262,13 +262,13 @@ export default defineComponent({
         cancelButtonText: t('button.cancel'),
         type: 'warning'
       }).then(() => {
-        delApi(params).then(r => {
+        resumeApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
               type: 'success'
             })
-            get()
+            getList()
           }
         })
       }).catch(() => {
@@ -294,13 +294,13 @@ export default defineComponent({
         cancelButtonText: t('button.cancel'),
         type: 'warning'
       }).then(() => {
-        delApi(params).then(r => {
+        pauseApi(params).then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
               type: 'success'
             })
-            get()
+            getList()
           }
         })
       }).catch(() => {
@@ -327,18 +327,18 @@ export default defineComponent({
     const pageChangeHandle = (argPage: IPage): void => {
       page.current = argPage.current
       page.size = argPage.size
-      get()
+      getList()
     }
 
     onBeforeMount(() => {
-      get()
+      getList()
     })
 
     return {
       refAddEdit,
       page,
       ...toRefs(data),
-      get,
+      getList,
       addEditHandle,
       delHandle,
       runHandle,
@@ -354,7 +354,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.role-name-span + .role-name-span {
-  margin-left: 10px;
-}
 </style>
