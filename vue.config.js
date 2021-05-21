@@ -61,10 +61,10 @@ module.exports = {
       L2Dwidget: 'L2Dwidget'
     }
     if (process.env.NODE_ENV === 'production') {
-      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
-      config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs = [
-        'console.log'
-      ]
+      // config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
+      // config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs = [
+      //   'console.log'
+      // ]
     }
     config.performance = {
       // hints: 'warning',                                                              // 警告 webpack 的性能提示
