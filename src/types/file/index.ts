@@ -1,10 +1,10 @@
 /*
- * @Description: 
+ * @Description:
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-29 14:55:34
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 17:43:07
+ * @LastEditTime: 2021-05-26 20:44:38
  */
 import { Po } from 'Type/index'
 
@@ -18,5 +18,5 @@ export namespace File {
     path: string
     url: string
   }
-  
+
 }

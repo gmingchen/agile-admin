@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-15 19:20:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-13 17:09:25
+ * @LastEditTime: 2021-05-26 21:15:18
  */
 import enLocale from 'element-plus/lib/locale/lang/en'
 
@@ -50,6 +50,8 @@ const en = {
     title: 'Title',
     type: 'Type',
     remark: 'Remark',
+    start: 'Start',
+    end: 'End',
     state: 'State',
     time: '{0} time',
     date: '{0} date',
@@ -74,6 +76,7 @@ const en = {
     tips: 'Tips',
     confirmTips: 'Confirm the [{1}] operation on [id={0}]?',
     success: 'Operation successful',
+    fail: 'Operation failed',
     menuCollapse: 'Menu bar expand / collapse',
     exitAccount: 'Are you sure you want to exit the current account?'
   },
@@ -103,6 +106,16 @@ const en = {
       parameter: 'Parameter',
       expression: '{0} expression',
       batch: 'Batch {0}'
+    },
+    file: {
+      file: 'File',
+      original: 'Original',
+      actual: 'Actual',
+      extension: 'Extension',
+      size: 'Size',
+      physicalPath: 'Physical path',
+      virtualPath: 'Virtual path',
+      upload: 'Upload'
     }
   }
 }
