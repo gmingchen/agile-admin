@@ -4,13 +4,13 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-26 21:25:52
+ * @LastEditTime: 2021-05-27 13:37:33
 -->
 <template>
   <div class="g-container">
     <el-form ref="formR" :inline="true" @keyup.enter="getList()">
       <el-form-item>
-        <el-input v-model="form.type" :placeholder="t('field.fullName', [t('base.file.extension')])" clearable />
+        <el-input v-model="form.extension" :placeholder="t('field.fullName', [t('base.file.extension')])" clearable />
       </el-form-item>
       <el-form-item>
         <el-date-picker
@@ -80,7 +80,8 @@
       <el-table-column
         align="center"
         :label="t('field.fullName', [t('base.file.extension')])"
-        prop="extension" />
+        prop="extension"
+        min-width="100" />
       <el-table-column
         align="center"
         :label="t('base.file.size')"
@@ -105,9 +106,14 @@
       <el-table-column
         align="center"
         :label="t('field.operation')"
-        width="80"
+        width="130"
         fixed="right">
         <template v-slot="{ row }">
+          <el-button
+            v-permission="'base:file:download'"
+            type="text"
+            size="small"
+            @click="downloadHandle(row.id)">{{ t('button.download') }}</el-button>
           <el-button
             v-permission="'base:file:delete'"
             type="text"
@@ -121,14 +127,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
+import { defineComponent, nextTick, onBeforeMount, reactive, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 import usePage, { IPage } from '@/mixins/page'
 import useInstance from '@/mixins/instance'
 import Page from 'V/components/page/index.vue'
 import { clearJson, parseDate2Str } from '@/utils'
 
-import { delApi, pageApi, uploadApi, cleanApi, flowApi } from '@/api/base/file'
+import { delApi, pageApi, uploadApi, cleanApi, flowApi, downloadApi } from '@/api/base/file'
 import { File } from 'Type/file'
 import { ResponseData } from 'axios'
 import { SUCCESS_CODE } from '@/utils/constants'
@@ -250,6 +256,16 @@ export default defineComponent({
     }
 
     /**
+     * @description: 文件下载
+     * @param {number} id
+     * @return {*}
+     * @author: gumingchen
+     */
+    const downloadHandle = (id: number): void => {
+      window.open(downloadApi(id))
+    }
+
+    /**
      * @description: table多选事件
      * @param {*} val
      * @return {*}
@@ -284,6 +300,7 @@ export default defineComponent({
       cleanHandle,
       uploadApi,
       flowApi,
+      downloadHandle,
       selectionHandle,
       pageChangeHandle,
       t,

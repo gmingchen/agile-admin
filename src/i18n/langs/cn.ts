@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-15 19:20:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-26 21:14:37
+ * @LastEditTime: 2021-05-27 13:25:08
  */
 import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
 
@@ -33,7 +33,8 @@ const cn = {
     reduction: '还原',
     clear: '清除',
     enable: '启用',
-    disable: '禁用'
+    disable: '禁用',
+    download: '下载'
   },
   field: {
     account: '账户',

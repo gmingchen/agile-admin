@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-26 21:21:02
+ * @LastEditTime: 2021-05-27 13:24:10
  */
 import { IObject } from '@/types'
 import { parseJson2Param } from '@/utils'
@@ -63,6 +63,8 @@ export function uploadApi(params?: IObject): string {
     params = {
       [TOKEN_KEY]: tokenVal
     }
+  } else {
+    params[TOKEN_KEY] = tokenVal
   }
   result += `?${ parseJson2Param(params) }`
   return result
@@ -93,4 +95,21 @@ export function cleanApi(): Promise<ResponseData<null>> {
     url: '/base/file/clean',
     method: 'post'
   })
+}
+
+/**
+ * @description: 下载
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function downloadApi(params: number): string {
+  let result: string = ''
+  const url = `/base/file/download/${ params }`
+  result = `${ process.env.VUE_APP_BASE_API! + url }`
+  const param = {
+    [TOKEN_KEY]: tokenVal
+  }
+  result += `?${ parseJson2Param(param) }`
+  return result
 }
