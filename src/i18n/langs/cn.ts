@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-15 19:20:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-07 13:26:10
+ * @LastEditTime: 2021-05-27 13:25:08
  */
 import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
 
@@ -33,7 +33,8 @@ const cn = {
     reduction: '还原',
     clear: '清除',
     enable: '启用',
-    disable: '禁用'
+    disable: '禁用',
+    download: '下载'
   },
   field: {
     account: '账户',
@@ -50,6 +51,8 @@ const cn = {
     title: '标题',
     type: '类型',
     remark: '备注',
+    start: '开始',
+    end: '结束',
     state: '状态',
     time: '{0}时间',
     date: '{0}日期',
@@ -73,7 +76,9 @@ const cn = {
   tip: {
     tips: '提示',
     confirmTips: '确定对[id={0}]进行[{1}]操作?',
+    confirmMessageTips: '确定对[{0}]进行[{1}]操作?',
     success: '操作成功',
+    fail: '操作失败',
     menuCollapse: '菜单栏展开/收起',
     exitAccount: '您确定要退出当前账号吗?'
   },
@@ -103,6 +108,16 @@ const cn = {
       parameter: '参数',
       expression: '{0}表达式',
       batch: '批量{0}'
+    },
+    file: {
+      file: '文件',
+      original: '原始',
+      actual: '实际',
+      extension: '扩展',
+      size: '大小',
+      physicalPath: '物理路径',
+      virtualPath: '虚拟路径',
+      upload: '上传'
     }
   }
 }
