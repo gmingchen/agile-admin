@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-29 17:23:32
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-20 15:48:29
+ * @LastEditTime: 2021-05-27 16:54:53
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw, RouteLocationNormalizedLoaded } from 'vue-router'
 import { store } from '@/store'
@@ -177,6 +177,8 @@ function addRoutes(menus: Menu.Vo[] = [], routeList: RouteRecordRaw[] = []): voi
 }
 
 router.beforeEach(async (to: RouteLocationNormalizedLoaded, _from, next) => {
+  // 标题控制
+  document.title = to.meta[`title_${ store.getters['setting/language'] }`] as string || document.title
   // 跳转到登录页清除所有信息
   if (to.name === 'login') {
     store.dispatch('setting/exit')

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-08 09:47:15
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 18:05:11
+ * @LastEditTime: 2021-05-27 17:00:07
 -->
 <template>
   <div class="language">
@@ -30,11 +30,13 @@ import { useI18n } from 'vue-i18n'
 import { useStore, key } from '@/store'
 
 import { LanguageType } from 'Type/index'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   setup() {
     const { t, locale } = useI18n()
     const store = useStore(key)
+    const route = useRoute()
 
     const getLang = (): string => {
       let result: string
@@ -59,6 +61,7 @@ export default defineComponent({
         return
       }
       locale.value = command
+      document.title = route.meta[`title_${ command }`] as string
       store.dispatch('setting/setLanguage', command)
     }
 
