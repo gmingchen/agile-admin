@@ -4,11 +4,11 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-19 16:53:30
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-20 15:57:34
+ * @LastEditTime: 2021-05-28 16:21:17
 -->
 <template>
   <div class="g-container">
-    <el-form ref="formR" inline>
+    <el-form ref="refForm" inline>
       <el-form-item>
         <el-button v-permission="'base:menu:create'" type="primary" @click="addEditHandle()">{{t('button.add')}}</el-button>
       </el-form-item>
@@ -200,6 +200,7 @@ export default defineComponent({
 
     const { $message, $confirm } = useInstance()
 
+    const refForm = ref()
     const refAddEdit = ref()
     const props = { children: 'children', hasChildren: 'hasChildren' }
     const data = reactive({
@@ -280,7 +281,7 @@ export default defineComponent({
      * @author: gumingchen
      */
     const delHandle = (id: number): void => {
-      $confirm(t('tip.confirmTips', [id, t('button.delete')]), t('tip.tips'), {
+      $confirm(t('tip.confirmOptionTips', [id, t('button.delete')]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
@@ -407,6 +408,7 @@ export default defineComponent({
     })
 
     return {
+      refForm,
       refAddEdit,
       props,
       ...toRefs(data),

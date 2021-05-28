@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-15 19:20:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-27 13:18:45
+ * @LastEditTime: 2021-05-28 22:35:28
  */
 import enLocale from 'element-plus/lib/locale/lang/en'
 
@@ -75,7 +75,8 @@ const en = {
   },
   tip: {
     tips: 'Tips',
-    confirmTips: 'Confirm the [{1}] operation on [id={0}]?',
+    confirmTips: 'Confirm the [{0}] operation',
+    confirmOptionTips: 'Confirm the [{1}] operation on [id={0}]?',
     success: 'Operation successful',
     fail: 'Operation failed',
     menuCollapse: 'Menu bar expand / collapse',
@@ -104,6 +105,7 @@ const en = {
       immediately: 'Immediately',
       resume: 'Resume',
       pause: 'Pause',
+      normal: 'Normal',
       parameter: 'Parameter',
       expression: '{0} expression',
       batch: 'Batch {0}'
@@ -117,6 +119,18 @@ const en = {
       physicalPath: 'Physical path',
       virtualPath: 'Virtual path',
       upload: 'Upload'
+    },
+    backup: {
+      backup: 'Backup',
+      backupMode: 'Backup mode',
+      manual: 'Manual',
+      automatic: 'Automatic',
+      clearDatabase: 'Clear database',
+      databaseName: 'Database name',
+      physicalPath: 'Physical path',
+      virtualPath: 'Virtual path',
+      command: 'Command',
+      recovery: 'Recovery'
     }
   }
 }

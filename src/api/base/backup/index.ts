@@ -4,20 +4,19 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-27 13:24:10
+ * @LastEditTime: 2021-05-28 22:06:57
  */
-import { IObject } from '@/types'
 import { parseJson2Param } from '@/utils'
 import service from '@/utils/request'
 import { PageData, PageParams, ResponseData } from 'axios'
-import { File } from 'Type/file'
+import { Backup } from 'Type/backup'
 import { store } from '@/store'
 import { TOKEN_KEY } from '@/utils/constants'
 
 const tokenVal = store.getters['user/tokenVal']
 
 interface pageParams extends PageParams {
-  extension?: string
+  type?: number | string
   start?: string
   end?: string
 }
@@ -28,46 +27,39 @@ interface pageParams extends PageParams {
  * @return {*}
  * @author: gumingchen
  */
-export function pageApi(params: pageParams): Promise<ResponseData<PageData<File.Base>>> {
+export function pageApi(params: pageParams): Promise<ResponseData<PageData<Backup.Base>>> {
   return service({
-    url: '/base/file/page',
+    url: '/base/backup/page',
     method: 'get',
     params: params
   })
 }
 
 /**
- * @description: 文件流
+ * @description: 备份
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function flowApi(params: number): string {
-  let result: string = ''
-  const url = `/base/file/flow/${ params }`
-  result = `${ process.env.VUE_APP_BASE_API! + url }`
-  return result
+export function backupApi(): Promise<ResponseData<null>> {
+  return service({
+    url: '/base/backup/backup',
+    method: 'post'
+  })
 }
 
 /**
- * @description: 上传
+ * @description: 恢复
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function uploadApi(params?: IObject): string {
-  let result: string = ''
-  const url = '/base/file/upload'
-  result = `${ process.env.VUE_APP_BASE_API! + url }`
-  if (!params) {
-    params = {
-      [TOKEN_KEY]: tokenVal
-    }
-  } else {
-    params[TOKEN_KEY] = tokenVal
-  }
-  result += `?${ parseJson2Param(params) }`
-  return result
+export function recoveryApi(params: number): Promise<ResponseData<null>> {
+  return service({
+    url: '/base/backup/recovery',
+    method: 'post',
+    data: params
+  })
 }
 
 /**
@@ -78,7 +70,7 @@ export function uploadApi(params?: IObject): string {
  */
 export function delApi(params: number[]): Promise<ResponseData<null>> {
   return service({
-    url: '/base/file/delete',
+    url: '/base/backup/delete',
     method: 'post',
     data: params
   })
@@ -92,7 +84,7 @@ export function delApi(params: number[]): Promise<ResponseData<null>> {
  */
 export function clearApi(): Promise<ResponseData<null>> {
   return service({
-    url: '/base/file/clear',
+    url: '/base/backup/clear',
     method: 'post'
   })
 }
@@ -105,11 +97,24 @@ export function clearApi(): Promise<ResponseData<null>> {
  */
 export function downloadApi(params: number): string {
   let result: string = ''
-  const url = `/base/file/download/${ params }`
+  const url = `/base/backup/download/${ params }`
   result = `${ process.env.VUE_APP_BASE_API! + url }`
   const param = {
     [TOKEN_KEY]: tokenVal
   }
   result += `?${ parseJson2Param(param) }`
   return result
+}
+
+/**
+ * @description: 清库
+ * @param {*} params
+ * @return {*}
+ * @author: gumingchen
+ */
+export function truncateApi(): Promise<ResponseData<null>> {
+  return service({
+    url: '/base/backup/truncate',
+    method: 'post'
+  })
 }

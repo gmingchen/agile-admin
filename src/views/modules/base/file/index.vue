@@ -4,11 +4,11 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-27 13:37:33
+ * @LastEditTime: 2021-05-28 22:40:48
 -->
 <template>
   <div class="g-container">
-    <el-form ref="formR" :inline="true" @keyup.enter="getList()">
+    <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
       <el-form-item>
         <el-input v-model="form.extension" :placeholder="t('field.fullName', [t('base.file.extension')])" clearable />
       </el-form-item>
@@ -39,9 +39,9 @@
           @click="delHandle()"
           :disabled="selection.length <= 0">{{ t('button.batchDelete') }}</el-button>
         <el-button
-          v-permission="'base:file:clean'"
+          v-permission="'base:file:clear'"
           type="danger"
-          @click="cleanHandle()">{{ t('button.clear') }}</el-button>
+          @click="clearHandle()">{{ t('button.clear') }}</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -62,7 +62,11 @@
         :label="t('base.file.file')"
         width="80">
         <template v-slot="{ row }">
-          <el-avatar :preview-src-list="[flowApi(row.id)]" :src="flowApi(row.id)" shape="square">{{ row.extension }}</el-avatar>
+          <el-avatar
+            :preview-src-list="[flowApi(row.id)]"
+            :src="flowApi(row.id)"
+            shape="square"
+            fit="fill">{{ row.extension }}</el-avatar>
         </template>
       </el-table-column>
       <el-table-column
@@ -127,14 +131,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onBeforeMount, reactive, toRefs } from 'vue'
+import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 import usePage, { IPage } from '@/mixins/page'
 import useInstance from '@/mixins/instance'
 import Page from 'V/components/page/index.vue'
 import { clearJson, parseDate2Str } from '@/utils'
 
-import { delApi, pageApi, uploadApi, cleanApi, flowApi, downloadApi } from '@/api/base/file'
+import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi } from '@/api/base/file'
 import { File } from 'Type/file'
 import { ResponseData } from 'axios'
 import { SUCCESS_CODE } from '@/utils/constants'
@@ -145,6 +149,7 @@ export default defineComponent({
     const { t } = useI18n()
     const { $message, $confirm } = useInstance()
 
+    const refForm = ref()
     const { page } = usePage()
     const data = reactive({
       loading: false,
@@ -211,7 +216,7 @@ export default defineComponent({
       } else {
         params = data.selection.map(item => item.id!)
       }
-      $confirm(t('tip.confirmTips', [params.join(','), t(id ? 'button.delete' : 'button.batchDelete')]), t('tip.tips'), {
+      $confirm(t('tip.confirmOptionTips', [params.join(','), t(id ? 'button.delete' : 'button.batchDelete')]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
@@ -236,13 +241,13 @@ export default defineComponent({
      * @return {*}
      * @author: gumingchen
      */
-    const cleanHandle = (): void => {
-      $confirm(t('tip.confirmMessageTips', [t('base.file.file'), t('button.clear')]), t('tip.tips'), {
+    const clearHandle = (): void => {
+      $confirm(t('tip.confirmTips', [t('base.file.file'), t('button.clear')]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
       }).then(() => {
-        cleanApi().then(r => {
+        clearApi().then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
@@ -292,12 +297,13 @@ export default defineComponent({
     })
 
     return {
+      refForm,
       page,
       ...toRefs(data),
       getList,
       successHandle,
       delHandle,
-      cleanHandle,
+      clearHandle,
       uploadApi,
       flowApi,
       downloadHandle,

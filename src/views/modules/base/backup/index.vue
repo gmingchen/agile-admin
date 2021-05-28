@@ -4,38 +4,43 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-28 22:36:10
+ * @LastEditTime: 2021-05-28 22:18:35
 -->
 <template>
   <div class="g-container">
     <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
       <el-form-item>
-        <el-input v-model="form.bean_name" :placeholder="t('field.fullName', ['Bean'])" clearable />
+        <el-select v-model="form.type" :placeholder="t('base.backup.backupMode')" clearable>
+          <el-option :label="t('base.backup.manual')" :value="1" />
+          <el-option :label="t('base.backup.automatic')" :value="2" />
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-date-picker
+          v-model="form.date"
+          type="daterange"
+          range-separator="-"
+          :start-placeholder="t('field.date', [t('field.start')])"
+          :end-placeholder="t('field.date', [t('field.end')])"
+          clearable />
       </el-form-item>
       <el-form-item>
         <el-button @click="getList()">{{ t('button.query') }}</el-button>
         <el-button @click="clearJson(form), getList()">{{ t('button.reset') }}</el-button>
-        <el-button v-permission="'base:schedule:task:create'" type="primary" @click="addEditHandle()">{{ t('button.add') }}</el-button>
+        <el-button v-permission="'base:backup:backup'" type="primary" @click="backupHandle()">{{ t('base.backup.backup') }}</el-button>
         <el-button
-          v-permission="'base:schedule:task:run'"
-          type="danger"
-          @click="runHandle()"
-          :disabled="selection.length <= 0">{{ t('base.task.batch', [t('base.task.immediately')]) }}</el-button>
-        <el-button
-          v-permission="'base:schedule:task:resume'"
-          type="danger"
-          @click="resumeHandle()"
-          :disabled="selection.length <= 0">{{ t('base.task.batch', [t('base.task.resume')]) }}</el-button>
-        <el-button
-          v-permission="'base:schedule:task:pause'"
-          type="danger"
-          @click="pauseHandle()"
-          :disabled="selection.length <= 0">{{ t('base.task.batch', [t('base.task.pause')]) }}</el-button>
-        <el-button
-          v-permission="'base:schedule:task:delete'"
+          v-permission="'base:backup:delete'"
           type="danger"
           @click="delHandle()"
           :disabled="selection.length <= 0">{{ t('button.batchDelete') }}</el-button>
+        <el-button
+          v-permission="'base:backup:clear'"
+          type="danger"
+          @click="clearHandle()">{{ t('button.clear') }}</el-button>
+        <el-button
+          v-permission="'base:backup:truncate'"
+          type="danger"
+          @click="truncateHandle()">{{ t('base.backup.clearDatabase') }}</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -53,63 +58,67 @@
         width="80" />
       <el-table-column
         align="center"
-        :label="t('field.fullName', ['Bean'])"
-        prop="bean_name"
-        min-width="120" />
+        :label="t('field.name')"
+        prop="name"
+        min-width="150"
+        :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        :label="t('base.task.expression', ['Cron'])"
-        prop="cron_expression"
-        width="160px" />
+        :label="t('base.backup.databaseName')"
+        prop="db_name"
+        min-width="150"
+        :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        :label="t('base.task.parameter')"
-        prop="params" />
+        :label="t('base.file.physicalPath')"
+        prop="path"
+        min-width="150"
+        :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        :label="t('field.state')"
-        prop="status"
-        width="80px">
+        :label="t('base.file.virtualPath')"
+        prop="url"
+        min-width="150"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        align="center"
+        :label="t('base.backup.command')"
+        prop="cmd"
+        min-width="150"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        align="center"
+        :label="t('base.backup.backupMode')"
+        prop="cmd"
+        width="120">
         <template v-slot="{ row }">
-          <el-tag v-if="row.status === 1" type="success">{{ t('base.task.normal') }}</el-tag>
-          <el-tag v-if="row.status === 0" type="info">{{ t('base.task.pause') }}</el-tag>
+          <el-tag v-if="row.type === 1" size="small">{{ t('base.backup.manual') }}</el-tag>
+          <el-tag v-else size="small" type="success">{{ t('base.backup.automatic') }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
-        :label="t('field.remark')"
-        prop="remark"
-        min-width="200px" />
+        :label="t('field.time', [t('field.create')])"
+        prop="created_at"
+        width="160" />
       <el-table-column
         align="center"
         :label="t('field.operation')"
-        width="240"
+        width="190"
         fixed="right">
         <template v-slot="{ row }">
           <el-button
-            v-permission="'base:schedule:task:update'"
+            v-permission="'base:backup:recovery'"
             type="text"
             size="small"
-            @click="addEditHandle(row.id)">{{ t('button.edit') }}</el-button>
+            @click="recoveryHandle(row.id)">{{ t('base.backup.recovery') }}</el-button>
           <el-button
-            v-permission="'base:schedule:task:run'"
+            v-permission="'base:backup:download'"
             type="text"
             size="small"
-            @click="runHandle(row.id)">{{ t('base.task.immediately') }}</el-button>
+            @click="downloadHandle(row.id)">{{ t('button.download') }}</el-button>
           <el-button
-            v-if="row.status === 0"
-            v-permission="'base:schedule:task:resume'"
-            type="text"
-            size="small"
-            @click="resumeHandle(row.id)">{{ t('base.task.resume') }}</el-button>
-          <el-button
-            v-if="row.status === 1"
-            v-permission="'base:schedule:task:pause'"
-            type="text"
-            size="small"
-            @click="pauseHandle(row.id)">{{ t('base.task.pause') }}</el-button>
-          <el-button
-            v-permission="'base:schedule:task:delete'"
+            v-permission="'base:backup:delete'"
             type="text"
             size="small"
             @click="delHandle(row.id)">{{ t('button.delete') }}</el-button>
@@ -117,7 +126,6 @@
       </el-table-column>
     </el-table>
     <page :page="page" @change="pageChangeHandle" />
-    <add-edit ref="refAddEdit" v-if="visible" @refresh="getList" />
   </div>
 </template>
 
@@ -127,34 +135,35 @@ import { useI18n } from 'vue-i18n'
 import usePage, { IPage } from '@/mixins/page'
 import useInstance from '@/mixins/instance'
 import Page from 'V/components/page/index.vue'
-import AddEdit from './components/add-edit.vue'
-import { clearJson } from '@/utils'
+import { clearJson, parseDate2Str } from '@/utils'
 
-import { delApi, pageApi, pauseApi, resumeApi, runApi } from '@/api/base/task'
-import { Task } from 'Type/task'
+import { delApi, pageApi, clearApi, downloadApi, recoveryApi, backupApi, truncateApi } from '@/api/base/backup'
+import { Backup } from 'Type/backup'
 
 export default defineComponent({
-  components: { Page, AddEdit },
+  components: { Page },
   setup() {
     const { t } = useI18n()
     const { $message, $confirm } = useInstance()
 
     const refForm = ref()
-    const refAddEdit = ref()
     const { page } = usePage()
     const data = reactive({
       loading: false,
       visible: false,
       form: {
-        bean_name: ''
+        type: '',
+        date: []
       },
-      list: [] as Task.Base[],
-      selection: [] as Task.Base[]
+      list: [] as Backup.Base[],
+      selection: [] as Backup.Base[]
     })
 
     const getList = (): void => {
       const params = {
-        ...data.form,
+        type: data.form.type,
+        start: data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
+        end: data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
         current: page.current,
         size: page.size
       }
@@ -171,15 +180,53 @@ export default defineComponent({
     }
 
     /**
-     * @description: 新增/编辑弹窗
+     * @description: 备份
      * @param {*}
      * @return {*}
      * @author: gumingchen
      */
-    const addEditHandle = (id?: number): void => {
-      data.visible = true
-      nextTick(() => {
-        refAddEdit.value.init(id)
+    const backupHandle = (): void => {
+      $confirm(t('tip.confirmTips', [t('base.backup.backup')]), t('tip.tips'), {
+        confirmButtonText: t('button.confirm'),
+        cancelButtonText: t('button.cancel'),
+        type: 'warning'
+      }).then(() => {
+        backupApi().then(r => {
+          if (r) {
+            $message({
+              message: t('tip.success'),
+              type: 'success'
+            })
+            getList()
+          }
+        })
+      }).catch(() => {
+        // to do something on canceled
+      })
+    }
+
+    /**
+     * @description: 恢复
+     * @param {number} id
+     * @return {*}
+     * @author: gumingchen
+     */
+    const recoveryHandle = (id: number): void => {
+      $confirm(t('tip.confirmTips', [t('base.backup.recovery')]), t('tip.tips'), {
+        confirmButtonText: t('button.confirm'),
+        cancelButtonText: t('button.cancel'),
+        type: 'warning'
+      }).then(() => {
+        recoveryApi(id).then(r => {
+          if (r) {
+            $message({
+              message: t('tip.success'),
+              type: 'success'
+            })
+          }
+        })
+      }).catch(() => {
+        // to do something on canceled
       })
     }
 
@@ -216,30 +263,23 @@ export default defineComponent({
     }
 
     /**
-     * @description: 立即执行
+     * @description: 清除文件
      * @param {number} id
      * @return {*}
      * @author: gumingchen
      */
-    const runHandle = (id: number): void => {
-      let params: number[]
-      if (id) {
-        params = [id]
-      } else {
-        params = data.selection.map(item => item.id!)
-      }
-      $confirm(t('tip.confirmOptionTips', [params.join(','), id ? t('base.task.immediately') : t('base.task.batch', [t('base.task.immediately')])]), t('tip.tips'), {
+    const clearHandle = (): void => {
+      $confirm(t('tip.confirmTips', [t('base.backup.backup'), t('button.clear')]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
       }).then(() => {
-        runApi(params).then(r => {
+        clearApi().then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
               type: 'success'
             })
-            getList()
           }
         })
       }).catch(() => {
@@ -248,62 +288,33 @@ export default defineComponent({
     }
 
     /**
-     * @description: 恢复
+     * @description: 文件下载
      * @param {number} id
      * @return {*}
      * @author: gumingchen
      */
-    const resumeHandle = (id: number): void => {
-      let params: number[]
-      if (id) {
-        params = [id]
-      } else {
-        params = data.selection.map(item => item.id!)
-      }
-      $confirm(t('tip.confirmOptionTips', [params.join(','), id ? t('base.task.resume') : t('base.task.batch', [t('base.task.resume')])]), t('tip.tips'), {
-        confirmButtonText: t('button.confirm'),
-        cancelButtonText: t('button.cancel'),
-        type: 'warning'
-      }).then(() => {
-        resumeApi(params).then(r => {
-          if (r) {
-            $message({
-              message: t('tip.success'),
-              type: 'success'
-            })
-            getList()
-          }
-        })
-      }).catch(() => {
-        // to do something on canceled
-      })
+    const downloadHandle = (id: number): void => {
+      window.open(downloadApi(id))
     }
 
     /**
-     * @description: 暂停
+     * @description: 清库
      * @param {number} id
      * @return {*}
      * @author: gumingchen
      */
-    const pauseHandle = (id: number): void => {
-      let params: number[]
-      if (id) {
-        params = [id]
-      } else {
-        params = data.selection.map(item => item.id!)
-      }
-      $confirm(t('tip.confirmOptionTips', [params.join(','), id ? t('base.task.pause') : t('base.task.batch', [t('base.task.pause')])]), t('tip.tips'), {
+    const truncateHandle = (): void => {
+      $confirm(t('tip.confirmTips', [t('base.backup.clearDatabase')]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
       }).then(() => {
-        pauseApi(params).then(r => {
+        truncateApi().then(r => {
           if (r) {
             $message({
               message: t('tip.success'),
               type: 'success'
             })
-            getList()
           }
         })
       }).catch(() => {
@@ -317,7 +328,7 @@ export default defineComponent({
      * @return {*}
      * @author: gumingchen
      */
-    const selectionHandle = (val: Task.Base[]): void => {
+    const selectionHandle = (val: Backup.Base[]): void => {
       data.selection = val
     }
 
@@ -339,15 +350,15 @@ export default defineComponent({
 
     return {
       refForm,
-      refAddEdit,
       page,
       ...toRefs(data),
       getList,
-      addEditHandle,
+      backupHandle,
       delHandle,
-      runHandle,
-      resumeHandle,
-      pauseHandle,
+      clearHandle,
+      downloadHandle,
+      recoveryHandle,
+      truncateHandle,
       selectionHandle,
       pageChangeHandle,
       t,

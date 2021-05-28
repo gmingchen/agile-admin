@@ -4,11 +4,11 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-21 23:25:48
+ * @LastEditTime: 2021-05-28 16:21:42
 -->
 <template>
   <div class="g-container">
-    <el-form ref="formR" :inline="true" @keyup.enter="getList()">
+    <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
       <el-form-item>
         <el-input v-model="form.name" :placeholder="t('field.fullName',[t('base.role.role')])" clearable />
       </el-form-item>
@@ -91,6 +91,7 @@ export default defineComponent({
     const { t } = useI18n()
     const { $message, $confirm } = useInstance()
 
+    const refForm = ref()
     const refAddEdit = ref()
     const { page } = usePage()
     const data = reactive({
@@ -151,7 +152,7 @@ export default defineComponent({
       } else {
         params = data.selection.map(item => item.id!)
       }
-      $confirm(t('tip.confirmTips', [params.join(','), t(id ? 'button.delete' : 'button.batchDelete')]), t('tip.tips'), {
+      $confirm(t('tip.confirmOptionTips', [params.join(','), t(id ? 'button.delete' : 'button.batchDelete')]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
@@ -198,6 +199,7 @@ export default defineComponent({
     })
 
     return {
+      refForm,
       refAddEdit,
       page,
       ...toRefs(data),

@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-15 19:20:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-27 13:25:08
+ * @LastEditTime: 2021-05-28 22:35:53
  */
 import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
 
@@ -75,8 +75,8 @@ const cn = {
   },
   tip: {
     tips: '提示',
-    confirmTips: '确定对[id={0}]进行[{1}]操作?',
-    confirmMessageTips: '确定对[{0}]进行[{1}]操作?',
+    confirmTips: '确定对进行[{0}]操作?',
+    confirmOptionTips: '确定对[id={0}]进行[{1}]操作?',
     success: '操作成功',
     fail: '操作失败',
     menuCollapse: '菜单栏展开/收起',
@@ -105,6 +105,7 @@ const cn = {
       immediately: '立即执行',
       resume: '恢复',
       pause: '暂停',
+      normal: '正常',
       parameter: '参数',
       expression: '{0}表达式',
       batch: '批量{0}'
@@ -118,6 +119,18 @@ const cn = {
       physicalPath: '物理路径',
       virtualPath: '虚拟路径',
       upload: '上传'
+    },
+    backup: {
+      backup: '备份',
+      backupMode: '备份方式',
+      manual: '手动',
+      automatic: '自动',
+      clearDatabase: '清除数据库',
+      databaseName: '数据库名称',
+      physicalPath: '物理路径',
+      virtualPath: '虚拟路径',
+      command: '命令',
+      recovery: '恢复'
     }
   }
 }

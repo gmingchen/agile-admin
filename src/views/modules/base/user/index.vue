@@ -8,7 +8,7 @@
 -->
 <template>
   <div class="g-container">
-    <el-form ref="formR" :inline="true" @keyup.enter="getList()">
+    <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
       <el-form-item>
         <el-input v-model="form.username" :placeholder="t('field.account')" clearable />
       </el-form-item>
@@ -116,6 +116,7 @@ export default defineComponent({
     const { t } = useI18n()
     const { $message, $confirm } = useInstance()
 
+    const refForm = ref()
     const refAddEdit = ref()
     const { page } = usePage()
     const data = reactive({
@@ -173,7 +174,7 @@ export default defineComponent({
       } else {
         params = data.selection.map(item => item.id!)
       }
-      $confirm(t('tip.confirmTips', [params.join(','), t(id ? 'button.delete' : 'button.batchDelete')]), t('tip.tips'), {
+      $confirm(t('tip.confirmOptionTips', [params.join(','), t(id ? 'button.delete' : 'button.batchDelete')]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
@@ -199,7 +200,7 @@ export default defineComponent({
      * @author: gumingchen
      */
     const statusHandle = (row: User.Vo): void => {
-      $confirm(t('tip.confirmTips', [row.id, t(row.status === 1 ? 'button.disable' : 'button.enable')]), t('tip.tips'), {
+      $confirm(t('tip.confirmOptionTips', [row.id, t(row.status === 1 ? 'button.disable' : 'button.enable')]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
@@ -249,6 +250,7 @@ export default defineComponent({
     })
 
     return {
+      refForm,
       refAddEdit,
       page,
       ...toRefs(data),
