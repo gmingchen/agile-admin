@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-15 19:20:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-28 16:48:30
+ * @LastEditTime: 2021-05-28 22:35:28
  */
 import enLocale from 'element-plus/lib/locale/lang/en'
 
@@ -105,6 +105,7 @@ const en = {
       immediately: 'Immediately',
       resume: 'Resume',
       pause: 'Pause',
+      normal: 'Normal',
       parameter: 'Parameter',
       expression: '{0} expression',
       batch: 'Batch {0}'

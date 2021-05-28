@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-28 16:33:40
+ * @LastEditTime: 2021-05-28 22:40:48
 -->
 <template>
   <div class="g-container">
@@ -62,7 +62,11 @@
         :label="t('base.file.file')"
         width="80">
         <template v-slot="{ row }">
-          <el-avatar :preview-src-list="[flowApi(row.id)]" :src="flowApi(row.id)" shape="square">{{ row.extension }}</el-avatar>
+          <el-avatar
+            :preview-src-list="[flowApi(row.id)]"
+            :src="flowApi(row.id)"
+            shape="square"
+            fit="fill">{{ row.extension }}</el-avatar>
         </template>
       </el-table-column>
       <el-table-column

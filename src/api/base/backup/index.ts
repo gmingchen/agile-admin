@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-28 17:23:03
+ * @LastEditTime: 2021-05-28 22:06:57
  */
 import { parseJson2Param } from '@/utils'
 import service from '@/utils/request'
@@ -54,7 +54,7 @@ export function backupApi(): Promise<ResponseData<null>> {
  * @return {*}
  * @author: gumingchen
  */
-export function recoveryApi(params: { id: number }): Promise<ResponseData<null>> {
+export function recoveryApi(params: number): Promise<ResponseData<null>> {
   return service({
     url: '/base/backup/recovery',
     method: 'post',

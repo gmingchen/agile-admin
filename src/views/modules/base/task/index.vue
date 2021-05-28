@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-28 16:52:34
+ * @LastEditTime: 2021-05-28 22:36:10
 -->
 <template>
   <div class="g-container">
@@ -54,12 +54,13 @@
       <el-table-column
         align="center"
         :label="t('field.fullName', ['Bean'])"
-        prop="bean_name" />
+        prop="bean_name"
+        min-width="120" />
       <el-table-column
         align="center"
         :label="t('base.task.expression', ['Cron'])"
         prop="cron_expression"
-        width="200px" />
+        width="160px" />
       <el-table-column
         align="center"
         :label="t('base.task.parameter')"
@@ -70,14 +71,15 @@
         prop="status"
         width="80px">
         <template v-slot="{ row }">
-          <el-tag v-if="row.status === 1" type="success">正常</el-tag>
-          <el-tag v-if="row.status === 0" type="info">暂停</el-tag>
+          <el-tag v-if="row.status === 1" type="success">{{ t('base.task.normal') }}</el-tag>
+          <el-tag v-if="row.status === 0" type="info">{{ t('base.task.pause') }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
         :label="t('field.remark')"
-        prop="remark" />
+        prop="remark"
+        min-width="200px" />
       <el-table-column
         align="center"
         :label="t('field.operation')"
@@ -226,7 +228,7 @@ export default defineComponent({
       } else {
         params = data.selection.map(item => item.id!)
       }
-      $confirm(t('tip.confirmOptionTipsonTips', [params.join(','), id ? t('base.task.immediately') : t('base.task.batch', [t('base.task.immediately')])]), t('tip.tips'), {
+      $confirm(t('tip.confirmOptionTips', [params.join(','), id ? t('base.task.immediately') : t('base.task.batch', [t('base.task.immediately')])]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
@@ -258,7 +260,7 @@ export default defineComponent({
       } else {
         params = data.selection.map(item => item.id!)
       }
-      $confirm(t('tip.confirmOptionTipsonTips', [params.join(','), id ? t('base.task.resume') : t('base.task.batch', [t('base.task.resume')])]), t('tip.tips'), {
+      $confirm(t('tip.confirmOptionTips', [params.join(','), id ? t('base.task.resume') : t('base.task.batch', [t('base.task.resume')])]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'

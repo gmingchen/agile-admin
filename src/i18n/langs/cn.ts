@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-15 19:20:39
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-28 16:47:53
+ * @LastEditTime: 2021-05-28 22:35:53
  */
 import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
 
@@ -105,6 +105,7 @@ const cn = {
       immediately: '立即执行',
       resume: '恢复',
       pause: '暂停',
+      normal: '正常',
       parameter: '参数',
       expression: '{0}表达式',
       batch: '批量{0}'

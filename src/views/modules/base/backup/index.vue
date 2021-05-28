@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-28 17:23:22
+ * @LastEditTime: 2021-05-28 22:18:35
 -->
 <template>
   <div class="g-container">
@@ -90,17 +90,21 @@
         align="center"
         :label="t('base.backup.backupMode')"
         prop="cmd"
-        width="90">
+        width="120">
         <template v-slot="{ row }">
           <el-tag v-if="row.type === 1" size="small">{{ t('base.backup.manual') }}</el-tag>
           <el-tag v-else size="small" type="success">{{ t('base.backup.automatic') }}</el-tag>
-          {{row.type}}
         </template>
       </el-table-column>
       <el-table-column
         align="center"
+        :label="t('field.time', [t('field.create')])"
+        prop="created_at"
+        width="160" />
+      <el-table-column
+        align="center"
         :label="t('field.operation')"
-        width="130"
+        width="190"
         fixed="right">
         <template v-slot="{ row }">
           <el-button
@@ -202,6 +206,31 @@ export default defineComponent({
     }
 
     /**
+     * @description: 恢复
+     * @param {number} id
+     * @return {*}
+     * @author: gumingchen
+     */
+    const recoveryHandle = (id: number): void => {
+      $confirm(t('tip.confirmTips', [t('base.backup.recovery')]), t('tip.tips'), {
+        confirmButtonText: t('button.confirm'),
+        cancelButtonText: t('button.cancel'),
+        type: 'warning'
+      }).then(() => {
+        recoveryApi(id).then(r => {
+          if (r) {
+            $message({
+              message: t('tip.success'),
+              type: 'success'
+            })
+          }
+        })
+      }).catch(() => {
+        // to do something on canceled
+      })
+    }
+
+    /**
      * @description: 删除
      * @param {number} id
      * @return {*}
@@ -266,31 +295,6 @@ export default defineComponent({
      */
     const downloadHandle = (id: number): void => {
       window.open(downloadApi(id))
-    }
-
-    /**
-     * @description: 恢复
-     * @param {number} id
-     * @return {*}
-     * @author: gumingchen
-     */
-    const recoveryHandle = (id: number): void => {
-      $confirm(t('tip.confirmTips', [t('base.backup.recovery')]), t('tip.tips'), {
-        confirmButtonText: t('button.confirm'),
-        cancelButtonText: t('button.cancel'),
-        type: 'warning'
-      }).then(() => {
-        recoveryApi({ id: id }).then(r => {
-          if (r) {
-            $message({
-              message: t('tip.success'),
-              type: 'success'
-            })
-          }
-        })
-      }).catch(() => {
-        // to do something on canceled
-      })
     }
 
     /**
