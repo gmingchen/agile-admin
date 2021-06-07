@@ -75,21 +75,6 @@ const main: RouteRecordRaw = {
         keepAlive: true,
         multiple: false
       }
-    },
-    {
-      path: '/iframe',
-      name: 'iframe',
-      component: () => import('V/components/iframe/index.vue'),
-      meta: {
-        id: 'iframe',
-        title_cn: 'iframe',
-        title_en: 'iframe',
-        isTab: true,
-        type: 1,
-        isDynamic: false,
-        keepAlive: true,
-        multiple: true
-      }
     }
   ],
   beforeEnter(_to, _from, next) {
@@ -158,9 +143,10 @@ function addRoutes(menus: Menu.Vo[] = [], routeList: RouteRecordRaw[] = []): voi
         }
       }
       if (isURL(item.url)) {
-        route['path'] = `i-${ item.id }`
+        route['path'] = `/i-${ item.id }`
         route['name'] = `i-${ item.id }`
-        route['meta']!['iframeUrl'] = item.url // eslint-disable-line
+        route['component'] = () => import(`V/components/iframe/index.vue`)
+        route['meta']!['iframeUrl'] = item.url
       }
       routeList.push(route)
     }

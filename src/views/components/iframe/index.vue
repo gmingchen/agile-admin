@@ -8,25 +8,29 @@
 -->
 <template>
   <div :style="style">
-    <iframe
-      :src="url"
-      width="100%"
-      height="100%"
-      frameborder="0"
-      scrolling="yes" />
+    <div class="loading-container" v-loading="loading">
+      <iframe
+        ref="refIframe"
+        :src="url"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        scrolling="yes" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import { useStore, key } from '@/store'
 import { useRoute } from 'vue-router'
 
 export default defineComponent({
   setup() {
     const route = useRoute()
-    const url = ref(route.query.url)
     const store = useStore(key)
+    const refIframe = ref()
+    const loading = ref(false)
     const style = computed(() => {
       const result = {
         height: `${ store.state.setting.document.clientHeight
@@ -36,7 +40,24 @@ export default defineComponent({
       return result
     })
 
+    const url = computed(() => {
+      return route.meta.iframeUrl
+    })
+
+    watch(url, () => {
+      loading.value = true
+    })
+
+    onMounted(() => {
+      loading.value = true
+      refIframe.value.onload = () => {
+        loading.value = false
+      }
+    })
+
     return {
+      refIframe,
+      loading,
       url,
       style
     }
@@ -45,4 +66,8 @@ export default defineComponent({
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.loading-container {
+  height: 100%;
+}
+</style>

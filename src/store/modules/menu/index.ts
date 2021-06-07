@@ -40,8 +40,8 @@ function menuProcessing(list: Menu.Vo[] = []): Menu.Side[] {
         name_cn: item.name_cn,
         name_en: item.name_en,
         icon: item.icon,
-        routePath: isURL(item.url) ? item.url : item.url ? `/${ item.url.replace(/\//g, '-') }` : '',
-        routeName: isURL(item.url) ? item.url : item.url ? item.url.replace(/\//g, '-') : '',
+        routePath: isURL(item.url) ? `/i-${ item.id }` : item.url ? `/${ item.url.replace(/\//g, '-') }` : '',
+        routeName: isURL(item.url) ? `i-${ item.id }` : item.url ? item.url.replace(/\//g, '-') : '',
         type: item.type,
         children: []
       }

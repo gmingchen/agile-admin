@@ -50,11 +50,7 @@ export default defineComponent({
      * @author: gumingchen
      */
     const routeHandle = (): void => {
-      if (isURL(props.menu.routePath)) {
-        router.push({ name: 'iframe', query: { url: props.menu.routePath } })
-      } else {
-        router.push({ name: props.menu.routeName })
-      }
+      router.push({ name: props.menu.routeName })
     }
 
     return {
