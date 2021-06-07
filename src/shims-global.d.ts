@@ -27,6 +27,7 @@ declare module 'vue-router' {
     isDynamic?: boolean
     keepAlive?: boolean
     multiple?: boolean
+    iframeUrl?: string
   }
 }
 
