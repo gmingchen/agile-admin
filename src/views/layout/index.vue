@@ -9,13 +9,9 @@
 <template>
   <el-container>
     <sidebar class="sidebar" />
-    <!-- // todo: 处理动画问题 -->
     <div
       class="main-wrap"
-      :style="{
-        'width': `calc(100% - ${ sidebar.width }px)`,
-        'transition-duration': isCollapse ? '0s' : '0.9s'
-      }">
+      :style="{ 'width': `calc(100% - ${ sidebar.width }px)`, 'transition-duration': '0.3s' }">
       <el-scrollbar :height="dom.clientHeight + 'px'">
         <div :class="{ 'head-wrap': navbar.fixed }">
           <headbar class="headbar" :style="{ 'height': `${ navbar.headHeight }px` }" />
@@ -108,6 +104,9 @@ export default defineComponent({
   display: none;
 }
 .main-wrap {
+  position: absolute;
+  right: 0;
+  background-color: white;
   .head-wrap {
     width: 100%;
     position: absolute;

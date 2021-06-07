@@ -14,6 +14,7 @@
       active-text-color="#409EFF"
       class="sidebar-menu"
       :default-active="active || 'home'"
+      :collapse-transition="true"
       :collapse="isCollapse">
       <el-menu-item index="home" @click="router.push({ name: 'home' })">
         <svg-icon name="home" class="sidebar-menu-icon" size="14px" />
