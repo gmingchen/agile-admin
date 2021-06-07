@@ -25,10 +25,9 @@
           <!-- <el-scrollbar :style="navbar.fixed ? { 'height': `${ dom.clientHeight - navbar.headHeight - (navbar.tabsDisplay ? navbar.tabsHeight : 0) }px` } : {}"> -->
           <router-view v-slot="{ Component }">
             <transition name="el-fade-in">
-              <keep-alive v-if="$route.meta.keepAlive">
+              <keep-alive :include="$route.meta.keepAlive ? '': []">
                 <component :is="Component" class="component" />
               </keep-alive>
-              <component :is="Component" class="component" v-else />
             </transition>
           </router-view>
           <!-- </el-scrollbar> -->

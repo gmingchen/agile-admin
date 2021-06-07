@@ -75,21 +75,6 @@ const main: RouteRecordRaw = {
         keepAlive: true,
         multiple: false
       }
-    },
-    {
-      path: '/iframe',
-      name: 'iframe',
-      component: () => import('V/components/iframe/index.vue'),
-      meta: {
-        id: 'iframe',
-        title_cn: 'iframe',
-        title_en: 'iframe',
-        isTab: true,
-        type: 1,
-        isDynamic: false,
-        keepAlive: true,
-        multiple: true
-      }
     }
   ],
   beforeEnter(_to, _from, next) {
