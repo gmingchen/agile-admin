@@ -7,36 +7,60 @@
  * @LastEditTime: 2021-05-07 22:19:37
 -->
 <template>
-  <div>
-    <el-switch
-      :disabled="true"
-      v-permission="'base:menu:display'"
-      v-model="fa"
-      active-color="#13ce66"
-      inactive-color="#ff4949"
-      :active-value="1"
-      :inactive-value="0" />
-  </div>
+  <el-form label-position="left" label-width="140px">
+    <el-form-item :label="t('base.set.language')">
+      <language />
+    </el-form-item>
+    <el-form-item :label="t('base.set.fixedNavBar')">
+      <el-switch v-model="fixed" active-color="#13ce66" inactive-color="#ff4949" />
+    </el-form-item>
+    <el-form-item :label="t('base.set.showTabBar')">
+      <el-switch v-model="tabsDisplay" active-color="#13ce66" inactive-color="#ff4949" />
+    </el-form-item>
+  </el-form>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useI18n } from 'vue-i18n'
+import Language from 'V/components/language/index.vue'
+import { key, useStore } from '@/store'
 
 export default defineComponent({
+  components: { Language },
   setup() {
-    const fa = ref(1)
+    const { t } = useI18n()
+    const store = useStore(key)
 
-    const test = () => {
-      console.log('test')
-    }
+    const fixed = computed({
+      get: () => {
+        return store.state.setting.navbar.fixed
+      },
+      set: (val) => {
+        store.dispatch('setting/setFixed', val)
+      }
+    })
+
+    const tabsDisplay = computed({
+      get: () => {
+        return store.state.setting.navbar.tabsDisplay
+      },
+      set: (val) => {
+        store.dispatch('setting/setTabsDisplay', val)
+      }
+    })
+
     return {
-      fa,
-      test
+      t,
+      fixed,
+      tabsDisplay
     }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-
+::v-deep(.el-form-item__label) {
+  line-height: 36px!important;
+}
 </style>

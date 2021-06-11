@@ -63,10 +63,9 @@
         width="80">
         <template v-slot="{ row }">
           <el-avatar
-            :preview-src-list="[flowApi(row.id)]"
             :src="flowApi(row.id)"
             shape="square"
-            fit="fill">{{ row.extension }}</el-avatar>
+            fit="contain">{{ row.extension }}</el-avatar>
         </template>
       </el-table-column>
       <el-table-column
