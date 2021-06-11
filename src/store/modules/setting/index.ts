@@ -70,6 +70,12 @@ export default {
     SET_SIDEBAR_WIDTH: (state: State, width: number): void => {
       state.sidebar.width = width
     },
+    SET_FIXED: (state: State, fixed: boolean): void => {
+      state.navbar.fixed = fixed
+    },
+    SET_TABS_DISPLAY: (state: State, tabsDisplay: boolean): void => {
+      state.navbar.tabsDisplay = tabsDisplay
+    },
     SET_LANGUAGE: (state: State, language: string): void => {
       state.set.language = language
     },
@@ -90,6 +96,12 @@ export default {
       } else {
         commit('SET_SIDEBAR_WIDTH', state.sidebar.openWidth)
       }
+    },
+    setFixed({ commit }: ActionContext<State, null>, fixed: boolean): void {
+      commit('SET_FIXED', fixed)
+    },
+    setTabsDisplay({ commit }: ActionContext<State, null>, tabsDisplay: boolean): void {
+      commit('SET_TABS_DISPLAY', tabsDisplay)
     },
     setLanguage({ commit }: ActionContext<State, null>, language: string): void {
       setLanguage(language)

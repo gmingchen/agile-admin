@@ -131,6 +131,11 @@ const cn = {
       virtualPath: '虚拟路径',
       command: '命令',
       recovery: '恢复'
+    },
+    set: {
+      language: '语言',
+      fixedNavBar: '固定导航栏',
+      showTabBar: '显示标签栏'
     }
   }
 }

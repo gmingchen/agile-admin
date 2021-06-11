@@ -131,6 +131,11 @@ const en = {
       virtualPath: 'Virtual path',
       command: 'Command',
       recovery: 'Recovery'
+    },
+    set: {
+      language: 'Language',
+      fixedNavBar: 'Fixed navigation bar',
+      showTabBar: 'Show tab bar'
     }
   }
 }

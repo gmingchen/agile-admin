@@ -22,3 +22,7 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
     }
   }
 }
+// 头像组件样式调整修改
+.el-avatar > img {
+  width: 100%;
+}
