@@ -10,7 +10,7 @@
   <el-scrollbar class="sidebar" :height="document.clientHeight + 'px'">
     <el-menu
       background-color="#263238"
-      text-color="whitefff"
+      text-color="#ffffff"
       active-text-color="#409EFF"
       class="sidebar-menu"
       :default-active="active || 'home'"
