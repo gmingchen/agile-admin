@@ -16,6 +16,6 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: $fontColor1;
+  color: nth($fontColor, 1);
 }
 </style>

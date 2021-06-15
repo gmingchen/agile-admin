@@ -147,15 +147,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import 'Sass/_mixin.scss';
 .language {
   position: absolute;
-  top: 10px;
-  right: 28px;
+  @include position($t: 10px, $r: 28px);
 }
 .login-card {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  @include position($t: 50%, $l: 50%);
   transform: translate(-50%, -50%);
   width: 500px;
   ::v-deep(.el-card) {

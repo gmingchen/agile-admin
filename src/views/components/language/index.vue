@@ -80,7 +80,7 @@ export default defineComponent({
   .link {
     cursor: pointer;
     &:hover {
-      color: $brandColor;
+      color: nth($brandColor, 1);
     }
   }
 }

@@ -8,7 +8,7 @@
 -->
 <template>
   <el-pagination
-    class="page"
+    class="page padding_t-20"
     background
     layout="total, sizes, prev, pager, next, jumper, ->"
 
@@ -63,7 +63,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .page {
-  padding: 20px 0 0 0;
   text-align: center;
 }
 </style>

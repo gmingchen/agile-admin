@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-05-06 15:45:07
 -->
 <template>
-  <div class="headbar-wrap">
+  <div class="headbar-wrap padding-n-10">
     <el-tooltip
       :style="style"
       placement="right"
@@ -59,7 +59,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .headbar-wrap {
-  padding: 0 10px;
   & > i {
     cursor: pointer;
   }
