@@ -28,9 +28,9 @@
               :style="{ 'margin-top': (navbar.headHeight - 40) / 2 + 'px' }"
               @command="selfHandle">
               <div>
-                <el-avatar class="portrait" v-if="user.avatar" :src="avatar" />
-                <el-avatar class="portrait" v-else>{{ user.nickname ? user.nickname.substr(0, 1) : 'user' }}</el-avatar>
-                <!-- <el-image class="portrait" :src="portrait" /> -->
+                <el-avatar class="portrait margin_r-10" v-if="user.avatar" :src="avatar" />
+                <el-avatar class="portrait margin_r-10" v-else>{{ user.nickname ? user.nickname.substr(0, 1) : 'user' }}</el-avatar>
+                <!-- <el-image class="portrait margin_r-10" :src="portrait" /> -->
                 <span class="username">{{ user.nickname }}</span>
                 <i class="el-icon-arrow-down el-icon--right" />
               </div>
@@ -220,13 +220,12 @@ export default defineComponent({
     &, .link {
       cursor: pointer;
       &:hover {
-        color: $brandColor;
+        color: nth($brandColor, 1);
       }
     }
     .portrait {
       width: 40px;
       height: 40px;
-      margin-right: 10px;
       border-radius: 50%;
       cursor: pointer;
       vertical-align: middle;

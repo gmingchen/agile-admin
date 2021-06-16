@@ -7,17 +7,15 @@
  * @LastEditTime: 2021-05-06 14:10:52
 -->
 <template>
-  <div class="site-wrapper site-page--not-found">
-    <div class="site-content__wrapper">
-      <div class="site-content">
-        <h2 class="not-found-title">400</h2>
-        <p class="not-found-desc">抱歉！您访问的页面<em>失联</em>啦 ...</p>
-        <p class="not-found-time">
-          <em>{{ endTime }}</em>秒后自动返回首页
-        </p>
-        <el-button @click="jump(0)">返回上一页</el-button>
-        <el-button type="primary" class="not-found-btn-gohome" @click="jump(1)">进入首页</el-button>
-      </div>
+  <div class="error-container">
+    <div class="content-wrapper">
+      <h2 class="status-code">400</h2>
+      <p class="describe">抱歉！您访问的页面<em>失联</em>啦 ...</p>
+      <p class="timeout">
+        <em>{{ endTime }}</em>秒后自动返回首页
+      </p>
+      <el-button @click="jump(0)">返回上一页</el-button>
+      <el-button type="primary" class="margin_l-30" @click="jump(1)">进入首页</el-button>
     </div>
   </div>
 </template>
@@ -69,55 +67,42 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.site-wrapper.site-page--not-found {
+@import 'Sass/_mixin.scss';
+@import 'Sass/_variable.scss';
+.error-container {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  @include position(0, 0, 0, 0);
   overflow: hidden;
-  .site-content__wrapper {
-    padding: 0;
-    margin: 0;
-    background-color: #fff;
-  }
-  .site-content {
+  .content-wrapper {
     position: fixed;
-    top: 15%;
-    left: 50%;
-    z-index: 2;
+    @include position($t: 15%, $l: 50%);
     padding: 30px;
     text-align: center;
     transform: translate(-50%, 0);
-  }
-  .not-found-title {
-    margin: 20px 0 15px;
-    font-size: 10em;
-    font-weight: 400;
-    color: rgb(55, 71, 79);
-  }
-  .not-found-desc {
-    margin: 0 0 30px;
-    font-size: 26px;
-    text-transform: uppercase;
-    color: rgb(118, 131, 143);
-    > em {
-      font-style: normal;
-      color: #ee8145;
+    .status-code {
+      margin: 20px 0;
+      font-size: 10em;
+      font-weight: 400;
+      color: nth($fontColor, 1);
     }
-  }
-  .not-found-time {
-    margin: 0 0 30px;
-    font-size: 18px;
-    text-transform: uppercase;
-    color: rgb(118, 131, 143);
-    > em {
-      margin: 0 10px;
-      color: red;
+    .describe {
+      margin-bottom: 30px;
+      font-size: 26px;
+      color: nth($fontColor, 2);
+      > em {
+        font-style: normal;
+        color: nth($warningColor, 1);
+      }
     }
-  }
-  .not-found-btn-gohome {
-    margin-left: 30px;
+    .timeout {
+      margin-bottom: 30px;
+      font-size: 18px;
+      color: nth($fontColor, 1);
+      > em {
+        margin: 0 10px;
+        color: nth($dangerColor, 1);
+      }
+    }
   }
 }
 </style>

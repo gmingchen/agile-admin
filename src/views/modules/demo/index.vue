@@ -9,7 +9,11 @@
 <template>
   <div class="demo">
     <svg-icon name="development" />
-    <p v-for="item in 200" :key="item" @click="router.push({ name: 'demo', query: { id: item } })">p-{{item}}</p>
+    <p
+      v-for="item in 200"
+      :key="item"
+      @click="router.push({ name: 'demo', query: { id: item } })"
+      :class="`ddd margin_t-${item} ellipse-${item} relative-${item}`">p-{{item}}</p>
   </div>
 </template>
 
