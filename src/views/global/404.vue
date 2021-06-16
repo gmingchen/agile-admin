@@ -8,11 +8,11 @@
 -->
 <template>
   <div class="error-container">
-    <div class="content-wrapper padding-30">
-      <h2 class="status-code margin-20-n">400</h2>
-      <p class="describe margin_b-30">抱歉！您访问的页面<em>失联</em>啦 ...</p>
-      <p class="timeout margin_b-30 font_s-18">
-        <em class="margin-n-10">{{ endTime }}</em>秒后自动返回首页
+    <div class="content-wrapper">
+      <h2 class="status-code">400</h2>
+      <p class="describe">抱歉！您访问的页面<em>失联</em>啦 ...</p>
+      <p class="timeout">
+        <em>{{ endTime }}</em>秒后自动返回首页
       </p>
       <el-button @click="jump(0)">返回上一页</el-button>
       <el-button type="primary" class="margin_l-30" @click="jump(1)">进入首页</el-button>
@@ -76,14 +76,17 @@ export default defineComponent({
   .content-wrapper {
     position: fixed;
     @include position($t: 15%, $l: 50%);
+    padding: 30px;
     text-align: center;
     transform: translate(-50%, 0);
     .status-code {
+      margin: 20px 0;
       font-size: 10em;
       font-weight: 400;
       color: nth($fontColor, 1);
     }
     .describe {
+      margin-bottom: 30px;
       font-size: 26px;
       color: nth($fontColor, 2);
       > em {
@@ -92,8 +95,11 @@ export default defineComponent({
       }
     }
     .timeout {
+      margin-bottom: 30px;
+      font-size: 18px;
       color: nth($fontColor, 1);
       > em {
+        margin: 0 10px;
         color: nth($dangerColor, 1);
       }
     }
