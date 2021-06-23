@@ -1,0 +1,148 @@
+@import "mixin";
+/**
+ * todo: n->none    没有
+ * todo: t->top     上
+ * todo: r->right   右
+ * todo: b->bottom  下
+ * todo: l->left    左
+ * todo: a->auto    自动
+ */
+
+// 怪异盒子模型
+* { box-sizing: border-box; }
+
+// 通用ul li
+ul {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style-type: none;
+  }
+}
+
+// todo: 后期若没有那么多可以改为 @each
+// 字体大小
+@for $i from 12 through 60 {
+  .font_s-#{$i} {
+    font-size: #{$i}px;
+  }
+}
+// 外边框
+@for $i from 0 through 200 {
+  .margin-#{$i} {
+    margin: #{$i}px;
+  }
+  .margin-#{$i}-a {
+    margin: #{$i}px auto;
+  }
+  .margin-#{$i}-n {
+    margin: #{$i}px 0px;
+  }
+  .margin-n-#{$i} {
+    margin: 0px #{$i}px;
+  }
+  .margin_t-#{$i} {
+    margin-top: #{$i}px;
+  }
+  .margin_r-#{$i} {
+    margin-right: #{$i}px;
+  }
+  .margin_b-#{$i} {
+    margin-bottom: #{$i}px;
+  }
+  .margin_l-#{$i} {
+    margin-left: #{$i}px;
+  }
+}
+// 内边框
+@for $i from 1 through 200 {
+  .padding-#{$i} {
+    padding: #{$i}px;
+  }
+  .padding-#{$i}-n {
+    padding: #{$i}px 0px;
+  }
+  .padding-n-#{$i} {
+    padding: 0px #{$i}px;
+  }
+  .padding_t-#{$i} {
+    padding-top: #{$i}px;
+  }
+  .padding_r-#{$i} {
+    padding-right: #{$i}px;
+  }
+  .padding_b-#{$i} {
+    padding-bottom: #{$i}px;
+  }
+  .padding_l-#{$i} {
+    padding-left: #{$i}px;
+  }
+}
+// 文字省略
+@for $i from 1 through 5 {
+  .ellipse-#{$i} {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: #{$i};
+  }
+}
+// 定位
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+@for $i from 1 through 200 {
+  .relative_t-#{$i} {
+    @extend .relative;
+    top: #{$i}px;
+  }
+  .relative_r-#{$i} {
+    @extend .relative;
+    right: #{$i}px;
+  }
+  .relative_b-#{$i} {
+    @extend .relative;
+    bottom: #{$i}px;
+  }
+  .relative_l-#{$i} {
+    @extend .relative;
+    left: #{$i}px;
+  }
+  .relative-#{$i} {
+    @extend .relative_t-#{$i}, .relative_r-#{$i}, .relative_b-#{$i}, .relative_l-#{$i};
+  }
+  .relative-#{$i}-n {
+    @extend .relative_t-#{$i}, .relative_b-#{$i};
+  }
+  .relative-n-#{$i} {
+    @extend .relative_l-#{$i}, .relative_r-#{$i};
+  }
+  .absolute_t-#{$i} {
+    @extend .absolute;
+    top: #{$i}px;
+  }
+  .absolute_r-#{$i} {
+    @extend .absolute;
+    right: #{$i}px;
+  }
+  .absolute_b-#{$i} {
+    @extend .absolute;
+    bottom: #{$i}px;
+  }
+  .absolute_l-#{$i} {
+    @extend .absolute;
+    left: #{$i}px;
+  }
+  .absolute-#{$i} {
+    @extend .absolute_t-#{$i}, .absolute_r-#{$i}, .absolute_b-#{$i}, .absolute_l-#{$i};
+  }
+  .absolute-#{$i}-n {
+    @extend .absolute_t-#{$i}, .absolute_b-#{$i};
+  }
+  .absolute-n-#{$i} {
+    @extend .absolute_l-#{$i}, .absolute_r-#{$i};
+  }
+}

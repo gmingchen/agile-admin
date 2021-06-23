@@ -1,0 +1,28 @@
+$--color-primary: #409EFF;
+$--font-path: '~element-plus/lib/theme-chalk/fonts';
+@import "~element-plus/packages/theme-chalk/src/index";
+@import "mixin";
+
+// form label 超出 显示省略号
+.el-form-item__label {
+  @include single-ellipse;
+  line-height: 18px !important;
+}
+// dialog body padding 调整
+.el-dialog__body {
+  padding: 10px 20px 0px 20px;
+}
+// 菜单新增编辑弹窗 popper 图标样式
+.popper-menu-add-edit {
+  .icon-wrap {
+    padding-left: 10px;
+    .icon-btn {
+      padding: 7px;
+      margin: 0 10px 10px 0;
+    }
+  }
+}
+// 头像组件样式调整修改
+.el-avatar > img {
+  width: 100%;
+}
