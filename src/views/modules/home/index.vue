@@ -75,42 +75,32 @@ export default defineComponent({
   setup() {
     const wabData = reactive([
       [
-        { key: 'vue', val: '^3.0.0' },
-        { key: 'vue-class-component', val: '^8.0.0-0' },
-        { key: 'vue-i18n', val: '^9.1.6' },
-        { key: 'vue-property-decorator', val: '^9.1.2' },
-        { key: 'vue-router', val: '^4.0.0-0' },
-        { key: 'vuex', val: '^4.0.0-0' },
-        { key: 'vuex-class', val: '^0.3.2' },
-        { key: '@types/js-cookie', val: '^2.2.6' },
+        { key: 'vue', val: '^3.1.2' },
+        { key: 'vue-router', val: '^4.0.10' },
+        { key: 'vuex', val: '^4.0.2' },
         { key: 'axios', val: '^0.21.1' },
         { key: 'core-js', val: '^3.6.5' },
-        { key: 'element-plus', val: '^1.0.2-beta.40' },
+        { key: 'element-plus', val: '^1.0.2-beta.46' },
         { key: 'js-cookie', val: '^3.0.0-rc.1' },
         { key: 'lodash', val: '^4.17.21' },
         { key: 'nprogress', val: '^0.2.0' },
         { key: 'screenfull', val: '^5.1.0' },
-        { key: 'svg-sprite-loader', val: '^6.0.2' }
+        { key: 'svg-sprite-loader', val: '^6.0.8' }
       ],
       [
-        { key: '@types/lodash', val: '^4.14.168' },
-        { key: '@typescript-eslint/eslint-plugin', val: '^4.18.0' },
-        { key: '@typescript-eslint/parser', val: '^4.18.0' },
+        { key: '@babel/eslint-parser', val: '7.14.7' },
         { key: '@vue/cli-plugin-babel', val: '~4.5.0' },
         { key: '@vue/cli-plugin-eslint', val: '~4.5.0' },
         { key: '@vue/cli-plugin-router', val: '~4.5.0' },
-        { key: '@vue/cli-plugin-typescript', val: '~4.5.0' },
         { key: '@vue/cli-plugin-vuex', val: '~4.5.0' },
         { key: '@vue/cli-service', val: '~4.5.0' },
         { key: '@vue/compiler-sfc', val: '^3.0.0' },
-        { key: '@vue/eslint-config-typescript', val: '^7.0.0' },
         { key: 'babel-plugin-component', val: '^1.1.1' },
         { key: 'eslint', val: '^6.7.2' },
         { key: 'eslint-plugin-vue', val: '^7.0.0' },
-        { key: 'sass', val: '^1.26.5' },
+        { key: 'sass', val: '^1.35.1' },
         { key: 'sass-loader', val: '^8.0.2' },
-        { key: 'typescript', val: '^4.2.3' },
-        { key: 'webpack-bundle-analyzer', val: '^4.4.0' }
+        { key: 'webpack-bundle-analyzer', val: '^4.4.2' }
       ]
     ])
     const javaData = reactive([

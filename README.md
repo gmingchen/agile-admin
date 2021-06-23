@@ -20,7 +20,13 @@
 
 - [在线预览](https://gmingchen.github.io/vue3-element-plus-admin/index.html)
 
-**默认 master 分支默认使用 composition-api ，若需要 class 风格请使用[class-style](https://github.com/1240235512/vue3/tree/class-style)分支，但它不会和 master 保持同步更新**
+**默认 master 分支默认使用 composition-api ，若需要 class 风格 + Typescript 请使用[class-style](https://github.com/1240235512/vue3/tree/class-style)分支，若需要 composition-api + Typescript + I18n 请使用[composition-api](https://github.com/1240235512/vue3/tree/composition-api)分支，若只需要 基础版本 请使用[base](https://github.com/1240235512/vue3/tree/base)分支，但它们不会和 master 保持同步更新**
+
+### 分支
+- [master](https://github.com/gmingchen/vue3-element-plus-admin/tree/master) 轻量版本：持续维护分支
+- [base](https://github.com/gmingchen/vue3-element-plus-admin/tree/base) 精简版本：基于 RBAC 的权限功能-仅包含 `菜单管理`、`角色管理`、`用户管理` 三个模块
+- [composition-api](https://github.com/1240235512/vue3/tree/composition-api) 内置__`Type Script`__、__`I18n`__
+- [class-style](https://github.com/1240235512/vue3/tree/class-style) 使用 class 风格开发，内置__`Type Script`__、__`I18n`__
 
 ### 功能模块
 
@@ -32,8 +38,8 @@
 - [x] 备份管理
 - [ ] 区域管理
 - [ ] 代码生成器
-- [ ] 接口文档
-- [ ] SQL监控
+- [x] 接口文档
+- [x] SQL监控
 - [ ] 登录日志
 - [ ] 定时任务日志
 - [ ] 操作日志
