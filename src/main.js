@@ -11,7 +11,7 @@ import App from '@/App.vue'
 import Router from '@/router'
 import Store from '@/store'
 import Element from '@/element'
-import Components from '@/components/index'
+import Components from '@/components/global/index'
 import Directive from '@/directive'
 import '@/assets/icon' // svg 图标引入
 import '@/assets/sass/index.scss'

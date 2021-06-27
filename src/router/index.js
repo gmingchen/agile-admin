@@ -143,7 +143,7 @@ function addRoutes(menus = [], routeList = []) {
       if (isURL(item.url)) {
         route['path'] = `/i-${ item.id }`
         route['name'] = `i-${ item.id }`
-        route['component'] = () => import(`@/views/components/iframe/index.vue`)
+        route['component'] = () => import(`@/views/modules/iframe/index.vue`)
         route['meta']['iframeUrl'] = item.url
       }
       routeList.push(route)

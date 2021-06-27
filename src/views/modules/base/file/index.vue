@@ -133,7 +133,7 @@
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 import usePage from '@/mixins/page'
 import useInstance from '@/mixins/instance'
-import Page from '@/views/components/page/index.vue'
+import Page from '@/components/page/index.vue'
 import { clearJson, parseDate2Str } from '@/utils'
 
 import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi } from '@/api/base/file'

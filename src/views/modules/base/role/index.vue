@@ -78,7 +78,7 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 
 import usePage from '@/mixins/page'
 import useInstance from '@/mixins/instance'
-import Page from '@/views/components/page/index.vue'
+import Page from '@/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 import { clearJson } from '@/utils'
 import { delApi, pageApi } from '@/api/base/role'
