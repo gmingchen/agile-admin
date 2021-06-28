@@ -81,7 +81,11 @@
     <template #footer>
       <span class="dialog-footer">
         <gl-button sort="cancel" @click="visible = false" />
-        <gl-button sort="confirm" type="primary" @click="submit()" />
+        <gl-button
+          sort="confirm"
+          v-repeat
+          type="primary"
+          @click="submit()" />
       </span>
     </template>
   </el-dialog>

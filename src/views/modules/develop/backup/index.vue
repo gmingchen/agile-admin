@@ -25,8 +25,8 @@
           clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" @click="getList()" />
-        <gl-button sort="reset" @click="clearJson(form), getList()" />
+        <gl-button sort="query" v-repeat @click="getList()" />
+        <gl-button sort="reset" v-repeat @click="clearJson(form), getList()" />
         <gl-button
           sort="backup"
           v-permission="'base:backup:backup'"
