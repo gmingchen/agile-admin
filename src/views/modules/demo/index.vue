@@ -8,7 +8,8 @@
 -->
 <template>
   <div class="demo">
-    <svg-icon name="development" />
+    <gl-svg name="development" />
+    <gl-button @click="test()" sort="save" />
     <p
       v-for="item in 200"
       :key="item"
@@ -25,11 +26,16 @@ export default defineComponent({
   setup() {
     const router = useRouter()
 
+    const test = () => {
+      console.log('click')
+    }
+
     onBeforeMount(() => {
       console.log('init')
     })
     return {
-      router
+      router,
+      test
     }
   }
 })

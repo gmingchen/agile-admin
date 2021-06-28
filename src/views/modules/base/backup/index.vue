@@ -25,22 +25,29 @@
           clearable />
       </el-form-item>
       <el-form-item>
-        <el-button @click="getList()">查询</el-button>
-        <el-button @click="clearJson(form), getList()">重置</el-button>
-        <el-button v-permission="'base:backup:backup'" type="primary" @click="backupHandle()">备份</el-button>
-        <el-button
+        <gl-button sort="query" @click="getList()" />
+        <gl-button sort="reset" @click="clearJson(form), getList()" />
+        <gl-button
+          sort="backup"
+          v-permission="'base:backup:backup'"
+          type="primary"
+          @click="backupHandle()" />
+        <gl-button
+          sort="batchDelete"
           v-permission="'base:backup:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0">批量删除</el-button>
-        <el-button
+          :disabled="selection.length <= 0" />
+        <gl-button
+          sort="clear"
           v-permission="'base:backup:clear'"
           type="danger"
-          @click="clearHandle()">清除</el-button>
-        <el-button
+          @click="clearHandle()" />
+        <gl-button
+          sort="clearDatabase"
           v-permission="'base:backup:truncate'"
           type="danger"
-          @click="truncateHandle()">清除数据库</el-button>
+          @click="truncateHandle()" />
       </el-form-item>
     </el-form>
     <el-table
@@ -107,21 +114,24 @@
         width="190"
         fixed="right">
         <template v-slot="{ row }">
-          <el-button
+          <gl-button
+            sort="recovery"
             v-permission="'base:backup:recovery'"
             type="text"
             size="small"
-            @click="recoveryHandle(row.id)">恢复</el-button>
-          <el-button
+            @click="recoveryHandle(row.id)" />
+          <gl-button
+            sort="download"
             v-permission="'base:backup:download'"
             type="text"
             size="small"
-            @click="downloadHandle(row.id)">下载</el-button>
-          <el-button
+            @click="downloadHandle(row.id)" />
+          <gl-button
+            sort="delete"
             v-permission="'base:backup:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)">删除</el-button>
+            @click="delHandle(row.id)" />
         </template>
       </el-table-column>
     </el-table>
@@ -133,7 +143,7 @@
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 import usePage from '@/mixins/page'
 import useInstance from '@/mixins/instance'
-import Page from '@/views/components/page/index.vue'
+import Page from '@/components/page/index.vue'
 import { clearJson, parseDate2Str } from '@/utils'
 
 import { delApi, pageApi, clearApi, downloadApi, recoveryApi, backupApi, truncateApi } from '@/api/base/backup'

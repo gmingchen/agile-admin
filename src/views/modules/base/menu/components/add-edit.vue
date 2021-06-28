@@ -60,7 +60,7 @@
           popper-class="popper-menu-add-edit"
           width="330px">
           <div class="icon-wrap">
-            <el-button type="text" @click="form.icon = ''">清除</el-button>
+            <gl-button sort="clear" type="text" @click="form.icon = ''" />
             <br>
             <el-button
               v-for="(item, index) in icons"
@@ -69,7 +69,7 @@
               size="mini"
               class="icon-btn"
               @click="iconActiveHandle(item)">
-              <svg-icon :name="item" />
+              <gl-svg :name="item" />
             </el-button>
           </div>
           <template #reference>
@@ -80,8 +80,8 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="visible = false">取消</el-button>
-        <el-button type="primary" @click="submit()">确认</el-button>
+        <gl-button sort="cancel" @click="visible = false" />
+        <gl-button sort="confirm" type="primary" @click="submit()" />
       </span>
     </template>
   </el-dialog>
@@ -97,7 +97,7 @@ import Icon from '@/assets/icon'
 
 export default defineComponent({
   emits: ['refresh'],
-  setup(_props, ctx) {
+  setup(_props, { emit }) {
     const { $message } = useInstance()
 
     const refForm = ref()
@@ -193,7 +193,7 @@ export default defineComponent({
               message: '操作成功!',
               type: 'success'
             })
-            ctx.emit('refresh')
+            emit('refresh')
           }
         }
       })

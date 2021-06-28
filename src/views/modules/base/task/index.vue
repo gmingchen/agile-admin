@@ -13,29 +13,39 @@
         <el-input v-model="form.bean_name" placeholder="Bean名称" clearable />
       </el-form-item>
       <el-form-item>
-        <el-button @click="getList()">查询</el-button>
-        <el-button @click="clearJson(form), getList()">重置</el-button>
-        <el-button v-permission="'base:schedule:task:create'" type="primary" @click="addEditHandle()">新增</el-button>
-        <el-button
+        <gl-button sort="query" @click="getList()" />
+        <gl-button
+          sort="reset"
+          @click="clearJson(form), getList()" />
+        <gl-button
+          sort="add"
+          v-permission="'base:schedule:task:create'"
+          type="primary"
+          @click="addEditHandle()" />
+        <gl-button
+          sort="batchImplement"
           v-permission="'base:schedule:task:run'"
           type="danger"
           @click="runHandle()"
-          :disabled="selection.length <= 0">批量立即执行</el-button>
-        <el-button
+          :disabled="selection.length <= 0" />
+        <gl-button
+          sort="batchRecovery"
           v-permission="'base:schedule:task:resume'"
           type="danger"
           @click="resumeHandle()"
-          :disabled="selection.length <= 0">批量恢复</el-button>
-        <el-button
+          :disabled="selection.length <= 0" />
+        <gl-button
+          sort="batchPause"
           v-permission="'base:schedule:task:pause'"
           type="danger"
           @click="pauseHandle()"
-          :disabled="selection.length <= 0">批量暂停</el-button>
-        <el-button
+          :disabled="selection.length <= 0" />
+        <gl-button
+          sort="batchDelete"
           v-permission="'base:schedule:task:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0">批量删除</el-button>
+          :disabled="selection.length <= 0" />
       </el-form-item>
     </el-form>
     <el-table
@@ -86,33 +96,38 @@
         width="240"
         fixed="right">
         <template v-slot="{ row }">
-          <el-button
+          <gl-button
+            sort="edit"
             v-permission="'base:schedule:task:update'"
             type="text"
             size="small"
-            @click="addEditHandle(row.id)">编辑</el-button>
-          <el-button
+            @click="addEditHandle(row.id)" />
+          <gl-button
+            sort="implement"
             v-permission="'base:schedule:task:run'"
             type="text"
             size="small"
-            @click="runHandle(row.id)">立即执行</el-button>
-          <el-button
+            @click="runHandle(row.id)" />
+          <gl-button
+            sort="recovery"
             v-if="row.status === 0"
             v-permission="'base:schedule:task:resume'"
             type="text"
             size="small"
-            @click="resumeHandle(row.id)">恢复</el-button>
-          <el-button
+            @click="resumeHandle(row.id)" />
+          <gl-button
+            sort="pause"
             v-if="row.status === 1"
             v-permission="'base:schedule:task:pause'"
             type="text"
             size="small"
-            @click="pauseHandle(row.id)">暂停</el-button>
-          <el-button
+            @click="pauseHandle(row.id)" />
+          <gl-button
+            sort="delete"
             v-permission="'base:schedule:task:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)">删除</el-button>
+            @click="delHandle(row.id)" />
         </template>
       </el-table-column>
     </el-table>
@@ -126,7 +141,7 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 
 import usePage from '@/mixins/page'
 import useInstance from '@/mixins/instance'
-import Page from '@/views/components/page/index.vue'
+import Page from '@/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 import { clearJson } from '@/utils'
 import { delApi, pageApi, pauseApi, resumeApi, runApi } from '@/api/base/task'

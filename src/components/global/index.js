@@ -1,5 +1,5 @@
 /*
- * @Description: svg-icon 组件全局注册
+ * @Description: 组件全局注册
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-21 15:30:44

@@ -56,7 +56,7 @@ vue3-src
 │  └─sass 样式
 │ 
 ├─components 全局组件模块
-│  └─svg-icon svg图标组件
+│  └─gl-svg svg图标组件
 │ 
 ├─directive 全局自定义指令
 │ 

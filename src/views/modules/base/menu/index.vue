@@ -10,7 +10,11 @@
   <div class="g-container">
     <el-form ref="refForm" inline>
       <el-form-item>
-        <el-button v-permission="'base:menu:create'" type="primary" @click="addEditHandle()">新增</el-button>
+        <gl-button
+          sort="add"
+          v-permission="'base:menu:create'"
+          type="primary"
+          @click="addEditHandle()" />
       </el-form-item>
     </el-form>
     <el-table
@@ -42,7 +46,7 @@
         label="图标"
         width="80">
         <template v-slot="{ row }">
-          <svg-icon v-if="row.type !== 2" :name="row.icon || ''" />
+          <gl-svg v-if="row.type !== 2" :name="row.icon || ''" />
           <span v-else>—</span>
         </template>
       </el-table-column>
@@ -164,16 +168,18 @@
         width="100"
         fixed="right">
         <template v-slot="{ row }">
-          <el-button
+          <gl-button
+            sort="edit"
             v-permission="'base:menu:update'"
             type="text"
             size="small"
-            @click="addEditHandle(row.id)">编辑</el-button>
-          <el-button
+            @click="addEditHandle(row.id)" />
+          <gl-button
+            sort="delete"
             v-permission="'base:menu:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)">删除</el-button>
+            @click="delHandle(row.id)" />
         </template>
       </el-table-column>
     </el-table>

@@ -39,8 +39,8 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="visible = false">取消</el-button>
-        <el-button type="primary" @click="submit()">确认</el-button>
+        <gl-button sort="cancel" @click="visible = false" />
+        <gl-button sort="confirm" type="primary" @click="submit()" />
       </span>
     </template>
   </el-dialog>
@@ -56,7 +56,7 @@ import { parseData2Tree } from '@/utils'
 
 export default defineComponent({
   emits: ['refresh'],
-  setup(_props, ctx) {
+  setup(_props, { emit }) {
     const { $message } = useInstance()
 
     const refForm = ref()
@@ -149,7 +149,7 @@ export default defineComponent({
               message: '操作成功!',
               type: 'success'
             })
-            ctx.emit('refresh')
+            emit('refresh')
           }
         }
       })

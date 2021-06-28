@@ -14,8 +14,12 @@
       <p class="timeout">
         <em>{{ endTime }}</em>秒后自动返回首页
       </p>
-      <el-button @click="jump(0)">返回上一页</el-button>
-      <el-button type="primary" class="margin_l-30" @click="jump(1)">进入首页</el-button>
+      <gl-button sort="back" @click="jump(0)" />
+      <gl-button
+        sort="home"
+        type="primary"
+        class="margin_l-30"
+        @click="jump(1)" />
     </div>
   </div>
 </template>

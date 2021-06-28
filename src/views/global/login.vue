@@ -22,14 +22,14 @@
       <el-form-item prop="username">
         <el-input v-model="form.username" placeholder="账户">
           <template #prefix>
-            <svg-icon name="user" />
+            <gl-svg name="user" />
           </template>
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input v-model="form.password" placeholder="密码" show-password>
           <template #prefix>
-            <svg-icon name="lock" />
+            <gl-svg name="lock" />
           </template>
         </el-input>
       </el-form-item>
@@ -38,7 +38,7 @@
           <el-col :span="16" class="login-col">
             <el-input v-model="form.code" placeholder="验证码">
               <template #prefix>
-                <svg-icon name="verification" />
+                <gl-svg name="verification" />
               </template>
             </el-input>
           </el-col>
@@ -48,7 +48,11 @@
         </el-row>
       </el-form-item>
       <el-form-item>
-        <el-button class="login-btn" type="primary" @click="submit()">login</el-button>
+        <gl-button
+          sort="login"
+          class="login-btn"
+          type="primary"
+          @click="submit()" />
       </el-form-item>
     </el-form>
   </el-card>

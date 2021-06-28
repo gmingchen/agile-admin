@@ -2,16 +2,16 @@
   <div class="actionbar-wrap">
     <div :style="style">
       <div class="action-item" @click="router.push({ name: 'set' })">
-        <svg-icon name="set" />
+        <gl-svg name="set" />
       </div>
       <div class="action-item" @click="fullScreenHandle()">
-        <svg-icon :name="set.fullScreen ? 'exit-full-screen' : 'full-screen'" />
+        <gl-svg :name="set.fullScreen ? 'exit-full-screen' : 'full-screen'" />
       </div>
       <div class="action-item" @click="refreshHandle()">
-        <svg-icon name="refresh" />
+        <gl-svg name="refresh" />
       </div>
       <div class="action-item" @click="clearHandle()">
-        <svg-icon name="clear" />
+        <gl-svg name="clear" />
       </div>
       <div class="action-item">
         <el-skeleton :loading="!user.username" animated :style="{ 'margin-top': (navbar.headHeight - 40) / 2 + 'px' }">
@@ -36,19 +36,19 @@
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item command="webHub">
-                    <svg-icon name="github" color="black" />
+                    <gl-svg name="github" color="black" />
                     Web-Github
                   </el-dropdown-item>
                   <el-dropdown-item command="javaHub">
-                    <svg-icon name="github" color="black" />
+                    <gl-svg name="github" color="black" />
                     Java-Github
                   </el-dropdown-item>
                   <el-dropdown-item command="webEe">
-                    <svg-icon name="gitee" color="#C71D23" />
+                    <gl-svg name="gitee" color="#C71D23" />
                     Web-Gitee
                   </el-dropdown-item>
                   <el-dropdown-item command="javaEe">
-                    <svg-icon name="gitee" color="#C71D23" />
+                    <gl-svg name="gitee" color="#C71D23" />
                     Java-Gitee
                   </el-dropdown-item>
                   <el-dropdown-item command="edit">编辑信息</el-dropdown-item>
