@@ -36,14 +36,18 @@
     <template #footer>
       <span class="dialog-footer">
         <gl-button sort="cancel" @click="visible = false" />
-        <gl-button sort="confirm" type="primary" @click="submit()" />
+        <gl-button
+          sort="confirm"
+          v-repeat
+          type="primary"
+          @click="submit()" />
       </span>
     </template>
   </el-dialog>
 </template>
 
 <script>
-import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
+import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import useInstance from '@/mixins/instance'
 import { addApi, editApi, infoApi } from '@/api/base/task'
 

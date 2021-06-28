@@ -13,9 +13,10 @@
         <el-input v-model="form.bean_name" placeholder="Bean名称" clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" @click="getList()" />
+        <gl-button sort="query" v-repeat @click="getList()" />
         <gl-button
           sort="reset"
+          v-repeat
           @click="clearJson(form), getList()" />
         <gl-button
           sort="add"
