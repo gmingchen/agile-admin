@@ -19,11 +19,11 @@
 <!--
  * 使用:
  *   1.组件模版中使用
- *      [<svg-icon
+ *      [<gl-svg
  *            name="icon"
  *            size="100"
  *            color="red"
- *            svgClass="svg"></svg-icon>]
+ *            svgClass="svg"></gl-svg>]
  * 注意:
  *    1.name      为svg图片名称，不需要扩展名 （必填）
  *    2.size      为svg高宽（默认1em）
@@ -44,7 +44,7 @@ export default defineComponent({
     // color 颜色
     color: { type: String, default: '' }
   },
-  setup(props, _ctx) {
+  setup(props) {
     /**
      * @description: 名称处理
      * @param {*}
@@ -65,12 +65,12 @@ export default defineComponent({
     const iconClass = computed(() => {
       let result
       if (props.svgClass) {
-        result = 'svg-icon-set ' + props.svgClass
+        result = 'gl-svg-set ' + props.svgClass
       } else {
         if (props.size) {
-          result = 'svg-icon-set '
+          result = 'gl-svg-set '
         } else {
-          result = 'svg-icon'
+          result = 'gl-svg'
         }
       }
       return result
@@ -86,14 +86,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.svg-icon {
+.gl-svg {
   width: 1em;
   height: 1em;
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
 }
-.svg-icon-set {
+.gl-svg-set {
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;

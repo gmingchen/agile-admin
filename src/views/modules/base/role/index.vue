@@ -13,14 +13,19 @@
         <el-input v-model="form.name" placeholder="角色名称" clearable />
       </el-form-item>
       <el-form-item>
-        <el-button @click="getList()">查询</el-button>
-        <el-button @click="clearJson(form), getList()">重置</el-button>
-        <el-button v-permission="'base:role:create'" type="primary" @click="addEditHandle()">新增</el-button>
-        <el-button
+        <gl-button sort="query" @click="getList()" />
+        <gl-button sort="reset" @click="clearJson(form), getList()" />
+        <gl-button
+          sort="add"
+          v-permission="'base:role:create'"
+          type="primary"
+          @click="addEditHandle()" />
+        <gl-button
+          sort="batchDelete"
           v-permission="'base:role:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0">批量删除</el-button>
+          :disabled="selection.length <= 0" />
       </el-form-item>
     </el-form>
     <el-table
@@ -55,16 +60,18 @@
         width="100"
         fixed="right">
         <template v-slot="{ row }">
-          <el-button
+          <gl-button
+            sort="edit"
             v-permission="'base:role:update'"
             type="text"
             size="small"
-            @click="addEditHandle(row.id)">编辑</el-button>
-          <el-button
+            @click="addEditHandle(row.id)" />
+          <gl-button
+            sort="delete"
             v-permission="'base:role:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)">删除</el-button>
+            @click="delHandle(row.id)" />
         </template>
       </el-table-column>
     </el-table>

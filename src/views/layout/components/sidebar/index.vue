@@ -17,13 +17,13 @@
       :collapse-transition="true"
       :collapse="isCollapse">
       <el-menu-item index="home" @click="router.push({ name: 'home' })">
-        <svg-icon name="home" class="sidebar-menu-icon" size="14px" />
+        <gl-svg name="home" class="sidebar-menu-icon" size="14px" />
         <template #title>
           <span>首页</span>
         </template>
       </el-menu-item>
       <el-menu-item index="demo" @click="router.push({ name: 'demo' })">
-        <svg-icon name="demo" class="sidebar-menu-icon" size="14px" />
+        <gl-svg name="demo" class="sidebar-menu-icon" size="14px" />
         <template #title>
           <span>Demo</span>
         </template>

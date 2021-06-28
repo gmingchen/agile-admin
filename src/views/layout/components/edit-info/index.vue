@@ -43,8 +43,8 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="visible = false">取消</el-button>
-        <el-button type="primary" @click="submit()">确认</el-button>
+        <gl-button sort="cancel" @click="visible = false" />
+        <gl-button sort="confirm" type="primary" @click="submit()" />
       </span>
     </template>
   </el-dialog>

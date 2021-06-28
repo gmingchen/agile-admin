@@ -3,7 +3,7 @@
  *               使用:
  *                  1. 在阿里矢量图标站创建一个项目, 并添加图标(非必须)
  *                  2. 添加icon, 选中新增的icon图标, 复制代码 -> 下载 -> SVG下载 -> 粘贴代码(重命名)
- *                  3. 组件模版中使用 [<svg-icon name="icon" size="100" color="red" svgClass="svg"></svg-icon>]
+ *                  3. 组件模版中使用 [<gl-svg name="icon" size="100" color="red" svgClass="svg"></gl-svg>]
  *               注意:
  *                  1. {其中size为height,width; color为icon颜色; svgClass为css样式}- (非必填)
  * @Author: gumingchen

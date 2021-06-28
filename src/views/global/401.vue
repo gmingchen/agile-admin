@@ -8,7 +8,11 @@
 -->
 <template>
   <div class="error-container">
-    <el-button type="primary" icon="el-icon-arrow-left" @click="back"> 返回 </el-button>
+    <gl-button
+      type="primary"
+      sort="back"
+      icon="el-icon-arrow-left"
+      @click="back" />
     <el-row>
       <el-col :span="12">
         <h1 class="font_s-60">Oops!</h1>

@@ -16,14 +16,19 @@
         <el-input v-model="form.nickname" placeholder="昵称" clearable />
       </el-form-item>
       <el-form-item>
-        <el-button @click="getList()">查询</el-button>
-        <el-button @click="clearJson(form), getList()">重置</el-button>
-        <el-button v-permission="'base:user:create'" type="primary" @click="addEditHandle()">新增</el-button>
-        <el-button
+        <gl-button sort="query" @click="getList()" />
+        <gl-button sort="reset" @click="clearJson(form), getList()" />
+        <gl-button
+          sort="add"
+          v-permission="'base:user:create'"
+          type="primary"
+          @click="addEditHandle()" />
+        <gl-button
+          sort="batchDelete"
           v-permission="'base:user:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0">批量删除</el-button>
+          :disabled="selection.length <= 0" />
       </el-form-item>
     </el-form>
     <el-table
@@ -75,21 +80,24 @@
         width="150"
         fixed="right">
         <template v-slot="{ row }">
-          <el-button
+          <gl-button
+            :sort="row.status === 1 ? 'disable' : 'enable'"
             v-permission="'base:user:status'"
             type="text"
             size="small"
-            @click="statusHandle(row)">{{ row.status === 1 ? '禁用' : '启用' }}</el-button>
-          <el-button
+            @click="statusHandle(row)" />
+          <gl-button
+            sort="edit"
             v-permission="'base:user:update'"
             type="text"
             size="small"
-            @click="addEditHandle(row.id)">编辑</el-button>
-          <el-button
+            @click="addEditHandle(row.id)" />
+          <gl-button
+            sort="delete"
             v-permission="'base:user:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)">删除</el-button>
+            @click="delHandle(row.id)" />
         </template>
       </el-table-column>
     </el-table>

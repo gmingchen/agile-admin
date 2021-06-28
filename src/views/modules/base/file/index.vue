@@ -27,21 +27,23 @@
           :action="uploadApi()"
           :on-success="successHandle"
           :show-file-list="false">
-          <el-button type="primary">上传</el-button>
+          <gl-button sort="upload" type="primary" />
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <el-button @click="getList()">查询</el-button>
-        <el-button @click="clearJson(form), getList()">重置</el-button>
-        <el-button
+        <gl-button sort="query" @click="getList()" />
+        <gl-button sort="reset" @click="clearJson(form), getList()" />
+        <gl-button
+          sort="batchDelete"
           v-permission="'base:file:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0">批量删除</el-button>
-        <el-button
+          :disabled="selection.length <= 0" />
+        <gl-button
+          sort="clear"
           v-permission="'base:file:clear'"
           type="danger"
-          @click="clearHandle()">清除</el-button>
+          @click="clearHandle()" />
       </el-form-item>
     </el-form>
     <el-table
@@ -112,16 +114,18 @@
         width="130"
         fixed="right">
         <template v-slot="{ row }">
-          <el-button
+          <gl-button
+            sort="download"
             v-permission="'base:file:download'"
             type="text"
             size="small"
-            @click="downloadHandle(row.id)">下载</el-button>
-          <el-button
+            @click="downloadHandle(row.id)" />
+          <gl-button
+            sort="delete"
             v-permission="'base:file:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)">删除</el-button>
+            @click="delHandle(row.id)" />
         </template>
       </el-table-column>
     </el-table>

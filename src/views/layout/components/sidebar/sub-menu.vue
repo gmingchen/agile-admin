@@ -9,13 +9,13 @@
 <template>
   <el-submenu :index="menu.routeName || menu.id + ''" v-if="menu.children.length">
     <template #title>
-      <svg-icon :name="menu.icon" class="sidebar-menu-icon" size="14px" />
+      <gl-svg :name="menu.icon" class="sidebar-menu-icon" size="14px" />
       <span>{{ menu.name_cn }}</span>
     </template>
     <sub-menu v-for="item in menu.children" :key="item.id" :menu="item" />
   </el-submenu>
   <el-menu-item :index="menu.routeName || menu.id + ''" @click="routeHandle()" v-else>
-    <svg-icon :name="menu.icon" class="sidebar-menu-icon" size="14px" />
+    <gl-svg :name="menu.icon" class="sidebar-menu-icon" size="14px" />
     <template #title>
       <span>{{ menu.name_cn }}</span>
     </template>
