@@ -146,7 +146,7 @@ import useInstance from '@/mixins/instance'
 import Page from '@/components/page/index.vue'
 import { clearJson, parseDate2Str } from '@/utils'
 
-import { delApi, pageApi, clearApi, downloadApi, recoveryApi, backupApi, truncateApi } from '@/api/base/backup'
+import { delApi, pageApi, clearApi, downloadApi, recoveryApi, backupApi, truncateApi } from '@/api/develop/backup'
 
 export default defineComponent({
   components: { Page },

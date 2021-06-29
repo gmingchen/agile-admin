@@ -192,7 +192,7 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 
 import useInstance from '@/mixins/instance'
 import AddEdit from './components/add-edit.vue'
-import { tabApi, aliveApi, displayApi, listApi, multipleApi, delApi } from '@/api/base/menu'
+import { tabApi, aliveApi, displayApi, listApi, multipleApi, delApi } from '@/api/develop/menu'
 
 export default defineComponent({
   components: { AddEdit },

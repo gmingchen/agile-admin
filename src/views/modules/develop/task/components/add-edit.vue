@@ -49,7 +49,7 @@
 <script>
 import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import useInstance from '@/mixins/instance'
-import { addApi, editApi, infoApi } from '@/api/base/task'
+import { addApi, editApi, infoApi } from '@/api/develop/task'
 
 export default defineComponent({
   emits: ['refresh'],

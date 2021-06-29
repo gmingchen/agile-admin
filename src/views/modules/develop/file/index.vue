@@ -140,7 +140,7 @@ import useInstance from '@/mixins/instance'
 import Page from '@/components/page/index.vue'
 import { clearJson, parseDate2Str } from '@/utils'
 
-import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi } from '@/api/base/file'
+import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi } from '@/api/develop/file'
 import { SUCCESS_CODE } from '@/utils/constants'
 
 export default defineComponent({
