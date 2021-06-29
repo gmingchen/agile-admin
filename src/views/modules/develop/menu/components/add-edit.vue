@@ -95,7 +95,7 @@
 import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import useInstance from '@/mixins/instance'
-import { addApi, editApi, infoApi, selectListApi } from '@/api/base/menu'
+import { addApi, editApi, infoApi, selectListApi } from '@/api/develop/menu'
 import { parseData2Tree } from '@/utils'
 import Icon from '@/assets/icon'
 

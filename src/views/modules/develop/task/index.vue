@@ -145,7 +145,7 @@ import useInstance from '@/mixins/instance'
 import Page from '@/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 import { clearJson } from '@/utils'
-import { delApi, pageApi, pauseApi, resumeApi, runApi } from '@/api/base/task'
+import { delApi, pageApi, pauseApi, resumeApi, runApi } from '@/api/develop/task'
 
 export default defineComponent({
   components: { Page, AddEdit },

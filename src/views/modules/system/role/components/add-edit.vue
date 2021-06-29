@@ -54,8 +54,8 @@
 import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 
 import useInstance from '@/mixins/instance'
-import { addApi, editApi, infoApi } from '@/api/base/role'
-import { selfSelectListApi } from '@/api/base/menu'
+import { addApi, editApi, infoApi } from '@/api/system/role'
+import { selfSelectListApi } from '@/api/develop/menu'
 import { parseData2Tree } from '@/utils'
 
 export default defineComponent({
