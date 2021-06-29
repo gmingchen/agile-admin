@@ -79,7 +79,7 @@ import { Inject } from 'vue-property-decorator'
 import page, { IPage } from '@/mixins/page'
 import Page from '@V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
-import { del, getPage } from '@/api/base/role'
+import { del, getPage } from '@/api/system/role'
 import { IObject } from '@/types'
 import { Role } from '@/types/role'
 

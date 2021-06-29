@@ -182,7 +182,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { Inject } from 'vue-property-decorator'
-import { setTab, setAlive, setDisplay, getList, setMultiple, del } from '@/api/base/menu'
+import { setTab, setAlive, setDisplay, getList, setMultiple, del } from '@/api/develop/menu'
 import AddEdit from './components/add-edit.vue'
 import { IFn } from '@/types'
 import { Axios } from '@/types/axios'

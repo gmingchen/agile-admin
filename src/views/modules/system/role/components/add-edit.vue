@@ -49,8 +49,8 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { Inject } from 'vue-property-decorator'
-import { add, edit, info } from '@/api/base/role'
-import { selfSelect } from '@/api/base/menu'
+import { add, edit, info } from '@/api/system/role'
+import { selfSelect } from '@/api/develop/menu'
 import { $parseData2Tree } from '@/utils/index'
 import { Set as ISet } from '@/store/modules/common'
 import { El } from '@/types/el'

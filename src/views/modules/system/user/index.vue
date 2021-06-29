@@ -104,7 +104,7 @@ import { Inject } from 'vue-property-decorator'
 import page, { IPage } from '@/mixins/page'
 import Page from '@V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
-import { del, getPage, setStatus } from '@/api/base/user'
+import { del, getPage, setStatus } from '@/api/system/user'
 import { IObject } from '@/types'
 import { User } from '@/types/user'
 

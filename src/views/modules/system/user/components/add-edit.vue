@@ -61,8 +61,8 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import { add, edit, info } from '@/api/base/user'
-import { select } from '@/api/base/role'
+import { add, edit, info } from '@/api/system/user'
+import { select } from '@/api/system/role'
 import { isEmail, isMobile } from '@/utils/regular'
 import { IObject } from '@/types'
 import { User } from '@/types/user'

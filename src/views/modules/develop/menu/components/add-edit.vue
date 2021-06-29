@@ -92,7 +92,7 @@
 import { Options, Vue } from 'vue-class-component'
 import { Inject } from 'vue-property-decorator'
 import Icon from '@/assets/icon'
-import { add, edit, info, select } from '@/api/base/menu'
+import { add, edit, info, select } from '@/api/develop/menu'
 import { $parseData2Tree } from '@/utils/index'
 import { Set } from '@/store/modules/common'
 import { IObject } from '@/types'
