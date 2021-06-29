@@ -107,7 +107,7 @@ import Page from 'V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 import { clearJson } from '@/utils'
 
-import { delApi, pageApi, statusApi } from '@/api/base/user'
+import { delApi, pageApi, statusApi } from '@/api/system/user'
 import { User } from 'Type/user'
 
 export default defineComponent({

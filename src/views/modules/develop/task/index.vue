@@ -130,7 +130,7 @@ import Page from 'V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 import { clearJson } from '@/utils'
 
-import { delApi, pageApi, pauseApi, resumeApi, runApi } from '@/api/base/task'
+import { delApi, pageApi, pauseApi, resumeApi, runApi } from '@/api/develop/task'
 import { Task } from 'Type/task'
 
 export default defineComponent({

@@ -186,7 +186,7 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 import { useI18n } from 'vue-i18n'
 import useInstance from '@/mixins/instance'
 import AddEdit from './components/add-edit.vue'
-import { tabApi, aliveApi, displayApi, listApi, multipleApi, delApi } from '@/api/base/menu'
+import { tabApi, aliveApi, displayApi, listApi, multipleApi, delApi } from '@/api/develop/menu'
 
 import { Menu } from 'Type/menu'
 import { TreeNode } from 'Type/el'

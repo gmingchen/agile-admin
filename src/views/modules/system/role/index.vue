@@ -82,7 +82,7 @@ import Page from 'V/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 
 import { clearJson } from '@/utils'
-import { delApi, pageApi } from '@/api/base/role'
+import { delApi, pageApi } from '@/api/system/role'
 import { Role } from 'Type/role'
 
 export default defineComponent({

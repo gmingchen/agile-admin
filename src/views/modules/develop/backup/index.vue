@@ -4,13 +4,16 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-28 22:40:48
+ * @LastEditTime: 2021-05-28 22:18:35
 -->
 <template>
   <div class="g-container">
     <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
       <el-form-item>
-        <el-input v-model="form.extension" :placeholder="t('field.fullName', [t('base.file.extension')])" clearable />
+        <el-select v-model="form.type" :placeholder="t('base.backup.backupMode')" clearable>
+          <el-option :label="t('base.backup.manual')" :value="1" />
+          <el-option :label="t('base.backup.automatic')" :value="2" />
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-date-picker
@@ -22,26 +25,22 @@
           clearable />
       </el-form-item>
       <el-form-item>
-        <el-upload
-          class="upload-demo"
-          :action="uploadApi()"
-          :on-success="successHandle"
-          :show-file-list="false">
-          <el-button type="primary">{{ t('base.file.upload') }}</el-button>
-        </el-upload>
-      </el-form-item>
-      <el-form-item>
         <el-button @click="getList()">{{ t('button.query') }}</el-button>
         <el-button @click="clearJson(form), getList()">{{ t('button.reset') }}</el-button>
+        <el-button v-permission="'base:backup:backup'" type="primary" @click="backupHandle()">{{ t('base.backup.backup') }}</el-button>
         <el-button
-          v-permission="'base:file:delete'"
+          v-permission="'base:backup:delete'"
           type="danger"
           @click="delHandle()"
           :disabled="selection.length <= 0">{{ t('button.batchDelete') }}</el-button>
         <el-button
-          v-permission="'base:file:clear'"
+          v-permission="'base:backup:clear'"
           type="danger"
           @click="clearHandle()">{{ t('button.clear') }}</el-button>
+        <el-button
+          v-permission="'base:backup:truncate'"
+          type="danger"
+          @click="truncateHandle()">{{ t('base.backup.clearDatabase') }}</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -59,36 +58,16 @@
         width="80" />
       <el-table-column
         align="center"
-        :label="t('base.file.file')"
-        width="80">
-        <template v-slot="{ row }">
-          <el-avatar
-            :src="flowApi(row.id)"
-            shape="square"
-            fit="contain">{{ row.extension }}</el-avatar>
-        </template>
-      </el-table-column>
-      <el-table-column
-        align="center"
-        :label="t('field.fullName', [t('base.file.original')])"
-        prop="original"
+        :label="t('field.name')"
+        prop="name"
         min-width="150"
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        :label="t('field.fullName', [t('base.file.actual')])"
-        prop="actual"
+        :label="t('base.backup.databaseName')"
+        prop="db_name"
         min-width="150"
         :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
-        :label="t('field.fullName', [t('base.file.extension')])"
-        prop="extension"
-        min-width="100" />
-      <el-table-column
-        align="center"
-        :label="t('base.file.size')"
-        prop="size" />
       <el-table-column
         align="center"
         :label="t('base.file.physicalPath')"
@@ -103,22 +82,43 @@
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        :label="t('field.time', [t('base.file.upload')])"
+        :label="t('base.backup.command')"
+        prop="cmd"
+        min-width="150"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        align="center"
+        :label="t('base.backup.backupMode')"
+        prop="cmd"
+        width="120">
+        <template v-slot="{ row }">
+          <el-tag v-if="row.type === 1" size="small">{{ t('base.backup.manual') }}</el-tag>
+          <el-tag v-else size="small" type="success">{{ t('base.backup.automatic') }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
+        :label="t('field.time', [t('field.create')])"
         prop="created_at"
         width="160" />
       <el-table-column
         align="center"
         :label="t('field.operation')"
-        width="130"
+        width="190"
         fixed="right">
         <template v-slot="{ row }">
           <el-button
-            v-permission="'base:file:download'"
+            v-permission="'base:backup:recovery'"
+            type="text"
+            size="small"
+            @click="recoveryHandle(row.id)">{{ t('base.backup.recovery') }}</el-button>
+          <el-button
+            v-permission="'base:backup:download'"
             type="text"
             size="small"
             @click="downloadHandle(row.id)">{{ t('button.download') }}</el-button>
           <el-button
-            v-permission="'base:file:delete'"
+            v-permission="'base:backup:delete'"
             type="text"
             size="small"
             @click="delHandle(row.id)">{{ t('button.delete') }}</el-button>
@@ -137,10 +137,8 @@ import useInstance from '@/mixins/instance'
 import Page from 'V/components/page/index.vue'
 import { clearJson, parseDate2Str } from '@/utils'
 
-import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi } from '@/api/base/file'
-import { File } from 'Type/file'
-import { ResponseData } from 'axios'
-import { SUCCESS_CODE } from '@/utils/constants'
+import { delApi, pageApi, clearApi, downloadApi, recoveryApi, backupApi, truncateApi } from '@/api/develop/backup'
+import { Backup } from 'Type/backup'
 
 export default defineComponent({
   components: { Page },
@@ -154,16 +152,16 @@ export default defineComponent({
       loading: false,
       visible: false,
       form: {
-        extension: '',
+        type: '',
         date: []
       },
-      list: [] as File.Base[],
-      selection: [] as File.Base[]
+      list: [] as Backup.Base[],
+      selection: [] as Backup.Base[]
     })
 
     const getList = (): void => {
       const params = {
-        extension: data.form.extension,
+        type: data.form.type,
         start: data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
         end: data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
         current: page.current,
@@ -182,24 +180,54 @@ export default defineComponent({
     }
 
     /**
-     * @description: 上传成功
+     * @description: 备份
+     * @param {*}
+     * @return {*}
+     * @author: gumingchen
+     */
+    const backupHandle = (): void => {
+      $confirm(t('tip.confirmTips', [t('base.backup.backup')]), t('tip.tips'), {
+        confirmButtonText: t('button.confirm'),
+        cancelButtonText: t('button.cancel'),
+        type: 'warning'
+      }).then(() => {
+        backupApi().then(r => {
+          if (r) {
+            $message({
+              message: t('tip.success'),
+              type: 'success'
+            })
+            getList()
+          }
+        })
+      }).catch(() => {
+        // to do something on canceled
+      })
+    }
+
+    /**
+     * @description: 恢复
      * @param {number} id
      * @return {*}
      * @author: gumingchen
      */
-    const successHandle = (response: ResponseData<File.Base>): void => {
-      if (SUCCESS_CODE.includes(response.code)) {
-        $message({
-          message: t('tip.success'),
-          type: 'success'
+    const recoveryHandle = (id: number): void => {
+      $confirm(t('tip.confirmTips', [t('base.backup.recovery')]), t('tip.tips'), {
+        confirmButtonText: t('button.confirm'),
+        cancelButtonText: t('button.cancel'),
+        type: 'warning'
+      }).then(() => {
+        recoveryApi(id).then(r => {
+          if (r) {
+            $message({
+              message: t('tip.success'),
+              type: 'success'
+            })
+          }
         })
-        getList()
-      } else {
-        $message({
-          message: t('tip.fail'),
-          type: 'warning'
-        })
-      }
+      }).catch(() => {
+        // to do something on canceled
+      })
     }
 
     /**
@@ -241,7 +269,7 @@ export default defineComponent({
      * @author: gumingchen
      */
     const clearHandle = (): void => {
-      $confirm(t('tip.confirmTips', [t('base.file.file'), t('button.clear')]), t('tip.tips'), {
+      $confirm(t('tip.confirmTips', [t('base.backup.backup'), t('button.clear')]), t('tip.tips'), {
         confirmButtonText: t('button.confirm'),
         cancelButtonText: t('button.cancel'),
         type: 'warning'
@@ -270,12 +298,37 @@ export default defineComponent({
     }
 
     /**
+     * @description: 清库
+     * @param {number} id
+     * @return {*}
+     * @author: gumingchen
+     */
+    const truncateHandle = (): void => {
+      $confirm(t('tip.confirmTips', [t('base.backup.clearDatabase')]), t('tip.tips'), {
+        confirmButtonText: t('button.confirm'),
+        cancelButtonText: t('button.cancel'),
+        type: 'warning'
+      }).then(() => {
+        truncateApi().then(r => {
+          if (r) {
+            $message({
+              message: t('tip.success'),
+              type: 'success'
+            })
+          }
+        })
+      }).catch(() => {
+        // to do something on canceled
+      })
+    }
+
+    /**
      * @description: table多选事件
      * @param {*} val
      * @return {*}
      * @author: gumingchen
      */
-    const selectionHandle = (val: File.Base[]): void => {
+    const selectionHandle = (val: Backup.Base[]): void => {
       data.selection = val
     }
 
@@ -300,12 +353,12 @@ export default defineComponent({
       page,
       ...toRefs(data),
       getList,
-      successHandle,
+      backupHandle,
       delHandle,
       clearHandle,
-      uploadApi,
-      flowApi,
       downloadHandle,
+      recoveryHandle,
+      truncateHandle,
       selectionHandle,
       pageChangeHandle,
       t,

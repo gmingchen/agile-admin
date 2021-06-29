@@ -92,7 +92,7 @@ import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRe
 import { key, useStore } from '@/store'
 import { useI18n } from 'vue-i18n'
 import useInstance from '@/mixins/instance'
-import { addApi, editApi, infoApi, selectListApi } from '@/api/base/menu'
+import { addApi, editApi, infoApi, selectListApi } from '@/api/develop/menu'
 import { parseData2Tree } from '@/utils'
 import Icon from '@/assets/icon'
 

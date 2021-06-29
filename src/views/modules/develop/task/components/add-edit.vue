@@ -46,7 +46,7 @@
 import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useInstance from '@/mixins/instance'
-import { addApi, editApi, infoApi } from '@/api/base/task'
+import { addApi, editApi, infoApi } from '@/api/develop/task'
 
 import { Task } from 'Type/task'
 
