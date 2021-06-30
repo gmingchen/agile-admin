@@ -104,6 +104,12 @@ import {
   ElResult
 } from 'element-plus'
 
+// 设置语言
+import lang from 'element-plus/lib/locale/lang/zh-cn'
+import 'dayjs/locale/zh-cn'
+import locale from 'element-plus/lib/locale'
+locale.use(lang)
+
 const components = [
   ElAlert,
   ElAside,
