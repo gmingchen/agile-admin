@@ -50,14 +50,7 @@ export function uploadApi(params) {
   let result = ''
   const url = '/oss/file/upload'
   result = `${ process.env.VUE_APP_BASE_API + url }`
-  if (!params) {
-    params = {
-      [TOKEN_KEY]: tokenVal
-    }
-  } else {
-    params[TOKEN_KEY] = tokenVal
-  }
-  result += `?${ parseJson2Param(params) }`
+  result += params ? `?${ parseJson2Param(params) }` : ''
   return result
 }
 

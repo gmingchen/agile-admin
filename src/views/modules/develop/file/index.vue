@@ -26,6 +26,9 @@
           class="upload-demo"
           :action="uploadApi()"
           :on-success="successHandle"
+          :headers="{
+            [TOKEN_KEY]: token
+          }"
           :show-file-list="false">
           <gl-button sort="upload" type="primary" />
         </el-upload>
@@ -135,17 +138,19 @@
 
 <script>
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
+import { useStore } from 'vuex'
 import usePage from '@/mixins/page'
 import useInstance from '@/mixins/instance'
 import Page from '@/components/page/index.vue'
-import { clearJson, parseDate2Str } from '@/utils'
-
 import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi } from '@/api/develop/file'
-import { SUCCESS_CODE } from '@/utils/constants'
+import { clearJson, parseDate2Str } from '@/utils'
+import { SUCCESS_CODE, TOKEN_KEY } from '@/utils/constants'
 
 export default defineComponent({
   components: { Page },
   setup() {
+    const store = useStore()
+    const token = store.state.user.token.token
     const { $message, $confirm } = useInstance()
 
     const refForm = ref()
@@ -308,7 +313,9 @@ export default defineComponent({
       downloadHandle,
       selectionHandle,
       pageChangeHandle,
-      clearJson
+      clearJson,
+      token,
+      TOKEN_KEY
     }
   }
 })
