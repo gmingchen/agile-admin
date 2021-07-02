@@ -9,7 +9,7 @@
 <template>
   <div class="error-container">
     <div class="content-wrapper">
-      <h2 class="status-code">400</h2>
+      <h2 class="status-code">404</h2>
       <p class="describe">抱歉！您访问的页面<em>失联</em>啦 ...</p>
       <p class="timeout">
         <em>{{ endTime }}</em>秒后自动返回首页

@@ -113,7 +113,7 @@ import useInstance from '@/mixins/instance'
 import Page from '@/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 import { clearJson } from '@/utils'
-import { delApi, pageApi, statusApi } from '@/api/system/user'
+import { delApi, pageApi, statusApi } from '@/api/system/admin'
 
 export default defineComponent({
   components: { Page, AddEdit },

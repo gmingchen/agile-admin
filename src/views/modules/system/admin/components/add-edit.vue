@@ -67,7 +67,7 @@
 import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import useInstance from '@/mixins/instance'
 import { isEmail, isMobile } from '@/utils/regular'
-import { addApi, editApi, infoApi } from '@/api/system/user'
+import { addApi, editApi, infoApi } from '@/api/system/admin'
 import { selectListApi } from '@/api/system/role'
 
 export default defineComponent({
