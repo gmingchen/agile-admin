@@ -35,13 +35,13 @@
         <gl-button sort="reset" v-repeat @click="clearJson(form), getList()" />
         <gl-button
           sort="batchDelete"
-          v-permission="'base:file:delete'"
+          v-permission="'oss:file:delete'"
           type="danger"
           @click="delHandle()"
           :disabled="selection.length <= 0" />
         <gl-button
           sort="clear"
-          v-permission="'base:file:clear'"
+          v-permission="'oss:file:clear'"
           type="danger"
           @click="clearHandle()" />
       </el-form-item>
@@ -116,13 +116,13 @@
         <template v-slot="{ row }">
           <gl-button
             sort="download"
-            v-permission="'base:file:download'"
+            v-permission="'oss:file:download'"
             type="text"
             size="small"
             @click="downloadHandle(row.id)" />
           <gl-button
             sort="delete"
-            v-permission="'base:file:delete'"
+            v-permission="'oss:file:delete'"
             type="text"
             size="small"
             @click="delHandle(row.id)" />

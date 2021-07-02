@@ -52,7 +52,7 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <gl-button sort="cancle" @click="visible = false" />
+        <gl-button sort="cancel" @click="visible = false" />
         <gl-button
           sort="confirm"
           v-repeat
@@ -140,7 +140,7 @@ export default defineComponent({
         const r = await infoApi(data.form.id)
         if (r) {
           data.form.username = r.data.username
-          data.form.nickname = r.data.username
+          data.form.nickname = r.data.nickname
           data.form.mobile = r.data.mobile
           data.form.email = r.data.email
           data.form.status = r.data.status

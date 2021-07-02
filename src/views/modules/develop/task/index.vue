@@ -20,30 +20,30 @@
           @click="clearJson(form), getList()" />
         <gl-button
           sort="add"
-          v-permission="'base:schedule:task:create'"
+          v-permission="'quartz:schedule:task:create'"
           type="primary"
           @click="addEditHandle()" />
         <gl-button
           sort="batchImplement"
-          v-permission="'base:schedule:task:run'"
+          v-permission="'quartz:schedule:task:run'"
           type="danger"
           @click="runHandle()"
           :disabled="selection.length <= 0" />
         <gl-button
           sort="batchRecovery"
-          v-permission="'base:schedule:task:resume'"
+          v-permission="'quartz:schedule:task:resume'"
           type="danger"
           @click="resumeHandle()"
           :disabled="selection.length <= 0" />
         <gl-button
           sort="batchPause"
-          v-permission="'base:schedule:task:pause'"
+          v-permission="'quartz:schedule:task:pause'"
           type="danger"
           @click="pauseHandle()"
           :disabled="selection.length <= 0" />
         <gl-button
           sort="batchDelete"
-          v-permission="'base:schedule:task:delete'"
+          v-permission="'quartz:schedule:task:delete'"
           type="danger"
           @click="delHandle()"
           :disabled="selection.length <= 0" />
@@ -99,33 +99,33 @@
         <template v-slot="{ row }">
           <gl-button
             sort="edit"
-            v-permission="'base:schedule:task:update'"
+            v-permission="'quartz:schedule:task:update'"
             type="text"
             size="small"
             @click="addEditHandle(row.id)" />
           <gl-button
             sort="implement"
-            v-permission="'base:schedule:task:run'"
+            v-permission="'quartz:schedule:task:run'"
             type="text"
             size="small"
             @click="runHandle(row.id)" />
           <gl-button
             sort="recovery"
             v-if="row.status === 0"
-            v-permission="'base:schedule:task:resume'"
+            v-permission="'quartz:schedule:task:resume'"
             type="text"
             size="small"
             @click="resumeHandle(row.id)" />
           <gl-button
             sort="pause"
             v-if="row.status === 1"
-            v-permission="'base:schedule:task:pause'"
+            v-permission="'quartz:schedule:task:pause'"
             type="text"
             size="small"
             @click="pauseHandle(row.id)" />
           <gl-button
             sort="delete"
-            v-permission="'base:schedule:task:delete'"
+            v-permission="'quartz:schedule:task:delete'"
             type="text"
             size="small"
             @click="delHandle(row.id)" />

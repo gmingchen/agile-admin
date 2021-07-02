@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function pageApi(params) {
   return service({
-    url: '/base/schedule/task/page',
+    url: '/quartz/schedule/task/page',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function pageApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/base/schedule/task/info/${ params }`,
+    url: `/quartz/schedule/task/info/${ params }`,
     method: 'get'
   })
 }
@@ -43,7 +43,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: '/base/schedule/task/create',
+    url: '/quartz/schedule/task/create',
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: '/base/schedule/task/update',
+    url: '/quartz/schedule/task/update',
     method: 'post',
     data: params
   })
@@ -71,7 +71,7 @@ export function editApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/base/schedule/task/delete',
+    url: '/quartz/schedule/task/delete',
     method: 'post',
     data: params
   })
@@ -85,7 +85,7 @@ export function delApi(params) {
  */
 export function runApi(params) {
   return service({
-    url: '/base/schedule/task/run',
+    url: '/quartz/schedule/task/run',
     method: 'post',
     data: params
   })
@@ -99,7 +99,7 @@ export function runApi(params) {
  */
 export function resumeApi(params) {
   return service({
-    url: '/base/schedule/task/resume',
+    url: '/quartz/schedule/task/resume',
     method: 'post',
     data: params
   })
@@ -113,7 +113,7 @@ export function resumeApi(params) {
  */
 export function pauseApi(params) {
   return service({
-    url: '/base/schedule/task/pause',
+    url: '/quartz/schedule/task/pause',
     method: 'post',
     data: params
   })

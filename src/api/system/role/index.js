@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function pageApi(params) {
   return service({
-    url: '/base/role/page',
+    url: '/backstage/role/page',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function pageApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/base/role/info/${ params }`,
+    url: `/backstage/role/info/${ params }`,
     method: 'get'
   })
 }
@@ -43,7 +43,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: '/base/role/create',
+    url: '/backstage/role/create',
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: '/base/role/update',
+    url: '/backstage/role/update',
     method: 'post',
     data: params
   })
@@ -71,7 +71,7 @@ export function editApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/base/role/delete',
+    url: '/backstage/role/delete',
     method: 'post',
     data: params
   })
@@ -85,7 +85,7 @@ export function delApi(params) {
  */
 export function selectListApi() {
   return service({
-    url: '/base/role/select',
+    url: '/backstage/role/select',
     method: 'get'
   })
 }

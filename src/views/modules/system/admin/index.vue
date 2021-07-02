@@ -20,12 +20,12 @@
         <gl-button sort="reset" v-repeat @click="clearJson(form), getList()" />
         <gl-button
           sort="add"
-          v-permission="'base:user:create'"
+          v-permission="'backstage:admin:create'"
           type="primary"
           @click="addEditHandle()" />
         <gl-button
           sort="batchDelete"
-          v-permission="'base:user:delete'"
+          v-permission="'backstage:admin:delete'"
           type="danger"
           @click="delHandle()"
           :disabled="selection.length <= 0" />
@@ -82,19 +82,19 @@
         <template v-slot="{ row }">
           <gl-button
             :sort="row.status === 1 ? 'disable' : 'enable'"
-            v-permission="'base:user:status'"
+            v-permission="'backstage:admin:status'"
             type="text"
             size="small"
             @click="statusHandle(row)" />
           <gl-button
             sort="edit"
-            v-permission="'base:user:update'"
+            v-permission="'backstage:admin:update'"
             type="text"
             size="small"
             @click="addEditHandle(row.id)" />
           <gl-button
             sort="delete"
-            v-permission="'base:user:delete'"
+            v-permission="'backstage:admin:delete'"
             type="text"
             size="small"
             @click="delHandle(row.id)" />

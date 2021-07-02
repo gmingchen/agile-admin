@@ -26,7 +26,7 @@
       <el-form-item label="备注" prop="remark">
         <el-input v-model="form.remark" placeholder="备注" />
       </el-form-item>
-      <el-form-item label="授权" prop="parent_id">
+      <el-form-item label="授权" prop="menu_ids">
         <el-cascader
           ref="refCascader"
           v-model="form.menu_ids"

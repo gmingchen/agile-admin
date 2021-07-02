@@ -20,7 +20,7 @@
       ref="refForm"
       @keyup.enter="submit()"
       label-position="top">
-      <el-form-item label="类型">
+      <el-form-item label="类型" prop="type">
         <el-radio-group v-model="form.type">
           <el-radio :label="0">目录</el-radio>
           <el-radio :label="1">菜单</el-radio>

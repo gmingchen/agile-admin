@@ -29,23 +29,23 @@
         <gl-button sort="reset" v-repeat @click="clearJson(form), getList()" />
         <gl-button
           sort="backup"
-          v-permission="'base:backup:backup'"
+          v-permission="'backstage:backup:backup'"
           type="primary"
           @click="backupHandle()" />
         <gl-button
           sort="batchDelete"
-          v-permission="'base:backup:delete'"
+          v-permission="'backstage:backup:delete'"
           type="danger"
           @click="delHandle()"
           :disabled="selection.length <= 0" />
         <gl-button
           sort="clear"
-          v-permission="'base:backup:clear'"
+          v-permission="'backstage:backup:clear'"
           type="danger"
           @click="clearHandle()" />
         <gl-button
           sort="clearDatabase"
-          v-permission="'base:backup:truncate'"
+          v-permission="'backstage:backup:truncate'"
           type="danger"
           @click="truncateHandle()" />
       </el-form-item>
@@ -116,19 +116,19 @@
         <template v-slot="{ row }">
           <gl-button
             sort="recovery"
-            v-permission="'base:backup:recovery'"
+            v-permission="'backstage:backup:recovery'"
             type="text"
             size="small"
             @click="recoveryHandle(row.id)" />
           <gl-button
             sort="download"
-            v-permission="'base:backup:download'"
+            v-permission="'backstage:backup:download'"
             type="text"
             size="small"
             @click="downloadHandle(row.id)" />
           <gl-button
             sort="delete"
-            v-permission="'base:backup:delete'"
+            v-permission="'backstage:backup:delete'"
             type="text"
             size="small"
             @click="delHandle(row.id)" />

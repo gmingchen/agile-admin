@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function listApi(params) {
   return service({
-    url: '/base/menu/list',
+    url: '/backstage/menu/list',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function listApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/base/menu/info/${ params }`,
+    url: `/backstage/menu/info/${ params }`,
     method: 'get'
   })
 }
@@ -43,7 +43,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: '/base/menu/create',
+    url: '/backstage/menu/create',
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: '/base/menu/update',
+    url: '/backstage/menu/update',
     method: 'post',
     data: params
   })
@@ -71,7 +71,7 @@ export function editApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/base/menu/delete',
+    url: '/backstage/menu/delete',
     method: 'post',
     data: params
   })
@@ -85,7 +85,7 @@ export function delApi(params) {
  */
 export function displayApi(params) {
   return service({
-    url: '/base/menu/display',
+    url: '/backstage/menu/display',
     method: 'post',
     data: params
   })
@@ -99,7 +99,7 @@ export function displayApi(params) {
  */
 export function aliveApi(params) {
   return service({
-    url: '/base/menu/alive',
+    url: '/backstage/menu/alive',
     method: 'post',
     data: params
   })
@@ -113,7 +113,7 @@ export function aliveApi(params) {
  */
 export function tabApi(params) {
   return service({
-    url: '/base/menu/tab',
+    url: '/backstage/menu/tab',
     method: 'post',
     data: params
   })
@@ -127,7 +127,7 @@ export function tabApi(params) {
  */
 export function multipleApi(params) {
   return service({
-    url: '/base/menu/multiple',
+    url: '/backstage/menu/multiple',
     method: 'post',
     data: params
   })
@@ -141,7 +141,7 @@ export function multipleApi(params) {
  */
 export function selectListApi() {
   return service({
-    url: '/base/menu/select',
+    url: '/backstage/menu/select',
     method: 'get'
   })
 }
@@ -154,7 +154,7 @@ export function selectListApi() {
  */
 export function selfSelectListApi() {
   return service({
-    url: '/base/menu/self/select',
+    url: '/backstage/menu/self/select',
     method: 'get'
   })
 }
