@@ -82,14 +82,14 @@ export default defineComponent({
     })
     const rules = reactive(function () {
       const checkMobile = (_rule, value, callback) => {
-        if (form.mobile !== '' && !isMobile(value)) {
+        if (value !== '' && !isMobile(value)) {
           callback(new Error('请输入正确的手机号'))
         } else {
           callback()
         }
       }
       const checkEmail = (_rule, value, callback) => {
-        if (form.email !== '' && !isEmail(value)) {
+        if (value !== '' && !isEmail(value)) {
           callback(new Error('请输入正确的邮箱'))
         } else {
           callback()

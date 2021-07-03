@@ -4,49 +4,31 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-28 22:40:48
+ * @LastEditTime: 2021-05-28 22:36:10
 -->
 <template>
   <div class="g-container">
     <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
       <el-form-item>
-        <el-input v-model="form.extension" placeholder="扩展名称" clearable />
-      </el-form-item>
-      <el-form-item>
-        <el-date-picker
-          v-model="form.date"
-          type="daterange"
-          range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          clearable />
-      </el-form-item>
-      <el-form-item>
-        <el-upload
-          class="upload-demo"
-          :action="uploadApi()"
-          :on-success="successHandle"
-          :headers="{
-            [TOKEN_KEY]: token
-          }"
-          :show-file-list="false">
-          <gl-button sort="upload" type="primary" />
-        </el-upload>
+        <el-input v-model="form.key" placeholder="键" clearable />
       </el-form-item>
       <el-form-item>
         <gl-button sort="query" v-repeat @click="getList()" />
-        <gl-button sort="reset" v-repeat @click="clearJson(form), getList()" />
+        <gl-button
+          sort="reset"
+          v-repeat
+          @click="clearJson(form), getList()" />
+        <gl-button
+          sort="add"
+          v-permission="'backstage:config:create'"
+          type="primary"
+          @click="addEditHandle()" />
         <gl-button
           sort="batchDelete"
-          v-permission="'oss:file:delete'"
+          v-permission="'backstage:config:delete'"
           type="danger"
           @click="delHandle()"
           :disabled="selection.length <= 0" />
-        <gl-button
-          sort="clear"
-          v-permission="'oss:file:clear'"
-          type="danger"
-          @click="clearHandle()" />
       </el-form-item>
     </el-form>
     <el-table
@@ -64,121 +46,99 @@
         width="80" />
       <el-table-column
         align="center"
-        label="文件"
-        width="80">
+        label="键"
+        prop="json_key"
+        min-width="120" />
+      <el-table-column
+        align="center"
+        label="Json值"
+        prop="json_value"
+        min-width="200px"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        align="center"
+        label="备注"
+        prop="remark"
+        min-width="200px" />
+      <el-table-column
+        align="center"
+        label="状态"
+        prop="status"
+        width="80px">
         <template v-slot="{ row }">
-          <el-avatar
-            :src="flowApi(row.id)"
-            shape="square"
-            fit="contain">{{ row.extension }}</el-avatar>
+          <el-tag v-if="row.status === 1" type="success">启用</el-tag>
+          <el-tag v-if="row.status === 0" type="info">禁用</el-tag>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
-        label="原始名称"
-        prop="original"
-        min-width="150"
-        :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
-        label="实际名称"
-        prop="actual"
-        min-width="150"
-        :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
-        label="扩展名称"
-        prop="extension"
-        min-width="100" />
-      <el-table-column
-        align="center"
-        label="大小"
-        prop="size" />
-      <el-table-column
-        align="center"
-        label="物理路径"
-        prop="path"
-        min-width="150"
-        :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
-        label="虚拟路径"
-        prop="url"
-        min-width="150"
-        :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
-        label="上传时间"
+        label="创建时间"
         prop="created_at"
         width="160" />
       <el-table-column
         align="center"
         label="操作"
-        width="130"
+        width="120"
         fixed="right">
         <template v-slot="{ row }">
           <gl-button
-            sort="download"
-            v-permission="'oss:file:download'"
+            v-if="row.status === 0"
+            sort="enable"
+            v-permission="'backstage:config:status'"
             type="text"
             size="small"
-            @click="downloadHandle(row.id)" />
+            @click="statusHandle(row)" />
+          <gl-button
+            sort="edit"
+            v-permission="'backstage:config:update'"
+            type="text"
+            size="small"
+            @click="addEditHandle(row.id)" />
           <gl-button
             sort="delete"
-            v-permission="'oss:file:delete'"
+            v-permission="'backstage:config:delete'"
             type="text"
             size="small"
             @click="delHandle(row.id)" />
         </template>
       </el-table-column>
     </el-table>
-    <page :page="page" @change="pageChangeHandle" />
+    <add-edit ref="refAddEdit" v-if="visible" @refresh="getList" />
   </div>
 </template>
 
 <script>
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
-import { useStore } from 'vuex'
+
 import usePage from '@/mixins/page'
 import useInstance from '@/mixins/instance'
-import Page from '@/components/page/index.vue'
-import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi } from '@/api/develop/file'
-import { clearJson, parseDate2Str } from '@/utils'
-import { SUCCESS_CODE, TOKEN_KEY } from '@/utils/constants'
+import AddEdit from './components/add-edit.vue'
+import { clearJson } from '@/utils'
+import { delApi, listApi, statusApi } from '@/api/develop/config'
 
 export default defineComponent({
-  components: { Page },
+  components: { AddEdit },
   setup() {
-    const store = useStore()
-    const token = store.state.user.token.token
     const { $message, $confirm } = useInstance()
 
     const refForm = ref()
+    const refAddEdit = ref()
     const { page } = usePage()
     const data = reactive({
       loading: false,
       visible: false,
       form: {
-        extension: '',
-        date: []
+        key: ''
       },
       list: [],
       selection: []
     })
 
     const getList = () => {
-      const params = {
-        extension: data.form.extension,
-        start: data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
-        end: data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
-        current: page.current,
-        size: page.size
-      }
       data.loading = true
-      pageApi(params).then(r => {
+      listApi(data.form).then(r => {
         if (r) {
-          data.list = r.data.list
-          page.total = r.data.total
+          data.list = r.data
         }
         nextTick(() => {
           data.loading = false
@@ -187,24 +147,16 @@ export default defineComponent({
     }
 
     /**
-     * @description: 上传成功
-     * @param {number} id
+     * @description: 新增/编辑弹窗
+     * @param {*}
      * @return {*}
      * @author: gumingchen
      */
-    const successHandle = response => {
-      if (SUCCESS_CODE.includes(response.code)) {
-        $message({
-          message: '操作成功!',
-          type: 'success'
-        })
-        getList()
-      } else {
-        $message({
-          message: '操作失败',
-          type: 'warning'
-        })
-      }
+    const addEditHandle = id => {
+      data.visible = true
+      nextTick(() => {
+        refAddEdit.value.init(id)
+      })
     }
 
     /**
@@ -240,38 +192,33 @@ export default defineComponent({
     }
 
     /**
-     * @description: 清除文件
+     * @description: 状态
      * @param {number} id
      * @return {*}
      * @author: gumingchen
      */
-    const clearHandle = () => {
-      $confirm('确定进行[清除]操作?', '提示', {
+    const statusHandle = row => {
+      $confirm(`'确定对[id=${ row.id }]进行[${ row.status === 1 ? '禁用' : '启用' }]操作`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        clearApi().then(r => {
+        const params = {
+          key: row.id,
+          value: row.status === 1 ? 0 : 1
+        }
+        statusApi(params).then(r => {
           if (r) {
             $message({
               message: '操作成功!',
               type: 'success'
             })
+            getList()
           }
         })
       }).catch(() => {
         // to do something on canceled
       })
-    }
-
-    /**
-     * @description: 文件下载
-     * @param {number} id
-     * @return {*}
-     * @author: gumingchen
-     */
-    const downloadHandle = id => {
-      window.open(downloadApi(id))
     }
 
     /**
@@ -302,20 +249,16 @@ export default defineComponent({
 
     return {
       refForm,
+      refAddEdit,
       page,
       ...toRefs(data),
       getList,
-      successHandle,
+      addEditHandle,
       delHandle,
-      clearHandle,
-      uploadApi,
-      flowApi,
-      downloadHandle,
+      statusHandle,
       selectionHandle,
       pageChangeHandle,
-      clearJson,
-      token,
-      TOKEN_KEY
+      clearJson
     }
   }
 })

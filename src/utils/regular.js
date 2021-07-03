@@ -37,3 +37,23 @@ export function isMobile(input) {
   const reg = /^1[0-9]{10}$/
   return reg.test(input)
 }
+
+/**
+ * json 字符串
+ * @param {*} input
+ */
+export function isJson(input) {
+  if (typeof input === 'string') {
+    try {
+      const obj = JSON.parse(input)
+      if (typeof obj === 'object' && obj) {
+        return true
+      } else {
+        return false
+      }
+    } catch (e) {
+      return false
+    }
+  }
+}
+

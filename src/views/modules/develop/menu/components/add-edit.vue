@@ -56,7 +56,7 @@
       <el-form-item v-if="form.type !== 2" label="图标" prop="icon">
         <el-popover
           trigger="click"
-          placement="bottom"
+          placement="top"
           popper-class="popper-menu-add-edit"
           width="330px">
           <div class="icon-wrap">
