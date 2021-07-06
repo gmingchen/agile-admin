@@ -21,7 +21,7 @@ const tokenVal = store.getters['user/tokenVal']
  */
 export function pageApi(params) {
   return service({
-    url: '/base/backup/page',
+    url: '/backstage/backup/page',
     method: 'get',
     params: params
   })
@@ -35,7 +35,7 @@ export function pageApi(params) {
  */
 export function backupApi() {
   return service({
-    url: '/base/backup/backup',
+    url: '/backstage/backup/backup',
     method: 'post'
   })
 }
@@ -48,7 +48,7 @@ export function backupApi() {
  */
 export function recoveryApi(params) {
   return service({
-    url: '/base/backup/recovery',
+    url: '/backstage/backup/recovery',
     method: 'post',
     data: params
   })
@@ -62,7 +62,7 @@ export function recoveryApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/base/backup/delete',
+    url: '/backstage/backup/delete',
     method: 'post',
     data: params
   })
@@ -76,7 +76,7 @@ export function delApi(params) {
  */
 export function clearApi() {
   return service({
-    url: '/base/backup/clear',
+    url: '/backstage/backup/clear',
     method: 'post'
   })
 }
@@ -89,7 +89,7 @@ export function clearApi() {
  */
 export function downloadApi(params) {
   let result = ''
-  const url = `/base/backup/download/${ params }`
+  const url = `/backstage/backup/download/${ params }`
   result = `${ process.env.VUE_APP_BASE_API + url }`
   const param = {
     [TOKEN_KEY]: tokenVal
@@ -106,7 +106,7 @@ export function downloadApi(params) {
  */
 export function truncateApi() {
   return service({
-    url: '/base/backup/truncate',
+    url: '/backstage/backup/truncate',
     method: 'post'
   })
 }

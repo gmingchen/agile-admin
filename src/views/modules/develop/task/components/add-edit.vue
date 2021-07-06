@@ -29,7 +29,7 @@
       <el-form-item label="参数" prop="params">
         <el-input v-model="form.params" placeholder="参数" />
       </el-form-item>
-      <el-form-item label="备注" prop="params">
+      <el-form-item label="备注" prop="remark">
         <el-input v-model="form.remark" placeholder="备注" type="textarea" />
       </el-form-item>
     </el-form>

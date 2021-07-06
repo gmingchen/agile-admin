@@ -12,7 +12,7 @@
       <el-form-item>
         <gl-button
           sort="add"
-          v-permission="'base:menu:create'"
+          v-permission="'backstage:menu:create'"
           type="primary"
           @click="addEditHandle()" />
       </el-form-item>
@@ -97,7 +97,7 @@
         min-width="90">
         <template v-slot="{ row }">
           <el-switch
-            v-permission="'base:menu:display'"
+            v-permission="'backstage:menu:display'"
             @change="displayHandle(row)"
             v-model="row.is_display"
             active-color="#13ce66"
@@ -114,7 +114,7 @@
         <template v-slot="{ row }">
           <el-switch
             v-if="row.type !== 0 && row.url"
-            v-permission="'base:menu:alive'"
+            v-permission="'backstage:menu:alive'"
             @change="keepAliveHandle(row)"
             v-model="row.is_alive"
             active-color="#13ce66"
@@ -133,7 +133,7 @@
           <el-switch
             v-if="row.type !== 0 && row.url"
             :disabled="row.is_display === 0"
-            v-permission="'base:menu:tab'"
+            v-permission="'backstage:menu:tab'"
             @change="tabHandle(row)"
             v-model="row.is_tab"
             active-color="#13ce66"
@@ -152,7 +152,7 @@
           <el-switch
             v-if="row.type !== 0 && row.url"
             :disabled="row.is_display === 0 || row.is_tab === 0"
-            v-permission="'base:menu:multiple'"
+            v-permission="'backstage:menu:multiple'"
             @change="multipleHandle(row)"
             v-model="row.is_multiple"
             active-color="#13ce66"
@@ -170,13 +170,13 @@
         <template v-slot="{ row }">
           <gl-button
             sort="edit"
-            v-permission="'base:menu:update'"
+            v-permission="'backstage:menu:update'"
             type="text"
             size="small"
             @click="addEditHandle(row.id)" />
           <gl-button
             sort="delete"
-            v-permission="'base:menu:delete'"
+            v-permission="'backstage:menu:delete'"
             type="text"
             size="small"
             @click="delHandle(row.id)" />

@@ -19,6 +19,7 @@ const sort = {
   'clear': '清除', // 清除
   'upload': '上传', // 上传
   'download': '下载', // 下载
+  'config': '配置', // 配置
   'home': '首页', // 首页
   'backup': '备份', // 备份
   'clearDatabase': '清除数据库', // 清除数据库

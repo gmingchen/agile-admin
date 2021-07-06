@@ -21,7 +21,7 @@ const tokenVal = store.getters['user/tokenVal']
  */
 export function pageApi(params) {
   return service({
-    url: '/base/file/page',
+    url: '/oss/file/page',
     method: 'get',
     params: params
   })
@@ -35,7 +35,7 @@ export function pageApi(params) {
  */
 export function flowApi(params) {
   let result = ''
-  const url = `/base/file/flow/${ params }`
+  const url = `/oss/file/flow/${ params }`
   result = `${ process.env.VUE_APP_BASE_API + url }`
   return result
 }
@@ -48,16 +48,9 @@ export function flowApi(params) {
  */
 export function uploadApi(params) {
   let result = ''
-  const url = '/base/file/upload'
+  const url = '/oss/file/upload'
   result = `${ process.env.VUE_APP_BASE_API + url }`
-  if (!params) {
-    params = {
-      [TOKEN_KEY]: tokenVal
-    }
-  } else {
-    params[TOKEN_KEY] = tokenVal
-  }
-  result += `?${ parseJson2Param(params) }`
+  result += params ? `?${ parseJson2Param(params) }` : ''
   return result
 }
 
@@ -69,7 +62,7 @@ export function uploadApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/base/file/delete',
+    url: '/oss/file/delete',
     method: 'post',
     data: params
   })
@@ -83,7 +76,7 @@ export function delApi(params) {
  */
 export function clearApi() {
   return service({
-    url: '/base/file/clear',
+    url: '/oss/file/clear',
     method: 'post'
   })
 }
@@ -96,7 +89,7 @@ export function clearApi() {
  */
 export function downloadApi(params) {
   let result = ''
-  const url = `/base/file/download/${ params }`
+  const url = `/oss/file/download/${ params }`
   result = `${ process.env.VUE_APP_BASE_API + url }`
   const param = {
     [TOKEN_KEY]: tokenVal

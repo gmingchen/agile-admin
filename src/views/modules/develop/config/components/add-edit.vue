@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-20 15:58:28
+ * @LastEditTime: 2021-05-20 15:59:35
 -->
 <template>
   <el-dialog
@@ -18,23 +18,27 @@
       :rules="rules"
       v-loading="loading"
       ref="refForm"
-      @keyup.enter="submit()"
       label-position="top">
-      <el-form-item label="角色名称" prop="name">
-        <el-input v-model="form.name" placeholder="角色名称" />
+      <el-form-item label="名称" prop="name">
+        <el-input v-model="form.name" placeholder="名称" />
+      </el-form-item>
+      <el-form-item label="键" prop="json_key">
+        <el-input v-model="form.json_key" placeholder="键" />
+      </el-form-item>
+      <el-form-item label="Json值" prop="json_value">
+        <el-input v-model="form.json_value" type="textarea" placeholder="Json字符串,如：{&quot;key&quot;: &quot;value&quot; }" />
+      </el-form-item>
+      <el-form-item label="类型值" prop="type">
+        <el-input-number v-model="form.type" controls-position="right" />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
-        <el-input v-model="form.remark" placeholder="备注" />
+        <el-input v-model="form.remark" placeholder="备注" type="textarea" />
       </el-form-item>
-      <el-form-item label="授权" prop="menu_ids">
-        <el-cascader
-          ref="refCascader"
-          v-model="form.menu_ids"
-          :options="menus"
-          :props="menusProps"
-          :show-all-levels="false"
-          collapse-tags
-          clearable />
+      <el-form-item label="状态" size="mini" prop="status">
+        <el-radio-group v-model="form.status">
+          <el-radio :label="0">禁用</el-radio>
+          <el-radio :label="1">启用</el-radio>
+        </el-radio-group>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -51,12 +55,10 @@
 </template>
 
 <script>
-import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
-
+import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import useInstance from '@/mixins/instance'
-import { addApi, editApi, infoApi } from '@/api/system/role'
-import { selfSelectListApi } from '@/api/develop/menu'
-import { parseData2Tree } from '@/utils'
+import { addApi, editApi, infoApi } from '@/api/develop/config'
+import { isJson } from '@/utils/regular'
 
 export default defineComponent({
   emits: ['refresh'],
@@ -64,61 +66,49 @@ export default defineComponent({
     const { $message } = useInstance()
 
     const refForm = ref()
-    const refCascader = ref()
     const data = reactive({
       visible: false,
       loading: false,
-      menus: [],
       form: {
         id: null,
         name: '',
+        json_key: '',
+        json_value: '',
         remark: '',
-        menu_ids: []
+        status: 0,
+        type: 1
       }
     })
 
     const rules = reactive(function() {
+      const checkJson = (_rule, value, callback) => {
+        if (value === '' || !isJson(value)) {
+          callback(new Error('请输入正确Json字符串'))
+        } else {
+          callback()
+        }
+      }
       return {
-        name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }]
+        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
+        json_key: [{ required: true, message: '请输入键', trigger: 'blur' }],
+        json_value: [{ required: true, validator: checkJson, trigger: 'blur' }],
+        type: [{ required: true, message: '请输入类型值', trigger: 'change' }]
       }
     }())
-    const menusProps = computed(() => {
-      const prop = {
-        multiple: true,
-        emitPath: false,
-        checkStrictly: false,
-        value: 'id',
-        label: `name_cn`,
-        children: 'children'
-      }
-      return prop
-    })
 
-    /**
-     * @description: 初始化数据
-     * @param {*} async
-     * @return {*}
-     * @author: gumingchen
-     */
     const init = async (id) => {
       data.visible = true
       data.loading = true
       data.form.id = id
-      const res = await selfSelectListApi()
-      if (res) {
-        res.data.push({
-          id: 0,
-          parent_id: 0,
-          name_cn: '一级菜单',
-          name_en: 'First level menu',
-          children: []
-        })
-        data.menus = parseData2Tree(res.data, 'id', 'parent_id')
-      }
       if (data.form.id) {
         const r = await infoApi(data.form.id)
         if (r) {
-          data.form = r.data
+          data.form.name = r.data.name
+          data.form.json_key = r.data.json_key
+          data.form.json_value = r.data.json_value
+          data.form.remark = r.data.remark
+          data.form.status = r.data.status
+          data.form.type = r.data.type || 1
         }
       }
       nextTick(() => {
@@ -135,17 +125,6 @@ export default defineComponent({
     const submit = () => {
       refForm.value.validate(async valid => {
         if (valid) {
-          // 处理菜单权限ID
-          const checkedNodes = refCascader.value.getCheckedNodes(true)
-          let menuIds = []
-          checkedNodes.forEach(item => {
-            menuIds.push.apply(menuIds, item.pathValues)
-          })
-          menuIds = Array.from(new Set(menuIds)).filter(item => {
-            return item !== 0
-          })
-          data.form.menu_ids = menuIds
-
           const r = !data.form.id ? await addApi(data.form) : await editApi(data.form)
           if (r) {
             data.visible = false
@@ -160,21 +139,19 @@ export default defineComponent({
     }
 
     /**
-     * @description: 弹窗关闭动画结束时的回调
-     * @param {*}
-     * @return {*}
-     * @author: gumingchen
-     */
+   * @description: 弹窗关闭动画结束时的回调
+   * @param {*}
+   * @return {*}
+   * @author: gumingchen
+   */
     const dialogClosedHandle = () => {
       refForm.value.resetFields()
     }
 
     return {
       refForm,
-      refCascader,
       ...toRefs(data),
       rules,
-      menusProps,
       init,
       submit,
       dialogClosedHandle

@@ -17,12 +17,12 @@
         <gl-button sort="reset" v-repeat @click="clearJson(form), getList()" />
         <gl-button
           sort="add"
-          v-permission="'base:role:create'"
+          v-permission="'backstage:role:create'"
           type="primary"
           @click="addEditHandle()" />
         <gl-button
           sort="batchDelete"
-          v-permission="'base:role:delete'"
+          v-permission="'backstage:role:delete'"
           type="danger"
           @click="delHandle()"
           :disabled="selection.length <= 0" />
@@ -62,13 +62,13 @@
         <template v-slot="{ row }">
           <gl-button
             sort="edit"
-            v-permission="'base:role:update'"
+            v-permission="'backstage:role:update'"
             type="text"
             size="small"
             @click="addEditHandle(row.id)" />
           <gl-button
             sort="delete"
-            v-permission="'base:role:delete'"
+            v-permission="'backstage:role:delete'"
             type="text"
             size="small"
             @click="delHandle(row.id)" />

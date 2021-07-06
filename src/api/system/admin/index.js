@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function pageApi(params) {
   return service({
-    url: '/base/user/page',
+    url: '/backstage/admin/page',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function pageApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/base/user/info/${ params }`,
+    url: `/backstage/admin/info/${ params }`,
     method: 'get'
   })
 }
@@ -43,7 +43,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: '/base/user/create',
+    url: '/backstage/admin/create',
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: '/base/user/update',
+    url: '/backstage/admin/update',
     method: 'post',
     data: params
   })
@@ -71,7 +71,7 @@ export function editApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/base/user/delete',
+    url: '/backstage/admin/delete',
     method: 'post',
     data: params
   })
@@ -85,7 +85,7 @@ export function delApi(params) {
  */
 export function statusApi(params) {
   return service({
-    url: '/base/user/status',
+    url: '/backstage/admin/status',
     method: 'post',
     data: params
   })

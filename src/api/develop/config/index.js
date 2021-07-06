@@ -1,22 +1,22 @@
 /*
- * @Description: 角色
+ * @Description: 定时任务
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-20 15:46:05
+ * @LastEditTime: 2021-05-20 15:46:39
  */
 import service from '@/utils/request'
 
 /**
- * @description: 分页列表
+ * @description: 列表
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function pageApi(params) {
+export function listApi(params) {
   return service({
-    url: '/backstage/role/page',
+    url: '/backstage/config/list',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function pageApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/role/info/${ params }`,
+    url: `/backstage/config/info/${ params }`,
     method: 'get'
   })
 }
@@ -43,7 +43,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: '/backstage/role/create',
+    url: '/backstage/config/create',
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: '/backstage/role/update',
+    url: '/backstage/config/update',
     method: 'post',
     data: params
   })
@@ -65,27 +65,55 @@ export function editApi(params) {
 
 /**
  * @description: 删除
- * @param {*}
+ * @param {*} params
  * @return {*}
  * @author: gumingchen
  */
 export function delApi(params) {
   return service({
-    url: '/backstage/role/delete',
+    url: '/backstage/config/delete',
     method: 'post',
     data: params
   })
 }
 
 /**
- * @description: 下拉列表
+ * @description: 是否启用
+ * @param {*} params
+ * @return {*}
+ * @author: gumingchen
+ */
+export function statusApi(params) {
+  return service({
+    url: '/backstage/config/status',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 信息
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function selectListApi() {
+export function getInfoApi(params) {
   return service({
-    url: '/backstage/role/select',
+    url: `/backstage/config/get/${ params }`,
     method: 'get'
+  })
+}
+
+/**
+ * @description: 编辑
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function editValueApi(params) {
+  return service({
+    url: '/backstage/config/update/value',
+    method: 'post',
+    data: params
   })
 }

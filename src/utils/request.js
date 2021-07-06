@@ -37,10 +37,20 @@ const prompt = message => {
  */
 const codeHandle = (code, message) => {
   switch (code) {
-    case 401:
+    case 4001:
       prompt(message)
       router.replace({
         name: 'login'
+      })
+      break
+    case 401:
+      router.replace({
+        name: '401'
+      })
+      break
+    case 404:
+      router.replace({
+        name: '404'
       })
       break
     default:

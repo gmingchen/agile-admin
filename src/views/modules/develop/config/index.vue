@@ -4,28 +4,28 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-20 16:00:52
+ * @LastEditTime: 2021-05-28 22:36:10
 -->
 <template>
   <div class="g-container">
     <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
       <el-form-item>
-        <el-input v-model="form.username" placeholder="账户" clearable />
-      </el-form-item>
-      <el-form-item>
-        <el-input v-model="form.nickname" placeholder="昵称" clearable />
+        <el-input v-model="form.key" placeholder="键" clearable />
       </el-form-item>
       <el-form-item>
         <gl-button sort="query" v-repeat @click="getList()" />
-        <gl-button sort="reset" v-repeat @click="clearJson(form), getList()" />
+        <gl-button
+          sort="reset"
+          v-repeat
+          @click="clearJson(form), getList()" />
         <gl-button
           sort="add"
-          v-permission="'base:user:create'"
+          v-permission="'backstage:config:create'"
           type="primary"
           @click="addEditHandle()" />
         <gl-button
           sort="batchDelete"
-          v-permission="'base:user:delete'"
+          v-permission="'backstage:config:delete'"
           type="danger"
           @click="delHandle()"
           :disabled="selection.length <= 0" />
@@ -46,27 +46,28 @@
         width="80" />
       <el-table-column
         align="center"
-        label="账户"
-        prop="username" />
+        label="键"
+        prop="json_key"
+        min-width="120" />
       <el-table-column
         align="center"
-        label="昵称"
-        prop="nickname" />
+        label="Json值"
+        prop="json_value"
+        min-width="200px"
+        :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        label="手机号"
-        prop="mobile"
-        width="120" />
+        label="备注"
+        prop="remark"
+        min-width="200px" />
       <el-table-column
         align="center"
-        label="邮箱"
-        prop="email" />
-      <el-table-column
-        align="center"
-        label="角色名称"
-        prop="roles">
+        label="状态"
+        prop="status"
+        width="80px">
         <template v-slot="{ row }">
-          <span class="role-name-span" v-for="item in row.roles" :key="item.id">{{ item.name }}</span>
+          <el-tag v-if="row.status === 1" type="success">启用</el-tag>
+          <el-tag v-if="row.status === 0" type="info">禁用</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -77,46 +78,46 @@
       <el-table-column
         align="center"
         label="操作"
-        width="150"
+        width="120"
         fixed="right">
         <template v-slot="{ row }">
           <gl-button
-            :sort="row.status === 1 ? 'disable' : 'enable'"
-            v-permission="'base:user:status'"
+            v-if="row.status === 0"
+            sort="enable"
+            v-permission="'backstage:config:status'"
             type="text"
             size="small"
             @click="statusHandle(row)" />
           <gl-button
             sort="edit"
-            v-permission="'base:user:update'"
+            v-permission="'backstage:config:update'"
             type="text"
             size="small"
             @click="addEditHandle(row.id)" />
           <gl-button
             sort="delete"
-            v-permission="'base:user:delete'"
+            v-permission="'backstage:config:delete'"
             type="text"
             size="small"
             @click="delHandle(row.id)" />
         </template>
       </el-table-column>
     </el-table>
-    <page :page="page" @change="pageChangeHandle" />
     <add-edit ref="refAddEdit" v-if="visible" @refresh="getList" />
   </div>
 </template>
 
 <script>
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
+
 import usePage from '@/mixins/page'
 import useInstance from '@/mixins/instance'
-import Page from '@/components/page/index.vue'
 import AddEdit from './components/add-edit.vue'
 import { clearJson } from '@/utils'
-import { delApi, pageApi, statusApi } from '@/api/system/user'
+import { delApi, listApi, statusApi } from '@/api/develop/config'
 
 export default defineComponent({
-  components: { Page, AddEdit },
+  components: { AddEdit },
   setup() {
     const { $message, $confirm } = useInstance()
 
@@ -127,24 +128,17 @@ export default defineComponent({
       loading: false,
       visible: false,
       form: {
-        username: '',
-        nickname: ''
+        key: ''
       },
       list: [],
       selection: []
     })
 
     const getList = () => {
-      const params = {
-        ...data.form,
-        current: page.current,
-        size: page.size
-      }
       data.loading = true
-      pageApi(params).then(r => {
+      listApi(data.form).then(r => {
         if (r) {
-          data.list = r.data.list
-          page.total = r.data.total
+          data.list = r.data
         }
         nextTick(() => {
           data.loading = false
@@ -271,7 +265,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.role-name-span + .role-name-span {
-  margin-left: 10px;
-}
 </style>

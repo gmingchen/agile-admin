@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-21 22:52:19
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-28 22:18:35
+ * @LastEditTime: 2021-05-28 22:40:48
 -->
 <template>
   <div class="g-container">
@@ -17,10 +17,7 @@
           @click="configHandle()" />
       </el-form-item>
       <el-form-item>
-        <el-select v-model="form.type" placeholder="备份方式" clearable>
-          <el-option label="手动" :value="1" />
-          <el-option label="自动" :value="2" />
-        </el-select>
+        <el-input v-model="form.extension" placeholder="扩展名称" clearable />
       </el-form-item>
       <el-form-item>
         <el-date-picker
@@ -34,27 +31,31 @@
       <el-form-item>
         <gl-button sort="query" v-repeat @click="getList()" />
         <gl-button sort="reset" v-repeat @click="clearJson(form), getList()" />
-        <gl-button
-          sort="backup"
-          v-permission="'backstage:backup:backup'"
-          type="primary"
-          @click="backupHandle()" />
+      </el-form-item>
+      <el-form-item>
+        <el-upload
+          class="upload-demo"
+          :action="uploadApi()"
+          :on-success="successHandle"
+          :headers="{
+            [TOKEN_KEY]: token
+          }"
+          :show-file-list="false">
+          <gl-button sort="upload" type="primary" />
+        </el-upload>
+      </el-form-item>
+      <el-form-item>
         <gl-button
           sort="batchDelete"
-          v-permission="'backstage:backup:delete'"
+          v-permission="'oss:file:delete'"
           type="danger"
           @click="delHandle()"
           :disabled="selection.length <= 0" />
         <gl-button
           sort="clear"
-          v-permission="'backstage:backup:clear'"
+          v-permission="'oss:file:clear'"
           type="danger"
           @click="clearHandle()" />
-        <gl-button
-          sort="clearDatabase"
-          v-permission="'backstage:backup:truncate'"
-          type="danger"
-          @click="truncateHandle()" />
       </el-form-item>
     </el-form>
     <el-table
@@ -72,16 +73,36 @@
         width="80" />
       <el-table-column
         align="center"
-        label="名称"
-        prop="name"
+        label="文件"
+        width="80">
+        <template v-slot="{ row }">
+          <el-avatar
+            :src="flowApi(row.id)"
+            shape="square"
+            fit="contain">{{ row.extension }}</el-avatar>
+        </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="原始名称"
+        prop="original"
         min-width="150"
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        label="数据库名称"
-        prop="db_name"
+        label="实际名称"
+        prop="actual"
         min-width="150"
         :show-overflow-tooltip="true" />
+      <el-table-column
+        align="center"
+        label="扩展名称"
+        prop="extension"
+        min-width="100" />
+      <el-table-column
+        align="center"
+        label="大小"
+        prop="size" />
       <el-table-column
         align="center"
         label="物理路径"
@@ -96,46 +117,24 @@
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        label="命令"
-        prop="cmd"
-        min-width="150"
-        :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
-        label="备份方式"
-        prop="cmd"
-        width="120">
-        <template v-slot="{ row }">
-          <el-tag v-if="row.type === 1" size="small">手动</el-tag>
-          <el-tag v-else size="small" type="success">自动</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column
-        align="center"
-        label="创建时间"
+        label="上传时间"
         prop="created_at"
         width="160" />
       <el-table-column
         align="center"
         label="操作"
-        width="190"
+        width="130"
         fixed="right">
         <template v-slot="{ row }">
           <gl-button
-            sort="recovery"
-            v-permission="'backstage:backup:recovery'"
-            type="text"
-            size="small"
-            @click="recoveryHandle(row.id)" />
-          <gl-button
             sort="download"
-            v-permission="'backstage:backup:download'"
+            v-permission="'oss:file:download'"
             type="text"
             size="small"
             @click="downloadHandle(row.id)" />
           <gl-button
             sort="delete"
-            v-permission="'backstage:backup:delete'"
+            v-permission="'oss:file:delete'"
             type="text"
             size="small"
             @click="delHandle(row.id)" />
@@ -143,33 +142,36 @@
       </el-table-column>
     </el-table>
     <page :page="page" @change="pageChangeHandle" />
-    <backup-set ref="refBackupSet" v-if="visible" />
+    <oss-set ref="refOssSet" v-if="visible" />
   </div>
 </template>
 
 <script>
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
+import { useStore } from 'vuex'
 import usePage from '@/mixins/page'
 import useInstance from '@/mixins/instance'
 import Page from '@/components/page/index.vue'
-import BackupSet from './components/backup-set.vue'
+import OssSet from './components/oss-set.vue'
+import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi } from '@/api/develop/file'
 import { clearJson, parseDate2Str } from '@/utils'
-
-import { delApi, pageApi, clearApi, downloadApi, recoveryApi, backupApi, truncateApi } from '@/api/develop/backup'
+import { SUCCESS_CODE, TOKEN_KEY } from '@/utils/constants'
 
 export default defineComponent({
-  components: { Page, BackupSet },
+  components: { Page, OssSet },
   setup() {
+    const store = useStore()
+    const token = store.state.user.token.token
     const { $message, $confirm } = useInstance()
 
     const refForm = ref()
-    const refBackupSet = ref()
+    const refOssSet = ref()
     const { page } = usePage()
     const data = reactive({
       loading: false,
       visible: false,
       form: {
-        type: '',
+        extension: '',
         date: []
       },
       list: [],
@@ -178,7 +180,7 @@ export default defineComponent({
 
     const getList = () => {
       const params = {
-        type: data.form.type,
+        extension: data.form.extension,
         start: data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
         end: data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
         current: page.current,
@@ -204,59 +206,29 @@ export default defineComponent({
     const configHandle = () => {
       data.visible = true
       nextTick(() => {
-        refBackupSet.value.init()
+        refOssSet.value.init()
       })
     }
 
     /**
-     * @description: 备份
-     * @param {*}
-     * @return {*}
-     * @author: gumingchen
-     */
-    const backupHandle = () => {
-      $confirm('确定进行备份操作?', '提示', {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        backupApi().then(r => {
-          if (r) {
-            $message({
-              message: '操作成功!',
-              type: 'success'
-            })
-            getList()
-          }
-        })
-      }).catch(() => {
-        // to do something on canceled
-      })
-    }
-
-    /**
-     * @description: 恢复
+     * @description: 上传成功
      * @param {number} id
      * @return {*}
      * @author: gumingchen
      */
-    const recoveryHandle = id => {
-      $confirm('确定进行恢复操作', '提示', {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        recoveryApi(id).then(r => {
-          if (r) {
-            $message({
-              message: '操作成功!',
-              type: 'success'
-            })
-          }
+    const successHandle = response => {
+      if (SUCCESS_CODE.includes(response.code)) {
+        $message({
+          message: '操作成功!',
+          type: 'success'
         })
-      }).catch(() => {
-        // to do something on canceled
-      })
+        getList()
+      } else {
+        $message({
+          message: '操作失败',
+          type: 'warning'
+        })
+      }
     }
 
     /**
@@ -327,31 +299,6 @@ export default defineComponent({
     }
 
     /**
-     * @description: 清库
-     * @param {number} id
-     * @return {*}
-     * @author: gumingchen
-     */
-    const truncateHandle = () => {
-      $confirm('确定进行[清除数据库]操作', '提示', {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        truncateApi().then(r => {
-          if (r) {
-            $message({
-              message: '操作成功!',
-              type: 'success'
-            })
-          }
-        })
-      }).catch(() => {
-        // to do something on canceled
-      })
-    }
-
-    /**
      * @description: table多选事件
      * @param {*} val
      * @return {*}
@@ -379,20 +326,22 @@ export default defineComponent({
 
     return {
       refForm,
-      refBackupSet,
+      refOssSet,
       page,
       ...toRefs(data),
       getList,
       configHandle,
-      backupHandle,
+      successHandle,
       delHandle,
       clearHandle,
+      uploadApi,
+      flowApi,
       downloadHandle,
-      recoveryHandle,
-      truncateHandle,
       selectionHandle,
       pageChangeHandle,
-      clearJson
+      clearJson,
+      token,
+      TOKEN_KEY
     }
   }
 })

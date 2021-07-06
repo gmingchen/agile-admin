@@ -18,7 +18,7 @@ import { parseJson2Param } from '@/utils/index'
 export function captchaApi(params) {
   let result = ''
   const options = {
-    url: '/base/captcha.jpg',
+    url: '/backstage/captcha.jpg',
     method: 'get',
     params: params
   }
@@ -34,7 +34,7 @@ export function captchaApi(params) {
  */
 export function loginApi(params) {
   return service({
-    url: '/base/login',
+    url: '/backstage/login',
     method: 'post',
     data: params
   })
@@ -48,7 +48,7 @@ export function loginApi(params) {
  */
 export function userInfoApi() {
   return service({
-    url: '/base/user/self/info',
+    url: '/backstage/admin/self/info',
     method: 'get'
   })
 }
@@ -61,7 +61,7 @@ export function userInfoApi() {
  */
 export function userMenusApi() {
   return service({
-    url: '/base/menu/self/info',
+    url: '/backstage/menu/self/info',
     method: 'get'
   })
 }
@@ -74,7 +74,7 @@ export function userMenusApi() {
  */
 export function editUserInfoApi(params) {
   return service({
-    url: '/base/user/self/update',
+    url: '/backstage/admin/self/update',
     method: 'post',
     data: params
   })
@@ -88,7 +88,7 @@ export function editUserInfoApi(params) {
  */
 export function logoutApi() {
   return service({
-    url: '/base/logout',
+    url: '/backstage/logout',
     method: 'post'
   })
 }
