@@ -111,9 +111,9 @@ export default defineComponent({
           const current = r.data.filter(item => item.status === 1)[0]
           changeHandle(current.id)
         }
-      })
-      nextTick(() => {
-        data.loading = false
+        nextTick(() => {
+          data.loading = false
+        })
       })
     }
 

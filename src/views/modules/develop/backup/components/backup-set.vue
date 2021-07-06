@@ -33,6 +33,9 @@
       <el-form-item label="存储目录" prop="path">
         <el-input v-model="form.path" placeholder="存储目录" />
       </el-form-item>
+      <el-form-item label="安装目录" prop="location">
+        <el-input v-model="form.location" placeholder="安装目录" />
+      </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
@@ -68,7 +71,8 @@ export default defineComponent({
         id: '',
         domain: '',
         prefix: '',
-        path: ''
+        path: '',
+        location: ''
       }
     })
 
@@ -100,6 +104,7 @@ export default defineComponent({
       data.form.domain = jsonValue.domain
       data.form.prefix = jsonValue.prefix
       data.form.path = jsonValue.path
+      data.form.location = jsonValue.location
     }
 
     /**
@@ -117,9 +122,9 @@ export default defineComponent({
           const current = data.types.filter(item => item.status === 1)[0]
           changeHandle(current.id)
         }
-      })
-      nextTick(() => {
-        data.loading = false
+        nextTick(() => {
+          data.loading = false
+        })
       })
     }
 
@@ -135,7 +140,8 @@ export default defineComponent({
           const jsonStr = JSON.stringify({
             domain: data.form.domain,
             prefix: data.form.prefix,
-            path: data.form.path
+            path: data.form.path,
+            location: data.form.location
           })
           const params = {
             id: data.form.id,
