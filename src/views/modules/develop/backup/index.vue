@@ -10,7 +10,14 @@
   <div class="g-container">
     <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
       <el-form-item>
-        <el-select v-model="form.type" placeholder="backupMode" clearable>
+        <gl-button
+          sort="config"
+          v-permission="'backstage:config:update:value'"
+          type="primary"
+          @click="configHandle()" />
+      </el-form-item>
+      <el-form-item>
+        <el-select v-model="form.type" placeholder="备份方式" clearable>
           <el-option label="手动" :value="1" />
           <el-option label="自动" :value="2" />
         </el-select>
@@ -136,6 +143,7 @@
       </el-table-column>
     </el-table>
     <page :page="page" @change="pageChangeHandle" />
+    <backup-set ref="refBackupSet" v-if="visible" />
   </div>
 </template>
 
@@ -144,16 +152,18 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 import usePage from '@/mixins/page'
 import useInstance from '@/mixins/instance'
 import Page from '@/components/page/index.vue'
+import BackupSet from './components/backup-set.vue'
 import { clearJson, parseDate2Str } from '@/utils'
 
 import { delApi, pageApi, clearApi, downloadApi, recoveryApi, backupApi, truncateApi } from '@/api/develop/backup'
 
 export default defineComponent({
-  components: { Page },
+  components: { Page, BackupSet },
   setup() {
     const { $message, $confirm } = useInstance()
 
     const refForm = ref()
+    const refBackupSet = ref()
     const { page } = usePage()
     const data = reactive({
       loading: false,
@@ -183,6 +193,18 @@ export default defineComponent({
         nextTick(() => {
           data.loading = false
         })
+      })
+    }
+
+    /**
+     * @description: oss配置
+     * @return {*}
+     * @author: gumingchen
+     */
+    const configHandle = () => {
+      data.visible = true
+      nextTick(() => {
+        refBackupSet.value.init()
       })
     }
 
@@ -357,9 +379,11 @@ export default defineComponent({
 
     return {
       refForm,
+      refBackupSet,
       page,
       ...toRefs(data),
       getList,
+      configHandle,
       backupHandle,
       delHandle,
       clearHandle,

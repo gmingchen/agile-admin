@@ -9,7 +9,7 @@
 <template>
   <el-dialog
     width="600px"
-    title="OSS配置"
+    title="备份配置"
     v-model="visible"
     :close-on-click-modal="false"
     @closed="dialogClosedHandle">
@@ -20,8 +20,8 @@
       ref="refForm"
       label-position="top">
       <el-form-item label="类型" prop="id">
-        <el-radio-group v-model="form.id">
-          <el-radio v-for="item in OSSs" :key="item.id" :label="item.id">{{ item.name }}</el-radio>
+        <el-radio-group v-model="form.id" @change="changeHandle">
+          <el-radio v-for="item in types" :key="item.id" :label="item.id">{{ item.name }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="域名" prop="domain">
@@ -62,8 +62,8 @@ export default defineComponent({
     const data = reactive({
       visible: false,
       loading: false,
-      key: 'CLOUD_STORAGE',
-      OSSs: [],
+      key: 'BACKUP_STORAGE',
+      types: [],
       form: {
         id: '',
         domain: '',
@@ -94,7 +94,7 @@ export default defineComponent({
      * @author: gumingchen
      */
     const changeHandle = (id) => {
-      const current = data.OSSs.filter(item => item.id === id)[0]
+      const current = data.types.filter(item => item.id === id)[0]
       const jsonValue = JSON.parse(current.json_value)
       data.form.id = current.id
       data.form.domain = jsonValue.domain
@@ -102,13 +102,19 @@ export default defineComponent({
       data.form.path = jsonValue.path
     }
 
+    /**
+     * @description: 初始化
+     * @param {*}
+     * @return {*}
+     * @author: gumingchen
+     */
     const init = () => {
       data.visible = true
       data.loading = true
       getInfoApi(data.key).then(r => {
         if (r) {
-          data.OSSs = r.data
-          const current = r.data.filter(item => item.status === 1)[0]
+          data.types = r.data
+          const current = data.types.filter(item => item.status === 1)[0]
           changeHandle(current.id)
         }
       })
@@ -164,6 +170,7 @@ export default defineComponent({
       ...toRefs(data),
       rules,
       init,
+      changeHandle,
       submit,
       dialogClosedHandle
     }
