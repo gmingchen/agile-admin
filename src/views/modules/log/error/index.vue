@@ -13,9 +13,6 @@
         <el-input v-model="form.username" placeholder="管理员帐号" clearable />
       </el-form-item>
       <el-form-item>
-        <el-input v-model="form.operation" placeholder="操作" clearable />
-      </el-form-item>
-      <el-form-item>
         <el-input v-model="form.ip" placeholder="IP地址" clearable />
       </el-form-item>
       <el-form-item>
@@ -59,12 +56,6 @@
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        label="操作"
-        prop="operation"
-        min-width="100"
-        :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
         label="请求URL"
         prop="url"
         min-width="150"
@@ -81,18 +72,14 @@
         prop="params"
         min-width="150"
         :show-overflow-tooltip="true" />
-      <el-table-column
+      <!--
+<el-table-column
         align="center"
-        label="类名、方法名"
-        prop="class_name"
+        label="异常信息"
+        prop="details"
         min-width="150"
         :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
-        label="执行时长"
-        prop="times"
-        width="80"
-        :show-overflow-tooltip="true" />
+-->
       <el-table-column
         align="center"
         label="IP地址"
@@ -110,8 +97,22 @@
         label="创建时间"
         prop="created_at"
         width="160" />
+      <el-table-column
+        align="center"
+        label="操作"
+        width="80"
+        fixed="right">
+        <template v-slot="{ row }">
+          <gl-button
+            sort="view"
+            type="text"
+            size="small"
+            @click="viewHandle(row.details)" />
+        </template>
+      </el-table-column>
     </el-table>
     <page :page="page" @change="pageChangeHandle" />
+    <Details ref="refDetails" v-if="visible" />
   </div>
 </template>
 
@@ -120,24 +121,24 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 import usePage from '@/mixins/page'
 import useInstance from '@/mixins/instance'
 import Page from '@/components/page/index.vue'
-import { clearJson, parseDate2Str } from '@/utils'
+import Details from './components/details.vue'
 
-import { pageApi, truncateApi } from '@/api/log/operation'
+import { clearJson, parseDate2Str } from '@/utils'
+import { pageApi, truncateApi } from '@/api/log/error'
 
 export default defineComponent({
-  components: { Page },
+  components: { Page, Details },
   setup() {
     const { $message, $confirm } = useInstance()
 
     const refForm = ref()
-    const refBackupSet = ref()
+    const refDetails = ref()
     const { page } = usePage()
     const data = reactive({
       loading: false,
       visible: false,
       form: {
         username: '',
-        operation: '',
         ip: '',
         date: []
       },
@@ -148,7 +149,6 @@ export default defineComponent({
     const getList = () => {
       const params = {
         username: data.form.username,
-        operation: data.form.operation,
         ip: data.form.ip,
         start: data.form.date && data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
         end: data.form.date && data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
@@ -194,6 +194,19 @@ export default defineComponent({
     }
 
     /**
+     * @description: 查看日志信息
+     * @param {String} details
+     * @return {*}
+     * @author: gumingchen
+     */
+    const viewHandle = (details) => {
+      data.visible = true
+      nextTick(() => {
+        refDetails.value.init(details)
+      })
+    }
+
+    /**
      * @description: table多选事件
      * @param {*} val
      * @return {*}
@@ -221,11 +234,12 @@ export default defineComponent({
 
     return {
       refForm,
-      refBackupSet,
+      refDetails,
       page,
       ...toRefs(data),
       getList,
       truncateHandle,
+      viewHandle,
       selectionHandle,
       pageChangeHandle,
       clearJson

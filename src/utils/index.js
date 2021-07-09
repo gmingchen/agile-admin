@@ -202,7 +202,7 @@ export function isAuth(key) {
  */
 export function getApiBaseUrl () {
   const baseUrl = process.env.VUE_APP_PROXY === 'false'
-    ? process.env.VUE_APP_BASE_API
+    ? process.env.VUE_APP_BASE_API + MAPPING
     : `/proxy${ MAPPING }`
   return baseUrl
 }

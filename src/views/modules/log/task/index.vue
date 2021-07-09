@@ -130,8 +130,8 @@ export default defineComponent({
     const getList = () => {
       const params = {
         bean_name: data.form.beanName,
-        start: data.form.data && data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
-        end: data.form.data && data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
+        start: data.form.date && data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
+        end: data.form.date && data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
         current: page.current,
         size: page.size
       }

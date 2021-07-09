@@ -126,8 +126,8 @@ export default defineComponent({
       const params = {
         username: data.form.username,
         ip: data.form.ip,
-        start: data.form.data && data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
-        end: data.form.data && data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
+        start: data.form.date && data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
+        end: data.form.date && data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
         current: page.current,
         size: page.size
       }
