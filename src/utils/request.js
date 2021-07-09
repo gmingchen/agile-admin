@@ -13,6 +13,7 @@ import router from '@/router'
 import store from '@/store'
 import { ElMessage } from 'element-plus'
 import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, TOKEN_KEY, ContentType } from './constants'
+import { getApiBaseUrl } from '@/utils'
 
 /**
  * @description: 异常消息提示
@@ -59,6 +60,9 @@ const codeHandle = (code, message) => {
   }
 }
 
+// 设置获取 baseURL
+const baseURL = getApiBaseUrl()
+
 /**
  * @description: axios创建
  * @param {*}
@@ -66,7 +70,7 @@ const codeHandle = (code, message) => {
  * @author: gumingchen
  */
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+  baseURL,
   timeout: TIME_OUT,
   headers: {
     'Content-Type': CONTENT_TYPE

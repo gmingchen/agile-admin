@@ -1,12 +1,12 @@
 /*
- * @Description: 文件
+ * @Description: oss
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-28 16:25:18
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-05-27 13:24:10
  */
-import { parseJson2Param } from '@/utils'
+import { parseJson2Param, getApiBaseUrl } from '@/utils'
 import service from '@/utils/request'
 import store from '@/store'
 import { TOKEN_KEY } from '@/utils/constants'
@@ -36,7 +36,7 @@ export function pageApi(params) {
 export function flowApi(params) {
   let result = ''
   const url = `/oss/file/flow/${ params }`
-  result = `${ process.env.VUE_APP_BASE_API + url }`
+  result = `${ getApiBaseUrl() + url }`
   return result
 }
 
@@ -49,7 +49,7 @@ export function flowApi(params) {
 export function uploadApi(params) {
   let result = ''
   const url = '/oss/file/upload'
-  result = `${ process.env.VUE_APP_BASE_API + url }`
+  result = `${ getApiBaseUrl() + url }`
   result += params ? `?${ parseJson2Param(params) }` : ''
   return result
 }
@@ -90,7 +90,7 @@ export function clearApi() {
 export function downloadApi(params) {
   let result = ''
   const url = `/oss/file/download/${ params }`
-  result = `${ process.env.VUE_APP_BASE_API + url }`
+  result = `${ getApiBaseUrl() + url }`
   const param = {
     [TOKEN_KEY]: tokenVal
   }

@@ -18,7 +18,7 @@ const port = process.env.VUE_APP_PORT || 95830 // dev port
 
 const proxy = {
   '/proxy': {
-    target: 'http://localhost:8080',
+    target: 'http://localhost:8888',
     secure: true,
     changeOrigin: true,
     pathRewrite: {

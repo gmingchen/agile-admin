@@ -153,7 +153,7 @@ import usePage from '@/mixins/page'
 import useInstance from '@/mixins/instance'
 import Page from '@/components/page/index.vue'
 import OssSet from './components/oss-set.vue'
-import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi } from '@/api/develop/file'
+import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi } from '@/api/develop/oss'
 import { clearJson, parseDate2Str } from '@/utils'
 import { SUCCESS_CODE, TOKEN_KEY } from '@/utils/constants'
 
@@ -181,8 +181,8 @@ export default defineComponent({
     const getList = () => {
       const params = {
         extension: data.form.extension,
-        start: data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
-        end: data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
+        start: data.form.data && data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
+        end: data.form.data && data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
         current: page.current,
         size: page.size
       }

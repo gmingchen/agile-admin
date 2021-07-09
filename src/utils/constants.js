@@ -24,7 +24,8 @@ const SuccessCode = {
   ZERO: 0,
   TWO_HUNDRED: 200
 }
-
+// request Mapping
+export const MAPPING = '/slipper'
 // 请求数据类型
 export const CONTENT_TYPE = ContentType.JSON
 // 请求超时时长

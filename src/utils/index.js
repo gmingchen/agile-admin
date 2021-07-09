@@ -7,6 +7,7 @@
  * @LastEditTime: 2021-04-30 17:32:53
  */
 import store from '@/store'
+import { MAPPING } from './constants'
 
 /**
  * @description: 生成UUID
@@ -192,3 +193,17 @@ export function isAuth(key) {
   result = store.getters['menu/permissions'].indexOf(key) !== -1 || false
   return result
 }
+
+/**
+ * @description: 获取Api BaseUrl
+ * @param {*} key
+ * @return {*}
+ * @author: gumingchen
+ */
+export function getApiBaseUrl () {
+  const baseUrl = process.env.VUE_APP_PROXY === 'false'
+    ? process.env.VUE_APP_BASE_API
+    : `/proxy${ MAPPING }`
+  return baseUrl
+}
+
