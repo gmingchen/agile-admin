@@ -201,9 +201,9 @@ export function isAuth(key) {
  * @author: gumingchen
  */
 export function getApiBaseUrl () {
-  const baseUrl = process.env.VUE_APP_PROXY === 'false'
-    ? process.env.VUE_APP_BASE_API + MAPPING
-    : `/proxy${ MAPPING }`
+  const baseUrl = process.env.VUE_APP_PROXY === 'true'
+    ? `/proxy${ MAPPING }`
+    : process.env.VUE_APP_BASE_API + MAPPING
   return baseUrl
 }
 
