@@ -8,6 +8,7 @@
  */
 import service from '@/utils/request'
 import { parseJson2Param } from '@/utils/index'
+import { getApiBaseUrl } from '@/utils'
 
 /**
  * @description: 验证码
@@ -22,7 +23,7 @@ export function captchaApi(params) {
     method: 'get',
     params: params
   }
-  result = `${ process.env.VUE_APP_BASE_API + options.url }?${ parseJson2Param(options.params) }`
+  result = `${ getApiBaseUrl() + options.url }?${ parseJson2Param(options.params) }`
   return result
 }
 
