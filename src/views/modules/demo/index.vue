@@ -27,6 +27,7 @@ export default defineComponent({
     const router = useRouter()
 
     const test = () => {
+      router.push({ name: 'system-role-index' })
       console.log('click')
     }
 
