@@ -160,18 +160,35 @@ function addRoutes(menus = [], routeList = []) {
   }
 }
 
+/**
+ * @description: 清除动态添加的路由
+ * @param {Array} menus
+ * @param {Array} routeList
+ * @return {*}
+ * @author: gumingchen
+ */
+function clearRouter() {
+  const routers = router.getRoutes().filter(item => item.meta.isDynamic)
+  routers.forEach(item => {
+    router.removeRoute(item.name)
+  })
+  // 其实只要这一行就可以
+  main.children = main.children.filter(item => !item.meta.isDynamic)
+}
+
 router.beforeEach(async (to, _from, next) => {
   // 标题控制
   document.title = to.meta.title_cn || document.title
   // 跳转到登录页清除所有信息
   if (to.name === 'login') {
+    clearRouter()
     store.dispatch('setting/exit')
   }
   NProgress.start()
-  // 处理动态路由页 刷新跳转 404 问题
+  // 处理动态路由页 刷新跳转 401 问题
   if (refresh) {
-    // 添加 404 重定向
-    router.addRoute({ path: '/:pathMatch(.*)', redirect: { name: '404' } })
+    // 添加 401 重定向
+    router.addRoute({ path: '/:pathMatch(.*)', redirect: { name: '401' } })
   }
   // todo: 动态添加路由
   const isGlobal = currentRouteType(to, global) === 'global'
@@ -203,5 +220,18 @@ router.beforeEach(async (to, _from, next) => {
 router.afterEach((_to, _from) => {
   NProgress.done()
 })
+
+// 添加异常处理
+const originalPush = router.push
+router.push = (to) => {
+  try {
+    return originalPush(to).then(error => {
+      console.log(`%c${ error }`, 'color:red')
+    })
+  } catch (error) {
+    console.log(`%c${ error }`, 'color:red')
+    return originalPush({ name: '401' })
+  }
+}
 
 export default router
