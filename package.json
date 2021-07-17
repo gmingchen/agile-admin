@@ -12,6 +12,7 @@
     "lint-fix": "eslint --fix --ext .js --ext --ext .vue src/*"
   },
   "dependencies": {
+    "@vueup/vue-quill": "^1.0.0-beta.7",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.46",
