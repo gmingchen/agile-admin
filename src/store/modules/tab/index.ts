@@ -72,6 +72,8 @@ export default {
         let val = `${ route.name as string }-${ meta.id }`
         if (meta.multiple) {
           val += `-${ queryStr }-${ paramsStr }`
+        } else {
+          val += `-{}-{}`
         }
         const tab: Tab = {
           value: val,
