@@ -225,9 +225,7 @@ router.afterEach((_to, _from) => {
 const originalPush = router.push
 router.push = (to) => {
   try {
-    return originalPush(to).then(error => {
-      console.log(`%c${ error }`, 'color:red')
-    })
+    return originalPush(to)
   } catch (error) {
     console.log(`%c${ error }`, 'color:red')
     return originalPush({ name: '401' })

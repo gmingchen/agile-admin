@@ -48,11 +48,17 @@ export default {
     },
     changeHandle({ commit, state }, route) {
       const meta = route.meta
+
       if (meta.isTab) {
         const queryStr = JSON.stringify(route.query)
         const paramsStr = JSON.stringify(route.params)
         let val = `${ route.name }-${ meta.id }`
-        val += `-${ queryStr }-${ paramsStr }`
+
+        if (meta.multiple) {
+          val += `-${ queryStr }-${ paramsStr }`
+        } else {
+          val += `-{}-{}`
+        }
 
         const tab = {
           value: val,
@@ -65,6 +71,7 @@ export default {
           closable: true,
           menuId: meta.id
         }
+
         const exist = state.tabs.filter(item => {
           return item.value === val
         })
