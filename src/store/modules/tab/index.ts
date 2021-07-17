@@ -73,7 +73,11 @@ export default {
         const queryStr = JSON.stringify(route.query)
         const paramsStr = JSON.stringify(route.params)
         let val = `${ route.name as string }-${ meta.id }`
-        val += `-${ queryStr }-${ paramsStr }`
+        if (meta.multiple) {
+          val += `-${ queryStr }-${ paramsStr }`
+        } else {
+          val += `-{}-{}`
+        }
 
         const tab: Tab = {
           value: val,

@@ -206,4 +206,15 @@ router.afterEach((_to, _from) => {
   NProgress.done()
 })
 
+// 添加异常处理
+const originalPush = router.push
+router.push = (to) => {
+  try {
+    return originalPush(to)
+  } catch (error) {
+    console.log(`%c${ error }`, 'color:red')
+    return originalPush({ name: '401' })
+  }
+}
+
 export default router
