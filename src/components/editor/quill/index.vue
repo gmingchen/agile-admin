@@ -1,24 +1,34 @@
 <template>
-  <quill-editor v-model:content="content" :options="options" />
-  <el-button @click="test">console</el-button>
+  <div id="quill" ref="refQuill" />
 </template>
 
 <script>
-import { defineComponent, reactive, toRefs } from 'vue'
-import { QuillEditor } from '@vueup/vue-quill'
+import { defineComponent, onMounted, ref, reactive, toRefs, nextTick } from 'vue'
+import * as Quill from 'quill'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+
 import options from './config'
-import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
 export default defineComponent({
-  components: { QuillEditor },
   setup(props) {
+    const refQuill = ref()
     const data = reactive({
+      quill: null,
       content: ''
     })
     const test = () => {
       console.log(JSON.stringify(data.content))
     }
+
+    onMounted(() => {
+      nextTick(() => {
+        data.quill = new Quill(document.getElementById('quill'), options)
+        console.log('ready')
+      })
+    })
     return {
+      refQuill,
       ...toRefs(data),
       options,
       test
