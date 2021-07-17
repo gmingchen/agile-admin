@@ -46,6 +46,11 @@
         width="80" />
       <el-table-column
         align="center"
+        label="名称"
+        prop="name"
+        min-width="150" />
+      <el-table-column
+        align="center"
         label="键"
         prop="json_key"
         min-width="120" />
