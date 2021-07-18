@@ -14,7 +14,7 @@ const toolOptions = [
   [{ 'align': [] }],
   ['clean'],
   ['link', 'image', 'video'],
-  ['image']
+  [{ 'test': 1 }]
 ]
 const handlers = {
   // image: function image () {
@@ -74,11 +74,36 @@ const handlers = {
 }
 
 export default {
-  placeholder: '',
-  theme: 'snow', // 主题
+  debug: 'warn',
+  theme: 'snow', // 主题 snow / bubble
+  placeholder: 'aaaa',
+  readOnly: false,
   modules: {
     toolbar: {
-      container: toolOptions, // 工具栏选项
+      container: '#toolbar',
+      // container: [
+      //   // ['background', 'bold', 'color', 'font', 'code', 'italic', 'link', 'size', 'strike', 'script', 'underline'],
+      //   // ['blockquote', 'header', 'indent', 'list', 'align', 'direction', 'code-block'],
+      //   // ['formula', 'image', 'video'],
+
+      //   // code、script
+      //   ['bold'],
+      //   ['bold'],
+      //   ['bold', 'italic', 'strike', 'underline'],
+      //   [{ 'font': [] }],
+      //   [{ 'size': [] }],
+      //   [{ 'color': [] }],
+      //   [{ 'background': [] }],
+      //   ['blockquote'],
+      //   [{ 'header': [1, 2, 3, 4, 5, 6] }],
+      //   [{ 'indent': '-1' }, { 'indent': '+1' }],
+      //   [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      //   [{ 'align': [] }],
+      //   [{ 'direction': 'rtl' }],
+      //   ['code-block'],
+      //   ['link', 'formula', 'image', 'video']
+
+      // ], // 工具栏选项
       handlers: handlers // 事件重写
     }
   }

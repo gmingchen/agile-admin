@@ -10,8 +10,11 @@
   <div class="demo">
     <gl-svg name="development" />
     <gl-button @click="test()" sort="save" />
+    <quill v-model="content" />
+    {{ content }}
+    <div v-html="content" />
     <p
-      v-for="item in 200"
+      v-for="item in 20"
       :key="item"
       @click="router.push({ name: 'demo', query: { id: item } })"
       :class="`ddd margin_t-${item} ellipse-${item} relative-${item}`">p-{{item}}</p>
@@ -19,16 +22,21 @@
 </template>
 
 <script>
-import { defineComponent, onBeforeMount } from 'vue'
+import { defineComponent, onBeforeMount, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
+import Quill from '@/components/editor/quill/index.vue'
 
 export default defineComponent({
+  components: { Quill },
   setup() {
     const router = useRouter()
 
+    const data = reactive({
+      content: '<h2>标题2</h2>'
+    })
+
     const test = () => {
-      router.push({ name: 'system-role-index' })
-      console.log('click')
+      console.log('content', data.content)
     }
 
     onBeforeMount(() => {
@@ -36,6 +44,7 @@ export default defineComponent({
     })
     return {
       router,
+      ...toRefs(data),
       test
     }
   }
