@@ -30,7 +30,7 @@ export function listApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/email/template/${ params }`,
+    url: `/backstage/email/template/info/${ params }`,
     method: 'get'
   })
 }

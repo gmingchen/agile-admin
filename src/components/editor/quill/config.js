@@ -1,110 +1,76 @@
+import { uploadAxiosApi } from '@/api/develop/oss'
+
+const QuillDeltaToHtmlConverter = require('quill-delta-to-html').QuillDeltaToHtmlConverter
+
 // toolbar工具栏的工具选项（默认展示全部）
-const toolOptions = [
-  ['bold', 'italic', 'underline', 'strike'],
-  ['blockquote', 'code-block'],
-  [{ 'header': 1 }, { 'header': 2 }],
-  [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-  [{ 'script': 'sub' }, { 'script': 'super' }],
-  [{ 'indent': '-1' }, { 'indent': '+1' }],
-  [{ 'direction': 'rtl' }],
-  [{ 'size': ['small', false, 'large', 'huge'] }],
-  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-  [{ 'color': [] }, { 'background': [] }],
-  [{ 'font': [] }],
-  [{ 'align': [] }],
-  ['clean'],
-  ['link', 'image', 'video'],
-  [{ 'test': 1 }]
+export const toolOptions = [
+  ['bold'], // 加粗
+  ['italic'], // 斜体
+  ['strike'], // 中横线
+  ['underline'], // 加粗
+  [{ 'font': [] }], // 下横线
+  [{ 'size': [] }], // 字体大小
+  [{ 'color': [] }], // 字体颜色
+  [{ 'background': [] }], // 背景色
+  [{ 'script': 'sub' }], // 脚本位置-上
+  [{ 'script': 'super' }], // 脚本位置-下
+  [{ 'header': [1, 2, 3, 4, 5, 6] }], // H标签
+  [{ 'indent': '-1' }], // 行缩进-向左
+  [{ 'indent': '+1' }], // 行缩进-向右
+  [{ 'align': [] }], // 居中方式
+  ['blockquote'], // 块引用
+  [{ 'list': 'ordered' }], // 列表-数字
+  [{ 'list': 'bullet' }], // 列表-点
+  [{ 'direction': 'rtl' }], // 方向
+  // ['code-block'], // 代码块
+  ['link'], // 超链接
+  // ['formula'], // 公式
+  ['image'], // 上传图片
+  ['video'], // 上传视频
+  ['clean'] // 清除
 ]
-const handlers = {
-  // image: function image () {
-  //   var self = this
-  //   var fileInput = this.container.querySelector('input.ql-image[type=file]')
-  //   if (fileInput === null) {
-  //     fileInput = document.createElement('input')
-  //     fileInput.setAttribute('type', 'file')
-  //     // 设置图片参数名
-  //     if (uploadConfig.name) {
-  //       fileInput.setAttribute('name', uploadConfig.name)
-  //     }
-  //     // 可设置上传图片的格式
-  //     fileInput.setAttribute('accept', uploadConfig.accept)
-  //     fileInput.classList.add('ql-image')
-  //     // 监听选择文件
-  //     fileInput.addEventListener('change', function () {
-  //       // 创建formData
-  //       var formData = new FormData()
-  //       formData.append(uploadConfig.name, fileInput.files[0])
-  //       formData.append('object', 'product')
-  //       // 如果需要token且存在token
-  //       if (uploadConfig.token) {
-  //         formData.append('token', uploadConfig.token)
-  //       }
-  //       // 图片上传
-  //       var xhr = new XMLHttpRequest()
-  //       xhr.open(uploadConfig.methods, uploadConfig.action, true)
-  //       // 上传数据成功，会触发
-  //       xhr.onload = function (e) {
-  //         if (xhr.status === 200) {
-  //           var res = JSON.parse(xhr.responseText)
-  //           let length = self.quill.getSelection(true).index
-  //           // 这里很重要，你图片上传成功后，img的src需要在这里添加，res.path就是你服务器返回的图片链接。
-  //           self.quill.insertEmbed(length, 'image', res.url)
-  //           self.quill.setSelection(length + 1)
-  //         }
-  //         fileInput.value = ''
-  //       }
-  //       // 开始上传数据
-  //       xhr.upload.onloadstart = function (e) {
-  //         fileInput.value = ''
-  //       }
-  //       // 当发生网络异常的时候会触发，如果上传数据的过程还未结束
-  //       xhr.upload.onerror = function (e) {
-  //       }
-  //       // 上传数据完成（成功或者失败）时会触发
-  //       xhr.upload.onloadend = function (e) {
-  //         // console.log('上传结束')
-  //       }
-  //       xhr.send(formData)
-  //     })
-  //     this.container.appendChild(fileInput)
-  //   }
-  //   fileInput.click()
-  // }
+export const handlers = {
+  image: function image () {
+    const self = this
+    let fileInput = this.container.querySelector('input.ql-image[type=file]')
+    if (fileInput === null) {
+      // 创建图片上传input标签
+      fileInput = document.createElement('input')
+      fileInput.setAttribute('type', 'file')
+      // 设置图片参数名
+      fileInput.setAttribute('name', 'file')
+      // 可设置上传图片的格式
+      fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon')
+      fileInput.classList.add('ql-image')
+      // 监听选择文件
+      fileInput.addEventListener('change', function () {
+        const formData = new FormData()
+        formData.append('file', fileInput.files[0])
+        uploadAxiosApi(formData).then(r => {
+          if (r) {
+            const length = self.quill.getSelection(true).index
+            self.quill.insertEmbed(length, 'image', r.data.url)
+            self.quill.setSelection(length + 1)
+          }
+        })
+      })
+      this.container.appendChild(fileInput)
+    }
+    fileInput.click()
+  }
 }
 
-export default {
-  debug: 'warn',
-  theme: 'snow', // 主题 snow / bubble
-  placeholder: 'aaaa',
-  readOnly: false,
-  modules: {
-    toolbar: {
-      container: '#toolbar',
-      // container: [
-      //   // ['background', 'bold', 'color', 'font', 'code', 'italic', 'link', 'size', 'strike', 'script', 'underline'],
-      //   // ['blockquote', 'header', 'indent', 'list', 'align', 'direction', 'code-block'],
-      //   // ['formula', 'image', 'video'],
-
-      //   // code、script
-      //   ['bold'],
-      //   ['bold'],
-      //   ['bold', 'italic', 'strike', 'underline'],
-      //   [{ 'font': [] }],
-      //   [{ 'size': [] }],
-      //   [{ 'color': [] }],
-      //   [{ 'background': [] }],
-      //   ['blockquote'],
-      //   [{ 'header': [1, 2, 3, 4, 5, 6] }],
-      //   [{ 'indent': '-1' }, { 'indent': '+1' }],
-      //   [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-      //   [{ 'align': [] }],
-      //   [{ 'direction': 'rtl' }],
-      //   ['code-block'],
-      //   ['link', 'formula', 'image', 'video']
-
-      // ], // 工具栏选项
-      handlers: handlers // 事件重写
+/**
+ * 获取html字符串
+ */
+export const delta2Html = (delta) => {
+  const options = {
+    inlineStyles: {
+      align: (val) => {
+        return `text-align: ${ val }`
+      }
     }
   }
+  const html = new QuillDeltaToHtmlConverter(delta.ops, options).convert()
+  return html
 }

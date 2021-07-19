@@ -19,15 +19,18 @@
       v-loading="loading"
       ref="refForm"
       label-position="top">
-      <el-form-item label="邮件标题" prop="name">
+      <el-form-item label="邮件标题" prop="subject">
         <el-input
-          v-model="form.name"
+          v-model="form.subject"
           placeholder="邮件标题"
           maxlength="50"
           show-word-limit />
       </el-form-item>
       <el-form-item label="邮件内容" prop="content">
-        <quill />
+        <quill
+          ref="refQuill"
+          v-model="form.content"
+          placeholder="输入邮件内容..." />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input
@@ -55,7 +58,7 @@
 import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import useInstance from '@/mixins/instance'
 import Quill from '@/components/editor/quill/index.vue'
-import { addApi, editApi, infoApi } from '@/api/develop/config'
+import { addApi, editApi, infoApi } from '@/api/message/email-template'
 
 export default defineComponent({
   emits: ['refresh'],
@@ -64,6 +67,7 @@ export default defineComponent({
     const { $message } = useInstance()
 
     const refForm = ref()
+    const refQuill = ref()
     const data = reactive({
       visible: false,
       loading: false,
@@ -83,18 +87,18 @@ export default defineComponent({
     }())
 
     const init = async (id) => {
-      data.visible = true
       data.loading = true
       data.form.id = id
       if (data.form.id) {
         const r = await infoApi(data.form.id)
         if (r) {
           data.form.subject = r.data.subject
-          data.form.content = r.data.json_key
+          data.form.content = r.data.content
           data.form.remark = r.data.remark
         }
       }
       nextTick(() => {
+        data.visible = true
         data.loading = false
       })
     }
@@ -108,7 +112,9 @@ export default defineComponent({
     const submit = () => {
       refForm.value.validate(async valid => {
         if (valid) {
-          const r = !data.form.id ? await addApi(data.form) : await editApi(data.form)
+          const params = { ...data.form }
+          params.content = refQuill.value.getEncodeHtml()
+          const r = !data.form.id ? await addApi(params) : await editApi(params)
           if (r) {
             data.visible = false
             $message({
@@ -133,6 +139,7 @@ export default defineComponent({
 
     return {
       refForm,
+      refQuill,
       ...toRefs(data),
       rules,
       init,

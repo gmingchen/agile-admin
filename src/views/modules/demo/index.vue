@@ -10,7 +10,13 @@
   <div class="demo">
     <gl-svg name="development" />
     <gl-button @click="test()" sort="save" />
-    <quill v-model="content" />
+    <quill ref="quill" v-model="content">
+      <template #toolbar>
+        <button>
+          <gl-svg name="development" />
+        </button>
+      </template>
+    </quill>
     {{ content }}
     <div v-html="content" />
     <p
@@ -22,7 +28,7 @@
 </template>
 
 <script>
-import { defineComponent, onBeforeMount, reactive, toRefs } from 'vue'
+import { defineComponent, onBeforeMount, reactive, toRefs, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Quill from '@/components/editor/quill/index.vue'
 
@@ -34,8 +40,10 @@ export default defineComponent({
     const data = reactive({
       content: '<h2>标题2</h2>'
     })
+    const quill = ref()
 
     const test = () => {
+      console.log(quill.value.getEncodeHtml())
       console.log('content', data.content)
     }
 
@@ -43,6 +51,7 @@ export default defineComponent({
       console.log('init')
     })
     return {
+      quill,
       router,
       ...toRefs(data),
       test

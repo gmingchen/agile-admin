@@ -9,7 +9,7 @@
 import { parseJson2Param, getApiBaseUrl } from '@/utils'
 import service from '@/utils/request'
 import store from '@/store'
-import { TOKEN_KEY } from '@/utils/constants'
+import { TOKEN_KEY, ContentType } from '@/utils/constants'
 
 const tokenVal = store.getters['user/tokenVal']
 
@@ -52,6 +52,23 @@ export function uploadApi(params) {
   result = `${ getApiBaseUrl() + url }`
   result += params ? `?${ parseJson2Param(params) }` : ''
   return result
+}
+
+/**
+ * @description: 上传
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function uploadAxiosApi(params) {
+  return service({
+    url: '/oss/file/upload',
+    method: 'post',
+    data: params,
+    headers: {
+      'Content-Type': ContentType.UPLOAD
+    }
+  })
 }
 
 /**
