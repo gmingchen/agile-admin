@@ -51,15 +51,12 @@
       <!-- 清除 -->
       <button class="ql-clean" />
     </div>
-    <div ref="refQuill">
-      <div v-html="content" />
-    </div>
-    {{content}}
+    <div ref="refQuill" />
   </div>
 </template>
 
 <script>
-import { defineComponent, onMounted, ref, reactive, toRefs, nextTick, computed } from 'vue'
+import { defineComponent, onMounted, ref, reactive, toRefs, nextTick, watch, onBeforeUnmount } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import * as Quill from 'quill'
 import 'quill/dist/quill.core.css'
@@ -77,17 +74,18 @@ export default defineComponent({
       type: [String, Number],
       default: '请输入...'
     },
-    readOnly: {
+    disabled: {
       type: Boolean,
       default: false
     }
   },
-  emits: [UPDATE_MODEL_EVENT],
+  emits: [UPDATE_MODEL_EVENT, 'input', 'change', 'blur', 'focus', 'ready'],
   setup(props, { emit }) {
     const refQuill = ref()
     const refToolbar = ref()
     const data = reactive({
       quill: null,
+      content: '',
       options: {
         debug: 'warn',
         theme: 'snow', // 主题 snow / bubble
@@ -102,12 +100,31 @@ export default defineComponent({
       }
     })
 
-    const content = computed({
-      get: () => {
-        return props.modelValue
-      },
-      set: (val) => {
-        emit(UPDATE_MODEL_EVENT, val)
+    /**
+     * 监听quill内容 更新绑定值
+     */
+    // watch(() => data.content, (newVal, _oldVal) => {
+    //   if (data.quill) {
+    //     console.log('888')
+    //     emit(UPDATE_MODEL_EVENT, newVal)
+    //   }
+    // })
+
+    /**
+     * 监听绑定值 更新quill 内容
+     */
+    watch(() => props.modelValue, (newVal, _oldVal) => {
+      if (data.quill) {
+        if (newVal !== data.content) {
+          console.log('-----')
+          data.quill.pasteHTML(newVal)
+        }
+      }
+    })
+
+    watch(() => props.disabled, (newVal, _oldVal) => {
+      if (data.quill) {
+        data.quill.enable(newVal)
       }
     })
 
@@ -117,7 +134,24 @@ export default defineComponent({
     const initOptions = () => {
       data.options.modules.toolbar.container = refToolbar.value
       data.options.placeholder = props.placeholder
-      data.options.readOnly = props.readOnly
+      data.options.readOnly = props.disabled
+    }
+
+    /**
+     * 设置响应参数
+     */
+    const getParams = () => {
+      let html = ''
+      if ('<p><br></p>' === data.quill.root.innerHTML) {
+        html = ''
+      } else {
+        html = delta2Html(data.quill.getContents())
+      }
+      const obj = {
+        html,
+        quill: data.quill
+      }
+      return obj
     }
 
     /**
@@ -126,16 +160,35 @@ export default defineComponent({
     const init = () => {
       initOptions()
       data.quill = new Quill(refQuill.value, data.options)
+
+      if (props.modelValue) {
+        data.quill.pasteHTML(props.modelValue)
+      }
+
       data.quill.on('text-change', () => {
-        content.value = delta2Html(data.quill.getContents())
+        const params = getParams()
+        data.content = params.html
+        emit('input', params)
+        emit('change', params)
       })
+
+      data.quill.on('selection-change', range => {
+        const params = getParams()
+        if (!range) {
+          emit('blur', params)
+        } else {
+          emit('focus', params)
+        }
+      })
+
+      emit('ready', data.quill)
     }
 
     /**
      * 对内容中的<, >, /, ', ", &个字符进行编码
      */
     const getEncodeHtml = () => {
-      return encodeURI(content.value)
+      return encodeURI(data.content)
     }
 
     onMounted(() => {
@@ -144,11 +197,15 @@ export default defineComponent({
       })
     })
 
+    onBeforeUnmount(() => {
+      data.quill = null
+      delete data.quill
+    })
+
     return {
       refQuill,
       refToolbar,
       ...toRefs(data),
-      content,
       getEncodeHtml
     }
   }
@@ -172,5 +229,4 @@ export default defineComponent({
     }
   }
 }
-
 </style>

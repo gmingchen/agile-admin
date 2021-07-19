@@ -31,6 +31,7 @@
           ref="refQuill"
           v-model="form.content"
           placeholder="输入邮件内容..." />
+        {{form.content}}
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input
@@ -74,19 +75,20 @@ export default defineComponent({
       form: {
         id: null,
         subject: '',
-        content: '',
+        content: '<p>标签</p>',
         remark: ''
       }
     })
 
     const rules = reactive(function() {
       return {
-        subject: [{ required: true, message: '请输入邮件标题', trigger: 'blur' }],
-        content: [{ required: true, message: '请输入邮件内容', trigger: 'blur' }]
+        subject: [{ required: true, message: '请输入邮件标题', trigger: 'blur' }]
+        // content: [{ required: true, message: '请输入邮件内容', trigger: 'blur' }]
       }
     }())
 
     const init = async (id) => {
+      data.visible = true
       data.loading = true
       data.form.id = id
       if (data.form.id) {
@@ -98,7 +100,6 @@ export default defineComponent({
         }
       }
       nextTick(() => {
-        data.visible = true
         data.loading = false
       })
     }
