@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref, reactive, toRefs, nextTick, watch, onBeforeUnmount } from 'vue'
+import { defineComponent, onMounted, ref, reactive, toRefs, nextTick, watch, onBeforeUnmount, computed } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import * as Quill from 'quill'
 import 'quill/dist/quill.core.css'
@@ -101,27 +101,28 @@ export default defineComponent({
     })
 
     /**
-     * 监听quill内容 更新绑定值
+     * 监听富文本内容 用于通知父组件更新
      */
-    // watch(() => data.content, (newVal, _oldVal) => {
-    //   if (data.quill) {
-    //     console.log('888')
-    //     emit(UPDATE_MODEL_EVENT, newVal)
-    //   }
-    // })
+    watch(() => data.content, (newVal, _oldVal) => {
+      if (data.quill) {
+        emit(UPDATE_MODEL_EVENT, newVal)
+      }
+    })
 
     /**
-     * 监听绑定值 更新quill 内容
+     * 监听传入的内容 主要用于首次渲染
      */
     watch(() => props.modelValue, (newVal, _oldVal) => {
       if (data.quill) {
         if (newVal !== data.content) {
-          console.log('-----')
-          data.quill.pasteHTML(newVal)
+          data.quill.root.innerHTML = newVal
         }
       }
     })
 
+    /**
+     * 监听传入是否可以编辑
+     */
     watch(() => props.disabled, (newVal, _oldVal) => {
       if (data.quill) {
         data.quill.enable(newVal)
@@ -160,10 +161,6 @@ export default defineComponent({
     const init = () => {
       initOptions()
       data.quill = new Quill(refQuill.value, data.options)
-
-      if (props.modelValue) {
-        data.quill.pasteHTML(props.modelValue)
-      }
 
       data.quill.on('text-change', () => {
         const params = getParams()

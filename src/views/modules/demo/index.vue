@@ -18,7 +18,7 @@
       </template>
     </quill>
     {{ content }}
-    <div v-html="content" />
+    <div v-html="content" :disabled="disabled" />
     <p
       v-for="item in 20"
       :key="item"
@@ -38,6 +38,7 @@ export default defineComponent({
     const router = useRouter()
 
     const data = reactive({
+      disabled: false,
       content: '<h2>标题2</h2>'
     })
     const quill = ref()
