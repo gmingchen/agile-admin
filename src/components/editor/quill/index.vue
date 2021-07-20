@@ -210,6 +210,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .quill-container{
   .toolbar {
+    line-height: 24px;
     svg {
       height: 22px!important;
     }
