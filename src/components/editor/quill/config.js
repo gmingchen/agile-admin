@@ -60,17 +60,30 @@ export const handlers = {
   }
 }
 
+export const options = {
+  debug: 'warn',
+  theme: 'snow', // 主题 snow / bubble
+  placeholder: '请输入...',
+  readOnly: false,
+  modules: {
+    toolbar: {
+      container: toolOptions,
+      handlers: handlers
+    }
+  }
+}
+
 /**
  * 获取html字符串
  */
 export const delta2Html = (delta) => {
-  const options = {
+  const deltaOptions = {
     inlineStyles: {
       align: (val) => {
         return `text-align: ${ val }`
       }
     }
   }
-  const html = new QuillDeltaToHtmlConverter(delta.ops, options).convert()
+  const html = new QuillDeltaToHtmlConverter(delta.ops, deltaOptions).convert()
   return html
 }

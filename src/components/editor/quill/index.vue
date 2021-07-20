@@ -56,13 +56,13 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref, reactive, toRefs, nextTick, watch, onBeforeUnmount, computed } from 'vue'
+import { defineComponent, onMounted, ref, reactive, toRefs, nextTick, watch, onBeforeUnmount } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import * as Quill from 'quill'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
-import { handlers, delta2Html } from './config'
+import { options as defaultOptions, delta2Html } from './config'
 
 export default defineComponent({
   props: {
@@ -77,6 +77,10 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       default: false
+    },
+    options: {
+      type: Object,
+      default: null
     }
   },
   emits: [UPDATE_MODEL_EVENT, 'input', 'change', 'blur', 'focus', 'ready'],
@@ -85,19 +89,8 @@ export default defineComponent({
     const refToolbar = ref()
     const data = reactive({
       quill: null,
-      content: '',
-      options: {
-        debug: 'warn',
-        theme: 'snow', // 主题 snow / bubble
-        placeholder: '请输入...',
-        readOnly: false,
-        modules: {
-          toolbar: {
-            container: null,
-            handlers: handlers
-          }
-        }
-      }
+      options: {},
+      content: ''
     })
 
     /**
@@ -133,8 +126,13 @@ export default defineComponent({
      * 初始化参数
      */
     const initOptions = () => {
-      data.options.modules.toolbar.container = refToolbar.value
-      data.options.placeholder = props.placeholder
+      data.options = props.options || defaultOptions
+      if (props.placeholder) {
+        data.options.placeholder = props.placeholder
+      }
+      if (!props.options) {
+        data.options.modules.toolbar.container = refToolbar.value
+      }
       data.options.readOnly = props.disabled
     }
 

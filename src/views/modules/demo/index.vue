@@ -18,7 +18,7 @@
       </template>
     </quill>
     {{ content }}
-    <div v-html="content" :disabled="disabled" />
+    <div v-html="content" :disabled="disabled" :options="{}" />
     <p
       v-for="item in 20"
       :key="item"
