@@ -23,6 +23,7 @@ const sort = {
   'config': '配置', // 配置
   'home': '首页', // 首页
   'backup': '备份', // 备份
+  'send': '发送邮件', // 发送邮件
   'clearDatabase': '清除数据库', // 清除数据库
   'batchDelete': '批量删除', // 批量删除
   'batchImplement': '批量立即执行', // 批量执行

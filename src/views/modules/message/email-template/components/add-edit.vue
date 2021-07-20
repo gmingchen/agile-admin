@@ -8,7 +8,7 @@
 -->
 <template>
   <el-dialog
-    width="500px"
+    width="800px"
     :title="!form.id ? '新增' : '编辑'"
     v-model="visible"
     :close-on-click-modal="false"
@@ -19,21 +19,26 @@
       v-loading="loading"
       ref="refForm"
       label-position="top">
-      <el-form-item label="Bean名称" prop="bean_name">
-        <el-input v-model="form.bean_name" placeholder="Bean名称" />
-      </el-form-item>
-      <el-form-item label="Cron表达式" prop="cron_expression">
-        <el-input v-model="form.cron_expression" placeholder="Cron表达式" />
-      </el-form-item>
-      <el-form-item label="参数" prop="params">
+      <el-form-item label="邮件标题" prop="subject">
         <el-input
-          v-model="form.params"
-          placeholder="参数"
-          type="textarea"
-          rows="4" />
+          v-model="form.subject"
+          placeholder="邮件标题"
+          maxlength="50"
+          show-word-limit />
+      </el-form-item>
+      <el-form-item label="邮件内容" prop="content">
+        <quill
+          ref="refQuill"
+          v-model="form.content"
+          placeholder="输入邮件内容..." />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
-        <el-input v-model="form.remark" placeholder="备注" type="textarea" />
+        <el-input
+          v-model="form.remark"
+          placeholder="备注"
+          type="textarea"
+          maxlength="100"
+          show-word-limit />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -52,31 +57,32 @@
 <script>
 import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import useInstance from '@/mixins/instance'
-import { addApi, editApi, infoApi } from '@/api/develop/task'
+import Quill from '@/components/editor/quill/index.vue'
+import { addApi, editApi, infoApi } from '@/api/message/email-template'
 
 export default defineComponent({
   emits: ['refresh'],
+  components: { Quill },
   setup(_props, { emit }) {
     const { $message } = useInstance()
 
     const refForm = ref()
+    const refQuill = ref()
     const data = reactive({
       visible: false,
       loading: false,
       form: {
         id: null,
-        bean_name: '',
-        cron_expression: '',
-        params: '',
-        remark: '',
-        status: 1
+        subject: '',
+        content: '',
+        remark: ''
       }
     })
 
     const rules = reactive(function() {
       return {
-        bean_name: [{ required: true, message: '请输入Bean名称', trigger: 'blur' }],
-        cron_expression: [{ required: true, message: '请输入Cron表达式', trigger: 'blur' }]
+        subject: [{ required: true, message: '请输入邮件标题', trigger: 'blur' }],
+        content: [{ required: true, message: '请输入邮件内容', trigger: 'blur' }]
       }
     }())
 
@@ -87,11 +93,9 @@ export default defineComponent({
       if (data.form.id) {
         const r = await infoApi(data.form.id)
         if (r) {
-          data.form.bean_name = r.data.bean_name
-          data.form.cron_expression = r.data.cron_expression
-          data.form.params = r.data.params
+          data.form.subject = r.data.subject
+          data.form.content = r.data.content
           data.form.remark = r.data.remark
-          data.form.status = r.data.status
         }
       }
       nextTick(() => {
@@ -109,6 +113,7 @@ export default defineComponent({
       refForm.value.validate(async valid => {
         if (valid) {
           const params = { ...data.form }
+          params.content = refQuill.value.getEncodeHtml()
           const r = !data.form.id ? await addApi(params) : await editApi(params)
           if (r) {
             data.visible = false
@@ -134,6 +139,7 @@ export default defineComponent({
 
     return {
       refForm,
+      refQuill,
       ...toRefs(data),
       rules,
       init,

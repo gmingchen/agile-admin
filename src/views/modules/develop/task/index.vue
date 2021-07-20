@@ -75,7 +75,8 @@
       <el-table-column
         align="center"
         label="参数"
-        prop="params" />
+        prop="params"
+        :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
         label="状态"

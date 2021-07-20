@@ -30,6 +30,17 @@ export function isURL(input) {
 }
 
 /**
+ * @description: 端口
+ * @param {*} input
+ * @return {*}
+ * @author: gumingchen
+ */
+export function isPort(input) {
+  const reg = /^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/
+  return reg.test(input)
+}
+
+/**
  * 手机号码
  * @param {*} input
  */
