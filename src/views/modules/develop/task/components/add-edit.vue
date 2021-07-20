@@ -18,7 +18,6 @@
       :rules="rules"
       v-loading="loading"
       ref="refForm"
-      @keyup.enter="submit()"
       label-position="top">
       <el-form-item label="Bean名称" prop="bean_name">
         <el-input v-model="form.bean_name" placeholder="Bean名称" />
@@ -27,7 +26,11 @@
         <el-input v-model="form.cron_expression" placeholder="Cron表达式" />
       </el-form-item>
       <el-form-item label="参数" prop="params">
-        <el-input v-model="form.params" placeholder="参数" />
+        <el-input
+          v-model="form.params"
+          placeholder="参数"
+          type="textarea"
+          rows="4" />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input v-model="form.remark" placeholder="备注" type="textarea" />
@@ -105,7 +108,8 @@ export default defineComponent({
     const submit = () => {
       refForm.value.validate(async valid => {
         if (valid) {
-          const r = !data.form.id ? await addApi(data.form) : await editApi(data.form)
+          const params = { ...data.form }
+          const r = !data.form.id ? await addApi(params) : await editApi(params)
           if (r) {
             data.visible = false
             $message({

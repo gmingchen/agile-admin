@@ -186,6 +186,15 @@ export default defineComponent({
       return encodeURI(data.content)
     }
 
+    /**
+     * 对内容中的<, >, /, ', ", &个字符进行编码
+     * 包括html文字
+     */
+    const getEncodeText = () => {
+      const text = data.quill.getText()
+      return encodeURI(text)
+    }
+
     onMounted(() => {
       nextTick(() => {
         init()
@@ -201,7 +210,8 @@ export default defineComponent({
       refQuill,
       refToolbar,
       ...toRefs(data),
-      getEncodeHtml
+      getEncodeHtml,
+      getEncodeText
     }
   }
 })
