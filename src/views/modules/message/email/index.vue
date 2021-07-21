@@ -10,6 +10,23 @@
   <div class="g-container">
     <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
       <el-form-item>
+        <el-input v-model="form.from_email" placeholder="发送邮箱" clearable />
+      </el-form-item>
+      <el-form-item>
+        <el-input v-model="form.to_email" placeholder="收件邮箱" clearable />
+      </el-form-item>
+      <el-form-item>
+        <el-date-picker
+          v-model="form.date"
+          type="daterange"
+          range-separator="-"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          clearable />
+      </el-form-item>
+      <el-form-item>
+        <gl-button sort="query" v-repeat @click="getList()" />
+        <gl-button sort="reset" v-repeat @click="clearJson(form), getList()" />
         <gl-button
           sort="send"
           v-permission="'backstage:email:create'"
@@ -108,6 +125,7 @@ import usePage from '@/mixins/page'
 import Page from '@/components/page/index.vue'
 import Send from './components/send.vue'
 
+import { clearJson, parseDate2Str } from '@/utils'
 import { delApi, pageApi } from '@/api/message/email'
 
 export default defineComponent({
@@ -122,8 +140,10 @@ export default defineComponent({
       loading: false,
       visible: false,
       form: {
-        type: '',
-        date: []
+        from_email: '',
+        to_email: '',
+        date: [],
+        status
       },
       list: [],
       selection: []
@@ -132,7 +152,10 @@ export default defineComponent({
     const getList = () => {
       data.loading = true
       const params = {
-        ...data.form,
+        from_email: data.form.from_email,
+        to_email: data.form.to_email,
+        start: data.form.date && data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
+        end: data.form.date && data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
         current: page.current,
         size: page.size
       }
@@ -227,7 +250,8 @@ export default defineComponent({
       sendHandle,
       delHandle,
       selectionHandle,
-      pageChangeHandle
+      pageChangeHandle,
+      clearJson
     }
   }
 })
