@@ -1,0 +1,196 @@
+<!--
+ * @Description:
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2021-04-21 22:52:19
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2021-05-28 22:18:35
+-->
+<template>
+  <div class="g-container">
+    <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
+      <el-form-item>
+        <el-input v-model="form.name" placeholder="表名" clearable />
+      </el-form-item>
+      <el-form-item>
+        <gl-button sort="query" v-repeat @click="getList()" />
+        <gl-button sort="reset" v-repeat @click="clearJson(form), getList()" />
+        <gl-button
+          sort="generate"
+          v-permission="'generator:table:create'"
+          type="danger"
+          @click="generateHandle()" />
+      </el-form-item>
+    </el-form>
+    <el-table
+      border
+      class="g-table"
+      element-loading-spinner="el-icon-loading"
+      v-loading="loading"
+      :data="list"
+      @selection-change="selectionHandle">
+      <el-table-column align="center" type="selection" width="50" />
+      <el-table-column
+        align="center"
+        type="index"
+        label="#"
+        width="80" />
+      <el-table-column
+        align="center"
+        label="名称"
+        prop="name"
+        min-width="120"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        align="center"
+        label="Engine"
+        prop="engine"
+        width="100"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        align="center"
+        label="Rows"
+        prop="row"
+        width="100"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        align="center"
+        label="编码集"
+        prop="collation"
+        width="150"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        align="center"
+        label="备注"
+        prop="comment"
+        min-width="150"
+        :show-overflow-tooltip="true" />
+      <el-table-column
+        align="center"
+        label="更新时间"
+        prop="updated_at"
+        width="160" />
+      <el-table-column
+        align="center"
+        label="创建时间"
+        prop="created_at"
+        width="160" />
+      <el-table-column
+        align="center"
+        label="操作"
+        width="80"
+        fixed="right">
+        <template v-slot="{ row }">
+          <gl-button
+            sort="generate"
+            v-permission="'generator:table:create'"
+            type="text"
+            size="small"
+            @click="generateHandle(row.name)" />
+        </template>
+      </el-table-column>
+    </el-table>
+    <page :page="page" @change="pageChangeHandle" />
+  </div>
+</template>
+
+<script>
+import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
+import usePage from '@/mixins/page'
+import Page from '@/components/page/index.vue'
+import { clearJson } from '@/utils'
+
+import { pageApi, generatorApi } from '@/api/develop/generator'
+
+export default defineComponent({
+  components: { Page },
+  setup() {
+    const refForm = ref()
+    const { page } = usePage()
+    const data = reactive({
+      loading: false,
+      visible: false,
+      form: {
+        name: ''
+      },
+      list: [],
+      selection: []
+    })
+
+    const getList = () => {
+      const params = {
+        name: data.form.username,
+        current: page.current,
+        size: page.size
+      }
+      data.loading = true
+      pageApi(params).then(r => {
+        if (r) {
+          data.list = r.data.list
+          page.total = r.data.total
+        }
+        nextTick(() => {
+          data.loading = false
+        })
+      })
+    }
+
+    const generateHandle = async (name) => {
+      const names = name ? [name] : data.selection.map(item => {
+        return item.name
+      })
+      const blob = await generatorApi(names)
+      if (blob) {
+        const href = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = href
+        a.download = 'code.zip'
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        window.URL.revokeObjectURL(href)
+      }
+    }
+
+    /**
+     * @description: table多选事件
+     * @param {*} val
+     * @return {*}
+     * @author: gumingchen
+     */
+    const selectionHandle = val => {
+      data.selection = val
+    }
+
+    /**
+     * @description: 分页变化事件
+     * @param {*}
+     * @return {*}
+     * @author: gumingchen
+     */
+    const pageChangeHandle = argPage => {
+      page.current = argPage.current
+      page.size = argPage.size
+      getList()
+    }
+
+    onBeforeMount(() => {
+      getList()
+    })
+
+    return {
+      refForm,
+      page,
+      ...toRefs(data),
+      getList,
+      generateHandle,
+      selectionHandle,
+      pageChangeHandle,
+      clearJson
+    }
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+</style>

@@ -110,6 +110,9 @@ service.interceptors.request.use(
  */
 service.interceptors.response.use(
   response => {
+    if (response.headers['content-type'] === 'application/octet-stream;charset=UTF-8') {
+      return response.data || null
+    }
     const { code, message } = response.data
     if (!SUCCESS_CODE.includes(code)) {
       codeHandle(code, message)

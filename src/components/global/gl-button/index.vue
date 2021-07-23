@@ -24,11 +24,13 @@ const sort = {
   'home': '首页', // 首页
   'backup': '备份', // 备份
   'send': '发送邮件', // 发送邮件
+  'generate': '生成', // 生成
   'clearDatabase': '清除数据库', // 清除数据库
   'batchDelete': '批量删除', // 批量删除
   'batchImplement': '批量立即执行', // 批量执行
   'batchRecovery': '批量恢复', // 批量恢复
-  'batchPause': '批量暂停' // 批量暂停
+  'batchPause': '批量暂停', // 批量暂停
+  'batchGenerate': '批量生成' // 批量生成
 }
 export default defineComponent({
   props: {
