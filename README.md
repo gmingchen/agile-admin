@@ -19,6 +19,7 @@
 
 [vue3-element-plus-admin](https://github.com/gmingchen/vue3-element-plus-admin) 是一个管理后台基础功能框架，基于 [vue3](https://github.com/vuejs/vue-next) 、 [element-plus](https://github.com/element-plus/element-plus) 和 [typescript](https://github.com/microsoft/TypeScript) 实现。内置了 i18n 国际化，动态路由，权限验证。
 
+- [开发文档](https://gmingchen.github.io/vue3-element-plus-admin-doc/)
 - [在线预览](https://gmingchen.github.io/vue3-element-plus-admin/index.html)
 
 **默认 master 分支默认使用 composition-api ，若需要 class 风格 + Typescript 请使用[class-style](https://github.com/1240235512/vue3/tree/class-style)分支，若需要 composition-api + Typescript + I18n 请使用[composition-api](https://github.com/1240235512/vue3/tree/composition-api)分支，若只需要 基础版本 请使用[base](https://github.com/1240235512/vue3/tree/base)分支，但它们不会和 master 保持同步更新**
