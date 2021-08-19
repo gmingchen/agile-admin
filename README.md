@@ -21,7 +21,8 @@
 
 - [开发文档](https://gmingchen.github.io/vue3-element-plus-admin-doc/)
 - [在线预览](https://gmingchen.github.io/vue3-element-plus-admin/index.html)
-- [在线预览(备用-服务器比较low，访问有点慢！)](http://49.234.210.243:9999/vue3-element-plus-admin/#/login)
+- [开发文档(备用-服务器比较low，访问有点慢！)](http://139.196.182.46:8805/docs/)
+- [在线预览(备用-服务器比较low，访问有点慢！)](http://139.196.182.46:8805)
 
 **默认 master 分支默认使用 composition-api ，若需要 class 风格 + Typescript 请使用[class-style](https://github.com/1240235512/vue3/tree/class-style)分支，若需要 composition-api + Typescript + I18n 请使用[composition-api](https://github.com/1240235512/vue3/tree/composition-api)分支，若只需要 基础版本 请使用[base](https://github.com/1240235512/vue3/tree/base)分支，但它们不会和 master 保持同步更新**
 
