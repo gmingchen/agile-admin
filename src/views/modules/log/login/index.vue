@@ -8,7 +8,7 @@
 -->
 <template>
   <div class="g-container">
-    <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
+    <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
       <el-form-item>
         <el-input v-model="form.username" placeholder="管理员帐号" clearable />
       </el-form-item>
@@ -25,8 +25,8 @@
           clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" v-repeat @click="getList()" />
-        <gl-button sort="reset" v-repeat @click="clearJson(form), getList()" />
+        <gl-button sort="query" v-repeat @click="reacquireHandle()" />
+        <gl-button sort="reset" v-repeat @click="clearJson(form), reacquireHandle()" />
         <gl-button
           sort="clear"
           v-permission="'backstage:log:login:truncate'"
@@ -144,6 +144,17 @@ export default defineComponent({
     }
 
     /**
+     * @description: 重新获取、重置 数据
+     * @param {*}
+     * @return {*}
+     * @author: gumingchen
+     */
+    const reacquireHandle = () => {
+      page.current = 1
+      getList()
+    }
+
+    /**
      * @description: 清除
      * @param {number} id
      * @return {*}
@@ -201,6 +212,7 @@ export default defineComponent({
       page,
       ...toRefs(data),
       getList,
+      reacquireHandle,
       truncateHandle,
       selectionHandle,
       pageChangeHandle,
