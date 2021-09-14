@@ -13,22 +13,14 @@
         <el-input v-model="form.key" placeholder="键" clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" v-repeat @click="reacquireHandle()" />
-        <gl-button
-          sort="reset"
-          v-repeat
-          @click="clearJson(form), reacquireHandle()" />
-        <gl-button
-          sort="add"
-          v-permission="'backstage:config:create'"
-          type="primary"
-          @click="addEditHandle()" />
-        <gl-button
-          sort="batchDelete"
+        <el-button v-repeat @click="reacquireHandle()">查询</el-button>
+        <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
+        <el-button v-permission="'backstage:config:create'" type="primary" @click="addEditHandle()">新增</el-button>
+        <el-button
           v-permission="'backstage:config:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0" />
+          :disabled="selection.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -86,25 +78,22 @@
         width="120"
         fixed="right">
         <template v-slot="{ row }">
-          <gl-button
+          <el-button
             v-if="row.status === 0"
-            sort="enable"
             v-permission="'backstage:config:status'"
             type="text"
             size="small"
-            @click="statusHandle(row)" />
-          <gl-button
-            sort="edit"
+            @click="statusHandle(row)">启用</el-button>
+          <el-button
             v-permission="'backstage:config:update'"
             type="text"
             size="small"
-            @click="addEditHandle(row.id)" />
-          <gl-button
-            sort="delete"
+            @click="addEditHandle(row.id)">编辑</el-button>
+          <el-button
             v-permission="'backstage:config:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)" />
+            @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -13,19 +13,14 @@
         <el-input v-model="form.name" placeholder="角色名称" clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" v-repeat @click="reacquireHandle()" />
-        <gl-button sort="reset" v-repeat @click="clearJson(form), reacquireHandle()" />
-        <gl-button
-          sort="add"
-          v-permission="'backstage:role:create'"
-          type="primary"
-          @click="addEditHandle()" />
-        <gl-button
-          sort="batchDelete"
+        <el-button v-repeat @click="reacquireHandle()">查询</el-button>
+        <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
+        <el-button v-permission="'backstage:role:create'" type="primary" @click="addEditHandle()">新增</el-button>
+        <el-button
           v-permission="'backstage:role:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0" />
+          :disabled="selection.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -60,18 +55,16 @@
         width="100"
         fixed="right">
         <template v-slot="{ row }">
-          <gl-button
-            sort="edit"
+          <el-button
             v-permission="'backstage:role:update'"
             type="text"
             size="small"
-            @click="addEditHandle(row.id)" />
-          <gl-button
-            sort="delete"
+            @click="addEditHandle(row.id)">编辑</el-button>
+          <el-button
             v-permission="'backstage:role:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)" />
+            @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

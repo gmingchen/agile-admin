@@ -42,12 +42,8 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <gl-button sort="cancel" @click="visible = false" />
-        <gl-button
-          sort="confirm"
-          v-repeat
-          type="primary"
-          @click="submit()" />
+        <el-button @click="visible = false">取消</el-button>
+        <el-button v-repeat type="primary" @click="submit()">确认</el-button>
       </span>
     </template>
   </el-dialog>

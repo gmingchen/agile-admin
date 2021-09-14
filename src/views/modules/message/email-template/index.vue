@@ -10,22 +10,13 @@
   <div class="g-container">
     <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
       <el-form-item>
-        <gl-button
-          sort="config"
-          v-permission="'backstage:config:update:value'"
-          type="primary"
-          @click="configHandle()" />
-        <gl-button
-          sort="add"
-          v-permission="'backstage:email:template:create'"
-          type="primary"
-          @click="addEditHandle()" />
-        <gl-button
-          sort="batchDelete"
+        <el-button v-permission="'backstage:config:update:value'" type="primary" @click="configHandle()">配置</el-button>
+        <el-button v-permission="'backstage:email:template:create'" type="primary" @click="addEditHandle()">新增</el-button>
+        <el-button
           v-permission="'backstage:email:template:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0" />
+          :disabled="selection.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -70,18 +61,16 @@
         width="190"
         fixed="right">
         <template v-slot="{ row }">
-          <gl-button
-            sort="edit"
+          <el-button
             v-permission="'backstage:email:template:update'"
             type="text"
             size="small"
-            @click="addEditHandle(row.id)" />
-          <gl-button
-            sort="delete"
+            @click="addEditHandle(row.id)">编辑</el-button>
+          <el-button
             v-permission="'backstage:email:template:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)" />
+            @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

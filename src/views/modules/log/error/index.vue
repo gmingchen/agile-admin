@@ -25,13 +25,9 @@
           clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" v-repeat @click="reacquireHandle()" />
-        <gl-button sort="reset" v-repeat @click="clearJson(form), reacquireHandle()" />
-        <gl-button
-          sort="clear"
-          v-permission="'backstage:log:operation:truncate'"
-          type="danger"
-          @click="truncateHandle()" />
+        <el-button v-repeat @click="reacquireHandle()">查询</el-button>
+        <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
+        <el-button v-permission="'backstage:log:operation:truncate'" type="danger" @click="truncateHandle()">清除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -103,11 +99,7 @@
         width="80"
         fixed="right">
         <template v-slot="{ row }">
-          <gl-button
-            sort="view"
-            type="text"
-            size="small"
-            @click="viewHandle(row.details)" />
+          <el-button type="text" size="small" @click="viewHandle(row.details)">查看</el-button>
         </template>
       </el-table-column>
     </el-table>

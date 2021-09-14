@@ -13,40 +13,29 @@
         <el-input v-model="form.bean_name" placeholder="Bean名称" clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" v-repeat @click="reacquireHandle()" />
-        <gl-button
-          sort="reset"
-          v-repeat
-          @click="clearJson(form), reacquireHandle()" />
-        <gl-button
-          sort="add"
-          v-permission="'quartz:schedule:task:create'"
-          type="primary"
-          @click="addEditHandle()" />
-        <gl-button
-          sort="batchImplement"
+        <el-button v-repeat @click="reacquireHandle()">查询</el-button>
+        <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
+        <el-button v-permission="'quartz:schedule:task:create'" type="primary" @click="addEditHandle()">新增</el-button>
+        <el-button
           v-permission="'quartz:schedule:task:run'"
           type="danger"
           @click="runHandle()"
-          :disabled="selection.length <= 0" />
-        <gl-button
-          sort="batchRecovery"
+          :disabled="selection.length <= 0">批量立即执行</el-button>
+        <el-button
           v-permission="'quartz:schedule:task:resume'"
           type="danger"
           @click="resumeHandle()"
-          :disabled="selection.length <= 0" />
-        <gl-button
-          sort="batchPause"
+          :disabled="selection.length <= 0">批量恢复</el-button>
+        <el-button
           v-permission="'quartz:schedule:task:pause'"
           type="danger"
           @click="pauseHandle()"
-          :disabled="selection.length <= 0" />
-        <gl-button
-          sort="batchDelete"
+          :disabled="selection.length <= 0">批量暂停</el-button>
+        <el-button
           v-permission="'quartz:schedule:task:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0" />
+          :disabled="selection.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -98,38 +87,33 @@
         width="240"
         fixed="right">
         <template v-slot="{ row }">
-          <gl-button
-            sort="edit"
+          <el-button
             v-permission="'quartz:schedule:task:update'"
             type="text"
             size="small"
-            @click="addEditHandle(row.id)" />
-          <gl-button
-            sort="implement"
+            @click="addEditHandle(row.id)">编辑</el-button>
+          <el-button
             v-permission="'quartz:schedule:task:run'"
             type="text"
             size="small"
-            @click="runHandle(row.id)" />
-          <gl-button
-            sort="recovery"
+            @click="runHandle(row.id)">立即执行</el-button>
+          <el-button
             v-if="row.status === 0"
             v-permission="'quartz:schedule:task:resume'"
             type="text"
             size="small"
-            @click="resumeHandle(row.id)" />
-          <gl-button
-            sort="pause"
+            @click="resumeHandle(row.id)">恢复</el-button>
+          <el-button
             v-if="row.status === 1"
             v-permission="'quartz:schedule:task:pause'"
             type="text"
             size="small"
-            @click="pauseHandle(row.id)" />
-          <gl-button
-            sort="delete"
+            @click="pauseHandle(row.id)">暂停</el-button>
+          <el-button
             v-permission="'quartz:schedule:task:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)" />
+            @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

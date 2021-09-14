@@ -22,13 +22,9 @@
           clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" v-repeat @click="reacquireHandle()" />
-        <gl-button sort="reset" v-repeat @click="clearJson(form), reacquireHandle()" />
-        <gl-button
-          sort="clear"
-          v-permission="'quartz:schedule:log:truncate'"
-          type="danger"
-          @click="truncateHandle()" />
+        <el-button v-repeat @click="reacquireHandle()">查询</el-button>
+        <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
+        <el-button v-permission="'quartz:schedule:log:truncate'" type="danger" @click="truncateHandle()">清除</el-button>
       </el-form-item>
     </el-form>
     <el-table

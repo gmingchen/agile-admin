@@ -13,13 +13,9 @@
         <el-input v-model="form.name" placeholder="表名" clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" v-repeat @click="reacquireHandle()" />
-        <gl-button sort="reset" v-repeat @click="clearJson(form), reacquireHandle()" />
-        <gl-button
-          sort="generate"
-          v-permission="'generator:table:create'"
-          type="danger"
-          @click="generateHandle()" />
+        <el-button v-repeat @click="reacquireHandle()">查询</el-button>
+        <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
+        <el-button v-permission="'generator:table:create'" type="danger" @click="generateHandle()">生成</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -81,12 +77,11 @@
         width="80"
         fixed="right">
         <template v-slot="{ row }">
-          <gl-button
-            sort="generate"
+          <el-button
             v-permission="'generator:table:create'"
             type="text"
             size="small"
-            @click="generateHandle(row.name)" />
+            @click="generateHandle(row.name)">生成</el-button>
         </template>
       </el-table-column>
     </el-table>

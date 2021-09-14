@@ -10,11 +10,7 @@
   <div class="g-container">
     <el-form ref="refForm" inline>
       <el-form-item>
-        <gl-button
-          sort="add"
-          v-permission="'backstage:menu:create'"
-          type="primary"
-          @click="addEditHandle()" />
+        <el-button v-permission="'backstage:menu:create'" type="primary" @click="addEditHandle()">新增</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -168,18 +164,16 @@
         width="100"
         fixed="right">
         <template v-slot="{ row }">
-          <gl-button
-            sort="edit"
+          <el-button
             v-permission="'backstage:menu:update'"
             type="text"
             size="small"
-            @click="addEditHandle(row.id)" />
-          <gl-button
-            sort="delete"
+            @click="addEditHandle(row.id)">编辑</el-button>
+          <el-button
             v-permission="'backstage:menu:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)" />
+            @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

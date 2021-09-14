@@ -10,11 +10,7 @@
   <div class="g-container">
     <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
       <el-form-item>
-        <gl-button
-          sort="config"
-          v-permission="'backstage:config:update:value'"
-          type="primary"
-          @click="configHandle()" />
+        <el-button v-permission="'backstage:config:update:value'" type="primary" @click="configHandle()">配置</el-button>
       </el-form-item>
       <el-form-item>
         <el-select v-model="form.type" placeholder="备份方式" clearable>
@@ -32,29 +28,16 @@
           clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" v-repeat @click="reacquireHandle()" />
-        <gl-button sort="reset" v-repeat @click="clearJson(form), reacquireHandle()" />
-        <gl-button
-          sort="backup"
-          v-permission="'backstage:backup:backup'"
-          type="primary"
-          @click="backupHandle()" />
-        <gl-button
-          sort="batchDelete"
+        <el-button v-repeat @click="reacquireHandle()">查询</el-button>
+        <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
+        <el-button v-permission="'backstage:backup:backup'" type="primary" @click="backupHandle()">备份</el-button>
+        <el-button
           v-permission="'backstage:backup:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0" />
-        <gl-button
-          sort="clear"
-          v-permission="'backstage:backup:clear'"
-          type="danger"
-          @click="clearHandle()" />
-        <gl-button
-          sort="clearDatabase"
-          v-permission="'backstage:backup:truncate'"
-          type="danger"
-          @click="truncateHandle()" />
+          :disabled="selection.length <= 0">批量删除</el-button>
+        <el-button v-permission="'backstage:backup:clear'" type="danger" @click="clearHandle()">清除</el-button>
+        <el-button v-permission="'backstage:backup:truncate'" type="danger" @click="truncateHandle()">清除数据库</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -121,24 +104,21 @@
         width="190"
         fixed="right">
         <template v-slot="{ row }">
-          <gl-button
-            sort="recovery"
+          <el-button
             v-permission="'backstage:backup:recovery'"
             type="text"
             size="small"
-            @click="recoveryHandle(row.id)" />
-          <gl-button
-            sort="download"
+            @click="recoveryHandle(row.id)">恢复</el-button>
+          <el-button
             v-permission="'backstage:backup:download'"
             type="text"
             size="small"
-            @click="downloadHandle(row.id)" />
-          <gl-button
-            sort="delete"
+            @click="downloadHandle(row.id)">下载</el-button>
+          <el-button
             v-permission="'backstage:backup:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)" />
+            @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

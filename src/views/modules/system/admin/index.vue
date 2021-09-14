@@ -16,19 +16,14 @@
         <el-input v-model="form.nickname" placeholder="昵称" clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" v-repeat @click="reacquireHandle()" />
-        <gl-button sort="reset" v-repeat @click="clearJson(form), reacquireHandle()" />
-        <gl-button
-          sort="add"
-          v-permission="'backstage:admin:create'"
-          type="primary"
-          @click="addEditHandle()" />
-        <gl-button
-          sort="batchDelete"
+        <el-button v-repeat @click="reacquireHandle()">查询</el-button>
+        <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
+        <el-button v-permission="'backstage:admin:create'" type="primary" @click="addEditHandle()">新增</el-button>
+        <el-button
           v-permission="'backstage:admin:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0" />
+          :disabled="selection.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -80,24 +75,23 @@
         width="150"
         fixed="right">
         <template v-slot="{ row }">
-          <gl-button
-            :sort="row.status === 1 ? 'disable' : 'enable'"
+          <el-button
             v-permission="'backstage:admin:status'"
             type="text"
             size="small"
-            @click="statusHandle(row)" />
-          <gl-button
-            sort="edit"
+            @click="statusHandle(row)">
+            {{row.status === 1 ? '禁用' : '启用'}}
+          </el-button>
+          <el-button
             v-permission="'backstage:admin:update'"
             type="text"
             size="small"
-            @click="addEditHandle(row.id)" />
-          <gl-button
-            sort="delete"
+            @click="addEditHandle(row.id)">编辑</el-button>
+          <el-button
             v-permission="'backstage:admin:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)" />
+            @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
