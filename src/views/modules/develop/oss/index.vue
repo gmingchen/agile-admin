@@ -10,11 +10,7 @@
   <div class="g-container">
     <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
       <el-form-item>
-        <gl-button
-          sort="config"
-          v-permission="'backstage:config:update:value'"
-          type="primary"
-          @click="configHandle()" />
+        <el-button v-permission="'backstage:config:update:value'" type="primary" @click="configHandle()">配置</el-button>
       </el-form-item>
       <el-form-item>
         <el-input v-model="form.extension" placeholder="扩展名称" clearable />
@@ -29,8 +25,8 @@
           clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" v-repeat @click="reacquireHandle()" />
-        <gl-button sort="reset" v-repeat @click="clearJson(form), reacquireHandle()" />
+        <el-button v-repeat @click="reacquireHandle()">查询</el-button>
+        <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
       </el-form-item>
       <el-form-item>
         <el-upload
@@ -41,21 +37,16 @@
             [TOKEN_KEY]: token
           }"
           :show-file-list="false">
-          <gl-button sort="upload" type="primary" />
+          <el-button type="primary">上传</el-button>
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <gl-button
-          sort="batchDelete"
+        <el-button
           v-permission="'oss:file:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0" />
-        <gl-button
-          sort="clear"
-          v-permission="'oss:file:clear'"
-          type="danger"
-          @click="clearHandle()" />
+          :disabled="selection.length <= 0">批量删除</el-button>
+        <el-button v-permission="'oss:file:clear'" type="danger" @click="clearHandle()">清除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -126,18 +117,16 @@
         width="130"
         fixed="right">
         <template v-slot="{ row }">
-          <gl-button
-            sort="download"
+          <el-button
             v-permission="'oss:file:download'"
             type="text"
             size="small"
-            @click="downloadHandle(row.id)" />
-          <gl-button
-            sort="delete"
+            @click="downloadHandle(row.id)">下载</el-button>
+          <el-button
             v-permission="'oss:file:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)" />
+            @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

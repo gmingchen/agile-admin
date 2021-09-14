@@ -25,19 +25,14 @@
           clearable />
       </el-form-item>
       <el-form-item>
-        <gl-button sort="query" v-repeat @click="reacquireHandle()" />
-        <gl-button sort="reset" v-repeat @click="clearJson(form), reacquireHandle()" />
-        <gl-button
-          sort="send"
-          v-permission="'backstage:email:create'"
-          type="primary"
-          @click="sendHandle()" />
-        <gl-button
-          sort="batchDelete"
+        <el-button v-repeat @click="reacquireHandle()">查询</el-button>
+        <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
+        <el-button v-permission="'backstage:email:create'" type="primary" @click="sendHandle()">发送邮件</el-button>
+        <el-button
           v-permission="'backstage:email:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0" />
+          :disabled="selection.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -104,12 +99,11 @@
         width="80"
         fixed="right">
         <template v-slot="{ row }">
-          <gl-button
-            sort="delete"
+          <el-button
             v-permission="'backstage:email:delete'"
             type="text"
             size="small"
-            @click="delHandle(row.id)" />
+            @click="delHandle(row.id)">delete</el-button>
         </template>
       </el-table-column>
     </el-table>

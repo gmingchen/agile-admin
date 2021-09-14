@@ -16,11 +16,10 @@
     <div class="details" v-html="details" />
     <template #footer>
       <span class="dialog-footer">
-        <gl-button
-          sort="confirm"
+        <el-button
           v-repeat
           type="primary"
-          @click="visible = false" />
+          @click="visible = false">确认</el-button>
       </span>
     </template>
   </el-dialog>

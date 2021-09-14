@@ -48,11 +48,7 @@
         </el-row>
       </el-form-item>
       <el-form-item>
-        <gl-button
-          sort="login"
-          class="login-btn"
-          type="primary"
-          @click="submit()" />
+        <el-button class="login-btn" type="primary" @click="submit()">登录</el-button>
       </el-form-item>
     </el-form>
   </el-card>

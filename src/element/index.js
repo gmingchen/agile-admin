@@ -152,7 +152,7 @@ const components = [
   ElIcon,
   ElImageViewer,
   ElImage,
-  ElInfiniteScroll,
+  // ElInfiniteScroll,
   ElInputNumber,
   ElInput,
   ElLink,

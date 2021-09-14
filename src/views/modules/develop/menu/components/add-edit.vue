@@ -60,7 +60,7 @@
           popper-class="popper-menu-add-edit"
           width="330px">
           <div class="icon-wrap">
-            <gl-button sort="clear" type="text" @click="form.icon = ''" />
+            <el-button type="text" @click="form.icon = ''">清除</el-button>
             <br>
             <el-button
               v-for="(item, index) in icons"
@@ -80,12 +80,8 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <gl-button sort="cancel" @click="visible = false" />
-        <gl-button
-          sort="confirm"
-          v-repeat
-          type="primary"
-          @click="submit()" />
+        <el-button @click="visible = false">取消</el-button>
+        <el-button v-repeat type="primary" @click="submit()">确认</el-button>
       </span>
     </template>
   </el-dialog>

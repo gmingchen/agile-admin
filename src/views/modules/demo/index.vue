@@ -9,7 +9,7 @@
 <template>
   <div class="demo">
     <gl-svg name="development" />
-    <gl-button @click="test()" sort="save" />
+    <el-button @click="test()">保存</el-button>
     <quill ref="quill" v-model="content">
       <template #toolbar>
         <button>
