@@ -10,8 +10,8 @@
   <el-container>
     <sidebar class="sidebar" />
     <div
-      class="main-wrap absolute_r-0"
-      :style="{ 'width': `calc(100% - ${ sidebar.width }px)`, 'transition-duration': '0.3s' }">
+      class="main-wrap"
+      :style="{ 'width': `calc(100% - ${ sidebar.width }px)` }">
       <el-scrollbar :height="dom.clientHeight + 'px'">
         <div :class="{ 'head-wrap': navbar.fixed }">
           <headbar class="headbar" :style="{ 'height': `${ navbar.headHeight }px` }" />
@@ -104,6 +104,7 @@ export default defineComponent({
   display: none;
 }
 .main-wrap {
+  flex: 1;
   background-color: white;
   .head-wrap {
     width: 100%;
