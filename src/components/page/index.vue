@@ -64,5 +64,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .page {
   text-align: center;
+  ::v-deep(.el-icon) {
+    margin: 0 auto;
+  }
 }
 </style>

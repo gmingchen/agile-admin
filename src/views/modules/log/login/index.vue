@@ -48,13 +48,13 @@
         align="center"
         label="管理员帐号"
         prop="username"
-        width="100"
+        min-width="100"
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
         label="状态"
         prop="status"
-        min-width="100"
+        width="80"
         :show-overflow-tooltip="true">
         <template v-slot="{ row }">
           <el-tag v-if="row.status === 1" type="success">成功</el-tag>
@@ -71,7 +71,7 @@
         align="center"
         label="IP地址"
         prop="ip"
-        width="120"
+        width="140"
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"

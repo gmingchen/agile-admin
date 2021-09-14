@@ -51,7 +51,7 @@
         align="center"
         label="管理员帐号"
         prop="username"
-        width="100"
+        min-width="100"
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
@@ -93,7 +93,7 @@
         align="center"
         label="IP地址"
         prop="ip"
-        width="120"
+        width="140"
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
