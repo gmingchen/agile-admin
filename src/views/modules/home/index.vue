@@ -8,6 +8,14 @@
       </ul>
     </el-card>
     <el-card class="card">
+      <div class="contact-box">
+        <div v-for="(item, index) in contactData" :key="index">
+          <p>{{item.label}}</p>
+          <el-image class="contact-img" :src="item.url" :preview-src-list="[item.url]" />
+        </div>
+      </div>
+    </el-card>
+    <el-card class="card">
       <template #header>
         <div class="card-header">
           <span>Web</span>
@@ -73,6 +81,24 @@ import { defineComponent, reactive } from 'vue'
 
 export default defineComponent({
   setup() {
+    const contactData = reactive([
+      {
+        label: '公众号',
+        url: 'http://qzgxlft3n.hd-bkt.clouddn.com/official-account-qr-code.jpg'
+      },
+      {
+        label: 'QQ讨论群',
+        url: 'http://qzgxlft3n.hd-bkt.clouddn.com/qq-group-qr-code.jpg'
+      },
+      {
+        label: '微信',
+        url: 'http://qzgxlft3n.hd-bkt.clouddn.com/wechat-qr-code-1.jpg'
+      },
+      {
+        label: 'QQ',
+        url: 'http://qzgxlft3n.hd-bkt.clouddn.com/qq-qr-code.jpg'
+      }
+    ])
     const wabData = reactive([
       [
         { key: 'vue', val: '^3.1.2' },
@@ -123,6 +149,7 @@ export default defineComponent({
       ]
     ])
     return {
+      contactData,
       wabData,
       javaData
     }
@@ -133,5 +160,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 .card + .card {
   margin-top: 20px;
+}
+.contact-box {
+  display: flex;
+  div {
+    flex: 1;
+    text-align: center;
+    .contact-img {
+      height: 200px;
+    }
+  }
 }
 </style>
