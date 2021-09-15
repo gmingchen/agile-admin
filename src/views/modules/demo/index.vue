@@ -8,54 +8,70 @@
 -->
 <template>
   <div class="demo">
-    <gl-svg name="development" />
-    <el-button @click="test()">保存</el-button>
-    <quill ref="quill" v-model="content">
-      <template #toolbar>
-        <button>
-          <gl-svg name="development" />
-        </button>
-      </template>
-    </quill>
-    {{ content }}
-    <div v-html="content" :disabled="disabled" :options="{}" />
-    <p
-      v-for="item in 20"
-      :key="item"
-      @click="router.push({ name: 'demo', query: { id: item } })"
-      :class="`ddd margin_t-${item} ellipse-${item} relative-${item}`">p-{{item}}</p>
+    <div>
+      <el-card class="card">
+        <div class="echart" ref="refWeek" />
+      </el-card>
+    </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, onBeforeMount, reactive, toRefs, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import Quill from '@/components/editor/quill/index.vue'
+import { defineComponent, onMounted, reactive, toRefs, ref, nextTick } from 'vue'
+import * as echarts from 'echarts'
+import { weeklyVisitsApi } from '@/api/demo'
 
 export default defineComponent({
-  components: { Quill },
   setup() {
-    const router = useRouter()
+    const refWeek = ref()
 
     const data = reactive({
       disabled: false,
-      content: '<h2>标题2</h2>'
+      weekChart: null,
+      weekOption: {
+        title: {
+          text: '最近一周访问量',
+          left: 'center'
+        },
+        tooltip: {
+          show: true,
+          trigger: 'item'
+        },
+        xAxis: {
+          type: 'category',
+          data: []
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            data: [],
+            type: 'line',
+            smooth: true
+          }
+        ]
+      }
     })
-    const quill = ref()
 
-    const test = () => {
-      console.log(quill.value.getEncodeHtml())
-      console.log('content', data.content)
+    const init = async () => {
+      const r = await weeklyVisitsApi()
+      if (r) {
+        data.weekOption.xAxis.data = r.data.map(item => item.date)
+        data.weekOption.series[0].data = r.data.map(item => item.count)
+      }
+      data.weekChart = echarts.init(refWeek.value)
+      data.weekChart.setOption(data.weekOption)
     }
 
-    onBeforeMount(() => {
-      console.log('init')
+    onMounted(() => {
+      nextTick(() => {
+        init()
+      })
     })
     return {
-      quill,
-      router,
-      ...toRefs(data),
-      test
+      refWeek,
+      ...toRefs(data)
     }
   }
 })
@@ -64,6 +80,28 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/assets/sass/_mixin.scss';
 .demo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   width: 100%;
+  & > div {
+    flex: 1;
+    height: 500px;
+    padding: 0 20px 10px 20px;
+    text-align: center;
+    min-width: 500px;
+    .card {
+      height: 100%;
+      width: 100%;
+      ::v-deep(.el-card__body) {
+        height: 100%;
+        width: 100%;
+      }
+      .echart {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
 }
 </style>

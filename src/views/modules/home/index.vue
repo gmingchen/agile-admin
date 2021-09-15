@@ -130,7 +130,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="scss" scoped>
 .card + .card {
   margin-top: 20px;
 }
