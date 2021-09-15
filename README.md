@@ -137,12 +137,24 @@ npm run build:test  # 测试环境
 ### 联系方式
 
 <table>
+  <tr align="center">
+    <td>公众号</td>
+    <td>QQ交流群</td>
+    <td>微信</td>
+    <td>QQ</td>
+  </tr>
   <tr>
     <td>
-      <img src="https://gmingchen.github.io/vue3-element-plus-admin/wechat.jpg" width="200px" title="微信" alt="WeChat:Gy1240235512" />
+      <img src="http://qzgxlft3n.hd-bkt.clouddn.com/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
     </td>
     <td>
-      <img src="https://gmingchen.github.io/vue3-element-plus-admin/qicq.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
+      <img src="http://qzgxlft3n.hd-bkt.clouddn.com/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
+    </td>
+    <td>
+      <img src="http://qzgxlft3n.hd-bkt.clouddn.com/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
+    </td>
+    <td>
+      <img src="http://qzgxlft3n.hd-bkt.clouddn.com/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
     </td>
   </tr>
 </table>
