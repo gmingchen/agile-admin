@@ -145,16 +145,22 @@ npm run build:test  # 测试环境
   </tr>
   <tr>
     <td>
-      <img src="http://qzgxlft3n.hd-bkt.clouddn.com/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
+      <img src="http://139.196.182.46:8800/material/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
     </td>
     <td>
-      <img src="http://qzgxlft3n.hd-bkt.clouddn.com/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
+      <img src="http://139.196.182.46:8800/material/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
     </td>
     <td>
-      <img src="http://qzgxlft3n.hd-bkt.clouddn.com/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
+      <img src="http://139.196.182.46:8800/material/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
     </td>
     <td>
-      <img src="http://qzgxlft3n.hd-bkt.clouddn.com/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
+      <img src="http://139.196.182.46:8800/material/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
     </td>
   </tr>
 </table>
+
+### 其它开源项目
+
+[im-vue](https://github.com/gmingchen/im-vue)
+
+是一个管理后台基础功能框架，基于 [vue3](https://github.com/vuejs/vue-next) 、 [element-plus](https://github.com/element-plus/element-plus) 实现。内置了好友私聊功能。
