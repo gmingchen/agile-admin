@@ -29,7 +29,7 @@ const proxy = {
 
 module.exports = {
   publicPath: './', // 部署应用时的基本URL.
-  outputDir: 'dist', // build时构建文件的目录,构建时传入 --no-clean 可关闭该行为.
+  outputDir: 'frame', // build时构建文件的目录,构建时传入 --no-clean 可关闭该行为.
   assetsDir: 'static', // build时放置生成的静态资源(js、css、img、fonts)的(相对于 outputDir 的)目录.
   indexPath: 'index.html', // 指定生成的index.html的输出路径(相对于 outputDir),也可以是一个绝对路径.
   filenameHashing: true, // 默认在生成的静态资源文件名中包含hash以控制缓存.
