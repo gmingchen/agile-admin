@@ -1,0 +1,22 @@
+// 顺时针选择 360
+@keyframes rotateAlong360 {
+  100% {
+      transform: rotate(360deg);
+  }
+}
+// 逆时针选择 360
+@keyframes rotateAgainst360 {
+  100% {
+      transform: rotate(-360deg);
+  }
+}
+
+// 旋转
+@keyframes rotate {
+  from {
+      transform: rotate(0deg)
+  }
+  to {
+      transform: rotate(360deg)
+  }
+}

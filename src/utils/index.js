@@ -1,13 +1,5 @@
-/*
- * @Description: 工具类
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2021-01-19 14:41:18
- * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 17:32:53
- */
 import store from '@/store'
-import { MAPPING } from './constants'
+import { MAPPING } from '@/utils/constant'
 
 /**
  * @description: 生成UUID
@@ -17,7 +9,7 @@ import { MAPPING } from './constants'
  */
 export function getUUID() {
   let result = ''
-  const str = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+  const str = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
   result = str.replace(/[xy]/gu, c => {
     const r = (Math.random() * 16) | 0
     const v = c === 'x' ? r : (r & 0x3) | 0x8

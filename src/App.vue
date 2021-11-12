@@ -1,40 +1,32 @@
-<!--
- * @Description:
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2021-04-29 17:23:32
- * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-29 18:12:40
--->
 <template>
   <el-config-provider :locale="locale">
+    <div>
+      <el-button type="primary" v-for="item in 50" :key="item">{{item}}</el-button>
+      <el-icon><aim /></el-icon>
+    </div>
     <router-view />
   </el-config-provider>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import { ElConfigProvider } from 'element-plus'
+import { defineComponent } from 'vue'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+
 export default defineComponent({
-  components: {
-    [ElConfigProvider.name]: ElConfigProvider
-  },
   setup() {
-    const locale = ref(zhCn)
     return {
-      locale
+      locale: zhCn
     }
   }
 })
 </script>
 
 <style lang="scss">
-@import '@/assets/sass/_variable.scss';
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: nth($fontColor, 1);
+  height: 100%;
+  color: #2c3e50;
 }
 </style>

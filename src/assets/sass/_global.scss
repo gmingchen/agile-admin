@@ -1,4 +1,4 @@
-@import "mixin";
+@import "variable";
 /**
  * todo: n->none    没有
  * todo: t->top     上
@@ -11,6 +11,10 @@
 // 怪异盒子模型
 * { box-sizing: border-box; }
 
+html, body {
+  height: 100%;
+}
+
 // 通用ul li
 ul {
   margin: 0;
@@ -21,10 +25,31 @@ ul {
 }
 
 // todo: 后期若没有那么多可以改为 @each
+// 高度 宽度
+.height-full {
+  width: 100%;
+}
+.width-full {
+  width: 100%;
+}
+@for $i from 1 through 1000 {
+  .height-#{$i} {
+    height: #{$i}px;
+  }
+  .width-#{$i} {
+    width: #{$i}px;
+  }
+}
 // 字体大小
 @for $i from 12 through 60 {
-  .font_s-#{$i} {
+  .font-size-#{$i} {
     font-size: #{$i}px;
+  }
+}
+// 居中方式
+@each $var in left, center, right {
+  .text-align-#{$var} {
+    text-align: #{$var};
   }
 }
 // 外边框
@@ -87,62 +112,94 @@ ul {
     -webkit-line-clamp: #{$i};
   }
 }
-// 定位
-.relative {
-  position: relative;
-}
-.absolute {
-  position: absolute;
-}
-@for $i from 1 through 200 {
-  .relative_t-#{$i} {
-    @extend .relative;
-    top: #{$i}px;
+
+// todo: flex 布局
+$directions: row, row-reverse,  column, column-reverse;
+$wraps: nowrap, wrap, wrap-reverse;
+$justifyContents: flex-start, flex-end, center, space-between, space-around;
+$alignItems: flex-start, flex-end, center, baseline, stretch;
+$alignContents: flex-start, flex-end, center, space-between, space-around, stretch;
+
+$alignSelfs: auto, flex-start, flex-end, center, baseline, stretch;
+
+.flex {
+  // todo: 容器属性
+  &-box {
+    display: flex;
+    display: -webkit-flex; /* Safari */
   }
-  .relative_r-#{$i} {
-    @extend .relative;
-    right: #{$i}px;
+  // flex-direction
+  &_d {
+    @each $var in $directions {
+      &-#{$var} {
+        flex-direction: #{$var};
+      }
+    }
   }
-  .relative_b-#{$i} {
-    @extend .relative;
-    bottom: #{$i}px;
+  // flex-wrap
+  &_w {
+    @each $var in $wraps {
+      &-#{$var} {
+        flex-wrap: #{$var};
+      }
+    }
   }
-  .relative_l-#{$i} {
-    @extend .relative;
-    left: #{$i}px;
+  // justify-content
+  &_j_c {
+    @each $var in $justifyContents {
+      &-#{$var} {
+        justify-content: #{$var};
+      }
+    }
   }
-  .relative-#{$i} {
-    @extend .relative_t-#{$i}, .relative_r-#{$i}, .relative_b-#{$i}, .relative_l-#{$i};
+  // align-items
+  &_a_i {
+    @each $var in $alignItems {
+      &-#{$var} {
+        align-items: #{$var};
+      }
+    }
   }
-  .relative-#{$i}-n {
-    @extend .relative_t-#{$i}, .relative_b-#{$i};
+  // align-content
+  &_a_c {
+    @each $var in $alignContents {
+      &-#{$var} {
+        align-content: #{$var};
+      }
+    }
   }
-  .relative-n-#{$i} {
-    @extend .relative_l-#{$i}, .relative_r-#{$i};
-  }
-  .absolute_t-#{$i} {
-    @extend .absolute;
-    top: #{$i}px;
-  }
-  .absolute_r-#{$i} {
-    @extend .absolute;
-    right: #{$i}px;
-  }
-  .absolute_b-#{$i} {
-    @extend .absolute;
-    bottom: #{$i}px;
-  }
-  .absolute_l-#{$i} {
-    @extend .absolute;
-    left: #{$i}px;
-  }
-  .absolute-#{$i} {
-    @extend .absolute_t-#{$i}, .absolute_r-#{$i}, .absolute_b-#{$i}, .absolute_l-#{$i};
-  }
-  .absolute-#{$i}-n {
-    @extend .absolute_t-#{$i}, .absolute_b-#{$i};
-  }
-  .absolute-n-#{$i} {
-    @extend .absolute_l-#{$i}, .absolute_r-#{$i};
+  // todo: 子元素属性
+  &-item {
+    // order
+    @for $i from -20 to 20 {
+      &_o-#{$i} {
+        order: #{$i};
+      }
+    }
+    // flex: flex-grow flex-shrink flex-basis
+    &_f-a {
+      flex: auto;
+    }
+    &_f-n {
+      flex: none;
+    }
+    @for $i from 0 to 10 {
+      &_f-#{$i} {
+        flex: #{$i};
+      }
+      // @for $j from 1 to 10 {
+      //   @for $k from 1 to 10 {
+      //     &_f-#{$i}-#{$j}-#{$k} {
+      //       flex: #{&i} #{&j} #{&k};
+      //     }
+      //   }
+      // }
+    }
+    // align-self
+    @each $var in $alignSelfs {
+      &_a_s-#{$var} {
+        align-self: #{$var};
+      }
+    }
   }
 }

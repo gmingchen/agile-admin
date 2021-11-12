@@ -48,7 +48,7 @@ module.exports = {
     'no-caller': 1, // 禁用 arguments.caller 或 arguments.callee
     'no-empty-function': 1, // 禁止出现空函数
     'no-extend-native': 1, // 禁止扩展原生类型
-    'no-fallthrough': [1, { 'commentPattern': 'break[\\s\\w]*omitted' }], // 禁止 case 语句落空
+    'no-fallthrough': [0, { 'commentPattern': 'break[\\s\\w]*omitted' }], // 禁止 case 语句落空
     'no-floating-decimal': 1, // 禁止数字字面量中使用前导和末尾小数点
     'no-labels': [1, { 'allowLoop': false, 'allowSwitch': false }], // 禁用标签语句
     'no-lone-blocks': 1, // 禁用不必要的嵌套块
@@ -73,7 +73,7 @@ module.exports = {
     'no-undefined': 1, // 禁止将 undefined 作为标识符
     'no-unused-vars': [0, { 'vars': 'all', /* 'varsIgnorePattern': '[iI]gnored', */ 'args': 'none', 'argsIgnorePattern': '^_' }], // 未使用过的变量 用下划线开头
     'no-use-before-define': 1, // 禁止在变量定义之前使用它们
-    'global-require': 1, // 要求 require() 出现在顶层模块作用域中
+    'global-require': 0, // 要求 require() 出现在顶层模块作用域中
     'handle-callback-err': [1, '^(err|error)$'], // 要求回调函数中有容错处理
     'no-new-require': 1, // 禁止调用 require 时使用 new 操作符
     'no-path-concat': 1, // 禁止对 __dirname 和 __filename 进行字符串连接

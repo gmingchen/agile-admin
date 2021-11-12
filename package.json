@@ -12,34 +12,31 @@
     "lint-fix": "eslint --fix --ext .js --ext --ext .vue src/*"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "@element-plus/icons": "0.0.11",
+    "axios": "^0.24.0",
     "core-js": "^3.6.5",
-    "element-plus": "^1.0.2-beta.71",
-    "js-cookie": "^3.0.0-rc.1",
-    "lodash": "^4.17.21",
-    "nprogress": "^0.2.0",
-    "quill": "^1.3.7",
-    "quill-delta-to-html": "^0.12.0",
-    "screenfull": "^5.1.0",
-    "svg-sprite-loader": "^6.0.8",
-    "vue": "^3.2.11",
-    "vue-router": "^4.0.10",
-    "vuex": "^4.0.2"
+    "element-plus": "^1.2.0-beta.3",
+    "js-cookie": "^3.0.1",
+    "register-service-worker": "^1.7.1",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.0-0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "7.14.7",
+    "@babel/eslint-parser": "^7.16.3",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
-    "babel-plugin-component": "^1.1.1",
-    "echarts": "^5.2.0",
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0",
-    "sass": "^1.35.1",
+    "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
-    "webpack-bundle-analyzer": "^4.4.2"
+    "unplugin-vue-components": "^0.17.2",
+    "webpack-bundle-analyzer": "^4.5.0"
   }
 }

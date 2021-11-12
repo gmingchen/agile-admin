@@ -1,26 +1,18 @@
-/*
- * @Description:
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2021-04-29 17:23:32
- * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-30 17:07:55
- */
 import { createApp } from 'vue'
-import App from '@/App.vue'
-import Router from '@/router'
-import Store from '@/store'
-import Element from '@/element'
-import Components from '@/components/global/index'
-import Directive from '@/directive'
-import '@/assets/icon' // svg 图标引入
+import App from './App.vue'
+import './registerServiceWorker'
+import router from './router'
+import store from './store'
 import '@/assets/sass/index.scss'
+import * as ElIconModules from '@element-plus/icons'
 
 const app = createApp(App)
 
-app.use(Store)
-  .use(Router)
-  .use(Element)
-  .use(Components)
-  .use(Directive)
-  .mount('#app')
+// element 全局配置
+app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
+// 全局注册 element icon
+for (const iconName in ElIconModules) {
+  app.component(`${ iconName }`, ElIconModules[iconName])
+}
+
+app.use(router).use(store).mount('#app')

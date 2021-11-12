@@ -1,18 +1,10 @@
-/*
- * @Description: axios二次封装
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2020-12-21 16:45:49
- * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-26 21:12:19
- */
 'use strict'
 import axios from 'axios'
 import qs from 'qs'
 import router from '@/router'
 import store from '@/store'
 import { ElMessage } from 'element-plus'
-import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, TOKEN_KEY, ContentType } from './constants'
+import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, TOKEN_KEY, ContentType } from '@/utils/constant'
 import { getApiBaseUrl } from '@/utils'
 
 /**

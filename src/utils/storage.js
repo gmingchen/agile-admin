@@ -7,7 +7,8 @@
  * @LastEditTime: 2021-04-30 14:01:54
  */
 import cookie from 'js-cookie'
-import { IS_GET_MENU_KEY, MENU_KEY, MENU_STORAGE, PERMISSION_KEY, TOKEN_KEY, TOKEN_STORAGE, StorageType } from '@/utils/constants'
+import { IS_GET_MENU_KEY, MENU_KEY, MENU_STORAGE, PERMISSION_KEY, TOKEN_KEY, TOKEN_STORAGE } from '@/utils/constant'
+import { StorageType } from '@/utils/dictionary'
 
 /**
  * @description: token-存储、获取、清除

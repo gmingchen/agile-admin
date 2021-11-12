@@ -1,11 +1,3 @@
-/*
- * @Description:
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2021-04-27 09:26:25
- * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-08 11:47:46
- */
 import { nextTick } from 'vue'
 import { isAuth } from '@/utils'
 

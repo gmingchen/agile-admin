@@ -1,75 +1,94 @@
-/*
- * @Description:
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2021-01-18 11:07:38
- * @LastEditors: gumingchen
- * @LastEditTime: 2021-02-26 10:46:35
- */
 const path = require('path')
+const UnpluginVueComponentsWebpack = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
-
-const port = process.env.VUE_APP_PORT || 95830 // dev port
-
-const proxy = {
-  '/proxy': {
-    target: 'http://localhost:8888',
-    secure: true,
-    changeOrigin: true,
-    pathRewrite: {
-      '^/proxy': '/'
-    }
-  }
-}
-
 module.exports = {
-  publicPath: './', // 部署应用时的基本URL.
-  outputDir: 'frame', // build时构建文件的目录,构建时传入 --no-clean 可关闭该行为.
-  assetsDir: 'static', // build时放置生成的静态资源(js、css、img、fonts)的(相对于 outputDir 的)目录.
-  indexPath: 'index.html', // 指定生成的index.html的输出路径(相对于 outputDir),也可以是一个绝对路径.
-  filenameHashing: true, // 默认在生成的静态资源文件名中包含hash以控制缓存.
-  lintOnSave: process.env.NODE_ENV !== 'production', // 是否在开发环境下通过eslint-loader在每次保存时lint代码(在生产构建时禁用 eslint-loader).
-  runtimeCompiler: false, // 是否使用包含运行时编译器的Vue构建版本.
-  transpileDependencies: [], // Babel显式转译列表.
-  productionSourceMap: process.env.NODE_ENV !== 'production', // 如果你不需要生产环境的source map,可以将其设置为 false 以加速生产环境构建.
-  crossorigin: '', // 设置生成的HTML中<link rel="stylesheet">和<script>标签的crossorigin属性(注:仅影响构建时注入的标签).
-  integrity: false, // 在生成的HTML中的<link rel="stylesheet">和<script>标签上启用Subresource Integrity(SRI).
+  // 部署应用时的基本路径.
+  publicPath: './',
+  // build时构建文件的目录,构建时传入 --no-clean 可关闭该行为.
+  outputDir: 'dist',
+  // build时放置生成的静态资源(js、css、img、fonts)的(相对于 outputDir 的)目录.
+  assetsDir: 'static',
+  // 指定生成的index.html的输出路径(相对于 outputDir ),也可以是一个绝对路径.
+  indexPath: 'index.html',
+  // 默认在生成的静态资源文件名中包含hash以控制缓存.
+  filenameHashing: true,
+  // 是否在开发环境下通过eslint-loader在每次保存时lint代码(在生产构建时禁用 eslint-loader).
+  lintOnSave: process.env.NODE_ENV !== 'production',
+  // 是否使用包含运行时编译器的Vue构建版本.
+  runtimeCompiler: false,
+  // Babel显式转译列表.
+  transpileDependencies: [],
+  // 如果你不需要生产环境的source map,可以将其设置为 false 以加速生产环境构建.
+  productionSourceMap: process.env.NODE_ENV !== 'production',
+  // 设置类型是Sring，设置生成的 HTML 中 <link rel="stylesheet"> 和 <script> 标签的 crossorigin 属性(仅影响构建时注入的标签).
+  crossorigin: '',
+  // 在生成的HTML中的<link rel="stylesheet">和<script>标签上启用Subresource Integrity(SRI).
+  integrity: false,
+  // 所有webpack-dev-server的选项都支持.
   devServer: {
-    // 所有webpack-dev-server的选项都支持.
-    proxy: process.env.NODE_ENV.VUE_APP_PROXY === 'false' ? null : proxy,
-    port: port // 端口
+    // 是否自动打开浏览器.
+    open: false,
+    // 局域网和本地访问.
+    host: '0.0.0.0',
+    // 端口.
+    port: process.env.VUE_APP_PORT || 95830,
+    // 代理.
+    proxy: process.env.NODE_ENV.VUE_APP_PROXY === 'false' ? null
+      : {
+        '/proxy': {
+          // 目标代理服务器地址.
+          target: 'http://localhost:8888',
+          // 是否允许跨域.
+          changeOrigin: true,
+          secure: true,
+          pathRewrite: {
+            '^/proxy': '/'
+          }
+        }
+      }
   },
+  // css相关配置.
   css: {
-    // requireModuleExtension: false,                                                  // 当为true时,css文件名可省略module默认为false.
-    extract: false, // 默认生产环境下是true,开发环境下是false.
-    sourceMap: false // 是否为CSS开启source map.设置为true之后可能会影响构建的性能.
-    // loaderOptions: {                                                                // 向CSS相关的loader传递选项(支持:css-loader postcss-loader sass-loader less-loader stylus-loader).
-    //   sass: {
-    //     prependData: `@import '~@/assets/@/assets/sass/index.scss';` // 引入全局scss全局样式
-    //   }
-    // }
+    // css文件名是否可省略module,默认为false.
+    // requireModuleExtension: false,
+    // 是否使用css分离插件 默认生产环境下是true, 开发环境下是false.
+    extract: false,
+    // 是否为CSS开启source map.设置为true之后可能会影响构建的性能.
+    sourceMap: false
+    // 向CSS相关的loader传递选项(支持:css-loader postcss-loader sass-loader less-loader stylus-loader).
+    /* loaderOptions: {
+      sass: {
+        // 引入全局scss全局样式
+        prependData: `@import '~@/assets/sass/element.scss';`
+      }
+    } */
   },
-  // 如果这个值是一个对象,则会通过 webpack-merge 合并到最终的配置中.
-  // 如果你需要基于环境有条件地配置行为,或者想要直接修改配置,那就换成一个函数(该函数会在环境变量被设置之后懒执行).该方法的第一个参数会收到已经解析好的配置.在函数内,你可以直接修改配置,或者返回一个将会被合并的对象.
-  configureWebpack: config => {
-    config.externals = {
-      L2Dwidget: 'L2Dwidget'
-    }
-    if (process.env.NODE_ENV === 'production') {
-      // config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
-      // config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs = [
-      //   'console.log'
-      // ]
-    }
-    config.performance = {
-      // hints: 'warning',                                                              // 警告 webpack 的性能提示
-      // maxEntrypointSize: 50000000,                                                   // 入口起点的最大体积
-      // maxAssetSize: 30000000,                                                        // 生成文件的最大体积
+
+  /*
+   * 如果你需要基于环境有条件地配置行为,或者想要直接修改配置,那就换成一个函数(该函数会在环境变量被设置之后懒执行).
+   * 该方法的第一个参数会收到已经解析好的配置.
+   * 在函数内,你可以直接修改配置,或者返回一个将会被合并的对象.
+   */
+  configureWebpack: {
+    plugins: [
+      // 按需引入Element-plus
+      UnpluginVueComponentsWebpack({
+        resolvers: [ElementPlusResolver()]
+      })
+    ],
+    performance: {
+      // 警告 webpack 的性能提示
+      // hints: 'warning',
+      // 入口起点的最大体积
+      // maxEntrypointSize: 50000000,
+      // 生成文件的最大体积
+      // maxAssetSize: 30000000,
     }
   },
   // 对内部的webpack配置(比如修改、增加Loader选项)(链式操作).
