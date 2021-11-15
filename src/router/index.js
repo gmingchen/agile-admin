@@ -17,69 +17,69 @@ const global = [
 
 /* 主入口 */
 const main = {
-  // path: '/layout',
-  // name: 'layout',
-  // component: () => import('@/views/layout/index.vue'),
-  // meta: { title_cn: '主入口整体布局', title_en: 'Overall layout of main entrance' },
-  // children: [
-  //   {
-  //     path: '/home',
-  //     name: 'home',
-  //     component: () => import('@/views/modules/home/index.vue'),
-  //     meta: {
-  //       id: 'home',
-  //       title_cn: '首页',
-  //       title_en: '',
-  //       isTab: true,
-  //       type: 1,
-  //       isDynamic: false,
-  //       keepAlive: true,
-  //       multiple: false
-  //     }
-  //   },
-  //   {
-  //     path: '/demo',
-  //     name: 'demo',
-  //     component: () => import('@/views/modules/demo/index.vue'),
-  //     meta: {
-  //       id: 'demo',
-  //       title_cn: 'Demo',
-  //       title_en: '',
-  //       isTab: true,
-  //       type: 1,
-  //       isDynamic: false,
-  //       keepAlive: true,
-  //       multiple: true
-  //     }
-  //   },
-  //   {
-  //     path: '/set',
-  //     name: 'set',
-  //     component: () => import('@/views/modules/set/index.vue'),
-  //     meta: {
-  //       id: 'set',
-  //       title_cn: '设置',
-  //       title_en: '',
-  //       isTab: true,
-  //       type: 1,
-  //       isDynamic: false,
-  //       keepAlive: true,
-  //       multiple: false
-  //     }
-  //   }
-  // ],
-  // beforeEnter(_to, _from, next) {
-  //   const token = store.getters['user/tokenVal']
-  //   if (!token || !/\S/u.test(token)) {
-  //     next({ name: 'login', replace: true })
-  //   } else {
-  //     next()
-  //   }
-  // }
+  path: '/layout',
+  name: 'layout',
+  component: () => import('@/views/layout/index.vue'),
+  meta: { title_cn: '主入口整体布局', title_en: 'Overall layout of main entrance' },
+  children: [
+    {
+      path: '/home',
+      name: 'home',
+      component: () => import('@/views/modules/home/index.vue'),
+      meta: {
+        id: 'home',
+        title_cn: '首页',
+        title_en: '',
+        isTab: true,
+        type: 1,
+        isDynamic: false,
+        keepAlive: true,
+        multiple: false
+      }
+    },
+    {
+      path: '/demo',
+      name: 'demo',
+      component: () => import('@/views/modules/demo/index.vue'),
+      meta: {
+        id: 'demo',
+        title_cn: 'Demo',
+        title_en: '',
+        isTab: true,
+        type: 1,
+        isDynamic: false,
+        keepAlive: true,
+        multiple: true
+      }
+    }
+    // {
+    //   path: '/set',
+    //   name: 'set',
+    //   component: () => import('@/views/modules/set/index.vue'),
+    //   meta: {
+    //     id: 'set',
+    //     title_cn: '设置',
+    //     title_en: '',
+    //     isTab: true,
+    //     type: 1,
+    //     isDynamic: false,
+    //     keepAlive: true,
+    //     multiple: false
+    //   }
+    // }
+  ],
+  beforeEnter(_to, _from, next) {
+    next()
+    const token = store.getters['user/tokenVal']
+    if (!token || !/\S/u.test(token)) {
+      next({ name: 'login', replace: true })
+    } else {
+      next()
+    }
+  }
 }
 
-// const routes = global.concat(main)
-const routes = global
+const routes = global.concat(main)
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -122,7 +122,7 @@ function addRoutes(menus = [], routeList = []) {
       const route = {
         path: '/' + item.url.replace(/\//g, '-'),
         name: item.url.replace(/\//g, '-'),
-        // component: () => import(`@/views/modules/${ item.url }.vue`) || null,
+        component: () => import(`@/views/modules/${ item.url }.vue`) || null,
         meta: {
           id: item.id,
           title_cn: item.name_cn,
@@ -137,7 +137,7 @@ function addRoutes(menus = [], routeList = []) {
       if (isURL(item.url)) {
         route['path'] = `/i-${ item.id }`
         route['name'] = `i-${ item.id }`
-        // route['component'] = () => import(`@/views/modules/iframe/index.vue`)
+        route['component'] = () => import(`@/views/modules/iframe/index.vue`)
         route['meta']['iframeUrl'] = item.url
       }
       routeList.push(route)
@@ -162,12 +162,12 @@ function addRoutes(menus = [], routeList = []) {
  * @author: gumingchen
  */
 function clearRouter() {
-  // const routers = router.getRoutes().filter(item => item.meta.isDynamic)
-  // routers.forEach(item => {
-  //   router.removeRoute(item.name)
-  // })
+  const routers = router.getRoutes().filter(item => item.meta.isDynamic)
+  routers.forEach(item => {
+    router.removeRoute(item.name)
+  })
   // // 其实只要这一行就可以
-  // main.children = main.children.filter(item => !item.meta.isDynamic)
+  main.children = main.children.filter(item => !item.meta.isDynamic)
 }
 
 router.beforeEach(async (to, _from, next) => {

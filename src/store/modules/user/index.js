@@ -8,7 +8,7 @@
  */
 import { clearJson } from '@/utils/index'
 import { getToken, setToken } from '@/utils/storage'
-import { loginApi } from '@/api/login'
+import { loginApi, userInfoApi } from '@/api/login'
 
 export default {
   state: {
@@ -49,9 +49,6 @@ export default {
     }
   },
   actions: {
-    setUser({ commit }, user) {
-      commit('SET_USER', user)
-    },
 
     /**
      * 登录
@@ -63,6 +60,18 @@ export default {
       if (r) {
         setToken(r.data.token)
         commit('SET_TOKEN', r.data.token)
+      }
+      return r
+    },
+
+    /**
+     * 获取当前用户信息
+     * @returns
+     */
+    async getUser({ commit }) {
+      const r = await userInfoApi()
+      if (r) {
+        commit('SET_USER', r.data)
       }
       return r
     },

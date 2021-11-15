@@ -1,10 +1,10 @@
 <!--
- * @Description:
+ * @Description: 本地svg图片使用组件
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
- * @Date: 2021-01-14 13:30:55
+ * @Date: 1995-08-30 05:20:00
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-04-29 18:30:57
+ * @LastEditTime: 1995-08-30 05:20:00
 -->
 <template>
   <svg

@@ -15,7 +15,7 @@
 <script>
 import { defineComponent, ref, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { LookAround } from '@/components/look-around'
+import LookAround from '@/components/look-around'
 
 export default defineComponent({
   components: { LookAround },
