@@ -112,6 +112,10 @@ ul {
     -webkit-line-clamp: #{$i};
   }
 }
+// 鼠标显示 手指
+.cursor-pointer {
+  cursor: pointer;
+};
 
 // todo: flex 布局
 $directions: row, row-reverse,  column, column-reverse;

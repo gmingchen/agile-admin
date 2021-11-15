@@ -8,6 +8,7 @@
  */
 import { clearJson } from '@/utils/index'
 import { getToken, setToken } from '@/utils/storage'
+import { loginApi } from '@/api/login'
 
 export default {
   state: {
@@ -51,10 +52,26 @@ export default {
     setUser({ commit }, user) {
       commit('SET_USER', user)
     },
-    setToken({ commit }, token) {
-      setToken(token.token)
-      commit('SET_TOKEN', token)
+
+    /**
+     * 登录
+     * @param {*} params
+     * @returns
+     */
+    async login({ commit }, params) {
+      const r = await loginApi(params)
+      if (r) {
+        setToken(r.data.token)
+        commit('SET_TOKEN', r.data.token)
+      }
+      return r
     },
+
+    /**
+     * 清除登录信息 用户信息
+     * @param {*} param0
+     * @param {*} flag
+     */
     clear({ commit }, flag = false) {
       if (flag) {
         commit('CLEAR_TOKEN')

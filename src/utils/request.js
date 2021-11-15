@@ -4,7 +4,8 @@ import qs from 'qs'
 import router from '@/router'
 import store from '@/store'
 import { ElMessage } from 'element-plus'
-import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, TOKEN_KEY, ContentType } from '@/utils/constant'
+import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, TOKEN_KEY } from '@/utils/constant'
+import { ContentType } from '@/utils/dictionary'
 import { getApiBaseUrl } from '@/utils'
 
 /**

@@ -5,6 +5,8 @@ import router from './router'
 import store from './store'
 import '@/assets/sass/index.scss'
 import * as ElIconModules from '@element-plus/icons'
+import Components from '@/components/global/index'
+import '@/assets/icon' // svg 图标引入
 
 const app = createApp(App)
 
@@ -15,4 +17,4 @@ for (const iconName in ElIconModules) {
   app.component(`${ iconName }`, ElIconModules[iconName])
 }
 
-app.use(router).use(store).mount('#app')
+app.use(router).use(store).use(Components).mount('#app')
