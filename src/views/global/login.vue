@@ -66,6 +66,7 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 import { getUUID } from '@/utils/index'
+
 import { captchaApi } from '@/api/login'
 
 export default defineComponent({

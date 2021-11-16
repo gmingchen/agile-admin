@@ -24,3 +24,8 @@
 );
 
 @import "element-plus/theme-chalk/src/index.scss";
+
+// 修复 消息确认弹窗样式
+.el-message-box__status {
+  position: absolute !important;
+}

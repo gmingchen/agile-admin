@@ -22,6 +22,7 @@
 <script>
 import { defineComponent, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+
 import LookAround from '@/components/look-around'
 
 export default defineComponent({

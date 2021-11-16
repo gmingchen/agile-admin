@@ -51,22 +51,22 @@ const main = {
         keepAlive: true,
         multiple: true
       }
+    },
+    {
+      path: '/set',
+      name: 'set',
+      component: () => import('@/views/modules/set/index.vue'),
+      meta: {
+        id: 'set',
+        title_cn: '设置',
+        title_en: '',
+        isTab: true,
+        type: 1,
+        isDynamic: false,
+        keepAlive: true,
+        multiple: false
+      }
     }
-    // {
-    //   path: '/set',
-    //   name: 'set',
-    //   component: () => import('@/views/modules/set/index.vue'),
-    //   meta: {
-    //     id: 'set',
-    //     title_cn: '设置',
-    //     title_en: '',
-    //     isTab: true,
-    //     type: 1,
-    //     isDynamic: false,
-    //     keepAlive: true,
-    //     multiple: false
-    //   }
-    // }
   ],
   beforeEnter(_to, _from, next) {
     next()
@@ -166,7 +166,7 @@ function clearRouter() {
   routers.forEach(item => {
     router.removeRoute(item.name)
   })
-  // // 其实只要这一行就可以
+  // 其实只要这一行就可以
   main.children = main.children.filter(item => !item.meta.isDynamic)
 }
 

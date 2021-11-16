@@ -18,7 +18,9 @@
 
 <script>
 import { defineComponent, onMounted, reactive, toRefs, ref, nextTick } from 'vue'
+
 import * as echarts from 'echarts'
+
 import { weeklyVisitsApi } from '@/api/demo'
 
 export default defineComponent({

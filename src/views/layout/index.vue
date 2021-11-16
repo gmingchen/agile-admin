@@ -8,7 +8,7 @@
           <tabsbar class="tabsbar" v-if="navbar.tabsDisplay" :style="{ 'height': `${ navbar.tabsHeight }px` }" />
         </div>
         <div class="flex-item_f-1 overflow-auto">
-          <el-scrollbar>
+          <el-scrollbar v-if="!set.refresh">
             <router-view v-slot="{ Component }">
               <transition name="el-fade-in">
                 <keep-alive :include="$route.meta.keepAlive ? '': []">
@@ -41,13 +41,15 @@ export default defineComponent({
     const store = useStore()
 
     const navbar = computed(() => store.state.setting.navbar)
+    const set = computed(() => store.state.setting.set)
 
     onBeforeMount(() => {
       store.dispatch('user/getUser')
     })
 
     return {
-      navbar
+      navbar,
+      set
     }
   }
 })

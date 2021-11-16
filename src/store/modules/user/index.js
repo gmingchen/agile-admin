@@ -8,7 +8,7 @@
  */
 import { clearJson } from '@/utils/index'
 import { getToken, setToken } from '@/utils/storage'
-import { loginApi, userInfoApi } from '@/api/login'
+import { loginApi, userInfoApi, editUserInfoApi, logoutApi } from '@/api/login'
 
 export default {
   state: {
@@ -39,6 +39,7 @@ export default {
       state.user = user
     },
     SET_TOKEN: (state, token) => {
+      console.log(token)
       state.token = token
     },
     CLEAR_USER: state => {
@@ -59,7 +60,7 @@ export default {
       const r = await loginApi(params)
       if (r) {
         setToken(r.data.token)
-        commit('SET_TOKEN', r.data.token)
+        commit('SET_TOKEN', r.data)
       }
       return r
     },
@@ -73,6 +74,27 @@ export default {
       if (r) {
         commit('SET_USER', r.data)
       }
+      return r
+    },
+
+    /**
+     * 编辑当前用户信息
+     * @param {*} params
+     */
+    async editUser({ dispatch }, params) {
+      const r = await editUserInfoApi(params)
+      if (r.data !== 1) {
+        dispatch('getUser')
+      }
+      return r
+    },
+
+    /**
+     * 退出当前账户
+     * @returns
+     */
+    async logout() {
+      const r = await logoutApi()
       return r
     },
 

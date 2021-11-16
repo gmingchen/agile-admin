@@ -29,7 +29,6 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default defineComponent({
-
   setup() {
     const router = useRouter()
     const route = useRoute()

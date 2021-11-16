@@ -84,49 +84,50 @@ export default defineComponent({
     const contactData = reactive([
       {
         label: '公众号',
-        url: 'http://qzgxlft3n.hd-bkt.clouddn.com/official-account-qr-code.jpg'
+        url: 'http://139.196.182.46:8800/material/official-account-qr-code.jpg'
       },
       {
         label: 'QQ讨论群',
-        url: 'http://qzgxlft3n.hd-bkt.clouddn.com/qq-group-qr-code.jpg'
+        url: 'http://139.196.182.46:8800/material/qq-group-qr-code.jpg'
       },
       {
         label: '微信',
-        url: 'http://qzgxlft3n.hd-bkt.clouddn.com/wechat-qr-code-1.jpg'
+        url: 'http://139.196.182.46:8800/material/wechat-qr-code-1.jpg'
       },
       {
         label: 'QQ',
-        url: 'http://qzgxlft3n.hd-bkt.clouddn.com/qq-qr-code.jpg'
+        url: 'http://139.196.182.46:8800/material/qq-qr-code.jpg'
       }
     ])
     const wabData = reactive([
       [
-        { key: 'vue', val: '^3.1.2' },
-        { key: 'vue-router', val: '^4.0.10' },
-        { key: 'vuex', val: '^4.0.2' },
-        { key: 'axios', val: '^0.21.1' },
+        { key: 'vue', val: '^3.0.0' },
+        { key: 'vue-router', val: '^4.0.0-0' },
+        { key: 'vuex', val: '^4.0.0-0' },
+        { key: 'axios', val: '^0.24.0' },
         { key: 'core-js', val: '^3.6.5' },
-        { key: 'element-plus', val: '^1.0.2-beta.46' },
-        { key: 'js-cookie', val: '^3.0.0-rc.1' },
-        { key: 'lodash', val: '^4.17.21' },
+        { key: 'element-plus', val: '^1.2.0-beta.3' },
+        { key: 'js-cookie', val: '^3.0.1' },
         { key: 'nprogress', val: '^0.2.0' },
-        { key: 'screenfull', val: '^5.1.0' },
-        { key: 'svg-sprite-loader', val: '^6.0.8' }
+        { key: 'screenfull', val: '^5.2.0' },
+        { key: 'svg-sprite-loader', val: '^6.0.11' }
       ],
       [
-        { key: '@babel/eslint-parser', val: '7.14.7' },
+        { key: '@babel/eslint-parser', val: '^7.16.3' },
         { key: '@vue/cli-plugin-babel', val: '~4.5.0' },
         { key: '@vue/cli-plugin-eslint', val: '~4.5.0' },
         { key: '@vue/cli-plugin-router', val: '~4.5.0' },
         { key: '@vue/cli-plugin-vuex', val: '~4.5.0' },
         { key: '@vue/cli-service', val: '~4.5.0' },
         { key: '@vue/compiler-sfc', val: '^3.0.0' },
-        { key: 'babel-plugin-component', val: '^1.1.1' },
+        { key: 'babel-eslint', val: '^10.1.0' },
+        { key: 'echarts', val: '^5.2.2' },
         { key: 'eslint', val: '^6.7.2' },
         { key: 'eslint-plugin-vue', val: '^7.0.0' },
-        { key: 'sass', val: '^1.35.1' },
+        { key: 'sass', val: '^1.26.5' },
         { key: 'sass-loader', val: '^8.0.2' },
-        { key: 'webpack-bundle-analyzer', val: '^4.4.2' }
+        { key: 'unplugin-vue-components', val: '^0.17.2' },
+        { key: 'webpack-bundle-analyzer', val: '^4.5.0' }
       ]
     ])
     const javaData = reactive([

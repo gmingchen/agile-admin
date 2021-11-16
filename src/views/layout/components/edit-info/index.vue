@@ -54,15 +54,15 @@
 import { computed, defineComponent, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-// import useInstance from '@/mixins/instance'
+
+import { ElMessage } from 'element-plus'
+
 import { isEmail, isMobile } from '@/utils/regular'
-import { editUserInfoApi, userInfoApi } from '@/api/login'
 
 export default defineComponent({
   setup() {
     const router = useRouter()
     const store = useStore()
-    // const { $message } = useInstance()
 
     const user = computed(() => store.state.user.user)
 
@@ -122,7 +122,7 @@ export default defineComponent({
      * @author: gumingchen
      */
     const submit = () => {
-      refForm.value.validate(async valid => {
+      refForm.value.validate(valid => {
         if (valid) {
           const params = {
             nickname: form.nickname,
@@ -131,25 +131,20 @@ export default defineComponent({
             old_password: form.oldPassword,
             new_password: form.newPassword
           }
-          const r = await editUserInfoApi(params)
-          if (r) {
-            visible.value = false
-            // $message({
-            //   message: '操作成功!',
-            //   type: 'success',
-            //   onClose: () => {
-            //     if (r.data === 1) {
-            //       router.replace({ name: 'login' })
-            //     } else {
-            //       userInfoApi().then(res => {
-            //         if (res && res.code === 0) {
-            //           store.dispatch('user/setUser', res.data)
-            //         }
-            //       })
-            //     }
-            //   }
-            // })
-          }
+          store.dispatch('user/editUser', params).then(r => {
+            if (r) {
+              visible.value = false
+              ElMessage({
+                message: '操作成功!',
+                type: 'success',
+                onClose: () => {
+                  if (r.data === 1) {
+                    router.replace({ name: 'login' })
+                  }
+                }
+              })
+            }
+          })
         }
       })
     }

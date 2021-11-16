@@ -71,8 +71,8 @@ import { useStore } from 'vuex'
 
 import { ElMessage, ElMessageBox, ElLoading } from 'element-plus'
 import EditInfo from '../edit-info/index.vue'
-// import screenfull from 'screenfull'
-import { logoutApi } from '@/api/login'
+
+import screenfull from 'screenfull/dist/screenfull'
 
 export default defineComponent({
   components: { EditInfo },
@@ -101,15 +101,15 @@ export default defineComponent({
      * @author: gumingchen
      */
     const fullScreenHandle = () => {
-      // if (screenfull.isEnabled) {
-      //   screenfull.toggle()
-      //   store.dispatch('setting/setFullScreen', !screenfull.isFullscreen)
-      // } else {
-      //   // $message({
-      //   //   message: `Your browser doesn't support full screen`,
-      //   //   type: 'warning'
-      //   // })
-      // }
+      if (screenfull.isEnabled) {
+        screenfull.toggle()
+        store.dispatch('setting/setFullScreen', !screenfull.isFullscreen)
+      } else {
+        ElMessage({
+          message: `Your browser doesn't support full screen`,
+          type: 'warning'
+        })
+      }
     }
 
     /**
@@ -132,7 +132,7 @@ export default defineComponent({
      * @author: gumingchen
      */
     const clearHandle = () => {
-      ElLoading({
+      ElLoading.service({
         lock: true,
         text: '清理缓存',
         spinner: 'el-icon-loading',
@@ -168,12 +168,12 @@ export default defineComponent({
           })
           break
         case 'exit':
-          ElMessageBox.$confirm('您确定要退出当前账号吗?', '提示', {
+          ElMessageBox.confirm('您确定要退出当前账号吗?', '提示', {
             confirmButtonText: '确认',
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-            logoutApi().then(r => {
+            store.dispatch('user/logout').then(r => {
               if (r) {
                 router.replace({ name: 'login' })
               }
