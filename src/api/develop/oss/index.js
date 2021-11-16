@@ -9,7 +9,8 @@
 import { parseJson2Param, getApiBaseUrl } from '@/utils'
 import service from '@/utils/request'
 import store from '@/store'
-import { TOKEN_KEY, ContentType } from '@/utils/constants'
+import { TOKEN_KEY } from '@/utils/constant'
+import { ContentType } from '@/utils/dictionary'
 
 const tokenVal = store.getters['user/tokenVal']
 
