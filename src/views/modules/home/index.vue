@@ -110,7 +110,10 @@ export default defineComponent({
         { key: 'js-cookie', val: '^3.0.1' },
         { key: 'nprogress', val: '^0.2.0' },
         { key: 'screenfull', val: '^5.2.0' },
-        { key: 'svg-sprite-loader', val: '^6.0.11' }
+        { key: 'svg-sprite-loader', val: '^6.0.11' },
+        { key: 'quill', val: '^1.3.7' },
+        { key: 'quill-delta-to-html', val: '^0.12.0' },
+        { key: 'register-service-worker', val: '^1.7.1' }
       ],
       [
         { key: '@babel/eslint-parser', val: '^7.16.3' },

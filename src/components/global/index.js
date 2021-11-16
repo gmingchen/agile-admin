@@ -17,7 +17,7 @@ export default {
             .replace(/\.\w+$/u, '')
         )
       )
-      app.component(name, component.default || component)
+      app.component(`G${ name }`, component.default || component)
     })
   }
 }

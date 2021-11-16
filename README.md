@@ -69,7 +69,7 @@ vue3-src
 ├─element element-plus按需加载
 │ 
 ├─mixins 代码复用 （vue2混入）
-│  ├─instance element的$message、$confirm、$loading可进行补充
+│  ├─instance element的$message、ElMessageBox.confirm、$loading可进行补充
 │  └─page 分页
 │ 
 ├─router 动态路由

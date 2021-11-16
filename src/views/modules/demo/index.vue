@@ -32,7 +32,7 @@ export default defineComponent({
       weekChart: null,
       weekOption: {
         title: {
-          text: '最近一周访问量',
+          text: '最近30天访问量',
           left: 'center'
         },
         tooltip: {
