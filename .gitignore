@@ -2,6 +2,8 @@
 node_modules
 /dist
 /dist.zip
+/frame
+/frame.zip
 
 
 # local env files
