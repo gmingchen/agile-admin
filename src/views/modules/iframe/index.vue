@@ -7,13 +7,15 @@
  * @LastEditTime: 2021-04-30 17:58:06
 -->
 <template>
-  <div :style="style">
-    <div class="loading-container" v-loading="loading">
+  <div
+    class="loading-container"
+    ref="refContainer">
+    <div v-loading="loading">
       <iframe
         ref="refIframe"
         :src="url"
         width="100%"
-        height="100%"
+        :height="`${height}px`"
         frameborder="0"
         scrolling="yes" />
     </div>
@@ -21,24 +23,25 @@
 </template>
 
 <script>
-import { computed, defineComponent, onMounted, ref, watch } from 'vue'
-import { useStore } from 'vuex'
+import { computed, defineComponent, onMounted, ref, watch, onActivated } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   setup() {
     const route = useRoute()
     const store = useStore()
+
+    const headHeight = computed(() => store.state.setting.navbar.headHeight)
+    const fixed = computed(() => store.state.setting.navbar.fixed)
+    const tabsHeight = computed(() => store.state.setting.navbar.tabsHeight)
+    const tabsDisplay = computed(() => store.state.setting.navbar.tabsDisplay)
+
+    const refContainer = ref()
     const refIframe = ref()
+
     const loading = ref(false)
-    const style = computed(() => {
-      const result = {
-        height: `${ store.state.setting.document.clientHeight
-                  - store.state.setting.navbar.headHeight
-                  - (store.state.setting.navbar.tabsDisplay ? store.state.setting.navbar.tabsHeight : 0) }px`
-      }
-      return result
-    })
+    const height = ref(100)
 
     const url = computed(() => {
       return route.meta.iframeUrl
@@ -48,18 +51,49 @@ export default defineComponent({
       loading.value = true
     })
 
+    /**
+     * 计算出 iframe 的高度
+     */
+    const calculateIframeHeight = () => {
+      // 当前组件的样式 主要用于获取 当前容器的 padding-top padding-bottom
+      const cssStyle = getComputedStyle(refContainer.value)
+      const paddingTop = +cssStyle['paddingTop'].replace('px', '')
+      const paddingBottom = +cssStyle['paddingBottom'].replace('px', '')
+
+      let elementId = 'bodyScrollbar'
+      let beyond = paddingTop + paddingBottom + 4
+      if (fixed.value) {
+        elementId = 'contentScrollbar'
+      } else {
+        beyond += headHeight.value
+        if (tabsDisplay.value) {
+          beyond += tabsHeight.value
+        }
+      }
+      height.value = document.getElementById(elementId).offsetHeight - beyond
+      window.onresize = () => {
+        height.value = document.getElementById(elementId).offsetHeight - beyond
+      }
+    }
+
     onMounted(() => {
       loading.value = true
       refIframe.value.onload = () => {
         loading.value = false
       }
+      calculateIframeHeight()
+    })
+
+    onActivated(() => {
+      calculateIframeHeight()
     })
 
     return {
+      refContainer,
       refIframe,
       loading,
-      url,
-      style
+      height,
+      url
     }
   }
 })

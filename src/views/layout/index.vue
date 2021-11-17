@@ -1,14 +1,14 @@
 <template>
   <el-container class="layout-container">
     <sidebar class="sidebar" />
-    <el-scrollbar class="flex-item_f-1" :view-class="navbar.fixed ? 'height-full' : ''">
+    <el-scrollbar id="bodyScrollbar" class="flex-item_f-1" :view-class="navbar.fixed ? 'height-full' : ''">
       <div class="flex-box flex_d-column flex-item_f-1 height-full">
         <div class="head-wrap">
           <headbar class="headbar" />
           <tabsbar class="tabsbar" v-if="navbar.tabsDisplay" :style="{ 'height': `${ navbar.tabsHeight }px` }" />
         </div>
         <div class="flex-item_f-1 overflow-auto">
-          <el-scrollbar v-if="!set.refresh">
+          <el-scrollbar id="contentScrollbar" v-if="!set.refresh">
             <router-view v-slot="{ Component }">
               <transition name="el-fade-in" mode="out-in">
                 <keep-alive :include="$route.meta.keepAlive ? '': []">
