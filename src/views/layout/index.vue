@@ -10,7 +10,7 @@
         <div class="flex-item_f-1 overflow-auto">
           <el-scrollbar v-if="!set.refresh">
             <router-view v-slot="{ Component }">
-              <transition name="el-fade-in">
+              <transition name="el-fade-in" mode="out-in">
                 <keep-alive :include="$route.meta.keepAlive ? '': []">
                   <component :is="Component" class="component" />
                 </keep-alive>
