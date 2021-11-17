@@ -69,12 +69,15 @@ const main = {
     }
   ],
   beforeEnter(_to, _from, next) {
-    next()
     const token = store.getters['user/tokenVal']
     if (!token || !/\S/u.test(token)) {
       next({ name: 'login', replace: true })
     } else {
-      next()
+      store.dispatch('user/getUser').then(r => {
+        if (r) {
+          next()
+        }
+      })
     }
   }
 }

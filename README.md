@@ -20,7 +20,7 @@
 [vue3-element-plus-admin](https://github.com/gmingchen/vue3-element-plus-admin) 是一个管理后台基础功能框架，基于 [vue3](https://github.com/vuejs/vue-next) 、 [element-plus](https://github.com/element-plus/element-plus) 和 [typescript](https://github.com/microsoft/TypeScript) 实现。内置了 i18n 国际化，动态路由，权限验证。
 
 - [开发文档](https://gmingchen.github.io/vue3-element-plus-admin-doc/)
-- [在线预览](https://gmingchen.github.io/vue3-element-plus-admin/index.html)
+- [在线预览(暂时不可用)](https://gmingchen.github.io/vue3-element-plus-admin/index.html)
 - [开发文档(备用-服务器比较low，访问有点慢！)](http://139.196.182.46:8805/docs/)
 - [在线预览(备用-服务器比较low，访问有点慢！)](http://139.196.182.46:8805)
 
@@ -41,7 +41,6 @@
 - [x] 文件管理
 - [x] 备份管理
 - [x] 发送邮件/邮件记录
-- [ ] 区域管理
 - [x] 代码生成器
 - [X] 接口文档
 - [X] SQL监控
@@ -49,6 +48,8 @@
 - [X] 定时任务日志
 - [X] 操作日志
 - [X] 异常日志
+- [ ] 区域管理
+- [ ] 消息推送
 
 ### 项目结构
 
@@ -61,15 +62,18 @@ vue3-src
 │  ├─images 图片
 │  └─sass 样式
 │ 
-├─components 全局组件模块
-│  └─gl-svg svg图标组件
+├─components 通用组件
+│  ├─global 全局组件
+│  │  ├─icon element-plus 内置图标组件重新封装
+│  │  ├─page 分页组件
+│  │  ├─svg 本地svg图片使用组件
+│  │  └─index 统一全局注册
+│  ├─editor 富文本组件
+│  └─look-around 随便看看按钮组件
 │ 
 ├─directive 全局自定义指令
 │ 
-├─element element-plus按需加载
-│ 
 ├─mixins 代码复用 （vue2混入）
-│  ├─instance element的$message、ElMessageBox.confirm、$loading可进行补充
 │  └─page 分页
 │ 
 ├─router 动态路由
@@ -82,23 +86,19 @@ vue3-src
 │  │  └─user 用户登录信息模块
 │  └─index 动态加载模块
 │ 
-├─types typescript接口
-│ 
 ├─utils 工具模块
-│  ├─constants 常量
+│  ├─constant 常量
+│  ├─dictionary 字典
 │  ├─index 工具
 │  ├─regular 正则
 │  ├─request axios二次封装
 │  └─storage 本地缓存工具
 │
 ├─views 视图模块
-│  ├─components
-│  │  ├─iframe iframe组件用于加载其他页面
-│  │  ├─language 国际化设置组件
-│  │  └─page 分页组件
-│  ├─global
+│  ├─global 通用页面
 │  │  ├─401 401页面
 │  │  ├─404 404页面
+│  │  ├─500 500页面
 │  │  └─login 登录页面
 │  ├─layout
 │  │  ├─components
@@ -118,7 +118,7 @@ vue3-src
 git clone https://github.com/gmingchen/vue3-element-plus-admin.git
 
 # 进入项目目录
-cd vue3
+cd vue3-element-plus-admin
 
 # 安装依赖
 npm install

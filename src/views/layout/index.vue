@@ -43,10 +43,6 @@ export default defineComponent({
     const navbar = computed(() => store.state.setting.navbar)
     const set = computed(() => store.state.setting.set)
 
-    onBeforeMount(() => {
-      store.dispatch('user/getUser')
-    })
-
     return {
       navbar,
       set

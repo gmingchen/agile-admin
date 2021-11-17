@@ -42,7 +42,6 @@ export default defineComponent({
     })
 
     const foldHandle = () => {
-      store.dispatch('setting/setSidebarWidth', !isCollapse.value)
       store.dispatch('menu/setIsCollapse', !isCollapse.value)
     }
 

@@ -10,14 +10,6 @@ import { clear, exit } from '@/utils/storage'
 
 export default {
   state: {
-    document: {
-      clientHeight: 0 // 页面文档可视高度(随窗口改变大小)
-    },
-    sidebar: {
-      width: 200, // 侧边栏宽度 // todo: 需要与sidebar 组件css 样式保持一致
-      openWidth: 200, // 侧边栏展开宽度 // todo: 需要与sidebar 组件css 样式保持一致
-      foldWidth: 64 // 侧边栏折叠宽度 // todo: 这个为 element menu 组件 默认折叠宽度
-    },
     navbar: {
       headHeight: 50, // 导航头部高度
       tabsHeight: 50, // 标签栏高度
@@ -32,12 +24,6 @@ export default {
   getters: {
   },
   mutations: {
-    SET_DOCUMENT_CLIENT_HEIGHT: (state, clientHeight) => {
-      state.document.clientHeight = clientHeight
-    },
-    SET_SIDEBAR_WIDTH: (state, width) => {
-      state.sidebar.width = width
-    },
     SET_FIXED: (state, fixed) => {
       state.navbar.fixed = fixed
     },
@@ -52,16 +38,6 @@ export default {
     }
   },
   actions: {
-    setDocunentClientHeight({ commit }, clientHeight) {
-      commit('SET_DOCUMENT_CLIENT_HEIGHT', clientHeight)
-    },
-    setSidebarWidth({ commit, state }, isCollapse) {
-      if (isCollapse) {
-        commit('SET_SIDEBAR_WIDTH', state.sidebar.foldWidth)
-      } else {
-        commit('SET_SIDEBAR_WIDTH', state.sidebar.openWidth)
-      }
-    },
     setFixed({ commit }, fixed) {
       commit('SET_FIXED', fixed)
     },
