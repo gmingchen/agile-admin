@@ -15,7 +15,7 @@
       <el-form-item>
         <el-button v-repeat @click="reacquireHandle()">查询</el-button>
         <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
-        <el-button v-permission="'generator:table:create'" type="danger" @click="generateHandle()">生成</el-button>
+        <el-button v-permission="'generator:table:create'" type="danger" @click="generateHandle()">批量生成</el-button>
       </el-form-item>
     </el-form>
     <el-table
