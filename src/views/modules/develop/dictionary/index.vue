@@ -8,7 +8,7 @@
 -->
 <template>
   <div class="g-container">
-    <el-form ref="refForm" :inline="true" @keyup.enter="getList()">
+    <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
       <el-form-item>
         <el-date-picker
           v-model="form.date"
@@ -19,17 +19,17 @@
           clearable />
       </el-form-item>
       <el-form-item>
-        <el-button v-repeat @click="getList()" />
-        <el-button v-repeat @click="clearJson(form), getList()" />
+        <el-button v-repeat @click="reacquireHandle()">查询</el-button>
+        <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
         <el-button
           v-permission="'backstage:dictionary:create'"
           type="primary"
-          @click="addEditHandle()" />
+          @click="addEditHandle()">新增</el-button>
         <el-button
           v-permission="'backstage:dictionary:delete'"
           type="danger"
           @click="delHandle()"
-          :disabled="selection.length <= 0" />
+          :disabled="selection.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -50,27 +50,31 @@
         align="center"
         label="编码"
         prop="code"
+        min-width="120"
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
         label="名称"
         prop="name"
+        min-width="150"
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        label="描述"
-        prop="describe"
+        label="备注"
+        prop="remark"
+        min-width="200px"
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        label="状态：0-禁用 1-启用"
+        label="状态"
         prop="status"
-        :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
-        label="创建者"
-        prop="creator"
-        :show-overflow-tooltip="true" />
+        width="80px"
+        :show-overflow-tooltip="true">
+        <template v-slot="{ row }">
+          <el-tag v-if="row.status === 1" type="success">启用</el-tag>
+          <el-tag v-if="row.status === 0" type="info">禁用</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         label="创建时间"
@@ -79,41 +83,33 @@
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
-        label="更新者"
-        prop="updater"
-        :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
-        label="更新时间"
-        prop="updated_at"
-        width="160"
-        :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
-        label=""
-        prop="deleted"
-        :show-overflow-tooltip="true" />
-      <el-table-column
-        align="center"
         label="操作"
-        width="100"
+        width="170"
         fixed="right">
         <template v-slot="{ row }">
           <el-button
+            v-permission="'backstage:dictionary:status'"
+            type="text"
+            @click="statusHandle(row)">
+            {{row.status === 1 ? '禁用' : '启用'}}
+          </el-button>
+          <el-button
             v-permission="'backstage:dictionary:update'"
             type="text"
-            size="small"
-            @click="addEditHandle(row.id)" />
+            @click="addEditHandle(row.id)">编辑</el-button>
+          <el-button
+            type="text"
+            @click="setHandle(row.id)">配置</el-button>
           <el-button
             v-permission="'backstage:dictionary:delete'"
             type="text"
-            size="small"
-            @click="delHandle(row.id)" />
+            @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <g-page :page="page" @change="pageChangeHandle" />
     <add-edit ref="refAddEdit" v-if="visible" @refresh="getList" />
+    <set-drawer ref="refSetDrawer" v-if="setVisible" @refresh="getList" />
   </div>
 </template>
 
@@ -122,21 +118,25 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 
 import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
+import SetDrawer from './components/set-drawer.vue'
 
 import usePage from '@/mixins/page'
 import { clearJson, parseDate2Str } from '@/utils'
 
-import { delApi, pageApi } from '@/api/develop/dictionary'
+import { pageApi, delApi, statusApi } from '@/api/develop/dictionary'
 
 export default defineComponent({
-  components: { AddEdit },
+  components: { AddEdit, SetDrawer },
   setup() {
     const refForm = ref()
     const refAddEdit = ref()
+    const refSetDrawer = ref()
+
     const { page } = usePage()
     const data = reactive({
       loading: false,
       visible: false,
+      setVisible: false,
       form: {
         date: []
       },
@@ -168,6 +168,17 @@ export default defineComponent({
           data.loading = false
         })
       })
+    }
+
+    /**
+     * @description: 重新获取、重置 数据
+     * @param {*}
+     * @return {*}
+     * @author: gumingchen
+     */
+    const reacquireHandle = () => {
+      page.current = 1
+      getList()
     }
 
     /**
@@ -216,6 +227,49 @@ export default defineComponent({
     }
 
     /**
+     * @description: 状态
+     * @param {number} id
+     * @return {*}
+     * @author: gumingchen
+     */
+    const statusHandle = row => {
+      ElMessageBox.confirm(`'确定对[id=${ row.id }]进行[${ row.status === 1 ? '禁用' : '启用' }]操作`, '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        const params = {
+          key: row.id,
+          value: row.status === 1 ? 0 : 1
+        }
+        statusApi(params).then(r => {
+          if (r) {
+            ElMessage({
+              message: '操作成功!',
+              type: 'success'
+            })
+            getList()
+          }
+        })
+      }).catch(() => {
+        // to do something on canceled
+      })
+    }
+
+    /**
+     * @description: 配置
+     * @param {number} id
+     * @return {*}
+     * @author: gumingchen
+     */
+    const setHandle = id => {
+      data.setVisible = true
+      nextTick(() => {
+        refSetDrawer.value.init(id)
+      })
+    }
+
+    /**
      * @description: table多选事件
      * @param {*} val
      * @return {*}
@@ -244,11 +298,15 @@ export default defineComponent({
     return {
       refForm,
       refAddEdit,
+      refSetDrawer,
       page,
       ...toRefs(data),
       getList,
+      reacquireHandle,
       addEditHandle,
       delHandle,
+      statusHandle,
+      setHandle,
       selectionHandle,
       pageChangeHandle,
       clearJson
@@ -256,3 +314,6 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+</style>

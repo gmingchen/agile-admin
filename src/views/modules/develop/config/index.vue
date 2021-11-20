@@ -82,17 +82,14 @@
             v-if="row.status === 0"
             v-permission="'backstage:config:status'"
             type="text"
-            size="small"
             @click="statusHandle(row)">启用</el-button>
           <el-button
             v-permission="'backstage:config:update'"
             type="text"
-            size="small"
             @click="addEditHandle(row.id)">编辑</el-button>
           <el-button
             v-permission="'backstage:config:delete'"
             type="text"
-            size="small"
             @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>

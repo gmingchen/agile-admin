@@ -39,7 +39,6 @@ export default {
       state.user = user
     },
     SET_TOKEN: (state, token) => {
-      console.log(token)
       state.token = token
     },
     CLEAR_USER: state => {

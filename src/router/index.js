@@ -49,7 +49,7 @@ const main = {
         type: 1,
         isDynamic: false,
         keepAlive: true,
-        multiple: true
+        multiple: false
       }
     },
     {
@@ -60,7 +60,7 @@ const main = {
         id: 'set',
         title_cn: '设置',
         title_en: '',
-        isTab: true,
+        isTab: false,
         type: 1,
         isDynamic: false,
         keepAlive: true,

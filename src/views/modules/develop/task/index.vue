@@ -90,29 +90,24 @@
           <el-button
             v-permission="'quartz:schedule:task:update'"
             type="text"
-            size="small"
             @click="addEditHandle(row.id)">编辑</el-button>
           <el-button
             v-permission="'quartz:schedule:task:run'"
             type="text"
-            size="small"
             @click="runHandle(row.id)">立即执行</el-button>
           <el-button
             v-if="row.status === 0"
             v-permission="'quartz:schedule:task:resume'"
             type="text"
-            size="small"
             @click="resumeHandle(row.id)">恢复</el-button>
           <el-button
             v-if="row.status === 1"
             v-permission="'quartz:schedule:task:pause'"
             type="text"
-            size="small"
             @click="pauseHandle(row.id)">暂停</el-button>
           <el-button
             v-permission="'quartz:schedule:task:delete'"
             type="text"
-            size="small"
             @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>

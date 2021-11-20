@@ -20,7 +20,7 @@
       ref="refForm"
       label-position="top">
       <el-form-item label="名称" prop="name">
-        <el-input v-model="form.name" placeholder="名称" />
+        <el-input v-model="form.name" placeholder="名称" maxlength="32" />
       </el-form-item>
       <el-form-item label="键" prop="json_key">
         <el-input v-model="form.json_key" placeholder="键" />
@@ -32,7 +32,11 @@
         <el-input-number v-model="form.type" controls-position="right" />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
-        <el-input v-model="form.remark" placeholder="备注" type="textarea" />
+        <el-input
+          v-model="form.remark"
+          placeholder="备注"
+          type="textarea"
+          maxlength="200" />
       </el-form-item>
       <el-form-item label="状态" size="mini" prop="status">
         <el-radio-group v-model="form.status">

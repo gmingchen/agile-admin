@@ -89,8 +89,8 @@
         prop="cmd"
         width="120">
         <template v-slot="{ row }">
-          <el-tag v-if="row.type === 1" size="small">手动</el-tag>
-          <el-tag v-else size="small" type="success">自动</el-tag>
+          <el-tag v-if="row.type === 1">手动</el-tag>
+          <el-tag v-else  type="success">自动</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -107,17 +107,14 @@
           <el-button
             v-permission="'backstage:backup:recovery'"
             type="text"
-            size="small"
             @click="recoveryHandle(row.id)">恢复</el-button>
           <el-button
             v-permission="'backstage:backup:download'"
             type="text"
-            size="small"
             @click="downloadHandle(row.id)">下载</el-button>
           <el-button
             v-permission="'backstage:backup:delete'"
             type="text"
-            size="small"
             @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>

@@ -58,12 +58,10 @@
           <el-button
             v-permission="'backstage:role:update'"
             type="text"
-            size="small"
             @click="addEditHandle(row.id)">编辑</el-button>
           <el-button
             v-permission="'backstage:role:delete'"
             type="text"
-            size="small"
             @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>

@@ -120,12 +120,10 @@
           <el-button
             v-permission="'oss:file:download'"
             type="text"
-            size="small"
             @click="downloadHandle(row.id)">下载</el-button>
           <el-button
             v-permission="'oss:file:delete'"
             type="text"
-            size="small"
             @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>

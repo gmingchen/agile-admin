@@ -80,7 +80,6 @@
           <el-button
             v-permission="'generator:table:create'"
             type="text"
-            size="small"
             @click="generateHandle(row.name)">生成</el-button>
         </template>
       </el-table-column>

@@ -66,6 +66,17 @@
       </el-table-column>
       <el-table-column
         align="center"
+        label="状态"
+        prop="status"
+        width="80px"
+        :show-overflow-tooltip="true">
+        <template v-slot="{ row }">
+          <el-tag v-if="row.status === 1" type="success">启用</el-tag>
+          <el-tag v-if="row.status === 0" type="info">禁用</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
         label="创建时间"
         prop="created_at"
         width="160" />
@@ -78,19 +89,16 @@
           <el-button
             v-permission="'backstage:admin:status'"
             type="text"
-            size="small"
             @click="statusHandle(row)">
             {{row.status === 1 ? '禁用' : '启用'}}
           </el-button>
           <el-button
             v-permission="'backstage:admin:update'"
             type="text"
-            size="small"
             @click="addEditHandle(row.id)">编辑</el-button>
           <el-button
             v-permission="'backstage:admin:delete'"
             type="text"
-            size="small"
             @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>
@@ -109,7 +117,7 @@ import AddEdit from './components/add-edit.vue'
 import usePage from '@/mixins/page'
 import { clearJson } from '@/utils'
 
-import { delApi, pageApi, statusApi } from '@/api/system/admin'
+import { pageApi, delApi, statusApi } from '@/api/system/admin'
 
 export default defineComponent({
   components: { AddEdit },

@@ -58,19 +58,20 @@
           trigger="click"
           placement="top"
           popper-class="popper-menu-add-edit"
-          width="330px">
-          <div class="icon-wrap">
+          width="316px">
+          <div>
             <el-button type="text" @click="form.icon = ''">清除</el-button>
-            <br>
-            <el-button
-              v-for="(item, index) in icons"
-              :key="index"
-              :class="{ 'is-active': item === form.icon }"
-              size="mini"
-              class="icon-btn"
-              @click="iconActiveHandle(item)">
-              <g-svg :name="item" />
-            </el-button>
+            <div class="flex-box flex_w-wrap">
+              <div class="padding-5" v-for="(item, index) in icons" :key="index">
+                <el-button
+                  :class="{ 'is-active': item === form.icon }"
+                  size="mini"
+                  class="icon-btn"
+                  @click="iconActiveHandle(item)">
+                  <g-svg :name="item" />
+                </el-button>
+              </div>
+            </div>
           </div>
           <template #reference>
             <el-input v-model="form.icon" placeholder="图标" readonly />

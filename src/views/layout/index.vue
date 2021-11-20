@@ -59,7 +59,7 @@ export default defineComponent({
     @include box-shadow;
   }
   .head-wrap {
-    z-index: 10;
+    z-index: 100;
     .headbar, .tabsbar {
       @include box-shadow1;
     }

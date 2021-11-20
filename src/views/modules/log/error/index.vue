@@ -99,7 +99,7 @@
         width="80"
         fixed="right">
         <template v-slot="{ row }">
-          <el-button type="text" size="small" @click="viewHandle(row.details)">查看</el-button>
+          <el-button type="text" @click="viewHandle(row.details)">查看</el-button>
         </template>
       </el-table-column>
     </el-table>

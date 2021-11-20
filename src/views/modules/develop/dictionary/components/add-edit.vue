@@ -19,44 +19,33 @@
       v-loading="loading"
       ref="refForm"
       label-position="top">
-      <el-form-item label="" prop="id">
-        <el-input v-model="form.id" placeholder="" />
-      </el-form-item>
       <el-form-item label="编码" prop="code">
-        <el-input v-model="form.code" placeholder="编码" />
+        <el-input v-model="form.code" placeholder="编码" maxlength="32" />
       </el-form-item>
       <el-form-item label="名称" prop="name">
-        <el-input v-model="form.name" placeholder="名称" />
+        <el-input v-model="form.name" placeholder="名称" maxlength="32" />
       </el-form-item>
-      <el-form-item label="描述" prop="describe">
-        <el-input v-model="form.describe" placeholder="描述" />
+      <el-form-item label="描述" prop="remark">
+        <el-input
+          v-model="form.remark"
+          placeholder="描述"
+          type="textarea"
+          maxlength="100" />
       </el-form-item>
-      <el-form-item label="状态：0-禁用 1-启用" prop="status">
-        <el-input v-model="form.status" placeholder="状态：0-禁用 1-启用" />
-      </el-form-item>
-      <el-form-item label="创建者" prop="creator">
-        <el-input v-model="form.creator" placeholder="创建者" />
-      </el-form-item>
-      <el-form-item label="创建时间" prop="created_at">
-        <el-input v-model="form.created_at" placeholder="创建时间" />
-      </el-form-item>
-      <el-form-item label="更新者" prop="updater">
-        <el-input v-model="form.updater" placeholder="更新者" />
-      </el-form-item>
-      <el-form-item label="更新时间" prop="updated_at">
-        <el-input v-model="form.updated_at" placeholder="更新时间" />
-      </el-form-item>
-      <el-form-item label="" prop="deleted">
-        <el-input v-model="form.deleted" placeholder="" />
+      <el-form-item label="状态" prop="status">
+        <el-radio-group v-model="form.status">
+          <el-radio :label="0">禁用</el-radio>
+          <el-radio :label="1">启用</el-radio>
+        </el-radio-group>
       </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="visible = false" />
+        <el-button @click="visible = false">取消</el-button>
         <el-button
           v-repeat
           type="primary"
-          @click="submit()" />
+          @click="submit()">确认</el-button>
       </span>
     </template>
   </el-dialog>
@@ -80,13 +69,8 @@ export default defineComponent({
         id: '',
         code: '',
         name: '',
-        describe: '',
-        status: '',
-        creator: '',
-        created_at: '',
-        updater: '',
-        updated_at: '',
-        deleted: ''
+        remark: '',
+        status: 0
       }
     })
 
@@ -95,13 +79,7 @@ export default defineComponent({
         id: [{ required: true, message: '请输入', trigger: 'blur' }],
         code: [{ required: true, message: '请输入编码', trigger: 'blur' }],
         name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-        describe: [{ required: true, message: '请输入描述', trigger: 'blur' }],
-        status: [{ required: true, message: '请输入状态：0-禁用 1-启用', trigger: 'blur' }],
-        creator: [{ required: true, message: '请输入创建者', trigger: 'blur' }],
-        createdAt: [{ required: true, message: '请输入创建时间', trigger: 'blur' }],
-        updater: [{ required: true, message: '请输入更新者', trigger: 'blur' }],
-        updatedAt: [{ required: true, message: '请输入更新时间', trigger: 'blur' }],
-        deleted: [{ required: true, message: '请输入', trigger: 'blur' }]
+        status: [{ required: true, message: '请选择状态', trigger: 'blur' }]
       }
     }())
 
@@ -112,16 +90,10 @@ export default defineComponent({
       if (data.form.id) {
         const r = await infoApi(data.form.id)
         if (r) {
-          data.form.id = r.data.id
           data.form.code = r.data.code
           data.form.name = r.data.name
-          data.form.describe = r.data.describe
+          data.form.remark = r.data.remark
           data.form.status = r.data.status
-          data.form.creator = r.data.creator
-          data.form.created_at = r.data.created_at
-          data.form.updater = r.data.updater
-          data.form.updated_at = r.data.updated_at
-          data.form.deleted = r.data.deleted
         }
       }
       nextTick(() => {

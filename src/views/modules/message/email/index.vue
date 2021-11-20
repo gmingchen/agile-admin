@@ -102,7 +102,6 @@
           <el-button
             v-permission="'backstage:email:delete'"
             type="text"
-            size="small"
             @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>

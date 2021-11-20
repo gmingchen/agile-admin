@@ -52,9 +52,9 @@
         prop="type"
         width="90">
         <template v-slot="{ row }">
-          <el-tag v-if="row.type === 0" size="small">目录</el-tag>
-          <el-tag v-else-if="row.type === 1" size="small" type="success">菜单</el-tag>
-          <el-tag v-else-if="row.type === 2" size="small" type="info">按钮</el-tag>
+          <el-tag v-if="row.type === 0">目录</el-tag>
+          <el-tag v-else-if="row.type === 1"  type="success">菜单</el-tag>
+          <el-tag v-else-if="row.type === 2"  type="info">按钮</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -167,12 +167,10 @@
           <el-button
             v-permission="'backstage:menu:update'"
             type="text"
-            size="small"
             @click="addEditHandle(row.id)">编辑</el-button>
           <el-button
             v-permission="'backstage:menu:delete'"
             type="text"
-            size="small"
             @click="delHandle(row.id)">删除</el-button>
         </template>
       </el-table-column>

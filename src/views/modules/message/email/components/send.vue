@@ -58,7 +58,6 @@
           ref="refInput"
           v-if="inputVisible"
           v-model="inputValue"
-          size="small"
           @keyup.enter="confirmHandle" />
         <el-button
           v-else
