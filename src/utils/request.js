@@ -169,6 +169,9 @@ service.interceptors.response.use(
       }
     } else {
       console.log('连接到服务器失败')
+      router.replace({
+        name: '500'
+      })
     }
     return Promise.reject(error)
   }

@@ -3,9 +3,11 @@
     <h2 class="status-code">500</h2>
     <p class="describe">抱歉！您访问的页面出现<em>异常</em>...</p>
     <p class="suggest">请联系管理员</p>
-    <p class="timeout">
+    <!--
+ <p class="timeout">
       <em>{{ endTime }}</em>秒后自动返回首页
     </p>
+-->
     <el-button @click="jump(0)">返回</el-button>
     <el-button type="primary" @click="jump(1)">首页</el-button>
     <look-around class="margin_l-10" />
@@ -33,11 +35,11 @@ export default defineComponent({
       }
     })
 
-    onMounted(() => {
-      timer.value = window.setInterval(() => {
-        endTime.value--
-      }, 1000)
-    })
+    // onMounted(() => {
+    //   timer.value = window.setInterval(() => {
+    //     endTime.value--
+    //   }, 1000)
+    // })
 
     const jump = type => {
       switch (type) {
