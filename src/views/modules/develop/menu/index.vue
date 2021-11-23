@@ -52,9 +52,9 @@
         prop="type"
         width="90">
         <template v-slot="{ row }">
-          <el-tag v-if="row.type === 0">目录</el-tag>
-          <el-tag v-else-if="row.type === 1"  type="success">菜单</el-tag>
-          <el-tag v-else-if="row.type === 2"  type="info">按钮</el-tag>
+          <el-tag :type="row.type === 0 ? '' : (row.type === 1 ? 'success' : 'info')">
+            {{ dictionaryMap[row.type] }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -185,6 +185,8 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
 
+import useDictionary from '@/mixins/dictionary'
+
 import { tabApi, aliveApi, displayApi, listApi, multipleApi, delApi } from '@/api/develop/menu'
 
 export default defineComponent({
@@ -192,7 +194,9 @@ export default defineComponent({
   setup() {
     const refForm = ref()
     const refAddEdit = ref()
+
     const props = { children: 'children', hasChildren: 'hasChildren' }
+    const { dictionaryMap, getDictionaryMap } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -395,12 +399,14 @@ export default defineComponent({
 
     onBeforeMount(() => {
       setList()
+      getDictionaryMap('menu')
     })
 
     return {
       refForm,
       refAddEdit,
       props,
+      dictionaryMap,
       ...toRefs(data),
       setList,
       loadHandle,

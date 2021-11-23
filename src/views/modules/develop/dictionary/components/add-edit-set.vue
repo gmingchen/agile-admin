@@ -9,10 +9,11 @@
 <template>
   <el-dialog
     width="500px"
-    :title="!form.id ? '新增' : '编辑'"
+    :title="!form.id ? '新增配置' : '编辑配置'"
     v-model="visible"
     :close-on-click-modal="false"
-    @closed="dialogClosedHandle">
+    @closed="dialogClosedHandle"
+    append-to-body>
     <el-form
       :model="form"
       :rules="rules"
@@ -24,18 +25,6 @@
       </el-form-item>
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" placeholder="名称" maxlength="32" />
-      </el-form-item>
-      <el-form-item label="描述" prop="remark">
-        <el-input
-          v-model="form.remark"
-          placeholder="描述"
-          type="textarea"
-          maxlength="100" />
-      </el-form-item>
-      <el-form-item label="状态" prop="status">
-        <el-radio-group v-model="form.status">
-          <el-radio :label="item.value" v-for="item in dictionaryList" :key="item.value">{{item.label}}</el-radio>
-        </el-radio-group>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -55,25 +44,20 @@ import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
 
-import useDictionary from '@/mixins/dictionary'
-
-import { addApi, editApi, infoApi } from '@/api/develop/dictionary'
+import { addApi, editApi, infoApi } from '@/api/develop/dictionary/detail'
 
 export default defineComponent({
   emits: ['refresh'],
   setup(_props, { emit }) {
     const refForm = ref()
-
-    const { dictionaryList, getDictionaryList } = useDictionary()
     const data = reactive({
       visible: false,
       loading: false,
       form: {
+        dictionary_id: '',
         id: '',
         code: '',
-        name: '',
-        remark: '',
-        status: 0
+        name: ''
       }
     })
 
@@ -81,23 +65,20 @@ export default defineComponent({
       return {
         id: [{ required: true, message: '请输入', trigger: 'blur' }],
         code: [{ required: true, message: '请输入编码', trigger: 'blur' }],
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-        status: [{ required: true, message: '请选择状态', trigger: 'blur' }]
+        name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
       }
     }())
 
-    const init = async (id) => {
+    const init = async (dictionaryId, id) => {
       data.visible = true
       data.loading = true
+      data.form.dictionary_id = dictionaryId
       data.form.id = id
-      getDictionaryList('status')
       if (data.form.id) {
         const r = await infoApi(data.form.id)
         if (r) {
           data.form.code = r.data.code
           data.form.name = r.data.name
-          data.form.remark = r.data.remark
-          data.form.status = r.data.status
         }
       }
       nextTick(() => {
@@ -140,7 +121,6 @@ export default defineComponent({
 
     return {
       refForm,
-      dictionaryList,
       ...toRefs(data),
       rules,
       init,

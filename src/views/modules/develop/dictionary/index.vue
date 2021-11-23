@@ -42,7 +42,7 @@
       <el-table-column align="center" type="selection" width="50" />
       <el-table-column
         align="center"
-        label=""
+        label="ID"
         prop="id"
         width="80"
         :show-overflow-tooltip="true" />
@@ -71,8 +71,9 @@
         width="80px"
         :show-overflow-tooltip="true">
         <template v-slot="{ row }">
-          <el-tag v-if="row.status === 1" type="success">启用</el-tag>
-          <el-tag v-if="row.status === 0" type="info">禁用</el-tag>
+          <el-tag :type="row.status === 1 ? 'success' : 'info'">
+            {{ dictionaryMap[row.status] }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -90,7 +91,7 @@
           <el-button
             v-permission="'backstage:dictionary:status'"
             type="text"
-            @click="statusHandle(row)">
+            @click="statusHandle({id: row.id, status: row.status === 1 ? 0 : 1})">
             {{row.status === 1 ? '禁用' : '启用'}}
           </el-button>
           <el-button
@@ -98,6 +99,7 @@
             type="text"
             @click="addEditHandle(row.id)">编辑</el-button>
           <el-button
+            v-permission="'backstage:dictionary:detail:list'"
             type="text"
             @click="setHandle(row.id)">配置</el-button>
           <el-button
@@ -121,6 +123,7 @@ import AddEdit from './components/add-edit.vue'
 import SetDrawer from './components/set-drawer.vue'
 
 import usePage from '@/mixins/page'
+import useDictionary from '@/mixins/dictionary'
 import { clearJson, parseDate2Str } from '@/utils'
 
 import { pageApi, delApi, statusApi } from '@/api/develop/dictionary'
@@ -133,6 +136,7 @@ export default defineComponent({
     const refSetDrawer = ref()
 
     const { page } = usePage()
+    const { dictionaryMap, getDictionaryMap } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -148,7 +152,7 @@ export default defineComponent({
      * @description: 获取分页列表
      * @param {*}
      * @return {*}
-     * @author: slipper
+     * @Author: gumingchen
      */
     const getList = () => {
       const params = {
@@ -185,7 +189,7 @@ export default defineComponent({
      * @description: 新增/编辑弹窗
      * @param {*}
      * @return {*}
-     * @author: slipper
+     * @Author: gumingchen
      */
     const addEditHandle = id => {
       data.visible = true
@@ -198,7 +202,7 @@ export default defineComponent({
      * @description: 删除
      * @param {number} id
      * @return {*}
-     * @author: slipper
+     * @Author: gumingchen
      */
     const delHandle = id => {
       let params
@@ -233,14 +237,14 @@ export default defineComponent({
      * @author: gumingchen
      */
     const statusHandle = row => {
-      ElMessageBox.confirm(`'确定对[id=${ row.id }]进行[${ row.status === 1 ? '禁用' : '启用' }]操作`, '提示', {
+      ElMessageBox.confirm(`确定对[id=${ row.id }]进行[${ dictionaryMap.value[row.status] }]操作`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         const params = {
           key: row.id,
-          value: row.status === 1 ? 0 : 1
+          value: row.status
         }
         statusApi(params).then(r => {
           if (r) {
@@ -273,7 +277,7 @@ export default defineComponent({
      * @description: table多选事件
      * @param {*} val
      * @return {*}
-     * @author: slipper
+     * @Author: gumingchen
      */
     const selectionHandle = val => {
       data.selection = val
@@ -283,7 +287,7 @@ export default defineComponent({
      * @description: 分页变化事件
      * @param {*}
      * @return {*}
-     * @author: slipper
+     * @Author: gumingchen
      */
     const pageChangeHandle = argPage => {
       page.current = argPage.current
@@ -293,6 +297,7 @@ export default defineComponent({
 
     onBeforeMount(() => {
       getList()
+      getDictionaryMap('status')
     })
 
     return {
@@ -300,6 +305,7 @@ export default defineComponent({
       refAddEdit,
       refSetDrawer,
       page,
+      dictionaryMap,
       ...toRefs(data),
       getList,
       reacquireHandle,

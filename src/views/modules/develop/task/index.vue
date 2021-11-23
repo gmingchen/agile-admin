@@ -72,8 +72,9 @@
         prop="status"
         width="80px">
         <template v-slot="{ row }">
-          <el-tag v-if="row.status === 1" type="success">正常</el-tag>
-          <el-tag v-if="row.status === 0" type="info">暂停</el-tag>
+          <el-tag :type="row.status === 1 ? 'success' : 'info'">
+            {{ dictionaryMap[row.status] }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -124,6 +125,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
 
 import usePage from '@/mixins/page'
+import useDictionary from '@/mixins/dictionary'
 import { clearJson } from '@/utils'
 
 import { delApi, pageApi, pauseApi, resumeApi, runApi } from '@/api/develop/task'
@@ -133,7 +135,9 @@ export default defineComponent({
   setup() {
     const refForm = ref()
     const refAddEdit = ref()
+
     const { page } = usePage()
+    const { dictionaryMap, getDictionaryMap } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -338,12 +342,14 @@ export default defineComponent({
 
     onBeforeMount(() => {
       getList()
+      getDictionaryMap('status')
     })
 
     return {
       refForm,
       refAddEdit,
       page,
+      dictionaryMap,
       ...toRefs(data),
       getList,
       reacquireHandle,

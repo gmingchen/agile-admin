@@ -45,8 +45,7 @@
       </el-form-item>
       <el-form-item label="状态" size="mini" prop="status">
         <el-radio-group v-model="form.status">
-          <el-radio :label="0">禁用</el-radio>
-          <el-radio :label="1">启用</el-radio>
+          <el-radio :label="item.value" v-for="item in dictionaryList" :key="item.value">{{item.label}}</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
@@ -63,6 +62,7 @@
 import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import { ElMessage } from 'element-plus'
 
+import useDictionary from '@/mixins/dictionary'
 import { isEmail, isMobile } from '@/utils/regular'
 
 import { addApi, editApi, infoApi } from '@/api/system/admin'
@@ -72,6 +72,8 @@ export default defineComponent({
   emits: ['refresh'],
   setup(_props, { emit }) {
     const refForm = ref()
+
+    const { dictionaryList, getDictionaryList } = useDictionary()
     const data = reactive({
       visible: false,
       loading: false,
@@ -128,6 +130,7 @@ export default defineComponent({
       data.visible = true
       data.loading = true
       data.form.id = id
+      getDictionaryList('status')
       const res = await selectListApi()
       if (res) {
         data.roles = res.data
@@ -184,6 +187,7 @@ export default defineComponent({
 
     return {
       refForm,
+      dictionaryList,
       ...toRefs(data),
       rules,
       init,

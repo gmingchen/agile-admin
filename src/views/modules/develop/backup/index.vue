@@ -14,8 +14,11 @@
       </el-form-item>
       <el-form-item>
         <el-select v-model="form.type" placeholder="备份方式" clearable>
-          <el-option label="手动" :value="1" />
-          <el-option label="自动" :value="2" />
+          <el-option
+            :label="item.label"
+            :value="item.value"
+            v-for="item in dictionaryList"
+            :key="item.value" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -89,8 +92,9 @@
         prop="cmd"
         width="120">
         <template v-slot="{ row }">
-          <el-tag v-if="row.type === 1">手动</el-tag>
-          <el-tag v-else  type="success">自动</el-tag>
+          <el-tag :type="row.type === 1 ? 'info' : 'success'">
+            {{ dictionaryMap[row.type] }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -131,6 +135,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import BackupSet from './components/backup-set.vue'
 
 import usePage from '@/mixins/page'
+import useDictionary from '@/mixins/dictionary'
 import { clearJson, parseDate2Str } from '@/utils'
 
 import { delApi, pageApi, clearApi, downloadApi, recoveryApi, backupApi, truncateApi } from '@/api/develop/backup'
@@ -140,7 +145,9 @@ export default defineComponent({
   setup() {
     const refForm = ref()
     const refBackupSet = ref()
+
     const { page } = usePage()
+    const { dictionaryMap, getDictionaryMap, dictionaryList, getDictionaryList } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -362,12 +369,16 @@ export default defineComponent({
 
     onBeforeMount(() => {
       getList()
+      getDictionaryMap('backup')
+      getDictionaryList('backup')
     })
 
     return {
       refForm,
       refBackupSet,
       page,
+      dictionaryMap,
+      dictionaryList,
       ...toRefs(data),
       getList,
       reacquireHandle,

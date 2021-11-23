@@ -1,22 +1,22 @@
 /*
- * @Description: 数据字典-主表
+ * @Description: 数据字典-副表
  * @Author: gumingchen
  * @Email: 1240235512@qq.com
- * @Date: 2021-11-19 04:53:51
+ * @Date: 2021-11-22 10:22:48
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-11-19 04:53:51
+ * @LastEditTime: 2021-11-22 10:22:48
  */
 import service from '@/utils/request'
 
 /**
- * @description: 分页列表
+ * @description: 列表
  * @param {*}
  * @return {*}
  * @Author: gumingchen
  */
-export function pageApi(params) {
+export function listApi(params) {
   return service({
-    url: '/backstage/dictionary/page',
+    url: '/backstage/dictionary/detail/list',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function pageApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/dictionary/info/${ params }`,
+    url: `/backstage/dictionary/detail/info/${ params }`,
     method: 'get'
   })
 }
@@ -43,7 +43,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: '/backstage/dictionary/create',
+    url: '/backstage/dictionary/detail/create',
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: '/backstage/dictionary/update',
+    url: '/backstage/dictionary/detail/update',
     method: 'post',
     data: params
   })
@@ -71,22 +71,21 @@ export function editApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/backstage/dictionary/delete',
+    url: '/backstage/dictionary/detail/delete',
     method: 'post',
     data: params
   })
 }
 
 /**
- * @description: 状态切换
- * @param {*} params
+ * @description: 字典编码查询字典详情列表
+ * @param {*}
  * @return {*}
  * @Author: gumingchen
  */
-export function statusApi(params) {
+export function selectListApi(params) {
   return service({
-    url: '/backstage/dictionary/status',
-    method: 'post',
-    data: params
+    url: `/backstage/dictionary/detail/select/${ params }`,
+    method: 'get'
   })
 }

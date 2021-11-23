@@ -63,8 +63,9 @@
         prop="status"
         width="80px">
         <template v-slot="{ row }">
-          <el-tag v-if="row.status === 1" type="success">启用</el-tag>
-          <el-tag v-if="row.status === 0" type="info">禁用</el-tag>
+          <el-tag :type="row.status === 1 ? 'success' : 'info'">
+            {{ dictionaryMap[row.status] }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -75,14 +76,16 @@
       <el-table-column
         align="center"
         label="操作"
-        width="120"
+        width="140"
         fixed="right">
         <template v-slot="{ row }">
           <el-button
             v-if="row.status === 0"
             v-permission="'backstage:config:status'"
             type="text"
-            @click="statusHandle(row)">启用</el-button>
+            @click="statusHandle({id: row.id, status: row.status === 1 ? 0 : 1})">
+            {{row.status === 1 ? '禁用' : '启用'}}
+          </el-button>
           <el-button
             v-permission="'backstage:config:update'"
             type="text"
@@ -105,6 +108,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
 
 import usePage from '@/mixins/page'
+import useDictionary from '@/mixins/dictionary'
 import { clearJson } from '@/utils'
 
 import { delApi, listApi, statusApi } from '@/api/develop/config'
@@ -114,7 +118,9 @@ export default defineComponent({
   setup() {
     const refForm = ref()
     const refAddEdit = ref()
+
     const { page } = usePage()
+    const { dictionaryMap, getDictionaryMap } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -200,14 +206,14 @@ export default defineComponent({
      * @author: gumingchen
      */
     const statusHandle = row => {
-      ElMessageBox.confirm(`'确定对[id=${ row.id }]进行[${ row.status === 1 ? '禁用' : '启用' }]操作`, '提示', {
+      ElMessageBox.confirm(`确定对[id=${ row.id }]进行[${ dictionaryMap.value[row.status] }]操作`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         const params = {
           key: row.id,
-          value: row.status === 1 ? 0 : 1
+          value: row.status
         }
         statusApi(params).then(r => {
           if (r) {
@@ -247,12 +253,14 @@ export default defineComponent({
 
     onBeforeMount(() => {
       getList()
+      getDictionaryMap('status')
     })
 
     return {
       refForm,
       refAddEdit,
       page,
+      dictionaryMap,
       ...toRefs(data),
       getList,
       reacquireHandle,
