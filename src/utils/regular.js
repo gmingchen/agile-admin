@@ -1,4 +1,37 @@
 /**
+ * @description: 整数
+ * @param {*} input
+ * @return {*}
+ * @author: gumingchen
+ */
+export function isInteger(input) {
+  const reg = /^-?[1-9]\d*$/
+  return reg.test(input)
+}
+
+/**
+ * @description: 正整数
+ * @param {*} input
+ * @return {*}
+ * @author: gumingchen
+ */
+export function isPositiveInteger(input) {
+  const reg = /^[1-9]\d*$/
+  return reg.test(input)
+}
+
+/**
+ * @description: 负整数
+ * @param {*} input
+ * @return {*}
+ * @author: gumingchen
+ */
+export function isNegtiveInteger(input) {
+  const reg = /^-[1-9]\d*$/
+  return reg.test(input)
+}
+
+/**
  * @description: 邮箱
  * @param {*} input
  * @return {*}
