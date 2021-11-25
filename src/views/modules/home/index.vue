@@ -91,6 +91,10 @@ export default defineComponent({
         url: 'http://139.196.182.46:8800/material/qq-group-qr-code.jpg'
       },
       {
+        label: '微信讨论群',
+        url: 'http://139.196.182.46:8800/material/wechat-group-qr-code.jpg'
+      },
+      {
         label: '微信',
         url: 'http://139.196.182.46:8800/material/wechat-qr-code-1.jpg'
       },

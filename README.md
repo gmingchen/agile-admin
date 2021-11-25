@@ -143,6 +143,7 @@ npm run build:test  # 测试环境
   <tr align="center">
     <td>公众号</td>
     <td>QQ交流群</td>
+    <td>微信交流群</td>
     <td>微信</td>
     <td>QQ</td>
   </tr>
@@ -152,6 +153,9 @@ npm run build:test  # 测试环境
     </td>
     <td>
       <img src="http://139.196.182.46:8800/material/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
+    </td>
+    <td>
+      <img src="http://139.196.182.46:8800/material/wechat-group-qr-code.jpg" width="200px" title="微信交流群" alt="微信交流群:124371554" />
     </td>
     <td>
       <img src="http://139.196.182.46:8800/material/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
