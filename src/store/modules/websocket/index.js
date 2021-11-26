@@ -62,21 +62,8 @@ export default {
      * @return {*}
      * @author: gumingchen
      */
-    send({ commit, dispatch }, data) {
+    send({ commit }, data) {
       commit('SEND', data)
-      const now = new Date()
-      dispatch('message/pushPrivateMessage', {
-        ack: data.message.ack,
-        content: data.message.content,
-        created_at: now.getTime(),
-        from: data.message.from,
-        id: '',
-        status: 0,
-        to: data.message.to,
-        type: data.message.messageType,
-        url: data.message.url,
-        loading: true
-      }, { root: true })
     },
 
     /**

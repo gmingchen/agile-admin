@@ -29,3 +29,17 @@
 .el-message-box__status {
   position: absolute !important;
 }
+// 修复 通知弹窗样式
+.el-notification {
+  &__icon {
+    height: var(--el-notification-icon-size)!important;
+    width: var(--el-notification-icon-size)!important;
+    font-size: var(--el-notification-icon-size)!important;
+  }
+  &--success, &--warning, &--info, &--error {
+    color: var(--el-notification-icon-color)!important;
+  }
+  &__closeBtn {
+    position: absolute !important;
+  }
+}

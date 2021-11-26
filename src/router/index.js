@@ -76,8 +76,6 @@ const main = {
       store.dispatch('user/getUser').then(r => {
         if (r) {
           next()
-          // 初始化websocket
-          store.dispatch('websocket/init')
         }
       })
     }
