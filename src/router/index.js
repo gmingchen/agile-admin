@@ -36,21 +36,6 @@ const main = {
         keepAlive: true,
         multiple: false
       }
-    },
-    {
-      path: '/demo',
-      name: 'demo',
-      component: () => import('@/views/modules/demo/index.vue'),
-      meta: {
-        id: 'demo',
-        title_cn: 'Demo',
-        title_en: '',
-        isTab: true,
-        type: 1,
-        isDynamic: false,
-        keepAlive: true,
-        multiple: false
-      }
     }
   ],
   beforeEnter(_to, _from, next) {

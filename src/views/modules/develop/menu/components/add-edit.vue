@@ -22,7 +22,9 @@
       label-position="top">
       <el-form-item label="类型" prop="type">
         <el-radio-group v-model="form.type">
-          <el-radio :label="item.value" v-for="item in dictionaryList" :key="item.value">{{item.label}}</el-radio>
+          <el-radio :label="0">目录</el-radio>
+          <el-radio :label="1">菜单</el-radio>
+          <el-radio :label="2">按钮</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="中文名称" prop="name_cn">
@@ -91,7 +93,6 @@ import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRe
 
 import { ElMessage } from 'element-plus'
 
-import useDictionary from '@/mixins/dictionary'
 import { parseData2Tree } from '@/utils'
 import Icon from '@/assets/icon'
 
@@ -102,7 +103,6 @@ export default defineComponent({
   setup(_props, { emit }) {
     const refForm = ref()
 
-    const { dictionaryList, getDictionaryList } = useDictionary()
     const data = reactive({
       visible: false,
       loading: false,
@@ -158,7 +158,6 @@ export default defineComponent({
       data.visible = true
       data.loading = true
       data.form.id = id
-      getDictionaryList('menu')
       const res = await selectListApi()
       if (res) {
         res.data.push({
@@ -229,7 +228,6 @@ export default defineComponent({
 
     return {
       refForm,
-      dictionaryList,
       ...toRefs(data),
       rules,
       menusProps,

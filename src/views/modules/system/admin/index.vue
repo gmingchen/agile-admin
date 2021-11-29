@@ -71,9 +71,8 @@
         width="80px"
         :show-overflow-tooltip="true">
         <template v-slot="{ row }">
-          <el-tag :type="row.status === 1 ? 'success' : 'info'">
-            {{ dictionaryMap[row.status] }}
-          </el-tag>
+          <el-tag v-if="row.status === 1" type="success">启用</el-tag>
+          <el-tag v-if="row.status === 0" type="info">禁用</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -116,7 +115,6 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
 
 import usePage from '@/mixins/page'
-import useDictionary from '@/mixins/dictionary'
 import { clearJson } from '@/utils'
 
 import { pageApi, delApi, statusApi } from '@/api/system/admin'
@@ -128,7 +126,6 @@ export default defineComponent({
     const refAddEdit = ref()
 
     const { page } = usePage()
-    const { dictionaryMap, getDictionaryMap } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -221,7 +218,7 @@ export default defineComponent({
      * @author: gumingchen
      */
     const statusHandle = row => {
-      ElMessageBox.confirm(`确定对[id=${ row.id }]进行[${ dictionaryMap.value[row.status] }]操作`, '提示', {
+      ElMessageBox.confirm(`确定对[id=${ row.id }]进行[${ row.status === 1 ? '禁用' : '启用' }]操作`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
@@ -268,14 +265,12 @@ export default defineComponent({
 
     onBeforeMount(() => {
       getList()
-      getDictionaryMap('status')
     })
 
     return {
       refForm,
       refAddEdit,
       page,
-      dictionaryMap,
       ...toRefs(data),
       getList,
       reacquireHandle,

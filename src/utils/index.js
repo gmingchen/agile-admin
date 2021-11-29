@@ -199,29 +199,3 @@ export function getApiBaseUrl () {
   return baseUrl
 }
 
-/**
- * @description: 获取数据字典列表
- * @param {*} key
- * @return {*}
- * @author: gumingchen
- */
-export const getDictionaryList = async (code) => {
-  const r = await store.dispatch('dictionary/getDictionary', code)
-  return r
-}
-
-/**
- * @description: 获取数据字典键值对
- * @param {*} key
- * @return {*}
- * @author: gumingchen
- */
-export const getDictionaryMap = async (code) => {
-  const r = await store.dispatch('dictionary/getDictionary', code)
-  const map = {}
-  r.forEach(item => {
-    map[item.value] = item.label
-  })
-  return map
-}
-

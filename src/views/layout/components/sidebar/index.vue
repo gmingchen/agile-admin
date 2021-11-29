@@ -22,12 +22,6 @@
           <span>首页</span>
         </template>
       </el-menu-item>
-      <el-menu-item index="demo" @click="router.push({ name: 'demo' })">
-        <g-svg name="demo" class="sidebar-menu-icon" size="14px" />
-        <template #title>
-          <span>Demo</span>
-        </template>
-      </el-menu-item>
       <sub-menu v-for="menu in menus" :key="menu.id" :menu="menu" />
     </el-menu>
   </el-scrollbar>
