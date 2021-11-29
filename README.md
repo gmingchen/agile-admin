@@ -10,9 +10,9 @@
   </a>
 </p>
 
-[vue3-element-plus-admin](https://github.com/gmingchen/vue3-element-plus-admin)主要目的在于学习 __`vue3`__ + __`ts`__,功能还未很完善,目前只有基础的 __`RBAC`__ 权限控制,后续会 __`持续迭代更新`__。
+[vue3-element-plus-admin](https://github.com/gmingchen/vue3-element-plus-admin)主要目的在于学习 __`vue3`__ + __`ts`__,功能还在完善中,目前只有基础的 __`RBAC`__ 权限控制,后续会 __`持续迭代更新`__。
 
-后端是基于 __`java`__ 的 __`springboot`__,目前 __`暂未开源`__。后期完善之后 __`会开源后端代码`__。<br>
+后端是基于 __`java`__ 的 __`springboot`__,目前完整版后端代码 __`暂未开源`__。后期完善之后 __`会开源后端代码`__。<br>
 目前只提供基础功能的后端代码，若有需要可翻到底部 __`添加微信/QQ`__ 索取后端代码。
 
 ### 简介
@@ -24,34 +24,22 @@
 - [开发文档(备用-服务器比较low，访问有点慢！)](http://139.196.182.46:8805/docs/)
 - [在线预览(备用-服务器比较low，访问有点慢！)](http://139.196.182.46:8805)
 
-**默认 master 分支默认使用 composition-api ，若需要 class 风格 + Typescript 请使用[class-style](https://github.com/1240235512/vue3/tree/class-style)分支，若需要 composition-api + Typescript + I18n 请使用[composition-api](https://github.com/1240235512/vue3/tree/composition-api)分支，若只需要 基础版本 请使用[base](https://github.com/1240235512/vue3/tree/base)分支，但它们不会和 master 保持同步更新**
+**默认 master 分支默认使用 composition-api ，若需要 class 风格 + Typescript 请使用[class-style](https://github.com/1240235512/vue3/tree/class-style)分支，若需要 composition-api + Typescript + I18n 请使用[composition-api](https://github.com/1240235512/vue3/tree/composition-api)分支，若只需要 基础版本 请使用[base-refactoring](https://github.com/1240235512/vue3/tree/base-refactoring)分支，但它们不会和 master 保持同步更新**
 
 ### 分支
 - [master](https://github.com/gmingchen/vue3-element-plus-admin/tree/master) 轻量版本：持续维护分支
-- [base](https://github.com/gmingchen/vue3-element-plus-admin/tree/base) 精简版本：基于 RBAC 的权限功能-仅包含 `菜单管理`、`角色管理`、`用户管理` 三个模块
+- [base-refactoring](https://github.com/gmingchen/vue3-element-plus-admin/tree/base-refactoring) 精简版本：基于 RBAC 的权限功能-仅包含 `菜单管理`、`角色管理`、`用户管理`、`日志` 四个模块
 - [composition-api](https://github.com/1240235512/vue3/tree/composition-api) 内置__`Type Script`__、__`I18n`__
 - [class-style](https://github.com/1240235512/vue3/tree/class-style) 使用 class 风格开发，内置__`Type Script`__、__`I18n`__
+
+**__`注：`__ [base-refactoring](https://github.com/gmingchen/vue3-element-plus-admin/tree/base-refactoring) 分支的后端代码目前已经开源：[点击这里](https://github.com/gmingchen/java-admin-base.git) 获取代码**
 
 ### 功能模块
 
 - [X] 角色管理
 - [X] 账户管理
-- [X] 发送邮件/邮件记录
-- [X] 登录日志
 - [X] 操作日志
-- [X] 定时任务日志
-- [X] 异常日志
 - [X] 菜单管理
-- [X] 数据字典
-- [X] 配置管理
-- [X] 定时任务
-- [X] 文件管理
-- [X] 消息推送
-- [X] 区域管理
-- [X] 备份管理
-- [X] 代码生成器
-- [X] 接口文档
-- [X] SQL监控
 
 ### 项目结构
 
@@ -82,7 +70,6 @@ vue3-src
 │ 
 ├─store vuex
 │  ├─modules
-│  │  ├─dictionary 数据字典模块
 │  │  ├─menu 菜单模块
 │  │  ├─setting 设置模块
 │  │  ├─tab 标签页模块
