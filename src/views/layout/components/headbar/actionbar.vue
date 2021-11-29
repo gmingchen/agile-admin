@@ -1,7 +1,7 @@
 <template>
   <div class="actionbar-contanier">
     <div class="flex-box flex_j_c-flex-end" :style="style">
-      <div class="action-item" @click="router.push({ name: 'set' })">
+      <div class="action-item" @click="setHandle()">
         <g-icon name="setting" />
       </div>
       <div class="action-item" @click="fullScreenHandle()">
@@ -61,38 +61,56 @@
       </div>
     </div>
     <edit-info ref="refEditInfo" v-if="visible" />
+    <set-drawer ref="refSetDrawer" v-if="setVisible" />
   </div>
 </template>
 
 <script>
-import { computed, defineComponent, nextTick, ref } from 'vue'
+import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 import { ElMessage, ElMessageBox, ElLoading } from 'element-plus'
 import EditInfo from '../edit-info/index.vue'
+import SetDrawer from './set-drawer.vue'
 
 import screenfull from 'screenfull/dist/screenfull'
 
 export default defineComponent({
-  components: { EditInfo },
+  components: { EditInfo, SetDrawer },
   setup() {
     const router = useRouter()
     const store = useStore()
 
-    const avatar = ref(`http://139.196.182.46:8800/images/slipper.jpeg`)
-    const visible = ref(false)
-    const refEditInfo = ref()
-
     const navbar = computed(() => store.state.setting.navbar)
     const user = computed(() => store.state.user.user)
     const set = computed(() => store.state.setting.set)
-
     const style = computed(() => {
       return {
         'line-height': `${ navbar.value.headHeight }px`
       }
     })
+
+    const refEditInfo = ref()
+    const refSetDrawer = ref()
+    const data = reactive({
+      visible: false,
+      setVisible: false,
+      avatar: 'http://139.196.182.46:8800/images/slipper.jpeg'
+    })
+
+    /**
+     * @description: 设置
+     * @param {*}
+     * @return {*}
+     * @author: gumingchen
+     */
+    const setHandle = () => {
+      data.setVisible = true
+      nextTick(() => {
+        refSetDrawer.value.init()
+      })
+    }
 
     /**
      * @description: 设置全屏
@@ -162,7 +180,7 @@ export default defineComponent({
           window.open('https://gitee.com/shychen/spring-boot.git')
           break
         case 'edit':
-          visible.value = true
+          data.visible = true
           nextTick(() => {
             refEditInfo.value.init()
           })
@@ -186,13 +204,14 @@ export default defineComponent({
     }
 
     return {
-      avatar,
-      visible,
       refEditInfo,
+      refSetDrawer,
+      ...toRefs(data),
       navbar,
       user,
       set,
       style,
+      setHandle,
       fullScreenHandle,
       refreshHandle,
       clearHandle,

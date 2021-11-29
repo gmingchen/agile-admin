@@ -51,21 +51,6 @@ const main = {
         keepAlive: true,
         multiple: false
       }
-    },
-    {
-      path: '/set',
-      name: 'set',
-      component: () => import('@/views/modules/set/index.vue'),
-      meta: {
-        id: 'set',
-        title_cn: '设置',
-        title_en: '',
-        isTab: false,
-        type: 1,
-        isDynamic: false,
-        keepAlive: true,
-        multiple: false
-      }
     }
   ],
   beforeEnter(_to, _from, next) {

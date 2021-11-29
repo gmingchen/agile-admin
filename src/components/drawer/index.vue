@@ -4,7 +4,8 @@
       v-model="visible"
       :title="title"
       :direction="direction"
-      :size="size">
+      :size="size"
+      :modal="modal">
       <el-scrollbar class="padding_r-10">
         <slot />
       </el-scrollbar>
@@ -37,6 +38,10 @@ export default defineComponent({
       default: '30%'
     },
     fixed: { // 定位方式
+      type: Boolean,
+      default: true
+    },
+    modal: { // 是否需要遮罩层
       type: Boolean,
       default: true
     }

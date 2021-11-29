@@ -65,7 +65,7 @@ import { listApi, delApi } from '@/api/develop/dictionary/detail'
 
 export default defineComponent({
   components: { Drawer, AddEdit },
-  setup(props) {
+  setup() {
     const refAddEdit = ref()
 
     const data = reactive({
