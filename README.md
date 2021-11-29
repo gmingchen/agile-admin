@@ -15,6 +15,8 @@
 后端是基于 __`java`__ 的 __`springboot`__,目前完整版后端代码 __`暂未开源`__。后期完善之后可能 __`会开源完整后端代码`__。目前开源了[基础版的后端代码](https://github.com/gmingchen/java-admin-base.git)<br>
 若该项目有帮助到你可以翻到底部 __`添加作者微信/QQ`__，如果使用中遇到什么问题可以在交流群中说明你遇到的问题，大佬们都会积极的给你解决。
 
+`若Github项目下载代码过慢或失败，可以翻到底部，关注公众号获取基础版` [base-refactoring](https://github.com/gmingchen/vue3-element-plus-admin/tree/base-refactoring) 分支的前后端代码
+
 ### 简介
 
 [vue3-element-plus-admin](https://github.com/gmingchen/vue3-element-plus-admin) 是一个管理后台基础功能框架，基于 [vue3](https://github.com/vuejs/vue-next) 、 [element-plus](https://github.com/element-plus/element-plus) 和 [typescript](https://github.com/microsoft/TypeScript) 实现。内置了 i18n 国际化，动态路由，权限验证。
