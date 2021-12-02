@@ -372,4 +372,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+::v-deep(.el-avatar > img) {
+  width: 100%;
+}
 </style>
