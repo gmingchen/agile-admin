@@ -115,3 +115,16 @@ export function downloadApi(params) {
   result += `?${ parseJson2Param(param) }`
   return result
 }
+
+/**
+ * @description: 七牛下载
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function qiniuDownloadApi(params) {
+  return service({
+    url: `/oss/file/download/qiniu/${ params }`,
+    method: 'get'
+  })
+}

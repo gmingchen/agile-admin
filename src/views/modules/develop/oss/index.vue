@@ -68,7 +68,7 @@
         width="80">
         <template v-slot="{ row }">
           <el-avatar
-            :src="flowApi(row.id)"
+            :src="row.url"
             shape="square"
             fit="contain">{{ row.extension }}</el-avatar>
         </template>
@@ -108,6 +108,15 @@
         :show-overflow-tooltip="true" />
       <el-table-column
         align="center"
+        label="存储位置"
+        prop="created_at"
+        width="100">
+        <template v-slot="{ row }">
+          {{ dictionaryMap[row.type] }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
         label="上传时间"
         prop="created_at"
         width="160" />
@@ -120,7 +129,7 @@
           <el-button
             v-permission="'oss:file:download'"
             type="text"
-            @click="downloadHandle(row.id)">下载</el-button>
+            @click="downloadHandle(row)">下载</el-button>
           <el-button
             v-permission="'oss:file:delete'"
             type="text"
@@ -141,10 +150,11 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import OssSet from './components/oss-set.vue'
 
 import usePage from '@/mixins/page'
+import useDictionary from '@/mixins/dictionary'
 import { clearJson, parseDate2Str } from '@/utils'
 import { SUCCESS_CODE, TOKEN_KEY } from '@/utils/constant'
 
-import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi } from '@/api/develop/oss'
+import { delApi, pageApi, uploadApi, clearApi, flowApi, downloadApi, qiniuDownloadApi } from '@/api/develop/oss'
 
 export default defineComponent({
   components: { OssSet },
@@ -155,6 +165,7 @@ export default defineComponent({
     const refForm = ref()
     const refOssSet = ref()
     const { page } = usePage()
+    const { dictionaryMap, getDictionaryMap } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -293,8 +304,19 @@ export default defineComponent({
      * @return {*}
      * @author: gumingchen
      */
-    const downloadHandle = id => {
-      window.open(downloadApi(id))
+    const downloadHandle = row => {
+      switch (row.type) {
+        case 1:
+          window.open(downloadApi(row.id))
+          break
+        case 2:
+          qiniuDownloadApi(row.id).then(r => {
+            if (r) {
+              window.open(r.data)
+            }
+          })
+          break
+      }
     }
 
     /**
@@ -321,12 +343,14 @@ export default defineComponent({
 
     onBeforeMount(() => {
       getList()
+      getDictionaryMap('oss')
     })
 
     return {
       refForm,
       refOssSet,
       page,
+      dictionaryMap,
       ...toRefs(data),
       getList,
       reacquireHandle,

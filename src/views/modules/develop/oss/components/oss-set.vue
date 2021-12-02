@@ -20,18 +20,27 @@
       ref="refForm"
       label-position="top">
       <el-form-item label="类型" prop="id">
-        <el-radio-group v-model="form.id">
+        <el-radio-group v-model="form.id" @change="changeHandle">
           <el-radio v-for="item in OSSs" :key="item.id" :label="item.id">{{ item.name }}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="域名" prop="domain">
+      <el-form-item label="域名" prop="domain" v-if="currentJsonValue.hasOwnProperty('domain')">
         <el-input v-model="form.domain" placeholder="域名" />
       </el-form-item>
-      <el-form-item label="前缀" prop="prefix">
+      <el-form-item label="前缀" prop="prefix" v-if="currentJsonValue.hasOwnProperty('prefix')">
         <el-input v-model="form.prefix" placeholder="前缀" />
       </el-form-item>
-      <el-form-item label="存储目录" prop="path">
+      <el-form-item label="存储目录" prop="path" v-if="currentJsonValue.hasOwnProperty('path')">
         <el-input v-model="form.path" placeholder="存储目录" />
+      </el-form-item>
+      <el-form-item label="AccessKey" prop="access" v-if="currentJsonValue.hasOwnProperty('access')">
+        <el-input v-model="form.access" placeholder="AccessKey" />
+      </el-form-item>
+      <el-form-item label="SecretKey" prop="secret" v-if="currentJsonValue.hasOwnProperty('secret')">
+        <el-input v-model="form.secret" placeholder="SecretKey" />
+      </el-form-item>
+      <el-form-item label="空间名称" prop="bucket" v-if="currentJsonValue.hasOwnProperty('bucket')">
+        <el-input v-model="form.bucket" placeholder="空间名称" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -45,9 +54,12 @@
 
 <script>
 import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
+
 import { ElMessage } from 'element-plus'
-import { editValueApi, getInfoApi } from '@/api/develop/config'
+
 import { isURL } from '@/utils/regular'
+
+import { editValueApi, getInfoApi } from '@/api/develop/config'
 
 export default defineComponent({
   emits: ['refresh'],
@@ -60,10 +72,14 @@ export default defineComponent({
       OSSs: [],
       form: {
         id: '',
-        domain: '',
-        prefix: '',
-        path: ''
-      }
+        domain: '', // 域名
+        prefix: '', // 前缀
+        path: '', // 本地物理路径
+        access: '', // AccessKey
+        secret: '', // SecretKey
+        bucket: '' // 存储空间名
+      },
+      currentJsonValue: {} // 当前选中的json value
     })
 
     const rules = reactive(function() {
@@ -75,9 +91,12 @@ export default defineComponent({
         }
       }
       return {
-        id: [{ required: true, message: '请选择类型', trigger: 'change' }],
+        // id: [{ required: true, message: '请选择类型', trigger: 'change' }],
         domain: [{ required: true, validator: checkDomain, trigger: 'blur' }],
-        path: [{ required: true, message: '请输入存储目录', trigger: 'blur' }]
+        path: [{ required: true, message: '请输入存储目录', trigger: 'blur' }],
+        access: [{ required: true, message: '请输入AccessKey', trigger: 'blur' }],
+        secret: [{ required: true, message: '请输入SecretKey', trigger: 'blur' }],
+        bucket: [{ required: true, message: '请输入空间名称', trigger: 'blur' }]
       }
     }())
 
@@ -89,11 +108,12 @@ export default defineComponent({
      */
     const changeHandle = (id) => {
       const current = data.OSSs.filter(item => item.id === id)[0]
-      const jsonValue = JSON.parse(current.json_value)
+      data.currentJsonValue = JSON.parse(current.json_value)
+
       data.form.id = current.id
-      data.form.domain = jsonValue.domain
-      data.form.prefix = jsonValue.prefix
-      data.form.path = jsonValue.path
+      for (const key in data.currentJsonValue) {
+        data.form[key] = data.currentJsonValue[key]
+      }
     }
 
     const init = () => {
@@ -120,13 +140,14 @@ export default defineComponent({
     const submit = () => {
       refForm.value.validate(valid => {
         if (valid) {
-          const jsonStr = JSON.stringify({
-            domain: data.form.domain,
-            prefix: data.form.prefix,
-            path: data.form.path
-          })
+          const jsonObj = {}
+          for (const key in data.currentJsonValue) {
+            jsonObj[key] = data.form[key]
+          }
+          const jsonStr = JSON.stringify(jsonObj)
           const params = {
             id: data.form.id,
+            json_key: data.key,
             json_value: jsonStr
           }
           editValueApi(params).then(r => {
@@ -159,6 +180,7 @@ export default defineComponent({
       rules,
       init,
       submit,
+      changeHandle,
       dialogClosedHandle
     }
   }

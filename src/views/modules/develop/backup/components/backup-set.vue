@@ -70,7 +70,8 @@ export default defineComponent({
         prefix: '',
         path: '',
         location: ''
-      }
+      },
+      currentJsonValue: {} // 当前选中的json value
     })
 
     const rules = reactive(function() {
@@ -82,7 +83,7 @@ export default defineComponent({
         }
       }
       return {
-        id: [{ required: true, message: '请选择类型', trigger: 'change' }],
+        // id: [{ required: true, message: '请选择类型', trigger: 'change' }],
         domain: [{ required: true, validator: checkDomain, trigger: 'blur' }],
         path: [{ required: true, message: '请输入存储目录', trigger: 'blur' }]
       }
@@ -96,12 +97,12 @@ export default defineComponent({
      */
     const changeHandle = (id) => {
       const current = data.types.filter(item => item.id === id)[0]
-      const jsonValue = JSON.parse(current.json_value)
+      data.currentJsonValue = JSON.parse(current.json_value)
+
       data.form.id = current.id
-      data.form.domain = jsonValue.domain
-      data.form.prefix = jsonValue.prefix
-      data.form.path = jsonValue.path
-      data.form.location = jsonValue.location
+      for (const key in data.currentJsonValue) {
+        data.form[key] = data.currentJsonValue[key]
+      }
     }
 
     /**
@@ -134,14 +135,14 @@ export default defineComponent({
     const submit = () => {
       refForm.value.validate(valid => {
         if (valid) {
-          const jsonStr = JSON.stringify({
-            domain: data.form.domain,
-            prefix: data.form.prefix,
-            path: data.form.path,
-            location: data.form.location
-          })
+          const jsonObj = {}
+          for (const key in data.currentJsonValue) {
+            jsonObj[key] = data.form[key]
+          }
+          const jsonStr = JSON.stringify(jsonObj)
           const params = {
             id: data.form.id,
+            json_key: data.key,
             json_value: jsonStr
           }
           editValueApi(params).then(r => {

@@ -15,6 +15,7 @@
     </p>
     <el-button @click="jump(0)">返回</el-button>
     <el-button type="primary" @click="jump(1)">首页</el-button>
+    <el-button type="primary" @click="jump(2)">重新登录</el-button>
     <look-around class="margin_l-10" />
   </div>
 </template>
@@ -49,10 +50,13 @@ export default defineComponent({
     const jump = type => {
       switch (type) {
         case 0:
-          router.go(-1)
+          router.back(-1)
           break
         case 1:
           router.push({ name: 'home' })
+          break
+        case 2:
+          router.push({ name: 'login' })
           break
       }
       clearTimeout(timer.value)

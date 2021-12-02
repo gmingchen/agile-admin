@@ -50,7 +50,9 @@
 - [X] 数据字典
 - [X] 配置管理
 - [X] 定时任务
-- [X] 文件管理
+- [X] 文件管理 - 现在默认使用的是七牛云，可直接配置存储位置
+  - [X] 本地存储
+  - [X] 七牛云存储 
 - [X] 消息推送
 - [X] 区域管理
 - [X] 备份管理
@@ -154,19 +156,19 @@ npm run build:test  # 测试环境
   </tr>
   <tr>
     <td>
-      <img src="http://139.196.182.46:8800/material/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
+      <img src="http://oss.gumingchen.icu/image/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
     </td>
     <td>
-      <img src="http://139.196.182.46:8800/material/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
+      <img src="http://oss.gumingchen.icu/image/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
     </td>
     <td>
-      <img src="http://139.196.182.46:8800/material/wechat-group-qr-code.jpg" width="200px" title="微信交流群" alt="微信交流群:124371554" />
+      <img src="http://oss.gumingchen.icu/image/wechat-group-qr-code.jpg" width="200px" title="微信交流群" alt="微信交流群:124371554" />
     </td>
     <td>
-      <img src="http://139.196.182.46:8800/material/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
+      <img src="http://oss.gumingchen.icu/image/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
     </td>
     <td>
-      <img src="http://139.196.182.46:8800/material/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
+      <img src="http://oss.gumingchen.icu/image/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
     </td>
   </tr>
 </table>
