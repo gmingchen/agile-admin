@@ -144,6 +144,10 @@ npm run build:prod  # 正式环境
 npm run build:test  # 测试环境
 ```
 
+### 广告
+
+![领红包](http://oss.gumingchen.icu/image/red-envelopes.jpg)
+
 ### 联系方式
 
 <table>

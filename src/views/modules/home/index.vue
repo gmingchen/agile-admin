@@ -9,6 +9,14 @@
     </el-card>
     <el-card class="card">
       <div class="contact-box">
+        <div>
+          <p>支付宝扫码领红包</p>
+          <el-image class="contact-img" src="http://oss.gumingchen.icu/image/red-envelopes.jpg" :preview-src-list="['http://oss.gumingchen.icu/image/red-envelopes.jpg']" />
+        </div>
+      </div>
+    </el-card>
+    <el-card class="card">
+      <div class="contact-box">
         <div v-for="(item, index) in contactData" :key="index">
           <p>{{item.label}}</p>
           <el-image class="contact-img" :src="item.url" :preview-src-list="[item.url]" />
