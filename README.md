@@ -25,8 +25,8 @@
 
 - [开发文档](https://gmingchen.github.io/vue3-element-plus-admin-doc/)
 - [在线预览(暂时不可用)](https://gmingchen.github.io/vue3-element-plus-admin/index.html)
-- [开发文档(备用-服务器比较low，访问有点慢！)](http://139.196.182.46:8805/docs/)
-- [在线预览(备用-服务器比较low，访问有点慢！)](http://139.196.182.46:8805)
+- [开发文档(备用-服务器比较low，访问有点慢！)](http://frame.gumingchen.icu/docs/)
+- [在线预览(备用-服务器比较low，访问有点慢！)](http://frame.gumingchen.icu)
 
 **默认 master 分支默认使用 composition-api ，若需要 class 风格 + Typescript 请使用[class-style](https://github.com/1240235512/vue3/tree/class-style)分支，若需要 composition-api + Typescript + I18n 请使用[composition-api](https://github.com/1240235512/vue3/tree/composition-api)分支，若只需要 基础版本 请使用[base-refactoring](https://github.com/1240235512/vue3/tree/base-refactoring)分支，但它们不会和 master 保持同步更新**
 
@@ -139,19 +139,19 @@ npm run build:test  # 测试环境
   </tr>
   <tr>
     <td>
-      <img src="http://139.196.182.46:8800/material/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
+      <img src="http://oss.gumingchen.icu/image/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
     </td>
     <td>
-      <img src="http://139.196.182.46:8800/material/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
+      <img src="http://oss.gumingchen.icu/image/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
     </td>
     <td>
-      <img src="http://139.196.182.46:8800/material/wechat-group-qr-code.jpg" width="200px" title="微信交流群" alt="微信交流群:124371554" />
+      <img src="http://oss.gumingchen.icu/image/wechat-group-qr-code.jpg" width="200px" title="微信交流群" alt="微信交流群:124371554" />
     </td>
     <td>
-      <img src="http://139.196.182.46:8800/material/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
+      <img src="http://oss.gumingchen.icu/image/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
     </td>
     <td>
-      <img src="http://139.196.182.46:8800/material/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
+      <img src="http://oss.gumingchen.icu/image/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
     </td>
   </tr>
 </table>
