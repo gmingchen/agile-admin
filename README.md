@@ -166,7 +166,7 @@ npm run build:test  # 测试环境
       <img src="http://oss.gumingchen.icu/image/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
     </td>
     <td>
-      <img src="http://oss.gumingchen.icu/image/wechat-group-qr-code.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
+      <img src="http://oss.gumingchen.icu/image/wechat-group-qr-code.jpg?time=2" width="200px" title="微信交流群" alt="微信交流群:124371554" />
     </td>
     <td>
       <img src="http://oss.gumingchen.icu/image/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
@@ -179,7 +179,7 @@ npm run build:test  # 测试环境
 
 ### 其它开源项目
 
-[java-admin-base](https://github.com/gmingchen/java-admin-base) 
+[java-admin-base](https://github.com/gmingchen/java-admin-base)
 
 是一个管理后台基础功能框架 [base-refactoring](https://github.com/gmingchen/vue3-element-plus-admin/tree/base-refactoring) 分支的后端代码，基于 __`java`__ 的 __`springboot`__
 
