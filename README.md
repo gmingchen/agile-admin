@@ -179,7 +179,7 @@ npm run build:test  # 测试环境
 
 ### 其它开源项目
 
-[java-admin-base](https://github.com/gmingchen/java-admin-base)
+[java-admin-base](https://github.com/gmingchen/java-admin-base) 
 
 是一个管理后台基础功能框架 [base-refactoring](https://github.com/gmingchen/vue3-element-plus-admin/tree/base-refactoring) 分支的后端代码，基于 __`java`__ 的 __`springboot`__
 
