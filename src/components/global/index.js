@@ -1,5 +1,4 @@
-import upperFirst from 'lodash/upperFirst'
-import camelCase from 'lodash/camelCase'
+import { upperFirst, camelCase } from 'lodash'
 
 const path = require('path')
 
