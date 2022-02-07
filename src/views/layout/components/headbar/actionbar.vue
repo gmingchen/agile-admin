@@ -35,21 +35,21 @@
               </div>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item command="webHub">
+                  <el-dropdown-item command="vue3-element-plus-admin">
                     <g-svg name="github" color="black" />
-                    Web-Github
+                    vue3-element-plus-admin
                   </el-dropdown-item>
-                  <el-dropdown-item command="javaHub">
+                  <el-dropdown-item command="java-admin-base">
                     <g-svg name="github" color="black" />
-                    Java-Github
+                    java-admin-base
                   </el-dropdown-item>
-                  <el-dropdown-item command="webEe">
-                    <g-svg name="gitee" color="#C71D23" />
-                    Web-Gitee
+                  <el-dropdown-item command="vue3-element-plus-im">
+                    <g-svg name="github" color="black" />
+                    vue3-element-plus-im
                   </el-dropdown-item>
-                  <el-dropdown-item command="javaEe">
-                    <g-svg name="gitee" color="#C71D23" />
-                    Java-Gitee
+                  <el-dropdown-item command="java-im">
+                    <g-svg name="github" color="black" />
+                    java-im
                   </el-dropdown-item>
                   <el-dropdown-item command="edit">编辑信息</el-dropdown-item>
                   <el-dropdown-item command="exit">退出</el-dropdown-item>
@@ -167,17 +167,17 @@ export default defineComponent({
      */
     const selfHandle = command => {
       switch (command) {
-        case 'webHub':
+        case 'vue3-element-plus-admin':
           window.open('https://github.com/gmingchen/vue3-element-plus-admin')
           break
-        case 'javaHub':
-          window.open('https://github.com/1240235512/spring-boot.git')
+        case 'java-admin-base':
+          window.open('https://github.com/gmingchen/java-admin-base')
           break
-        case 'webEe':
-          window.open('https://gitee.com/shychen/vue3.git')
+        case 'vue3-element-plus-im':
+          window.open('https://github.com/gmingchen/vue3-element-plus-im')
           break
-        case 'javaEe':
-          window.open('https://gitee.com/shychen/spring-boot.git')
+        case 'java-im':
+          window.open('https://github.com/gmingchen/java-im')
           break
         case 'edit':
           data.visible = true
