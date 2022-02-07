@@ -179,11 +179,10 @@ npm run build:test  # 测试环境
 
 是一个管理后台基础功能框架 [base-refactoring](https://github.com/gmingchen/vue3-element-plus-admin/tree/base-refactoring) 分支的后端代码，基于 __`java`__ 的 __`springboot`__
 
-
 [vue3-element-plus-im](https://github.com/gmingchen/vue3-element-plus-im)
 
 是一个即时聊天系统，基于 [vue3](https://github.com/vuejs/vue-next) 、 [element-plus](https://github.com/element-plus/element-plus) 实现。内置了好友私聊功能。
 
 [java-im](https://github.com/gmingchen/java-im)
 
-是[vue3-element-plus-im](https://github.com/gmingchen/vue3-element-plus-im)即时聊天系统的`java`后端代码，基于 [netty](https://github.com/netty/netty) 、 [shiro](https://github.com/apache/shiro) 实现。
+是[vue3-element-plus-im](https://github.com/gmingchen/vue3-element-plus-im)即时聊天系统的 __`java`__ 后端代码，__`springboot`__ 基于 [netty](https://github.com/netty/netty) 、 [shiro](https://github.com/apache/shiro) 实现。
