@@ -144,10 +144,6 @@ npm run build:prod  # 正式环境
 npm run build:test  # 测试环境
 ```
 
-### 广告
-
-![领红包](http://oss.gumingchen.icu/image/red-envelopes.jpg)
-
 ### 联系方式
 
 <table>
@@ -166,7 +162,7 @@ npm run build:test  # 测试环境
       <img src="http://oss.gumingchen.icu/image/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
     </td>
     <td>
-      <img src="http://oss.gumingchen.icu/image/wechat-group-qr-code.jpg" width="200px" title="微信交流群" alt="微信交流群:124371554" />
+      <img src="http://oss.gumingchen.icu/image/wechat-group-qr-code.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
     </td>
     <td>
       <img src="http://oss.gumingchen.icu/image/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
@@ -188,5 +184,6 @@ npm run build:test  # 测试环境
 
 是一个即时聊天系统，基于 [vue3](https://github.com/vuejs/vue-next) 、 [element-plus](https://github.com/element-plus/element-plus) 实现。内置了好友私聊功能。
 
+[java-im](https://github.com/gmingchen/java-im)
 
-
+是[vue3-element-plus-im](https://github.com/gmingchen/vue3-element-plus-im)即时聊天系统的`java`后端代码，基于 [netty](https://github.com/netty/netty) 、 [shiro](https://github.com/apache/shiro) 实现。
