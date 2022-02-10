@@ -56,7 +56,7 @@ export default defineComponent({
               title: '通知',
               message: newVal.value.message,
               type: 'success',
-              duration: 300000
+              duration: 3000
             })
             break
           case 2:
@@ -82,15 +82,23 @@ export default defineComponent({
      */
     const submitHandle = () => {
       if (socket.value.status === 1) {
-        sendApi(data.form.content).then(r => {
-          if (r) {
-            ElMessage({
-              message: '推送成功',
-              type: 'success',
-              duration: 3000
-            })
-          }
-        })
+        if (data.form.content) {
+          sendApi(data.form.content).then(r => {
+            if (r) {
+              ElMessage({
+                message: '推送成功',
+                type: 'success',
+                duration: 3000
+              })
+            }
+          })
+        } else {
+          ElMessage({
+            message: '请输入推送内容!',
+            type: 'warning',
+            duration: 3000
+          })
+        }
       } else {
         ElMessage({
           message: '请先打开连接!',

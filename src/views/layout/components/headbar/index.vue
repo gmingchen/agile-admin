@@ -9,13 +9,16 @@
 <template>
   <div class="headbar-container padding-n-10 flex-box">
     <el-tooltip
-      :style="style"
       placement="right"
       effect="dark"
       :show-after="1000"
       :enterable="false"
       content="菜单栏展开/收起">
-      <g-icon class="cursor-pointer" :name="isCollapse ? 'expand' : 'fold'" @click="foldHandle()" />
+      <g-icon
+        class="cursor-pointer"
+        :style="style"
+        :name="isCollapse ? 'expand' : 'fold'"
+        @click="foldHandle()" />
     </el-tooltip>
     <actionbar class="actionbar flex-item_f-1" />
   </div>
