@@ -10,6 +10,8 @@
   </a>
 </p>
 
+### __`注：目前由于该项目 svg 是保存在项目里面，导致 build 完之后文件过大，首次加载速度过慢。所以准备重构一下该项目，通过阿里图库使用svg图标，并加上企业级管理。会在标签 v5.0.0 上，之后 master 分支也将会在重构之后基础上继续维护！`__
+
 [vue3-element-plus-admin](https://github.com/gmingchen/vue3-element-plus-admin)主要目的在于学习 __`vue3`__ + __`ts`__,功能在完善中,基于的 __`RBAC`__ 权限控制,后续会 __`持续迭代更新`__。
 
 后端是基于 __`java`__ 的 __`springboot`__,目前完整版后端代码 __`暂未开源`__。后期完善之后可能 __`会开源完整后端代码`__。目前开源了[基础版的后端代码](https://github.com/gmingchen/java-admin-base.git)<br>
