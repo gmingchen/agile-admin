@@ -188,3 +188,6 @@ npm run build:test  # 测试环境
 [java-im](https://github.com/gmingchen/java-im)
 
 是[vue3-element-plus-im](https://github.com/gmingchen/vue3-element-plus-im)即时聊天系统的 __`java`__ 后端代码，__`springboot`__ 基于 [netty](https://github.com/netty/netty) 、 [shiro](https://github.com/apache/shiro) 实现。
+
+[nod-server](https://github.com/gmingchen/node-server)
+是一个基于 node 开发的后端服务框架，只要你会 SQL 就也可以写接口了，再也不用看后端的脸色了。
