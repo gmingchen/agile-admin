@@ -4,18 +4,18 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-21 08:47:55
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-06 14:03:29
+ * @LastEditTime: 2022-03-07 11:04:58
 -->
 <template>
   <el-sub-menu :index="menu.routeName || menu.id + ''" v-if="menu.children.length">
     <template #title>
-      <g-svg :name="menu.icon" class="sidebar-menu-icon" size="14px" />
+      <g-iconfont :name="menu.icon" class="sidebar-menu-icon" size="14px" />
       <span>{{ menu.name_cn }}</span>
     </template>
     <sub-menu v-for="item in menu.children" :key="item.id" :menu="item" />
   </el-sub-menu>
   <el-menu-item :index="menu.routeName || menu.id + ''" @click="routeHandle()" v-else>
-    <g-svg :name="menu.icon" class="sidebar-menu-icon" size="14px" />
+    <g-iconfont :name="menu.icon" class="sidebar-menu-icon" size="14px" />
     <template #title>
       <span>{{ menu.name_cn }}</span>
     </template>

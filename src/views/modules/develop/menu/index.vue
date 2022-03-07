@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-19 16:53:30
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-28 16:21:17
+ * @LastEditTime: 2022-03-07 11:05:04
 -->
 <template>
   <div class="g-container">
@@ -42,7 +42,7 @@
         label="图标"
         width="80">
         <template v-slot="{ row }">
-          <g-svg v-if="row.type !== 2" :name="row.icon || ''" />
+          <g-iconfont v-if="row.type !== 2" :name="row.icon || ''" />
           <span v-else>—</span>
         </template>
       </el-table-column>

@@ -36,19 +36,19 @@
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item command="vue3-element-plus-admin">
-                    <g-svg name="github" color="black" />
+                    <g-iconfont name="github" color="black" />
                     vue3-element-plus-admin
                   </el-dropdown-item>
                   <el-dropdown-item command="java-admin-base">
-                    <g-svg name="github" color="black" />
+                    <g-iconfont name="github" color="black" />
                     java-admin-base
                   </el-dropdown-item>
                   <el-dropdown-item command="vue3-element-plus-im">
-                    <g-svg name="github" color="black" />
+                    <g-iconfont name="github" color="black" />
                     vue3-element-plus-im
                   </el-dropdown-item>
                   <el-dropdown-item command="java-im">
-                    <g-svg name="github" color="black" />
+                    <g-iconfont name="github" color="black" />
                     java-im
                   </el-dropdown-item>
                   <el-dropdown-item command="edit">编辑信息</el-dropdown-item>

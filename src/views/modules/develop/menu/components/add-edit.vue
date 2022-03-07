@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-02-03 15:48:37
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-20 15:50:58
+ * @LastEditTime: 2022-03-07 11:22:12
 -->
 <template>
   <el-dialog
@@ -63,10 +63,10 @@
               <div class="padding-5" v-for="(item, index) in icons" :key="index">
                 <el-button
                   :class="{ 'is-active': item === form.icon }"
-                  size="mini"
+                  size="small"
                   class="icon-btn"
                   @click="iconActiveHandle(item)">
-                  <g-svg :name="item" />
+                  <g-iconfont :name="item" />
                 </el-button>
               </div>
             </div>
@@ -93,7 +93,6 @@ import { ElMessage } from 'element-plus'
 
 import useDictionary from '@/mixins/dictionary'
 import { parseData2Tree } from '@/utils'
-import Icon from '@/assets/icon'
 
 import { addApi, editApi, infoApi, selectListApi } from '@/api/develop/menu'
 
@@ -223,7 +222,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
-      data.icons = Icon.getNames()
+      data.icons = ['admin', 'backup', 'clear', 'clock', 'code', 'config', 'data-dictionary', 'demo', 'development', 'druid', 'email', 'error-log', 'exit-full-screen', 'folder', 'full-screen', 'generator', 'git', 'gitee', 'github', 'home', 'language', 'lock', 'log', 'login-log', 'maximize', 'menu', 'message', 'operation-log', 'reduction', 'refresh', 'region', 'request', 'role', 'set', 'system', 'task-log', 'template', 'user', 'verification', 'websocket']
       init()
     })
 

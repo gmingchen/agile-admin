@@ -6,7 +6,6 @@ import store from './store'
 import '@/assets/sass/index.scss'
 // import * as ElIconModules from '@element-plus/icons'
 import Components from '@/components/global/index'
-import '@/assets/icon' // svg 图标引入
 import Directive from '@/directive'
 
 const app = createApp(App)

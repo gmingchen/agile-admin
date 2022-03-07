@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2021-04-07 13:58:47
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-08 16:15:49
+ * @LastEditTime: 2022-03-07 11:07:22
 -->
 <template>
   <el-scrollbar class="sidebar">
@@ -17,13 +17,13 @@
       :collapse-transition="true"
       :collapse="isCollapse">
       <el-menu-item index="home" @click="router.push({ name: 'home' })">
-        <g-svg name="home" class="sidebar-menu-icon" size="14px" />
+        <g-iconfont name="home" class="sidebar-menu-icon" size="14px" />
         <template #title>
           <span>首页</span>
         </template>
       </el-menu-item>
       <el-menu-item index="demo" @click="router.push({ name: 'demo' })">
-        <g-svg name="demo" class="sidebar-menu-icon" size="14px" />
+        <g-iconfont name="demo" class="sidebar-menu-icon" size="14px" />
         <template #title>
           <span>Demo</span>
         </template>
@@ -108,7 +108,7 @@ export default defineComponent({
 ::v-deep(.el-sub-menu__title) {
   display: block;
   @include single-ellipse;
-  & > i {
+  & > .el-sub-menu__icon-arrow {
     position: absolute;
     right: 8px;
   }

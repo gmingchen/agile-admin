@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2020-12-17 09:47:33
  * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-20 15:49:00
+ * @LastEditTime: 2022-03-07 11:03:55
 -->
 <template>
   <el-card
@@ -20,7 +20,7 @@
       <el-form-item prop="username">
         <el-input v-model="form.username" placeholder="账户" clearable>
           <template #prefix>
-            <span><g-svg name="user" /></span>
+            <span><g-iconfont name="user" /></span>
           </template>
         </el-input>
       </el-form-item>
@@ -31,7 +31,7 @@
           show-password
           clearable>
           <template #prefix>
-            <span><g-svg name="lock" /></span>
+            <span><g-iconfont name="lock" /></span>
           </template>
         </el-input>
       </el-form-item>
@@ -40,7 +40,7 @@
           <el-col :span="16" class="height-36">
             <el-input v-model="form.code" placeholder="验证码" clearable>
               <template #prefix>
-                <span><g-svg name="verification" /></span>
+                <span><g-iconfont name="verification" /></span>
               </template>
             </el-input>
           </el-col>
