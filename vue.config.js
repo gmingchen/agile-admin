@@ -58,9 +58,9 @@ module.exports = {
     // css文件名是否可省略module,默认为false.
     // requireModuleExtension: false,
     // 是否使用css分离插件 默认生产环境下是true, 开发环境下是false.
-    extract: false,
+    extract: process.env.NODE_ENV === 'production',
     // 是否为CSS开启source map.设置为true之后可能会影响构建的性能.
-    sourceMap: false
+    sourceMap: process.env.NODE_ENV !== 'production'
     // 向CSS相关的loader传递选项(支持:css-loader postcss-loader sass-loader less-loader stylus-loader).
     /* loaderOptions: {
       sass: {
@@ -112,5 +112,70 @@ module.exports = {
       .options({
         symbolId: '[name]'
       })
+    config.optimization.splitChunks({
+      // 优化块：all-所有 async-异步 initial-同步
+      chunks: 'all',
+      // 按需加载时的最大并行请求数。
+      maxAsyncRequests: 30,
+      // 入口点的最大并行请求数。
+      maxInitialRequests: 30,
+      // 在拆分之前，模块必须在块之间共享的最少次数。
+      minChunks: 1,
+      // 在为按 maxSize 分割的部分创建名称时防止暴露路径信息。
+      hidePathInfo: true,
+      // 要生成的块的最小大小（以字节为单位）。
+      minSize: 30000,
+      // maxSize: 50000,
+      name: true,
+      cacheGroups: {
+        apis: {
+          // 当它是初始块时才允许覆盖文件名
+          name: 'chunk-apis',
+          // 控制此缓存组选择哪些模块
+          test: resolve('src/apis'),
+          // 在拆分之前，模块必须在块之间共享的最少次数。
+          minChunks: 1,
+          // 优先级
+          priority: 10,
+          // 如果当前块包含已经从主包中分离出来的模块，它将被重用，而不是生成一个新的。
+          reuseExistingChunk: true
+        },
+        components: {
+          name: 'chunk-components',
+          test: resolve('src/components'),
+          minChunks: 1,
+          priority: 10,
+          reuseExistingChunk: true
+        },
+        quill: {
+          name: 'chunk-quill',
+          priority: 20,
+          test: /[\\/]node_modules[\\/]_?quill(.*)/
+        },
+        elementPlus: {
+          name: 'chunk-elementPlus',
+          priority: 20,
+          test: /[\\/]node_modules[\\/]_?element-plus(.*)/
+        },
+        elementIcon: {
+          name: 'chunk-elementIcon',
+          priority: 20,
+          test: /[\\/]node_modules[\\/]_?@element-plus(.*)/
+        },
+        echarts: {
+          name: 'chunk-echarts',
+          priority: 20,
+          test: /[\\/]node_modules[\\/]_?echarts(.*)/
+        },
+        libs: {
+          name: 'chunk-libs',
+          test: /[\\/]node_modules[\\/]/,
+          priority: 5,
+          chunks: 'initial'
+        }
+      }
+    })
+    // 页面太多会导致很多无意义的请求
+    config.plugins.delete('prefetch')
   }
 }
