@@ -65,6 +65,8 @@ import { defineComponent, reactive, toRefs, ref, onBeforeMount, nextTick } from 
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
+import { ElNotification } from 'element-plus'
+
 import { getUUID } from '@/utils/index'
 
 import { captchaApi } from '@/api/login'
@@ -131,6 +133,14 @@ export default defineComponent({
 
     onBeforeMount(() => {
       captcha()
+      ElNotification({
+        title: 'Warning',
+        dangerouslyUseHTMLString: true,
+        message: '由于同时登录同一账号会出现token失效的现象,所以提供了以下账号访问<p>test1, test2, test3, test4, test5, test6, test7</p>账号与密码一致',
+        type: 'warning',
+        position: 'bottom-right',
+        duration: 0
+      })
     })
 
     return {
