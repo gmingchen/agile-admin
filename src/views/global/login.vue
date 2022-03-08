@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, toRefs, ref, onBeforeMount, nextTick } from 'vue'
+import { defineComponent, reactive, toRefs, ref, onBeforeMount, nextTick, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -141,6 +141,10 @@ export default defineComponent({
         position: 'bottom-right',
         duration: 0
       })
+    })
+
+    onBeforeUnmount(() => {
+      ElNotification.closeAll()
     })
 
     return {
