@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import store from '@/store'
 import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 import { isURL } from '@/utils/regular'
 import { userMenusApi } from '@/api/login'
 
@@ -166,6 +167,7 @@ router.beforeEach(async (to, _from, next) => {
     clearRouter()
     store.dispatch('setting/exit')
   }
+  console.log('start')
   NProgress.start()
   // 处理动态路由页 刷新跳转 401 问题
   if (refresh) {
@@ -200,6 +202,7 @@ router.beforeEach(async (to, _from, next) => {
 })
 
 router.afterEach((_to, _from) => {
+  console.log('end')
   NProgress.done()
 })
 
