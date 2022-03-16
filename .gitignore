@@ -1,9 +1,9 @@
 .DS_Store
 node_modules
-/dist
-/dist.zip
-/frame
-/frame.zip
+dist
+dist.zip
+frame
+frame.zip
 
 
 # local env files
