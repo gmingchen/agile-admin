@@ -1,0 +1,22 @@
+// 浅入浅出
+.shallow-in-out-enter-active,
+.shallow-in-out-leave-active {
+  transition: opacity 0.3s;
+}
+.shallow-in-out-enter,
+.shallow-in-out-leave-to {
+  opacity: 0;
+}
+
+// 左浅入右浅出
+.leftIn-rightOut-leave-active,
+.leftIn-rightOut-enter-active {
+  transition: all 0.2s;
+}
+.leftIn-rightOut-enter {
+  transform: translateX(-20px);
+}
+.leftIn-rightOut-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}

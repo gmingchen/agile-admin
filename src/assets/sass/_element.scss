@@ -1,0 +1,45 @@
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+  $colors: (
+    'white': #ffffff,
+    'black': #000000,
+    "primary": (
+      "base": #409eff,
+    ),
+    'success': (
+      'base': #67c23a,
+    ),
+    'warning': (
+      'base': #e6a23c,
+    ),
+    'danger': (
+      'base': #f56c6c,
+    ),
+    'error': (
+      'base': #f56c6c,
+    ),
+    'info': (
+      'base': #909399,
+    ),
+  )
+);
+
+@import "element-plus/theme-chalk/src/index.scss";
+
+// 修复 消息确认弹窗样式
+.el-message-box__status {
+  position: absolute !important;
+}
+// 修复 通知弹窗样式
+.el-notification {
+  &__icon {
+    height: var(--el-notification-icon-size)!important;
+    width: var(--el-notification-icon-size)!important;
+    font-size: var(--el-notification-icon-size)!important;
+  }
+  &--success, &--warning, &--info, &--error {
+    color: var(--el-notification-icon-color)!important;
+  }
+  &__closeBtn {
+    position: absolute !important;
+  }
+}

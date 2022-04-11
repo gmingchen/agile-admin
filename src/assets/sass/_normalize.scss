@@ -1,0 +1,294 @@
+/*! https://github.com/necolas/normalize.css/blob/master/normalize.css 参考地址*/
+
+/* Document========================================================================== */
+/**
+ * 1. 在所有浏览器中更正行高.
+ * 2. 在iOS中更改方向后，防止调整字体大小.
+ */
+html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+
+/* Sections========================================================================== */
+/**
+ * 删除所有浏览器中的边距
+ */
+body {
+  margin: 0;
+}
+
+/**
+ * 在IE中一致地渲染`main`元素
+ */
+main {
+  display: block;
+}
+
+/**
+ * 更正`section`和``中`h1`元素的字体大小和边距
+ * Chrome文章，Firefox和Safari中的文章背景
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* Grouping content========================================================================== */
+/**
+ * 1. 在Firefox中添加正确的大小调整大小
+ * 2. 在Edge和IE中显示溢出
+ */
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
+/**
+ * 1. 纠正所有浏览器中字体大小的继承和缩放
+ * 2. 纠正所有浏览器中奇怪的'em`字体大小
+ */
+pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+
+/* Text-level semantics========================================================================== */
+/**
+ * 删除IE 10中活动链接的灰色背景
+ */
+a {
+  background-color: transparent;
+}
+
+/**
+ * 1. 删除Chrome 57中的底部边框
+ * 2. 在Chrome，Edge，IE，Opera和Safari中添加正确的文本装饰
+ */
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  text-decoration: underline dotted; /* 2 */
+}
+
+/**
+ * 在Chrome，Edge和Safari中添加正确的字体粗细
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+ * 1. 纠正所有浏览器中字体大小的继承和缩放
+ * 2. 纠正所有浏览器中奇怪的'em`字体大小
+ */
+code, kbd, samp {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/**
+ * 在所有浏览器中添加正确的字体大小.
+ */
+small {
+  font-size: 80%;
+}
+
+/**
+ * 防止`sub`和`sup`元素影响所有浏览器行高
+ */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+
+
+/* Embedded content========================================================================== */
+/**
+ * 删除IE 10中链接内图像的边框
+ */
+img {
+  border-style: none;
+}
+
+
+/* Forms========================================================================== */
+/**
+ * 1. 更改所有浏览器的字体样式
+ * 2. 删除Firefox和Safari中的边距
+ */
+button, input, optgroup, select, textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+/**
+ * 在IE中显示溢出
+ * 1. 在Edge中显示溢出
+ */
+button, input { /* 1 */
+  overflow: visible;
+}
+
+/**
+ * 删除Edge，Firefox和IE中文本转换的继承
+ * 1. 删除Firefox中文本转换的继承
+ */
+button, select { /* 1 */
+  text-transform: none;
+}
+
+/**
+ * 纠正无法在iOS和Safari中设置可点击类型的样式
+ */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+/**
+ * 删除Firefox中的内边框和填充。
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * 恢复之前规则未设置的焦点样式。
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * 更正Firefox中的填充
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. 更正Edge和IE中的文本换行
+ * 2. 纠正IE中`fieldset`元素的颜色继承
+ * 3. 删除填充，以便开发人员在零填充时不会被捕获所有浏览器中的`fieldset`元素
+ */
+legend {
+  box-sizing: border-box; /* 1 */
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  white-space: normal; /* 1 */
+}
+
+/**
+ * 在Chrome，Firefox和Opera中添加正确的垂直对齐方式
+ */
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * 删除IE 10+中的默认垂直滚动条
+ */
+textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. 在IE 10中添加正确的大小调整大小
+ * 2. 删除IE 10中的填充
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * 更正Chrome中增量和减量按钮的光标样式
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. 纠正Chrome和Safari中的奇怪外观
+ * 2. 更正Safari中的轮廓样式
+ */
+[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/**
+ * 在macOS上删除Chrome和Safari中的内部填充
+ */
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. 纠正无法在iOS和Safari中设置可点击类型的样式
+ * 2. 在Safari中将字体属性更改为`inherit`
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+
+/* Interactive========================================================================== */
+/*
+ * 在Edge，IE 10+和Firefox中添加正确的显示
+ */
+details {
+  display: block;
+}
+
+/*
+ * 在所有浏览器中添加正确的显示
+ */
+summary {
+  display: list-item;
+}
+
+
+/* Misc========================================================================== */
+/**
+ * 在IE 10+中添加正确的显示
+ */
+template {
+  display: none;
+}
+
+/**
+ * 在IE 10中添加正确的显示
+ */
+[hidden] {
+  display: none;
+}
