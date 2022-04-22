@@ -9,9 +9,6 @@ import Directive from '@/directive' // 自定义指令
 
 const app = createApp(App)
 
-// element 全局配置
-app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
-
 app.use(router)
   .use(store)
   .use(components)

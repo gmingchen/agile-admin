@@ -1,7 +1,6 @@
 <template>
-  <el-config-provider :locale="locale">
+  <el-config-provider :locale="locale" :size="size" :z-index="zIndex">
     <View />
-    <el-empty />
   </el-config-provider>
 </template>
 
@@ -16,7 +15,9 @@ export default defineComponent({
   components: { View },
   setup() {
     return {
-      locale: zhCn
+      locale: zhCn,
+      size: 'default',
+      zIndex: 3000
     }
   }
 })
@@ -27,6 +28,8 @@ export default defineComponent({
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  display: flex;
   color: var(--el-text-color-primary);
 }
 </style>

@@ -3,23 +3,32 @@
     'white': #ffffff,
     'black': #000000,
     "primary": (
-      "base": #409eff,
+      "base": #545cd8,
     ),
     'success': (
-      'base': #67c23a,
+      'base': #3ac47d,
     ),
     'warning': (
-      'base': #e6a23c,
+      'base': #f7b924,
     ),
     'danger': (
-      'base': #f56c6c,
+      'base': #b81f44,
     ),
     'error': (
-      'base': #f56c6c,
+      'base': #b81f44,
     ),
     'info': (
       'base': #909399,
-    ),
+    )
+  ),
+  $text-color: (
+    (
+      'primary': #303133,
+      'regular': #606266,
+      'secondary': #909399,
+      'placeholder': #a8abb2,
+      'disabled': #c0c4cc,
+    )
   )
 );
 

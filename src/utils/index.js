@@ -7,7 +7,7 @@ import { MAPPING } from '@/utils/constant'
  * @return {*}
  * @author: gumingchen
  */
-export function getUUID() {
+export function generateUUID() {
   let result = ''
   const code = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
   result = code.replace(/[xy]/gu, item => {
