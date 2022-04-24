@@ -42,46 +42,6 @@ export function loginApi(params) {
 }
 
 /**
- * @description: 获取登录用户信息
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function userInfoApi() {
-  return service({
-    url: '/backstage/admin/self/info',
-    method: 'get'
-  })
-}
-
-/**
- * @description: 获取登录用户权限菜单
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function userMenusApi() {
-  return service({
-    url: '/backstage/menu/self/info',
-    method: 'get'
-  })
-}
-
-/**
- * @description: 修改用户信息
- * @param {*} params
- * @return {*}
- * @author: gumingchen
- */
-export function editUserInfoApi(params) {
-  return service({
-    url: '/backstage/admin/self/update',
-    method: 'post',
-    data: params
-  })
-}
-
-/**
  * @description: 退出
  * @param {*}
  * @return {*}

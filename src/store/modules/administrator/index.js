@@ -8,19 +8,22 @@
  */
 import { clearJson } from '@/utils/index'
 import { getToken, setToken } from '@/utils/storage'
-import { loginApi, userInfoApi, editUserInfoApi, logoutApi } from '@/api/login'
+import { loginApi, logoutApi } from '@/api/login'
+import { selfInfoApi } from '@/api/administrator'
 
 export default {
   state: {
-    user: {
+    administrator: {
       id: '',
       username: '',
       nickname: '',
+      avatar: '',
       mobile: '',
       email: '',
-      avatar: '',
       status: '',
-      roles: []
+      roles: [],
+      supervisor: '',
+      enterprise_id: ''
     },
     token: {
       user_id: '',
@@ -68,25 +71,25 @@ export default {
      * 获取当前用户信息
      * @returns
      */
-    async getUser({ commit }) {
-      const r = await userInfoApi()
+    async getAdministrator({ commit }) {
+      const r = await selfInfoApi()
       if (r) {
         commit('SET_USER', r.data)
       }
       return r
     },
 
-    /**
-     * 编辑当前用户信息
-     * @param {*} params
-     */
-    async editUser({ dispatch }, params) {
-      const r = await editUserInfoApi(params)
-      if (r.data !== 1) {
-        dispatch('getUser')
-      }
-      return r
-    },
+    // /**
+    //  * 编辑当前用户信息
+    //  * @param {*} params
+    //  */
+    // async editUser({ dispatch }, params) {
+    //   const r = await editUserInfoApi(params)
+    //   if (r.data !== 1) {
+    //     dispatch('getUser')
+    //   }
+    //   return r
+    // },
 
     /**
      * 退出当前账户

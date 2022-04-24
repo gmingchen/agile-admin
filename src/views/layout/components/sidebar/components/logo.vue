@@ -1,13 +1,21 @@
 <template>
-  <div class="logo-container">logo</div>
+  <div class="logo-container" v-if="enterprise.name || enterprise.logo">
+    {{enterprise.name}}
+  </div>
 </template>
 
 <script >
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   setup() {
-    return {}
+    const store = useStore()
+    const enterprise = computed(() => store.state.enterprise.enterprise)
+
+    return {
+      enterprise
+    }
   }
 })
 </script>
@@ -17,5 +25,6 @@ export default defineComponent({
   height: var(--gl-headbar-height);
   line-height: var(--gl-headbar-height);
   background-color: var(--gl-sidebar-background-color);
+  text-align: center;
 }
 </style>

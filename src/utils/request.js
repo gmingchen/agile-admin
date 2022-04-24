@@ -78,7 +78,7 @@ const service = axios.create({
  */
 service.interceptors.request.use(
   config => {
-    const tokenVal = store.getters['user/tokenVal']
+    const tokenVal = store.getters['administrator/tokenVal']
     if (tokenVal) {
       config.headers[TOKEN_KEY] = tokenVal
     }

@@ -105,9 +105,9 @@ export default defineComponent({
       refForm.value.validate(valid => {
         if (valid) {
           data.loading = true
-          store.dispatch('user/login', data.form).then(r => {
+          store.dispatch('administrator/login', data.form).then(r => {
             if (r) {
-              router.push({ name: 'entry' })
+              router.push({ name: 'redirect', replace: true })
             } else {
               getCaptcha()
             }

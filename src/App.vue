@@ -6,6 +6,7 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
 import View from '@/components/view/index.vue'
 
@@ -14,6 +15,8 @@ import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 export default defineComponent({
   components: { View },
   setup() {
+    const store = useStore()
+    store.dispatch('theme/getTheme')
     return {
       locale: zhCn,
       size: 'default',

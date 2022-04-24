@@ -73,7 +73,7 @@ export function clearToken() {
  * @return {*}
  * @author: gumingchen
  */
-export function getMenuAndPermissions() {
+export function getMenuAndPermission() {
   let result
   switch (MENU_STORAGE) {
     case StorageType.COOKIE:
@@ -103,7 +103,7 @@ export function getMenuAndPermissions() {
   }
   return result
 }
-export function setMenuAndPermissions(data) {
+export function setMenuAndPermission(data) {
   switch (MENU_STORAGE) {
     case StorageType.COOKIE:
       cookie.set(MENU_KEY, JSON.stringify(data.menus))
@@ -123,7 +123,7 @@ export function setMenuAndPermissions(data) {
       break
   }
 }
-export function clearMenuAndPermissions() {
+export function clearMenuAndPermission() {
   switch (MENU_STORAGE) {
     case StorageType.COOKIE:
       cookie.remove(MENU_KEY)
@@ -143,7 +143,7 @@ export function clearMenuAndPermissions() {
       break
   }
 }
-export function getIsGet() {
+export function getGet() {
   let result
   switch (MENU_STORAGE) {
     case StorageType.COOKIE:
@@ -161,7 +161,7 @@ export function getIsGet() {
   }
   return result
 }
-export function setIsGet(val = true) {
+export function setGet(val = true) {
   switch (MENU_STORAGE) {
     case StorageType.COOKIE:
       cookie.set(IS_GET_MENU_KEY, JSON.stringify(val))
@@ -177,7 +177,7 @@ export function setIsGet(val = true) {
       break
   }
 }
-export function clearIsGet() {
+export function clearGet() {
   switch (MENU_STORAGE) {
     case StorageType.COOKIE:
       cookie.remove(IS_GET_MENU_KEY)
@@ -201,8 +201,8 @@ export function clearIsGet() {
  * @author: gumingchen
  */
 export function clear() {
-  clearMenuAndPermissions()
-  clearIsGet()
+  clearMenuAndPermission()
+  clearGet()
 }
 export function exit() {
   clear()
