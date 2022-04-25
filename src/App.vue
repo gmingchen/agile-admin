@@ -1,11 +1,11 @@
 <template>
   <el-config-provider :locale="locale" :size="size" :z-index="zIndex">
-    <View />
+    <View v-if="!reload" />
   </el-config-provider>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 
 import View from '@/components/view/index.vue'
@@ -16,11 +16,23 @@ export default defineComponent({
   components: { View },
   setup() {
     const store = useStore()
+
     store.dispatch('theme/getTheme')
+
+    const reload = computed({
+      get: () => {
+        return store.state.theme.reload
+      },
+      set: (val) => {
+        store.dispatch('theme/setReload', val)
+      }
+    })
+
     return {
       locale: zhCn,
       size: 'default',
-      zIndex: 3000
+      zIndex: 3000,
+      reload
     }
   }
 })

@@ -47,7 +47,8 @@ export default {
   state: {
     get: getGet(),
     menus: data[MENU_KEY],
-    permissions: data[PERMISSION_KEY]
+    permissions: data[PERMISSION_KEY],
+    collapse: false
   },
   getters: {
     menus: state => {
@@ -63,6 +64,9 @@ export default {
     },
     SET_PERMISSIONS: (state, permissions) => {
       state.permissions = permissions
+    },
+    SET_COLLAPSE: (state, collapse) => {
+      state.collapse = collapse
     }
   },
   actions: {
@@ -89,6 +93,14 @@ export default {
         commit('SET_PERMISSIONS', r.data.permissions)
       }
       return r.data.menus
+    },
+    /**
+     * 设置菜单是否折叠
+     * @param {*}
+     * @returns
+     */
+    setCollapse({ commit }, collapse) {
+      commit('SET_COLLAPSE', collapse)
     }
   }
 }

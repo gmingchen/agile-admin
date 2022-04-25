@@ -3,10 +3,10 @@ import axios from 'axios'
 import qs from 'qs'
 import router from '@/router'
 import store from '@/store'
-import { ElMessage } from 'element-plus'
 import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, TOKEN_KEY } from '@/utils/constant'
 import { ContentType } from '@/utils/dictionary'
 import { getApiBaseUrl } from '@/utils'
+import Prompt from '@/utils/prompt'
 
 /**
  * @description: 异常消息提示
@@ -15,7 +15,7 @@ import { getApiBaseUrl } from '@/utils'
  * @author: gumingchen
  */
 const prompt = message => {
-  ElMessage({
+  new Prompt().warning({
     message: message,
     type: 'warning',
     duration: 3000

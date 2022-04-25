@@ -3,15 +3,11 @@
     <Logo />
     <el-scrollbar class="flex-item_f-1">
       <el-menu
-        :background-color="theme.backgroundColor"
+        :background-color="theme.backgroundColor !== 'white' ? theme.backgroundColor : ''"
         :text-color="theme.textColor"
-        :active-text-color="theme.activeTextColor">
-        <el-menu-item index="home" v-for="item in 10" :key="item">
-          <g-iconfont name="home" class="sidebar-menu-icon" size="14px" />
-          <template #title>
-            <span>首页</span>
-          </template>
-        </el-menu-item>
+        :active-text-color="theme.activeTextColor"
+        :collapse="collapse">
+        <SubItem v-for="item in menus" :key="item.value" :data="item" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -22,16 +18,23 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 
 import Logo from './components/logo.vue'
+import SubItem from './components/sub-item.vue'
 
 export default defineComponent({
-  components: { Logo },
+  components: { Logo, SubItem },
   setup() {
     const store = useStore()
-    const menus = computed(() => store.getters['menu/menus'])
+
     const theme = computed(() => store.state.theme.theme.menu)
 
+    const menus = computed(() => store.getters['menu/menus'])
+
+    const collapse = computed(() => store.state.menu.collapse)
+
     return {
-      theme
+      theme,
+      menus,
+      collapse
     }
   }
 })
@@ -45,6 +48,20 @@ export default defineComponent({
   }
   .el-menu {
     border: none;
+    ::v-deep(.el-menu-item) {
+      padding-right: 20px;
+    }
+    ::v-deep(.el-menu-item), ::v-deep(.el-sub-menu), ::v-deep(.el-sub-menu__title) {
+      display: block;
+      overflow: hidden;
+      text-overflow:ellipsis;
+      white-space: nowrap;
+      & > .el-sub-menu__icon-arrow {
+        position: absolute;
+        right: 8px;
+      }
+    }
   }
 }
+
 </style>
