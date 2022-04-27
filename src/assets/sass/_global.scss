@@ -115,9 +115,12 @@ ul {
 .cursor-pointer {
   cursor: pointer;
 };
-// 自适应滚动
-.overflow-auto {
-  overflow: auto;
+// overflow
+$overflow: visible, hidden, scroll, auto, inherit;
+@each $var in $overflow {
+  .overflow-#{$var} {
+    overflow: #{$var};
+  }
 }
 
 

@@ -1,5 +1,8 @@
 <template>
-  <div>administrator</div>
+  <div>
+    administrator
+    <p v-for="item in 30" :key="item">{{item}}</p>
+  </div>
 </template>
 
 <script>

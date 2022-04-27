@@ -16,28 +16,32 @@ const data = getMenuAndPermission()
 /**
  * @description: 递归筛选出 目录、菜单
  * @param {Array} list
+ * @param {Number} mode 1-显示的 2-所有的
  * @return {*}
  * @author: gumingchen
  */
-function menuProcessing(list = []) {
+function menuProcessing(list = [], mode = 1) {
   const result = []
   list.forEach(item => {
-    if (item.show === 1 && item.type !== 2) {
-      const menu = {
-        id: item.menu_id,
-        name_cn: item.name_cn,
-        name_en: item.name_en,
-        icon: item.icon,
-        type: item.type,
-        url: item.url,
-        path: item.type === 3 ? `/i-${ item.menu_id }` : item.path || (item.url ? `/${ item.url.replace(/\//g, '-') }` : ''),
-        name: item.type === 3 ? `/i-${ item.menu_id }` : item.name || (item.url ? item.url.replace(/\//g, '-') : ''),
-        children: []
+    if (item.type !== 2) {
+      console.log(mode, item.show)
+      if (mode === 2 || item.show === 1) {
+        const menu = {
+          id: item.menu_id,
+          name_cn: item.name_cn,
+          name_en: item.name_en,
+          icon: item.icon,
+          type: item.type,
+          url: item.url,
+          path: item.type === 3 ? `/i-${ item.menu_id }` : item.path || (item.url ? `/${ item.url.replace(/\//g, '-') }` : ''),
+          name: item.type === 3 ? `/i-${ item.menu_id }` : item.name || (item.url ? item.url.replace(/\//g, '-') : ''),
+          children: []
+        }
+        if (item.children && item.children.length > 0) {
+          menu.children = menuProcessing(item.children, mode)
+        }
+        result.push(menu)
       }
-      if (item.children && item.children.length > 0) {
-        menu.children = menuProcessing(item.children)
-      }
-      result.push(menu)
     }
   })
   return result
@@ -48,11 +52,15 @@ export default {
     get: getGet(),
     menus: data[MENU_KEY],
     permissions: data[PERMISSION_KEY],
+    active: '',
     collapse: false
   },
   getters: {
     menus: state => {
       return menuProcessing(state.menus)
+    },
+    pages: state => {
+      return menuProcessing(state.menus, 2)
     }
   },
   mutations: {
@@ -64,6 +72,9 @@ export default {
     },
     SET_PERMISSIONS: (state, permissions) => {
       state.permissions = permissions
+    },
+    SET_ACTIVE: (state, active) => {
+      state.active = active
     },
     SET_COLLAPSE: (state, collapse) => {
       state.collapse = collapse
@@ -93,6 +104,14 @@ export default {
         commit('SET_PERMISSIONS', r.data.permissions)
       }
       return r.data.menus
+    },
+    /**
+     * 设置选中菜单
+     * @param {*}
+     * @returns
+     */
+    setActive({ commit }, active) {
+      commit('SET_ACTIVE', active)
     },
     /**
      * 设置菜单是否折叠

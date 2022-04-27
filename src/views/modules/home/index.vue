@@ -1,5 +1,7 @@
 <template>
-  <div>home</div>
+  <div>
+    <p v-for="item in 30" :key="item">{{item}}</p>
+  </div>
 </template>
 
 <script >

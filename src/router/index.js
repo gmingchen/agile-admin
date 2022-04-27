@@ -33,6 +33,7 @@ const main = {
       if (to.name === 'redirect') {
         const exists = main.children.filter(item => item.name !== 'redirect') || []
         const name = exists.length ? exists[0].name : '404'
+        store.dispatch('menu/setActive', name)
         next({ name, replace: true })
       } else {
         next()

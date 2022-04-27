@@ -1,12 +1,12 @@
 <template>
-  <el-sub-menu v-if="data.children && data.children.length > 0" :index="data.value + ''">
+  <el-sub-menu v-if="data.children && data.children.length > 0" :index="data.name || data.id + ''">
     <template #title>
       <GIconfont :name="data.icon" class="padding_r-5" />
       <span>{{ data.name_cn }}</span>
     </template>
-    <sub-item v-for="item in data.children" :key="item.value" :data="item" />
+    <sub-item v-for="item in data.children" :key="item.id" :data="item" />
   </el-sub-menu>
-  <el-menu-item v-else :index="data.id + ''" @click="clickHandle">
+  <el-menu-item v-else :index="data.name || data.id + ''" @click="clickHandle">
     <GIconfont :name="data.icon" class="padding_r-5" />
     <template #title>
       <span>{{ data.name_cn }}</span>
