@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-04-18 09:16:20
  */
 import { clearJson } from '@/utils/index'
-import { getToken, setToken } from '@/utils/storage'
+import { clearToken, getToken, setToken } from '@/utils/storage'
 import { loginApi, logoutApi } from '@/api/login'
 import { selfInfoApi } from '@/api/administrator'
 
@@ -38,21 +38,20 @@ export default {
     }
   },
   mutations: {
-    SET_USER: (state, user) => {
-      state.user = user
+    SET_ADMINISTRATOR: (state, administrator) => {
+      state.administrator = administrator
     },
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    CLEAR_USER: state => {
-      clearJson(state.user)
+    CLEAR_ADMINISTRATOR: state => {
+      clearJson(state.administrator)
     },
     CLEAR_TOKEN: state => {
       clearJson(state.token)
     }
   },
   actions: {
-
     /**
      * 登录
      * @param {*} params
@@ -66,7 +65,6 @@ export default {
       }
       return r
     },
-
     /**
      * 获取当前用户信息
      * @returns
@@ -74,11 +72,10 @@ export default {
     async getAdministrator({ commit }) {
       const r = await selfInfoApi()
       if (r) {
-        commit('SET_USER', r.data)
+        commit('SET_ADMINISTRATOR', r.data)
       }
       return r
     },
-
     // /**
     //  * 编辑当前用户信息
     //  * @param {*} params
@@ -90,7 +87,6 @@ export default {
     //   }
     //   return r
     // },
-
     /**
      * 退出当前账户
      * @returns
@@ -99,17 +95,21 @@ export default {
       const r = await logoutApi()
       return r
     },
-
     /**
-     * 清除登录信息 用户信息
+     * 清除登录用户信息
      * @param {*} param0
      * @param {*} flag
      */
-    clear({ commit }, flag = false) {
-      if (flag) {
-        commit('CLEAR_TOKEN')
-      }
-      commit('CLEAR_USER')
+    clearAdministrator({ commit }) {
+      commit('CLEAR_ADMINISTRATOR')
+    },
+    /**
+     * 清除登录用户凭证
+     * @param {*} param0
+     * @param {*} flag
+     */
+    clearToken({ commit }) {
+      commit('CLEAR_TOKEN')
     }
   }
 }

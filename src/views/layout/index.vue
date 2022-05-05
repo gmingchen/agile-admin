@@ -7,8 +7,8 @@
       :view-class="`flex-box flex-item_f-1${ mode === 1 ? ' overflow-hidden' : '' }`">
       <div class="wrap flex-item_f-1 flex-box flex_d-column">
         <Headbar />
-        <el-scrollbar class="flex-item_f-1">
-          <View class="content-view padding-20 flex-item_f-1" transition="leftIn-rightOut" />
+        <el-scrollbar class="flex-item_f-1" v-if="!refresh">
+          <View class="content-view padding-20 flex-item_f-1" transition="left-in-right-out" />
         </el-scrollbar>
       </div>
     </el-scrollbar>
@@ -30,8 +30,11 @@ export default defineComponent({
 
     const mode = computed(() => store.state.settings.navigationMode)
 
+    const refresh = computed(() => store.state.settings.refresh)
+
     return {
-      mode
+      mode,
+      refresh
     }
   }
 })

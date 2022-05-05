@@ -5,10 +5,13 @@
 </template>
 
 <script >
-import { defineComponent } from 'vue'
+import { defineComponent, onBeforeMount } from 'vue'
 
 export default defineComponent({
   setup() {
+    onBeforeMount(() => {
+      console.log('reload')
+    })
     return {}
   }
 })

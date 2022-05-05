@@ -6,7 +6,7 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-04-18 09:16:20
  */
-import { getGet, setGet, getMenuAndPermission, setMenuAndPermission } from '@/utils/storage'
+import { getGet, setGet, clearGet, getMenuAndPermission, setMenuAndPermission, clearMenuAndPermission } from '@/utils/storage'
 import { MENU_KEY, PERMISSION_KEY } from '@/utils/constant'
 import { selfInfoApi } from '@/api/enterprise-menu'
 
@@ -24,7 +24,6 @@ function menuProcessing(list = [], mode = 1) {
   const result = []
   list.forEach(item => {
     if (item.type !== 2) {
-      console.log(mode, item.show)
       if (mode === 2 || item.show === 1) {
         const menu = {
           id: item.menu_id,
@@ -120,6 +119,17 @@ export default {
      */
     setCollapse({ commit }, collapse) {
       commit('SET_COLLAPSE', collapse)
+    },
+    /**
+     * 清除菜单 权限 信息
+     * @param {*}
+     */
+    clear({ commit }) {
+      clearGet()
+      clearMenuAndPermission()
+      commit('SET_GET', false)
+      commit('SET_MENUS', [])
+      commit('SET_PERMISSIONS', [])
     }
   }
 }

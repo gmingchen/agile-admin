@@ -5,6 +5,7 @@
       :name="`collapse-${collapse ? 'right' : 'left'}`"
       @click="collapseHandle" />
     <Crumb />
+    <Action />
   </div>
 </template>
 
@@ -13,9 +14,10 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 
 import Crumb from './components/crumb'
+import Action from './components/action'
 
 export default defineComponent({
-  components: { Crumb },
+  components: { Crumb, Action },
   setup() {
     const store = useStore()
 

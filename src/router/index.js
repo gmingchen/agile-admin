@@ -163,7 +163,7 @@ router.beforeEach(async (to, _from, next) => {
   // 跳转到登录页清除所有信息
   if (to.name === 'login') {
     clearRouter()
-    // store.dispatch('setting/exit')
+    store.dispatch('logout')
   }
   NProgress.start()
   // 处理动态路由页 刷新跳转 401 问题

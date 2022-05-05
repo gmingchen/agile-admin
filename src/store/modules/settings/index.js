@@ -20,7 +20,15 @@ export default {
      * 2：大小100%，在导航固定的情况下生效
      * 3：
      */
-    contanierMode: 1
+    contanierMode: 1,
+    /**
+     * 是否全屏
+     */
+    fullScreen: false,
+    /**
+     * 用于主内容部分刷新
+     */
+    refresh: false
   },
   getters: {
   },
@@ -30,6 +38,12 @@ export default {
     },
     SET_CONTANIER_MODE: (state, contanierMode) => {
       state.contanierMode = contanierMode
+    },
+    SET_FULL_SCREEN: (state, fullScreen) => {
+      state.fullScreen = fullScreen
+    },
+    SET_REFRESH: (state, refresh) => {
+      state.refresh = refresh
     }
   },
   actions: {
@@ -46,6 +60,20 @@ export default {
      */
     setContanierMode({ commit }, contanierMode) {
       commit('SET_CONTANIER_MODE', contanierMode)
+    },
+    /**
+     * 设置是否全屏
+     * @returns
+     */
+    setFullScreen({ commit }, fullScreen) {
+      commit('SET_FULL_SCREEN', fullScreen)
+    },
+    /**
+     * 设置刷新
+     * @returns
+     */
+    setRefresh({ commit }, refresh) {
+      commit('SET_REFRESH', refresh)
     }
   }
 }
