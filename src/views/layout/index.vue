@@ -7,6 +7,7 @@
       :view-class="`flex-box flex-item_f-1${ mode === 1 ? ' overflow-hidden' : '' }`">
       <div class="wrap flex-item_f-1 flex-box flex_d-column">
         <Headbar />
+        <Tabsbar />
         <el-scrollbar class="flex-item_f-1" v-if="!refresh">
           <View class="content-view padding-20 flex-item_f-1" transition="left-in-right-out" />
         </el-scrollbar>
@@ -21,10 +22,11 @@ import { useStore } from 'vuex'
 
 import Sidebar from './components/sidebar'
 import Headbar from './components/headbar'
+import Tabsbar from './components/tabsbar'
 import View from '@/components/view'
 
 export default defineComponent({
-  components: { Sidebar, Headbar, View },
+  components: { Sidebar, Headbar, Tabsbar, View },
   setup() {
     const store = useStore()
 

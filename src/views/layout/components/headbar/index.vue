@@ -1,5 +1,5 @@
 <template>
-  <div class="headbar-container padding-n-10 flex-box flex_w-wrap">
+  <div class="headbar-container padding-n-10 flex-box flex_w-wrap flex_a_i-center">
     <GIconfont
       class="cursor-pointer margin_r-20"
       :name="`collapse-${collapse ? 'right' : 'left'}`"
@@ -48,7 +48,6 @@ export default defineComponent({
 .headbar-container {
   z-index: 10;
   min-height: var(--gl-headbar-height);
-  line-height: var(--gl-headbar-height);
   background-color: var(--gl-headbar-background-color);
   box-shadow: var(--el-box-shadow-light);
 }

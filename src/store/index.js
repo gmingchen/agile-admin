@@ -20,12 +20,13 @@ const store = createStore({
   },
   actions: {
     /**
-     * 清除数据 用户信息 菜单 权限
+     * 清除数据 用户信息 菜单 权限 标签页
      * @param {*}
      */
     clearData({ dispatch }) {
       dispatch('administrator/clearAdministrator')
       dispatch('menu/clear')
+      dispatch('tabs/clear')
     },
     /**
      * 清除缓存

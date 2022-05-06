@@ -23,7 +23,7 @@
       </el-avatar>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>编辑资料</el-dropdown-item>
+          <el-dropdown-item command="personal">个人中心</el-dropdown-item>
           <el-dropdown-item command="logout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -76,8 +76,12 @@ export default defineComponent({
 
     const dropdownHandle = (command) => {
       switch (command) {
+        case 'personal':
+          router.push({ name: 'personal' })
+          break
         case 'logout':
           router.push({ name: 'login' })
+          break
       }
     }
 
