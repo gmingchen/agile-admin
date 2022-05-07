@@ -4,12 +4,26 @@
     <el-scrollbar
       class="wrap flex-item_f-1 flex-box flex_d-column"
       wrap-class="flex-box flex_d-column"
-      :view-class="`flex-box flex-item_f-1${ mode === 1 ? ' overflow-hidden' : '' }`">
+      :view-class="`
+        out-scrollbar-view-${navigationMode}-${contanierMode}
+        flex-item_f-1
+        flex-box
+        out-view
+        ${ navigationMode === 1 || contanierMode === 2 ? ' overflow-hidden' : '' }`
+      ">
       <div class="wrap flex-item_f-1 flex-box flex_d-column">
         <Headbar />
         <Tabsbar />
-        <el-scrollbar class="flex-item_f-1" v-if="!refresh">
-          <View class="content-view padding-20 flex-item_f-1" transition="left-in-right-out" />
+        <el-scrollbar
+          class="flex-item_f-1 flex-box flex_d-column"
+          v-if="!refresh"
+          wrap-class="flex-box flex_d-column"
+          :view-class="`
+            inner-scrollbar-view-${contanierMode}
+            flex-item_f-1
+            flex-box
+            ${contanierMode === 2 ? ' overflow-hidden' : ''}`">
+          <View class="content-view margin-20 flex-item_f-1" transition="left-in-right-out" />
         </el-scrollbar>
       </div>
     </el-scrollbar>
@@ -30,12 +44,15 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const mode = computed(() => store.state.settings.navigationMode)
+    const navigationMode = computed(() => store.state.settings.navigationMode)
+
+    const contanierMode = computed(() => store.state.settings.contanierMode)
 
     const refresh = computed(() => store.state.settings.refresh)
 
     return {
-      mode,
+      navigationMode,
+      contanierMode,
       refresh
     }
   }
@@ -43,6 +60,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+/* 当高度低于该高度时 进行外部容器滚动 */
+@media screen and (max-height: 400px) {
+  .out-scrollbar-view-2-2, .inner-scrollbar-view-2 {
+    overflow: unset;
+  }
+}
 .layout-container {
   .wrap {
     z-index: 0;
