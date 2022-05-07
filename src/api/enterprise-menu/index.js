@@ -20,3 +20,16 @@ export function selfInfoApi() {
     method: 'get'
   })
 }
+
+/**
+ * @description: 获取当前企业下所有菜单
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function listApi() {
+  return service({
+    url: '/backstage/enterprise/menu/list',
+    method: 'get'
+  })
+}
