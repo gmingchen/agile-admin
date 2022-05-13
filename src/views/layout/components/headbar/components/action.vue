@@ -1,16 +1,16 @@
 <template>
   <div class="action-container flex-item_f-1 flex-box flex_j_c-flex-end flex_a_i-center">
-    <GIconfont
+    <Iconfont
       class="margin_r-15 cursor-pointer"
       size="16px"
       :name="`full-screen-${!fullScreen}`"
       @click="iconfontClickHandle('full-screen')" />
-    <GIconfont
+    <Iconfont
       class="margin_r-15 cursor-pointer"
       size="16px"
       name="refresh"
       @click="iconfontClickHandle('refresh')" />
-    <GIconfont
+    <Iconfont
       class="margin_r-15 cursor-pointer"
       size="16px"
       name="clear"

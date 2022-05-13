@@ -60,6 +60,9 @@ export default {
     },
     pages: state => {
       return menuProcessing(state.menus, 2)
+    },
+    permissions: state => {
+      return state.permissions
     }
   },
   mutations: {

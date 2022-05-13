@@ -9,7 +9,7 @@
         <el-form-item prop="username">
           <el-input v-model="form.username" placeholder="账户" clearable>
             <template #prefix>
-              <GIconfont name="user" />
+              <Iconfont name="user" />
             </template>
           </el-input>
         </el-form-item>
@@ -20,7 +20,7 @@
             show-password
             clearable>
             <template #prefix>
-              <GIconfont name="lock" />
+              <Iconfont name="lock" />
             </template>
           </el-input>
         </el-form-item>
@@ -31,7 +31,7 @@
             placeholder="验证码"
             clearable>
             <template #prefix>
-              <GIconfont name="verification" />
+              <Iconfont name="verification" />
             </template>
           </el-input>
           <img

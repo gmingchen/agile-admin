@@ -3,7 +3,7 @@
     <template #default>
       <el-table
         :data="list"
-        :loading="loading"
+        v-loading="loading"
         :tree-props="props"
         ref="refTable"
         row-key="id"
@@ -27,7 +27,7 @@
           label="图标"
           width="80">
           <template v-slot="{ row }">
-            <GIconfont v-if="row.type !== 2 && row.icon" :name="row.icon" />
+            <Iconfont v-if="row.type !== 2 && row.icon" :name="row.icon" />
             <span v-else>—</span>
           </template>
         </el-table-column>
@@ -47,7 +47,25 @@
           label="排序"
           prop="sort"
           width="80" />
+        <el-table-column
+          align="center"
+          label="更新时间"
+          prop="updated_at"
+          width="160" />
+        <el-table-column
+          align="center"
+          label="操作"
+          prop="type"
+          width="80">
+          <template v-slot="{ row }">
+            <el-button
+              v-permission="'backstage:enterprise:menu:update'"
+              type="text"
+              @click="editHandle(row)">编辑</el-button>
+          </template>
+        </el-table-column>
       </el-table>
+      <Edit ref="refEdit" v-if="visible" />
     </template>
   </Container>
 </template>
@@ -55,29 +73,39 @@
 <script>
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
-import Container from '@/components/container'
+import Edit from './components/edit'
 
 import { listApi } from '@/api/enterprise-menu'
 
 export default defineComponent({
-  components: { Container },
+  components: { Edit },
   setup() {
     const props = {
       children: 'children'
     }
 
     const refTable = ref()
+    const refEdit = ref()
     const data = reactive({
       loading: false,
+      visible: false,
       list: []
     })
 
     const getList = () => {
+      data.loading = true
       listApi().then(r => {
         if (r) {
           data.list = r.data
         }
-        nextTick(() => { data.loading = true })
+        nextTick(() => { data.loading = false })
+      })
+    }
+
+    const editHandle = (row) => {
+      data.visible = true
+      nextTick(() => {
+        refEdit.value.init(row)
       })
     }
 
@@ -88,7 +116,9 @@ export default defineComponent({
     return {
       props,
       refTable,
-      ...toRefs(data)
+      refEdit,
+      ...toRefs(data),
+      editHandle
     }
   }
 })

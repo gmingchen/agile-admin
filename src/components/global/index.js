@@ -6,7 +6,7 @@ export default {
       const component = globalComponents(filePath)
       let name = filePath.replace(/\.\/|\/index.vue/g, '')
       name = name.slice(0, 1).toUpperCase() + name.slice(1)
-      app.component(`G${ name }`, component.default || component)
+      app.component(`${ name }`, component.default || component)
     })
   }
 }

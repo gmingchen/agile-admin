@@ -52,3 +52,8 @@
     position: absolute !important;
   }
 }
+// 移除 弹窗 body 的上下padding
+.el-dialog__body {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}

@@ -1,32 +1,17 @@
 <template>
-  <div class="layout-container height-full flex-box">
+  <div class="layout-container height-full flex-box overflow-auto">
     <Sidebar />
-    <el-scrollbar
-      class="wrap flex-item_f-1 flex-box flex_d-column"
-      wrap-class="flex-box flex_d-column"
-      :view-class="`
-        out-scrollbar-view-${navigationMode}-${contanierMode}
-        flex-item_f-1
-        flex-box
-        out-view
-        ${ navigationMode === 1 || contanierMode === 2 ? ' overflow-hidden' : '' }`
-      ">
-      <div class="wrap flex-item_f-1 flex-box flex_d-column">
+    <component :is="component" class="navigation-container">
+      <template #headbar>
         <Headbar />
+      </template>
+      <template #tabsbar>
         <Tabsbar />
-        <el-scrollbar
-          class="flex-item_f-1 flex-box flex_d-column"
-          v-if="!refresh"
-          wrap-class="flex-box flex_d-column"
-          :view-class="`
-            inner-scrollbar-view-${contanierMode}
-            flex-item_f-1
-            flex-box
-            ${contanierMode === 2 ? ' overflow-hidden' : ''}`">
-          <View class="content-view margin-20 flex-item_f-1" transition="left-in-right-out" />
-        </el-scrollbar>
-      </div>
-    </el-scrollbar>
+      </template>
+      <template #default v-if="!refresh">
+        <View class="margin-20 flex-item_f-1" transition="left-in-right-out" />
+      </template>
+    </component>
   </div>
 </template>
 
@@ -38,38 +23,46 @@ import Sidebar from './components/sidebar'
 import Headbar from './components/headbar'
 import Tabsbar from './components/tabsbar'
 import View from '@/components/view'
+import NavigationActive from './components/navigation/active'
+import NavigationFixed from './components/navigation/fixed'
 
 export default defineComponent({
-  components: { Sidebar, Headbar, Tabsbar, View },
+  components: { Sidebar, Headbar, Tabsbar, View, NavigationActive, NavigationFixed },
   setup() {
     const store = useStore()
 
     const navigationMode = computed(() => store.state.settings.navigationMode)
 
-    const contanierMode = computed(() => store.state.settings.contanierMode)
-
     const refresh = computed(() => store.state.settings.refresh)
+
+    const component = computed(() => {
+      let result = ''
+      switch (store.state.settings.navigationMode) {
+        case 1:
+          result = NavigationFixed
+          break
+        case 2:
+          result = NavigationActive
+          break
+      }
+      return result
+    })
 
     return {
       navigationMode,
-      contanierMode,
-      refresh
+      refresh,
+      component
     }
   }
 })
 </script>
 
 <style lang="scss">
-/* 当高度低于该高度时 进行外部容器滚动 */
-@media screen and (max-height: 400px) {
-  .out-scrollbar-view-2-2, .inner-scrollbar-view-2 {
-    overflow: unset;
-  }
-}
 .layout-container {
-  .wrap {
+  z-index: 0;
+  background-color: var(--gl-content-background-color);
+  .navigation-container {
     z-index: 0;
-    background-color: var(--gl-content-background-color);
   }
 }
 </style>

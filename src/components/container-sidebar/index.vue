@@ -2,13 +2,14 @@
   <div :class="`
     container-sidebar
     flex-box
+    overflow-auto
     ${panelMode === 3 ? 'container-sidebar-panel' : ''}`">
     <el-scrollbar class="sidebar-container margin_r-10" v-if="slots.sidebar">
       <div class="padding-10">
         <slot name="sidebar" />
       </div>
     </el-scrollbar>
-    <Container class="container flex-item_f-1" :mode="panelMode">
+    <Container class="container flex-item_f-1 overflow-auto" :mode="panelMode">
       <template #header v-if="slots.header">
         <slot name="header" />
       </template>
@@ -26,10 +27,7 @@
 import { computed, defineComponent, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
 
-import Container from '@/components/container'
-
 export default defineComponent({
-  components: { Container },
   props: {
     /**
      * 面板模式

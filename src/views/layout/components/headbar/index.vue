@@ -1,6 +1,6 @@
 <template>
   <div class="headbar-container padding-n-10 flex-box flex_w-wrap flex_a_i-center">
-    <GIconfont
+    <Iconfont
       class="cursor-pointer margin_r-20"
       :name="`collapse-${collapse ? 'right' : 'left'}`"
       @click="collapseHandle" />

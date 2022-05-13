@@ -193,8 +193,9 @@ export function havePermission(permission, separator = '&') {
       fn = 'some'
       break
   }
+  const list = store.getters['menu/permissions']
   result = fn && permissions[fn](item => {
-    return store.getters['menu/permissions'].indexOf(item)
+    return list.indexOf(item) !== -1
   })
   return result
 }

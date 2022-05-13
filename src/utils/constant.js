@@ -21,4 +21,5 @@ export const THEME_KEY = 'theme'
 // 请求成功响应code
 export const SUCCESS_CODE = [SuccessCode.ZERO, SuccessCode.TWO_HUNDRED]
 // 双向绑定方法名
+export const MODEL_NAME = 'modelValue'
 export const UPDATE_MODEL_EVENT = ModelBinding.MODEL_VALUE

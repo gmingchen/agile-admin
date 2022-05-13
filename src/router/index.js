@@ -3,6 +3,7 @@ import { defineComponent, h } from 'vue'
 import store from '@/store'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import menu from '@/store/modules/menu'
 
 let refresh = true
 
@@ -191,8 +192,13 @@ router.beforeEach(async (to, _from, next) => {
     }
     refresh = false
     const menus = store.state.menu.menus
-    addRoutes(menus)
-    next({ ...to, replace: true })
+    if (!menus || menus.length === 0) {
+      store.dispatch('menu/setGet', false)
+      next({ name: '404', replace: true })
+    } else {
+      addRoutes(menus)
+      next({ ...to, replace: true })
+    }
   }
 })
 

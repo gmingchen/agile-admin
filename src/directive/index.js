@@ -20,7 +20,7 @@ export default {
               el.remove()
               break
             case 'div': // element-plus switch 组件权限控制
-              if (vnode.props.role && vnode.props.role === 'switch') {
+              if (vnode.props && vnode.props.role && vnode.props.role === 'switch') {
                 nextTick(() => {
                   el.className += ' is-disabled' // 设置禁用样式
                   const tag = el.cloneNode(true) // 深拷贝节点以解除绑定事件
