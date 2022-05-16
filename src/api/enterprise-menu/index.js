@@ -55,7 +55,7 @@ export function updateApi(params) {
  * @return {*}
  * @author: gumingchen
  */
-export function optionListApi() {
+export function selectListApi() {
   return service({
     url: '/backstage/enterprise/menu/select/list',
     method: 'get'

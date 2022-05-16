@@ -45,7 +45,7 @@ export default defineComponent({
 
     const { slots } = getCurrentInstance()
 
-    const contanierMode = computed(() => props.mode || store.state.settings.contanierMode)
+    const contanierMode = computed(() => store.state.settings.contanierMode)
     const panelMode = computed(() => props.mode || store.state.settings.panelMode)
 
     return {

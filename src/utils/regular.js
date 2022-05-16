@@ -74,6 +74,24 @@ export function isMobile(input) {
 }
 
 /**
+ * 用户名
+ * @param {*} input
+ */
+export function isUsername(input) {
+  const reg = /^[a-zA-Z0-9_-]{4,16}$/
+  return reg.test(input)
+}
+
+/**
+ * 密码
+ * @param {*} input
+ */
+export function isPassword(input) {
+  const reg = /^[a-zA-Z0-9_-]{8,16}$/
+  return reg.test(input)
+}
+
+/**
  * json 字符串
  * @param {*} input
  */

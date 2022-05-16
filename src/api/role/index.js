@@ -90,3 +90,16 @@ export function setShowApi(params) {
     data: params
   })
 }
+
+/**
+ * @description: 获取管理员创建的角色 超级管理员获取企业下所有的角色
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function selectListApi() {
+  return service({
+    url: `/backstage/role/select/list`,
+    method: 'get'
+  })
+}

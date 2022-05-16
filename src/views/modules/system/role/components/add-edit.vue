@@ -59,7 +59,7 @@ import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
 
-import { optionListApi } from '@/api/enterprise-menu'
+import { selectListApi } from '@/api/enterprise-menu'
 import { infoApi, addApi, editApi } from '@/api/role'
 
 export default defineComponent({
@@ -100,7 +100,7 @@ export default defineComponent({
     })
 
     const getEnterpriseMenu = async () => {
-      const r = await optionListApi()
+      const r = await selectListApi()
       if (r) {
         const list = [{
           id: 0,

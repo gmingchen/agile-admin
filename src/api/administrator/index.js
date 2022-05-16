@@ -20,3 +20,86 @@ export function selfInfoApi() {
     method: 'get'
   })
 }
+
+/**
+ * @description: 超级管理员获取当前企业下的所有管理员 否则 获取当前管理员创建的管理员
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function pageApi(params) {
+  return service({
+    url: '/backstage/administrator/page',
+    method: 'get',
+    params: params
+  })
+}
+
+/**
+ * @description: 信息
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function infoApi(params) {
+  return service({
+    url: `/backstage/administrator/info/${ params }`,
+    method: 'get'
+  })
+}
+
+/**
+ * @description: 新增
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function addApi(params) {
+  return service({
+    url: `/backstage/administrator/create`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 编辑
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function editApi(params) {
+  return service({
+    url: `/backstage/administrator/update`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 删除
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function deleteApi(params) {
+  return service({
+    url: `/backstage/administrator/delete`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 设置是否启用
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function setStatusApi(params) {
+  return service({
+    url: `/backstage/administrator/status`,
+    method: 'post',
+    data: params
+  })
+}
