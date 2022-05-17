@@ -103,3 +103,88 @@ export function setStatusApi(params) {
     data: params
   })
 }
+
+// todo:------------------------------------------------------------------------------------
+
+/**
+ * @description: 获取企业下所有的管理员
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalPageApi(params) {
+  return service({
+    url: '/backstage/administrator/global/page',
+    method: 'get',
+    params: params
+  })
+}
+
+/**
+ * @description: 信息
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalInfoApi(params) {
+  return service({
+    url: `/backstage/administrator/global/info/${ params }`,
+    method: 'get'
+  })
+}
+
+/**
+ * @description: 新增
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalAddApi(params) {
+  return service({
+    url: `/backstage/administrator/global/create`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 编辑
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalEditApi(params) {
+  return service({
+    url: `/backstage/administrator/global/update`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 删除
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalDeleteApi(params) {
+  return service({
+    url: `/backstage/administrator/global/delete`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 设置是否启用
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalSetStatusApi(params) {
+  return service({
+    url: `/backstage/administrator/global/status`,
+    method: 'post',
+    data: params
+  })
+}

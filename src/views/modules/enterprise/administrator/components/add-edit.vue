@@ -39,7 +39,13 @@
       <el-form-item label="确认密码" prop="confirmPassword">
         <el-input v-model="form.confirmPassword" placeholder="确认密码" show-password />
       </el-form-item>
-      <el-form-item label="角色" prop="role_ids">
+      <el-form-item label="是否是超管" prop="supervisor">
+        <el-radio-group v-model="form.supervisor">
+          <el-radio :label="0">否</el-radio>
+          <el-radio :label="1">是</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="角色" prop="role_ids" v-show="form.supervisor !== 1">
         <el-checkbox-group v-model="form.role_ids">
           <el-checkbox v-for="role in roles" :key="role.id" :label="role.id">{{ role.name }}</el-checkbox>
         </el-checkbox-group>
@@ -79,8 +85,8 @@ import ImageUploadSingle from '@/components/image-upload-single'
 
 import { isUsername, isPassword, isEmail, isMobile } from '@/utils/regular'
 
-import { selectListApi } from '@/api/role'
-import { infoApi, addApi, editApi } from '@/api/administrator'
+import { globalSelectListApi } from '@/api/role'
+import { globalInfoApi, globalAddApi, globalEditApi } from '@/api/administrator'
 
 export default defineComponent({
   emits: ['refresh'],
@@ -99,7 +105,9 @@ export default defineComponent({
         avatar: '',
         mobile: '',
         email: '',
-        role_ids: []
+        role_ids: [],
+        enterprise_id: '',
+        supervisor: 0
       },
       roles: []
     })
@@ -142,6 +150,13 @@ export default defineComponent({
           callback()
         }
       }
+      const checkRole = (_rule, value, callback) => {
+        if (data.form.supervisor !== 1 && data.form.role_ids.length === 0) {
+          callback(new Error('请选择角色'))
+        } else {
+          callback()
+        }
+      }
       return {
         nickname: [{ required: true, message: '请输入帐号', trigger: 'blur' }],
         username: [
@@ -158,25 +173,29 @@ export default defineComponent({
         ],
         mobile: [{ validator: checkMobile, trigger: 'blur' }],
         email: [{ validator: checkEmail, trigger: 'blur' }],
-        role_ids: [{ type: 'array', required: true, message: '请选择角色', trigger: 'blur' }]
+        role_ids: [
+          { type: 'array', required: !data.form.supervisor, message: '请选择角色', trigger: 'blur' },
+          { validator: checkRole, trigger: 'blur' }
+        ]
       }
     })
 
     const getRole = async () => {
-      const r = await selectListApi()
+      const r = await globalSelectListApi(data.form.enterprise_id)
       if (r) {
         data.roles = r.data
       }
     }
 
-    const init = async (id) => {
+    const init = async (enterpriseId, id) => {
       data.visible = true
       data.loading = true
+      data.form.enterprise_id = enterpriseId
       data.form.id = id
 
       await getRole()
       if (id) {
-        const r = await infoApi(id)
+        const r = await globalInfoApi(id)
         if (r) {
           data.form.nickname = r.data.nickname
           data.form.username = r.data.username
@@ -185,6 +204,7 @@ export default defineComponent({
           data.form.mobile = r.data.mobile
           data.form.email = r.data.email
           data.form.role_ids = r.data.roles.map(item => item.id)
+          data.form.supervisor = r.data.supervisor
         }
       }
 
@@ -200,7 +220,7 @@ export default defineComponent({
     const submit = () => {
       refForm.value.validate(async valid => {
         if (valid) {
-          const r = data.form.id ? await editApi(data.form) : await addApi(data.form)
+          const r = data.form.id ? await globalEditApi(data.form) : await globalAddApi(data.form)
           if (r) {
             data.visible = false
             ElMessage({

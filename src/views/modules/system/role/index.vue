@@ -202,12 +202,12 @@ export default defineComponent({
       page,
       ...toRefs(data),
       getList,
-      pageChangeHandle,
       reacquireHandle,
       addEditHandle,
       deleteHandle,
       showHandle,
       selectionHandle,
+      pageChangeHandle,
       clearJson,
       havePermission
     }

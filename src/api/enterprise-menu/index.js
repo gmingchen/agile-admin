@@ -61,3 +61,18 @@ export function selectListApi() {
     method: 'get'
   })
 }
+
+// todo:------------------------------------------------------------------------------------
+
+/**
+ * @description: 企业ID获取企业下所有的菜单权限
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalSelectListApi(params) {
+  return service({
+    url: `/backstage/enterprise/menu/global/select/list/${ params }`,
+    method: 'get'
+  })
+}

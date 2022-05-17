@@ -136,7 +136,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit'
 
 import usePage from '@/mixins/page'
-import { clearJson, havePermission, parseDate2Str } from '@/utils'
+import { clearJson, parseDate2Str } from '@/utils'
 
 import { pageApi, deleteApi, setStatusApi } from '@/api/administrator'
 
@@ -253,8 +253,7 @@ export default defineComponent({
       deleteHandle,
       statusHandle,
       selectionHandle,
-      clearJson,
-      havePermission
+      clearJson
     }
   }
 })
