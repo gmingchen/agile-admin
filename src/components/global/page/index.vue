@@ -3,7 +3,6 @@
     class="page flex_j_c-flex-end"
     background
     layout="total, sizes, prev, pager, next, jumper, ->"
-
     :current-page="page.current"
     :page-sizes="page.sizes"
     :page-size="page.size"

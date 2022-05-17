@@ -1,13 +1,33 @@
 <template>
-  <div>企业角色</div>
+  <ContainerSidebar :scroll="false">
+    <template #sidebar>
+      <EnterpriseSidebar v-model="active" />
+    </template>
+    <template #header>2</template>
+    <template #default>3</template>
+    <template #footer>5</template>
+  </ContainerSidebar>
 </template>
 
-<script>
-export default {
+<script >
+import { defineComponent, reactive, toRefs } from 'vue'
 
-}
+import ContainerSidebar from '@/components/container-sidebar'
+import EnterpriseSidebar from '@/components/enterprise-sidebar'
+
+export default defineComponent({
+  components: { ContainerSidebar, EnterpriseSidebar },
+  setup() {
+    const data = reactive({
+      active: ''
+    })
+    return {
+      ...toRefs(data)
+    }
+  }
+})
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>

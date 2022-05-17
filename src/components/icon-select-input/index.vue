@@ -35,8 +35,10 @@
 import { computed, defineComponent, reactive, toRefs, watch, watchEffect } from 'vue'
 
 import useModel from '@/mixins/model'
+import { UPDATE_MODEL_EVENT } from '@/utils/constant'
 
 export default defineComponent({
+  emits: [UPDATE_MODEL_EVENT],
   props: {
     modelValue: {
       type: String,

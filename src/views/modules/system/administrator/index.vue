@@ -83,7 +83,7 @@
         <el-table-column
           align="center"
           label="是否启用"
-          prop="show"
+          prop="status"
           width="100">
           <template v-slot="{ row }">
             <el-switch

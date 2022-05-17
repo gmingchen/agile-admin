@@ -4,11 +4,16 @@
     flex-box
     overflow-auto
     ${panelMode === 3 ? 'container-sidebar-panel' : ''}`">
-    <el-scrollbar class="sidebar-container margin_r-10" v-if="slots.sidebar">
+    <el-scrollbar class="sidebar-container margin_r-10" v-if="scroll && slots.sidebar">
       <div class="padding-10">
         <slot name="sidebar" />
       </div>
     </el-scrollbar>
+    <div class="sidebar-container margin_r-10" v-if="!scroll && slots.sidebar">
+      <div class="padding-10 height-full">
+        <slot name="sidebar" />
+      </div>
+    </div>
     <Container class="container flex-item_f-1 overflow-auto" :mode="panelMode">
       <template #header v-if="slots.header">
         <slot name="header" />
@@ -38,6 +43,13 @@ export default defineComponent({
     mode: {
       type: Number,
       default: null
+    },
+    /**
+     * 侧边栏是否开启滚动
+     */
+    scroll: {
+      type: Boolean,
+      default: () => true
     }
   },
   setup(props) {
