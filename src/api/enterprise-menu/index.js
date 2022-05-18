@@ -65,6 +65,74 @@ export function selectListApi() {
 // todo:------------------------------------------------------------------------------------
 
 /**
+ * @description: 企业ID获取企业下所有菜单
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalListApi(params) {
+  return service({
+    url: `/backstage/enterprise/menu/global/list/${ params }`,
+    method: 'get'
+  })
+}
+
+/**
+ * @description: 企业ID获取企业下拥有的菜单ID数组
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalIdsApi(params) {
+  return service({
+    url: `/backstage/enterprise/menu/global/ids/${ params }`,
+    method: 'get'
+  })
+}
+
+/**
+ * @description: 编辑企业菜单权限 新增 移除
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalModifyApi(params) {
+  return service({
+    url: '/backstage/enterprise/menu/global/modify',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 修改企业菜单
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalUpdateApi(params) {
+  return service({
+    url: '/backstage/enterprise/menu/global/update',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 删除企业菜单
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalDeleteApi(params) {
+  return service({
+    url: `/backstage/enterprise/menu/global/delete`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
  * @description: 企业ID获取企业下所有的菜单权限
  * @param {*}
  * @return {*}
