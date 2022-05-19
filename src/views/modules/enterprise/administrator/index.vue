@@ -1,5 +1,5 @@
 <template>
-  <ContainerSidebar :scroll="false">
+  <ContainerSidebar ref="refContainerSidebar" :scroll="false">
     <template #sidebar>
       <EnterpriseSidebar v-model="active" @change="changeHandle" />
     </template>
@@ -144,6 +144,7 @@ import { globalPageApi, globalDeleteApi, globalSetStatusApi } from '@/api/admini
 export default defineComponent({
   components: { ContainerSidebar, EnterpriseSidebar, AddEdit },
   setup() {
+    const refContainerSidebar = ref()
     const refForm = ref()
     const refTable = ref()
     const refAddEdit = ref()
@@ -243,10 +244,12 @@ export default defineComponent({
     }
 
     const changeHandle = (_row) => {
+      refContainerSidebar.value.setScrollTop()
       reacquireHandle()
     }
 
     return {
+      refContainerSidebar,
       refForm,
       refTable,
       refAddEdit,

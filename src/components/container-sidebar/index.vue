@@ -14,7 +14,7 @@
         <slot name="sidebar" />
       </div>
     </div>
-    <Container class="container flex-item_f-1 overflow-auto" :mode="panelMode">
+    <Container ref="refContainer" class="container flex-item_f-1 overflow-auto" :mode="panelMode">
       <template #header v-if="slots.header">
         <slot name="header" />
       </template>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, getCurrentInstance } from 'vue'
+import { computed, defineComponent, getCurrentInstance, ref } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -57,11 +57,19 @@ export default defineComponent({
 
     const { slots } = getCurrentInstance()
 
+    const refContainer = ref()
+
     const panelMode = computed(() => props.mode || store.state.settings.panelMode)
+
+    const setScrollTop = (top = 0) => {
+      refContainer.value.setScrollTop(top)
+    }
 
     return {
       slots,
-      panelMode
+      panelMode,
+      refContainer,
+      setScrollTop
     }
   }
 })

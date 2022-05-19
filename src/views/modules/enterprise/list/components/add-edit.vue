@@ -75,11 +75,11 @@ export default defineComponent({
       roles: []
     })
 
-    const rules = computed(() => {
+    const rules = reactive(function() {
       return {
         name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
       }
-    })
+    }())
 
     const init = async (id) => {
       data.visible = true

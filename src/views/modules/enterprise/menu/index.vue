@@ -1,5 +1,5 @@
 <template>
-  <ContainerSidebar :scroll="false">
+  <ContainerSidebar ref="refContainerSidebar" :scroll="false">
     <template #sidebar>
       <EnterpriseSidebar v-model="active" @change="changeHandle" />
     </template>
@@ -77,6 +77,7 @@
               type="text"
               @click="editHandle(row)">编辑</el-button>
             <el-button
+              v-if="!row.children"
               v-permission="'backstage:global:enterprise:menu:delete'"
               type="text"
               @click="deleteHandle(row.id)">删除</el-button>
@@ -109,6 +110,7 @@ export default defineComponent({
       children: 'children'
     }
 
+    const refContainerSidebar = ref()
     const refForm = ref()
     const refTable = ref()
     const refModify = ref()
@@ -173,10 +175,12 @@ export default defineComponent({
     }
 
     const changeHandle = (_row) => {
+      refContainerSidebar.value.setScrollTop()
       getList()
     }
 
     return {
+      refContainerSidebar,
       props,
       refForm,
       refTable,

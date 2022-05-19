@@ -20,3 +20,58 @@ export function selectListApi() {
     method: 'get'
   })
 }
+
+/**
+ * @description: 信息
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function infoApi(params) {
+  return service({
+    url: `/backstage/menu/info/${ params }`,
+    method: 'get'
+  })
+}
+
+/**
+ * @description: 新增
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function addApi(params) {
+  return service({
+    url: `/backstage/menu/create`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 编辑
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function editApi(params) {
+  return service({
+    url: `/backstage/menu/update`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 删除
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function deleteApi(params) {
+  return service({
+    url: `/backstage/menu/delete`,
+    method: 'post',
+    data: params
+  })
+}

@@ -9,6 +9,7 @@
       <slot name="header" />
     </div>
     <el-scrollbar
+      ref="refScrollbar"
       :class="`
       content-container
       ${contanierMode === 2 ? 'flex-item_f-1' : 'height-unset'}`"
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, getCurrentInstance } from 'vue'
+import { computed, defineComponent, getCurrentInstance, ref } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -45,13 +46,21 @@ export default defineComponent({
 
     const { slots } = getCurrentInstance()
 
+    const refScrollbar = ref()
+
     const contanierMode = computed(() => store.state.settings.contanierMode)
     const panelMode = computed(() => props.mode || store.state.settings.panelMode)
+
+    const setScrollTop = (top = 0) => {
+      refScrollbar.value.setScrollTop(top)
+    }
 
     return {
       slots,
       contanierMode,
-      panelMode
+      panelMode,
+      refScrollbar,
+      setScrollTop
     }
   }
 })

@@ -150,7 +150,7 @@ export default defineComponent({
           callback()
         }
       }
-      const checkRole = (_rule, value, callback) => {
+      const checkRole = (_rule, _value, callback) => {
         if (data.form.supervisor !== 1 && data.form.role_ids.length === 0) {
           callback(new Error('请选择角色'))
         } else {

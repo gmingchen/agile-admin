@@ -9,6 +9,7 @@
           <el-button
             size="small"
             :class="{ 'is-active': item === value }"
+            :disabled="readonly"
             @click="clickHandle(item)">
             <Iconfont :name="item" />
           </el-button>
@@ -22,9 +23,13 @@
         layout="prev, next" />
     </div>
     <template #reference>
-      <el-input v-model="value" placeholder="图标" clearable>
+      <el-input
+        v-model="value"
+        placeholder="图标"
+        clearable
+        :readonly="readonly">
         <template #prefix>
-          <Iconfont :name="value" />
+          <Iconfont :name="value" v-if="value" />
         </template>
       </el-input>
     </template>
@@ -41,8 +46,12 @@ export default defineComponent({
   emits: [UPDATE_MODEL_EVENT],
   props: {
     modelValue: {
-      type: String,
+      type: [String],
       required: true
+    },
+    readonly: {
+      type: Boolean,
+      default: () => false
     }
   },
   setup(props) {
