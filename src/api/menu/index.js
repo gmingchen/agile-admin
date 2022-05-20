@@ -75,3 +75,17 @@ export function deleteApi(params) {
     data: params
   })
 }
+
+/**
+ * @description: 拖拽 更新 父级ID 和 排序
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function dragApi(params) {
+  return service({
+    url: `/backstage/menu/drag`,
+    method: 'post',
+    data: params
+  })
+}

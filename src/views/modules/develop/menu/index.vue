@@ -231,6 +231,8 @@ export default defineComponent({
         data.form.name_en = row.name_en
         data.form.parent_id = row.parent_id
         data.form.type = row.type
+        data.form.tab = 0
+        data.form.sort = 1
       } else {
         data.form.id = row.id
         getInfo()

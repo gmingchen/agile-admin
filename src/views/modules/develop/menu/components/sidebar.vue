@@ -23,7 +23,9 @@
         :filter-node-method="filterNodeHandle"
         @node-click="clickHandle"
         highlight-current
-        accordion>
+        :draggable="havePermission('backstage:menu:drag')"
+        :allow-drop="allowDropHandle"
+        @node-drop="nodeDropHandle">
         <template #default="{node, data}">
           <div class="node-box font-size-14 flex-item_f-1 flex-box flex_j_c-space-between flex_a_i-center">
             <div class="node-label flex-item_f-1 margin_r-10 ellipse">{{data.name_cn}}</div>
@@ -62,9 +64,10 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 
 import useModel from '@/mixins/model'
 import { UPDATE_MODEL_EVENT } from '@/utils/constant'
+import { havePermission } from '@/utils'
 import { VIRTUAL_ID_KEY } from '../index.js'
 
-import { selectListApi, deleteApi } from '@/api/menu'
+import { selectListApi, deleteApi, dragApi } from '@/api/menu'
 
 export default defineComponent({
   emits: ['change', UPDATE_MODEL_EVENT],
@@ -167,6 +170,84 @@ export default defineComponent({
       emit('change', { row, parentType: node.parent.data.type || 0 })
     }
 
+    const allowDropHandle = (dragNode, dropNode, type) => {
+      let result = true
+      const dragData = dragNode.data
+      const dropData = dropNode.data
+      let dropParentType
+      switch (type) {
+        case 'inner':
+          dropParentType = dropData.type
+          break
+        case 'prev':
+        case 'next':
+          dropParentType = dropNode.parent.data.type || 0
+          break
+      }
+      switch (dragData.type) {
+        case 0:
+          if (dropParentType !== 0) {
+            result = false
+          }
+          break
+        case 1:
+          if (dropParentType !== 0) {
+            result = false
+          }
+          break
+        case 2:
+          if (dropParentType !== 1) {
+            result = false
+          }
+          break
+        case 3:
+          if (dropParentType !== 0) {
+            result = false
+          }
+          break
+        case 4:
+          if (dropParentType !== 0) {
+            result = false
+          }
+          break
+      }
+      return result
+    }
+
+    const nodeDropHandle = (dragNode, dropNode, position) => {
+      const dragData = dragNode.data
+      const dropData = dropNode.data
+      const dropParentData = dropNode.parent.data
+      let dropParentId
+      let dropChildren
+      switch (position) {
+        case 'inner':
+          dropParentId = dropData.id
+          dropChildren = dropData.children
+          break
+        case 'before':
+        case 'after':
+          dropParentId = dropParentData.id || 0
+          dropChildren = dropParentData.children || dropParentData
+          break
+      }
+      const params = {
+        id: dragData.id,
+        parent_id: dropParentId,
+        sort_ids: dropChildren.map(item => item.id)
+      }
+      dragApi(params).then(r => {
+        if (r) {
+          ElMessage({
+            message: '操作成功!',
+            type: 'success'
+          })
+        } else {
+          getList()
+        }
+      })
+    }
+
     const filterNodeHandle = (keyword, row) => {
       if (!keyword) return true
       return row.name_cn.includes(keyword) || row.name_en.includes(keyword)
@@ -189,8 +270,11 @@ export default defineComponent({
       addHandle,
       deleteHandle,
       clickHandle,
+      allowDropHandle,
+      nodeDropHandle,
       filterNodeHandle,
-      inputHandle
+      inputHandle,
+      havePermission
     }
   }
 })
