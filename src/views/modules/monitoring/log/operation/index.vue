@@ -3,7 +3,10 @@
     <template #header>
       <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
         <el-form-item>
-          <el-input v-model="form.name" placeholder="名称" clearable />
+          <el-input v-model="form.operation" placeholder="操作" clearable />
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="form.name" placeholder="用户名/昵称" clearable />
         </el-form-item>
         <el-form-item>
           <el-date-picker
@@ -17,12 +20,11 @@
         <el-form-item>
           <el-button v-repeat @click="reacquireHandle()">搜索</el-button>
           <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
-          <el-button v-permission="'backstage:enterprise:create'" type="primary" @click="addEditHandle()">新增</el-button>
           <el-button
-            v-permission="'backstage:enterprise:delete'"
+            v-permission="'backstage:log:operation:delete'"
             type="danger"
-            :disabled="selection.length <= 0"
-            @click="deleteHandle()">批量删除</el-button>
+            :disabled="page.total == 0"
+            @click="deleteHandle()">删除所有日志</el-button>
         </el-form-item>
       </el-form>
     </template>
@@ -31,9 +33,33 @@
         ref="refTable"
         v-loading="loading"
         :data="list"
-        @selection-change="selectionHandle"
+        @row-dblclick="rowClickHandle"
+        row-key="id"
         border>
-        <el-table-column align="center" type="selection" width="50" />
+        <el-table-column type="expand">
+          <template #default="{row}">
+            <div class="padding-n-8">
+              <el-descriptions :column="3" border>
+                <el-descriptions-item label="操作" :span="3">{{row.operation || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="昵称">{{row.nickname || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="帐号">{{row.username || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="IP">{{row.ip || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="浏览器">{{row.browser || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="操作系统">{{row.operating_system || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="操作时间">{{row.created_at || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="请求方法">{{row.method || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="请求URL">{{row.url || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="方法名">{{row.method_name || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="请求参数">
+                  <pre>{{JSON.parse(row.request_data || '{}')}}</pre>
+                </el-descriptions-item>
+                <el-descriptions-item label="响应参数">
+                  <pre>{{JSON.parse(row.response_data || '{}')}}</pre>
+                </el-descriptions-item>
+              </el-descriptions>
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column
           align="center"
           label="ID"
@@ -41,64 +67,45 @@
           width="80" />
         <el-table-column
           align="center"
-          label="Logo"
-          prop="logo"
-          width="80">
+          label="操作者"
+          prop="username"
+          width="180">
           <template v-slot="{ row }">
-            <el-avatar :size="50" :src="row.logo" v-if="row.logo" />
-            <span v-else>-</span>
+            <div class="flex-box flex_j_c-center flex_a_i-center">
+              <el-avatar
+                class="margin_r-10"
+                :size="50"
+                :src="row.avatar"
+                v-if="row.avatar" />
+              <div class="ellipse">{{row.nickname || row.username }}</div>
+            </div>
           </template>
         </el-table-column>
-        <el-table-column
-          align="center"
-          label="名称"
-          prop="name" />
-        <el-table-column
-          align="center"
-          label="描述"
-          prop="describe" />
-        <el-table-column
-          align="center"
-          label="是否启用"
-          prop="status"
-          width="100">
-          <template v-slot="{ row }">
-            <el-switch
-              v-permission="'backstage:enterprise:status'"
-              @change="statusHandle(row)"
-              v-model="row.status"
-              :active-value="1"
-              :inactive-value="0" />
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="创建时间"
-          prop="created_at"
-          width="160" />
-        <el-table-column
-          align="center"
-          label="更新时间"
-          prop="updated_at"
-          width="160" />
         <el-table-column
           align="center"
           label="操作"
-          width="100"
-          fixed="right">
-          <template v-slot="{ row }">
-            <el-button
-              v-permission="'backstage:enterprise:update'"
-              type="text"
-              @click="addEditHandle(row.id)">编辑</el-button>
-            <el-button
-              v-permission="'backstage:enterprise:delete'"
-              type="text"
-              @click="deleteHandle(row.id)">删除</el-button>
-          </template>
-        </el-table-column>
+          prop="operation"
+          width="230" />
+        <el-table-column
+          align="center"
+          label="URL"
+          prop="url" />
+        <el-table-column
+          align="center"
+          label="IP"
+          prop="ip"
+          width="120" />
+        <el-table-column
+          align="center"
+          label="浏览器"
+          prop="browser"
+          width="140" />
+        <el-table-column
+          align="center"
+          label="操作时间"
+          prop="created_at"
+          width="160" />
       </el-table>
-      <AddEdit ref="refAddEdit" v-if="visible" @refresh="getList" />
     </template>
     <template #footer>
       <Page :page="page" @change="pageChangeHandle" />
@@ -110,33 +117,30 @@
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
-import AddEdit from './components/add-edit'
 
 import usePage from '@/mixins/page'
-import { clearJson, havePermission, parseDate2Str } from '@/utils'
+import { clearJson, parseDate2Str } from '@/utils'
 
-import { pageApi, deleteApi, setStatusApi } from '@/api/enterprise'
+import { pageApi, deleteApi } from '@/api/operation-log'
 
 export default defineComponent({
-  components: { AddEdit },
   setup() {
     const refForm = ref()
     const refTable = ref()
-    const refAddEdit = ref()
     const { page } = usePage()
     const data = reactive({
       loading: false,
-      visible: false,
       form: {
+        operation: '',
         name: '',
         date: []
       },
-      list: [],
-      selection: []
+      list: []
     })
 
     const getList = () => {
       const params = {
+        operation: data.form.operation,
         name: data.form.name,
         start: data.form.date && data.form.date.length > 0 ? parseDate2Str(data.form.date[0]) : '',
         end: data.form.date && data.form.date.length > 1 ? parseDate2Str(data.form.date[1]) : '',
@@ -158,21 +162,13 @@ export default defineComponent({
       getList()
     }
 
-    const addEditHandle = (id) => {
-      data.visible = true
-      nextTick(() => {
-        refAddEdit.value.init(id)
-      })
-    }
-
-    const deleteHandle = (id) => {
-      const params = id ? [id] : data.selection.map(item => item.id)
-      ElMessageBox.confirm(`确定对[id=${ params.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`, '提示', {
+    const deleteHandle = () => {
+      ElMessageBox.confirm(`确定进行[删除]操作?`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteApi(params).then(r => {
+        deleteApi().then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
@@ -186,25 +182,8 @@ export default defineComponent({
       })
     }
 
-    const statusHandle = (row) => {
-      const params = {
-        key: row.id,
-        value: row.status
-      }
-      setStatusApi(params).then(r => {
-        if (r) {
-          ElMessage({
-            message: '操作成功!',
-            type: 'success'
-          })
-        } else {
-          row.status = row.status === 1 ? 0 : 1
-        }
-      })
-    }
-
-    const selectionHandle = (val) => {
-      data.selection = val
+    const rowClickHandle = (row) => {
+      refTable.value.toggleRowExpansion(row)
     }
 
     const pageChangeHandle = (argPage) => {
@@ -220,25 +199,18 @@ export default defineComponent({
     return {
       refForm,
       refTable,
-      refAddEdit,
       page,
       ...toRefs(data),
       getList,
       pageChangeHandle,
       reacquireHandle,
-      addEditHandle,
       deleteHandle,
-      statusHandle,
-      selectionHandle,
-      clearJson,
-      havePermission
+      rowClickHandle,
+      clearJson
     }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-.el-tag + .el-tag {
-  margin-left: 5px;
-}
 </style>

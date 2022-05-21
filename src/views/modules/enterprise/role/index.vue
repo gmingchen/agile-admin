@@ -26,6 +26,7 @@
     </template>
     <template #default>
       <el-table
+        ref="refTable"
         v-loading="loading"
         :data="list"
         @selection-change="selectionHandle"

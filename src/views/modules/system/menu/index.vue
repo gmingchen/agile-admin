@@ -2,10 +2,10 @@
   <Container>
     <template #default>
       <el-table
+        ref="refTable"
         :data="list"
         v-loading="loading"
         :tree-props="props"
-        ref="refTable"
         row-key="id"
         border>
         <el-table-column
@@ -37,9 +37,11 @@
           prop="type"
           width="90">
           <template v-slot="{ row }">
-            <el-tag type="success">
-              {{ row.type }}
-            </el-tag>
+            <el-tag v-if="row.type === 0">目录</el-tag>
+            <el-tag type="success" v-else-if="row.type === 1">菜单</el-tag>
+            <el-tag type="info" v-else-if="row.type === 2">按钮</el-tag>
+            <el-tag type="warning" v-else-if="row.type === 3">iframe</el-tag>
+            <el-tag type="danger" v-else-if="row.type === 4">外链</el-tag>
           </template>
         </el-table-column>
         <el-table-column

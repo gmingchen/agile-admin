@@ -44,7 +44,7 @@
                 <el-radio-button :label="4" :disabled="parentType !== 0">外链</el-radio-button>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="路由Path（modules 为根目录可省略首个反斜杠） / Http[s] URL" prop="url" v-if="form.type !== 0 && form.type !== 2">
+            <el-form-item label="组件Path（modules 为根目录可省略首个反斜杠，须省略组件文件的 .vue 后缀） / Http[s] URL" prop="url" v-if="form.type !== 0 && form.type !== 2">
               <el-input v-model="form.url" placeholder="路由Path / Http[s] URL" :readonly="!havePermission('backstage:menu:create|backstage:menu:update', '|')" />
             </el-form-item>
             <el-form-item label="路由Path（若为空则按照url路径处理）" prop="path" v-if="form.type == 1">

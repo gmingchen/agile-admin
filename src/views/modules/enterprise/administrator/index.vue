@@ -35,6 +35,7 @@
     </template>
     <template #default>
       <el-table
+        ref="refTable"
         v-loading="loading"
         :data="list"
         @selection-change="selectionHandle"
@@ -71,6 +72,16 @@
           align="center"
           label="电子邮箱"
           prop="email" />
+        <el-table-column
+          align="center"
+          label="性别"
+          prop="sex">
+          <template v-slot="{row}">
+            <span v-if="row.sex === 0">女</span>
+            <span v-else-if="row.sex === 1">男</span>
+            <span v-else>未知</span>
+          </template>
+        </el-table-column>
         <el-table-column
           align="center"
           label="角色"

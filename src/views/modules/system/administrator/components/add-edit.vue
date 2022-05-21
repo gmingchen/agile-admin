@@ -55,6 +55,13 @@
           <el-form-item label="邮箱" prop="email">
             <el-input v-model="form.email" placeholder="邮箱" />
           </el-form-item>
+          <el-form-item label="性别" prop="sex">
+            <el-radio-group v-model="form.sex">
+              <el-radio :label="0">女</el-radio>
+              <el-radio :label="1">男</el-radio>
+              <el-radio :label="2">未知</el-radio>
+            </el-radio-group>
+          </el-form-item>
         </template>
       </Collapse>
     </el-form>
@@ -99,6 +106,7 @@ export default defineComponent({
         avatar: '',
         mobile: '',
         email: '',
+        sex: 2,
         role_ids: []
       },
       roles: []
@@ -143,7 +151,7 @@ export default defineComponent({
         }
       }
       return {
-        nickname: [{ required: true, message: '请输入帐号', trigger: 'blur' }],
+        nickname: [{ required: true, message: '请输入昵称', trigger: 'blur' }],
         username: [
           { required: true, message: '请输入帐号', trigger: 'blur' },
           { validator: checkUsername, trigger: 'blur' }
@@ -184,6 +192,7 @@ export default defineComponent({
           data.form.avatar = r.data.avatar
           data.form.mobile = r.data.mobile
           data.form.email = r.data.email
+          data.form.sex = r.data.sex
           data.form.role_ids = r.data.roles.map(item => item.id)
         }
       }

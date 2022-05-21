@@ -22,6 +22,34 @@ export function selfInfoApi() {
 }
 
 /**
+ * @description: 编辑基础信息
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function editBasicApi(params) {
+  return service({
+    url: `/backstage/administrator/update/basic`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 编辑密码
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function editPasswordApi(params) {
+  return service({
+    url: `/backstage/administrator/update/password`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
  * @description: 超级管理员获取当前企业下的所有管理员 否则 获取当前管理员创建的管理员
  * @param {*}
  * @return {*}
