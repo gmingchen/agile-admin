@@ -61,7 +61,7 @@
           width="80">
           <template v-slot="{ row }">
             <el-button
-              v-permission="'backstage:enterprise:menu:update'"
+              v-permission="'enterprise:menu:update'"
               type="text"
               @click="editHandle(row)">编辑</el-button>
           </template>

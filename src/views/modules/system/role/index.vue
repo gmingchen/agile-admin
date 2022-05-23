@@ -8,9 +8,9 @@
         <el-form-item>
           <el-button v-repeat @click="reacquireHandle()">搜索</el-button>
           <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
-          <el-button v-permission="'backstage:role:create'" type="primary" @click="addEditHandle()">新增</el-button>
+          <el-button v-permission="'role:create'" type="primary" @click="addEditHandle()">新增</el-button>
           <el-button
-            v-permission="'backstage:role:delete'"
+            v-permission="'role:delete'"
             type="danger"
             :disabled="selection.length <= 0"
             @click="deleteHandle()">批量删除</el-button>
@@ -39,14 +39,14 @@
           label="备注"
           prop="remark" />
         <el-table-column
-          v-if="havePermission('backstage:role:show')"
+          v-if="havePermission('role:show')"
           align="center"
           label="是否显示"
           prop="show"
           width="160">
           <template v-slot="{ row }">
             <el-switch
-              v-permission="'backstage:role:show'"
+              v-permission="'role:show'"
               @change="showHandle(row)"
               v-model="row.show"
               :active-value="1"
@@ -70,11 +70,11 @@
           fixed="right">
           <template v-slot="{ row }">
             <el-button
-              v-permission="'backstage:role:update'"
+              v-permission="'role:update'"
               type="text"
               @click="addEditHandle(row.id)">编辑</el-button>
             <el-button
-              v-permission="'backstage:role:delete'"
+              v-permission="'role:delete'"
               type="text"
               @click="deleteHandle(row.id)">删除</el-button>
           </template>

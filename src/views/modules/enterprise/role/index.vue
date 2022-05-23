@@ -12,12 +12,12 @@
           <el-button v-repeat @click="reacquireHandle()" :disabled="!active">搜索</el-button>
           <el-button v-repeat @click="clearJson(form), reacquireHandle()" :disabled="!active">重置</el-button>
           <el-button
-            v-permission="'backstage:global:role:create'"
+            v-permission="'global:role:create'"
             type="primary"
             @click="addEditHandle()"
             :disabled="!active">新增</el-button>
           <el-button
-            v-permission="'backstage:global:role:delete'"
+            v-permission="'global:role:delete'"
             type="danger"
             :disabled="selection.length <= 0 || !active"
             @click="deleteHandle()">批量删除</el-button>
@@ -52,7 +52,7 @@
           width="160">
           <template v-slot="{ row }">
             <el-switch
-              v-permission="'backstage:global:role:show'"
+              v-permission="'global:role:show'"
               @change="showHandle(row)"
               v-model="row.show"
               :active-value="1"
@@ -76,11 +76,11 @@
           fixed="right">
           <template v-slot="{ row }">
             <el-button
-              v-permission="'backstage:global:role:update'"
+              v-permission="'global:role:update'"
               type="text"
               @click="addEditHandle(row.id)">编辑</el-button>
             <el-button
-              v-permission="'backstage:global:role:delete'"
+              v-permission="'global:role:delete'"
               type="text"
               @click="deleteHandle(row.id)">删除</el-button>
           </template>

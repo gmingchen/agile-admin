@@ -25,7 +25,7 @@
                 placeholder="中文名称"
                 maxlength="20"
                 show-word-limit
-                :readonly="!havePermission('backstage:menu:create|backstage:menu:update', '|')" />
+                :readonly="!havePermission('\menu:create|menu:update', '|')" />
             </el-form-item>
             <el-form-item label="英文名称" prop="name_en">
               <el-input
@@ -33,10 +33,10 @@
                 placeholder="英文名称"
                 maxlength="30"
                 show-word-limit
-                :readonly="!havePermission('backstage:menu:create|backstage:menu:update', '|')" />
+                :readonly="!havePermission('menu:create|menu:update', '|')" />
             </el-form-item>
             <el-form-item label="类型" prop="type">
-              <el-radio-group v-model="form.type" :disabled="!havePermission('backstage:menu:create|backstage:menu:update', '|')">
+              <el-radio-group v-model="form.type" :disabled="!havePermission('menu:create|menu:update', '|')">
                 <el-radio-button :label="0" :disabled="parentType !== 0">目录</el-radio-button>
                 <el-radio-button :label="1" :disabled="parentType !== 0">菜单</el-radio-button>
                 <el-radio-button :label="2" :disabled="parentType !== 1">按钮</el-radio-button>
@@ -45,55 +45,55 @@
               </el-radio-group>
             </el-form-item>
             <el-form-item label="组件Path（modules 为根目录可省略首个反斜杠，须省略组件文件的 .vue 后缀） / Http[s] URL" prop="url" v-if="form.type !== 0 && form.type !== 2">
-              <el-input v-model="form.url" placeholder="路由Path / Http[s] URL" :readonly="!havePermission('backstage:menu:create|backstage:menu:update', '|')" />
+              <el-input v-model="form.url" placeholder="路由Path / Http[s] URL" :readonly="!havePermission('menu:create|menu:update', '|')" />
             </el-form-item>
             <el-form-item label="路由Path（若为空则按照url路径处理）" prop="path" v-if="form.type == 1">
-              <el-input v-model="form.path" placeholder="路由Path" :readonly="!havePermission('backstage:menu:create|backstage:menu:update', '|')" />
+              <el-input v-model="form.path" placeholder="路由Path" :readonly="!havePermission('menu:create|menu:update', '|')" />
             </el-form-item>
             <el-form-item label="路由Name（若为空则按照url路径处理）" prop="name" v-if="form.type == 1">
-              <el-input v-model="form.name" placeholder="路由Name" :readonly="!havePermission('backstage:menu:create|backstage:menu:update', '|')" />
+              <el-input v-model="form.name" placeholder="路由Name" :readonly="!havePermission('menu:create|menu:update', '|')" />
             </el-form-item>
             <el-form-item label="授权标识" prop="permission" v-if="form.type == 1 || form.type == 2">
-              <el-input v-model="form.permission" placeholder="授权标识" :readonly="!havePermission('backstage:menu:create|backstage:menu:update', '|')" />
+              <el-input v-model="form.permission" placeholder="授权标识" :readonly="!havePermission('menu:create|menu:update', '|')" />
             </el-form-item>
             <el-form-item label="图标" prop="icon" v-if="form.type !== 2">
-              <IconSelectInput v-model="form.icon" :readonly="!havePermission('backstage:menu:create|backstage:menu:update', '|')" />
+              <IconSelectInput v-model="form.icon" :readonly="!havePermission('menu:create|menu:update', '|')" />
             </el-form-item>
             <el-form-item label="排序" prop="sort">
               <el-input-number
                 v-model="form.sort"
                 :min="1"
                 controls-position="right"
-                :disabled="!havePermission('backstage:menu:create|backstage:menu:update', '|')" />
+                :disabled="!havePermission('menu:create|menu:update', '|')" />
             </el-form-item>
             <template v-if="form.type === 1">
               <el-form-item label="是否在侧边菜单栏显示（如：个人中心，详情页都不需要显示）" prop="show">
-                <el-radio-group v-model="form.show" :disabled="!havePermission('backstage:menu:create|backstage:menu:update', '|')">
+                <el-radio-group v-model="form.show" :disabled="!havePermission('menu:create|menu:update', '|')">
                   <el-radio :label="0">否</el-radio>
                   <el-radio :label="1">是</el-radio>
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="是否在tab页签显示" prop="tab">
-                <el-radio-group v-model="form.tab" :disabled="!havePermission('backstage:menu:create|backstage:menu:update', '|')">
+                <el-radio-group v-model="form.tab" :disabled="!havePermission('menu:create|menu:update', '|')">
                   <el-radio :label="0">否</el-radio>
                   <el-radio :label="1">是</el-radio>
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="是否支持tab页签多开（如：用户1的详情页、用户2的详情并存在tab页签）" prop="multiple">
-                <el-radio-group v-model="form.multiple" :disabled="!havePermission('backstage:menu:create|backstage:menu:update', '|')">
+                <el-radio-group v-model="form.multiple" :disabled="!havePermission('menu:create|menu:update', '|')">
                   <el-radio :label="0">否</el-radio>
                   <el-radio :label="1">是</el-radio>
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="是否支持缓存" prop="keepalive">
-                <el-radio-group v-model="form.keepalive" :disabled="!havePermission('backstage:menu:create|backstage:menu:update', '|')">
+                <el-radio-group v-model="form.keepalive" :disabled="!havePermission('menu:create|menu:update', '|')">
                   <el-radio :label="0">否</el-radio>
                   <el-radio :label="1">是</el-radio>
                 </el-radio-group>
               </el-form-item>
             </template>
             <el-form-item>
-              <el-button v-permission="'backstage:menu:update'" type="primary" @click="submit">保存</el-button>
+              <el-button v-permission="'menu:update'" type="primary" @click="submit">保存</el-button>
             </el-form-item>
           </el-form>
         </el-col>

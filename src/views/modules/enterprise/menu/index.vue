@@ -7,7 +7,7 @@
       <el-form ref="refForm" :inline="true">
         <el-form-item>
           <el-button
-            v-permission="'backstage:global:enterprise:menu:modify'"
+            v-permission="'global:enterpriseMenu:modify'"
             type="primary"
             @click="modifyHandle()"
             :disabled="!active">修改权限菜单</el-button>
@@ -75,12 +75,12 @@
           width="100">
           <template v-slot="{ row }">
             <el-button
-              v-permission="'backstage:global:enterprise:menu:update'"
+              v-permission="'global:enterpriseMenu:update'"
               type="text"
               @click="editHandle(row)">编辑</el-button>
             <el-button
               v-if="!row.children"
-              v-permission="'backstage:global:enterprise:menu:delete'"
+              v-permission="'global:enterpriseMenu:delete'"
               type="text"
               @click="deleteHandle(row.id)">删除</el-button>
           </template>

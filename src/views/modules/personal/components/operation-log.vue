@@ -1,20 +1,24 @@
 <template>
-  <el-timeline>
-    <el-timeline-item
-      placement="top"
-      v-for="item in list"
-      :key="item.id"
-      :timestamp="item.created_at">
-      <el-card>
-        <el-descriptions :column="2">
-          <el-descriptions-item label="操作信息">{{item.operation}}</el-descriptions-item>
-          <el-descriptions-item label="浏览器">{{item.browser}}</el-descriptions-item>
-          <el-descriptions-item label="IP">{{item.ip}}</el-descriptions-item>
-          <el-descriptions-item label="操作系统">{{item.operating_system}}</el-descriptions-item>
-        </el-descriptions>
-      </el-card>
-    </el-timeline-item>
-  </el-timeline>
+  <div class="operation-log-container">
+    <el-timeline v-if="list.length">
+      <el-timeline-item
+        placement="top"
+        v-for="item in list"
+        :key="item.id"
+        :timestamp="item.created_at">
+        <el-card>
+          <el-descriptions :column="2">
+            <el-descriptions-item label="操作信息">{{item.operation}}</el-descriptions-item>
+            <el-descriptions-item label="浏览器">{{item.browser}}</el-descriptions-item>
+            <el-descriptions-item label="IP">{{item.ip}}</el-descriptions-item>
+            <el-descriptions-item label="操作系统">{{item.operating_system}}</el-descriptions-item>
+          </el-descriptions>
+        </el-card>
+      </el-timeline-item>
+    </el-timeline>
+    <el-empty v-else />
+  </div>
+
 </template>
 
 <script>
@@ -59,6 +63,8 @@ export default defineComponent({
 })
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.operation-log-container {
+  max-height: 600px;
+}
 </style>

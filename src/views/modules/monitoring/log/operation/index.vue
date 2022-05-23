@@ -1,5 +1,8 @@
 <template>
-  <Container>
+  <ContainerSidebar ref="refContainerSidebar" :scroll="false">
+    <template #sidebar>
+      <EnterpriseSidebar v-model="active" @change="changeHandle" />
+    </template>
     <template #header>
       <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
         <el-form-item>
@@ -18,13 +21,17 @@
             clearable />
         </el-form-item>
         <el-form-item>
-          <el-button v-repeat @click="reacquireHandle()">搜索</el-button>
-          <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
+          <el-button v-repeat @click="reacquireHandle()" :disabled="!active">搜索</el-button>
+          <el-button v-repeat @click="clearJson(form), reacquireHandle()" :disabled="!active">重置</el-button>
           <el-button
-            v-permission="'backstage:log:operation:delete'"
+            v-permission="'global:operationLog:delete'"
             type="danger"
-            :disabled="page.total == 0"
+            :disabled="page.total == 0 || !active"
             @click="deleteHandle()">删除所有日志</el-button>
+          <el-button
+            v-permission="'global:operationLog:truncate'"
+            type="danger"
+            @click="celarHandle()">清空日志</el-button>
         </el-form-item>
       </el-form>
     </template>
@@ -110,25 +117,30 @@
     <template #footer>
       <Page :page="page" @change="pageChangeHandle" />
     </template>
-  </Container>
+  </ContainerSidebar>
 </template>
 
 <script>
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
+import ContainerSidebar from '@/components/container-sidebar'
+import EnterpriseSidebar from '@/components/enterprise-sidebar'
 
 import usePage from '@/mixins/page'
 import { clearJson, parseDate2Str } from '@/utils'
 
-import { pageApi, deleteApi } from '@/api/operation-log'
+import { globalPageApi, globalDeleteApi, globalTruncateApi } from '@/api/operation-log'
 
 export default defineComponent({
+  components: { ContainerSidebar, EnterpriseSidebar },
   setup() {
+    const refContainerSidebar = ref()
     const refForm = ref()
     const refTable = ref()
     const { page } = usePage()
     const data = reactive({
+      active: '',
       loading: false,
       form: {
         operation: '',
@@ -140,6 +152,7 @@ export default defineComponent({
 
     const getList = () => {
       const params = {
+        id: data.active,
         operation: data.form.operation,
         name: data.form.name,
         start: data.form.date && data.form.date.length > 0 ? parseDate2Str(data.form.date[0]) : '',
@@ -148,7 +161,7 @@ export default defineComponent({
         size: page.size
       }
       data.loading = true
-      pageApi(params).then(r => {
+      globalPageApi(params).then(r => {
         if (r) {
           data.list = r.data.list
           page.total = r.data.total
@@ -168,7 +181,27 @@ export default defineComponent({
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteApi().then(r => {
+        globalDeleteApi(data.active).then(r => {
+          if (r) {
+            ElMessage({
+              message: '操作成功!',
+              type: 'success'
+            })
+            getList()
+          }
+        })
+      }).catch(() => {
+        // to do something on canceled
+      })
+    }
+
+    const celarHandle = () => {
+      ElMessageBox.confirm(`确定进行[清空]操作?`, '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        globalTruncateApi().then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
@@ -192,11 +225,13 @@ export default defineComponent({
       getList()
     }
 
-    onBeforeMount(() => {
-      getList()
-    })
+    const changeHandle = (_row) => {
+      refContainerSidebar.value.setScrollTop()
+      reacquireHandle()
+    }
 
     return {
+      refContainerSidebar,
       refForm,
       refTable,
       page,
@@ -205,7 +240,9 @@ export default defineComponent({
       pageChangeHandle,
       reacquireHandle,
       deleteHandle,
+      celarHandle,
       rowClickHandle,
+      changeHandle,
       clearJson
     }
   }

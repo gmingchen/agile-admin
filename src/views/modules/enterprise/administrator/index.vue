@@ -21,12 +21,12 @@
           <el-button v-repeat @click="reacquireHandle()" :disabled="!active">搜索</el-button>
           <el-button v-repeat @click="clearJson(form), reacquireHandle()" :disabled="!active">重置</el-button>
           <el-button
-            v-permission="'backstage:global:administrator:create'"
+            v-permission="'global:administrator:create'"
             type="primary"
             @click="addEditHandle()"
             :disabled="!active">新增</el-button>
           <el-button
-            v-permission="'backstage:global:administrator:delete'"
+            v-permission="'global:administrator:delete'"
             type="danger"
             :disabled="selection.length <= 0 || !active"
             @click="deleteHandle()">批量删除</el-button>
@@ -97,7 +97,7 @@
           width="100">
           <template v-slot="{ row }">
             <el-switch
-              v-permission="'backstage:global:administrator:status'"
+              v-permission="'global:administrator:status'"
               @change="statusHandle(row)"
               v-model="row.status"
               :active-value="1"
@@ -121,11 +121,11 @@
           fixed="right">
           <template v-slot="{ row }">
             <el-button
-              v-permission="'backstage:global:administrator:update'"
+              v-permission="'global:administrator:update'"
               type="text"
               @click="addEditHandle(row.id)">编辑</el-button>
             <el-button
-              v-permission="'backstage:global:administrator:delete'"
+              v-permission="'global:administrator:delete'"
               type="text"
               @click="deleteHandle(row.id)">删除</el-button>
           </template>

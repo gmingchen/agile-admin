@@ -9,7 +9,7 @@
       <el-button v-repeat @click="getList()">
         <iconfont name="refresh" />
       </el-button>
-      <el-button v-permission="'backstage:menu:create'" type="primary" @click="addHandle()">
+      <el-button v-permission="'menu:create'" type="primary" @click="addHandle()">
         <iconfont name="plus" />
       </el-button>
     </div>
@@ -23,7 +23,8 @@
         :filter-node-method="filterNodeHandle"
         @node-click="clickHandle"
         highlight-current
-        :draggable="havePermission('backstage:menu:drag')"
+        :draggable="havePermission('menu:drag')"
+        :allow-drag="allowDragHandle"
         :allow-drop="allowDropHandle"
         @node-drop="nodeDropHandle">
         <template #default="{node, data}">
@@ -31,14 +32,14 @@
             <div class="node-label flex-item_f-1 margin_r-10 ellipse">{{data.name_cn}}</div>
             <div class="node-button-box">
               <el-button
-                v-permission="'backstage:menu:create'"
+                v-permission="'menu:create'"
                 size="small"
                 v-if="data.type !== 2"
                 @click.stop="addHandle(data)">
                 <Iconfont name="plus" size="12px" />
               </el-button>
               <el-button
-                v-permission="'backstage:menu:delete'"
+                v-permission="'menu:delete'"
                 size="small"
                 v-if="!data.children"
                 @click.stop="deleteHandle(node, data)">
@@ -170,6 +171,13 @@ export default defineComponent({
       emit('change', { row, parentType: node.parent.data.type || 0 })
     }
 
+    const allowDragHandle = (node) => {
+      if ((node.data.id + '').includes(VIRTUAL_ID_KEY)) {
+        return false
+      }
+      return true
+    }
+
     const allowDropHandle = (dragNode, dropNode, type) => {
       let result = true
       const dragData = dragNode.data
@@ -270,6 +278,7 @@ export default defineComponent({
       addHandle,
       deleteHandle,
       clickHandle,
+      allowDragHandle,
       allowDropHandle,
       nodeDropHandle,
       filterNodeHandle,
