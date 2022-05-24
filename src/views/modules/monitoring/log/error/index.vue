@@ -1,13 +1,7 @@
 <template>
-  <ContainerSidebar ref="refContainerSidebar" :scroll="false">
-    <template #sidebar>
-      <EnterpriseSidebar v-model="active" @change="changeHandle" />
-    </template>
+  <Container>
     <template #header>
       <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
-        <el-form-item>
-          <el-input v-model="form.operation" placeholder="操作" clearable />
-        </el-form-item>
         <el-form-item>
           <el-input v-model="form.name" placeholder="用户名/昵称" clearable />
         </el-form-item>
@@ -21,15 +15,15 @@
             clearable />
         </el-form-item>
         <el-form-item>
-          <el-button v-repeat @click="reacquireHandle()" :disabled="!active">搜索</el-button>
-          <el-button v-repeat @click="clearJson(form), reacquireHandle()" :disabled="!active">重置</el-button>
+          <el-button v-repeat @click="reacquireHandle()">搜索</el-button>
+          <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
           <el-button
-            v-permission="'global:operationLog:delete'"
+            v-permission="'errorLog:delete'"
             type="danger"
-            :disabled="page.total == 0 || !active"
+            :disabled="page.total == 0"
             @click="deleteHandle()">删除所有日志</el-button>
           <el-button
-            v-permission="'global:operationLog:truncate'"
+            v-permission="'errorLog:truncate'"
             type="danger"
             @click="celarHandle()">清空日志</el-button>
         </el-form-item>
@@ -41,32 +35,7 @@
         v-loading="loading"
         :data="list"
         @row-dblclick="rowClickHandle"
-        row-key="id"
         border>
-        <el-table-column type="expand">
-          <template #default="{row}">
-            <div class="padding-n-8">
-              <el-descriptions :column="3" border>
-                <el-descriptions-item label="操作" :span="3">{{row.operation || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="昵称">{{row.nickname || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="帐号">{{row.username || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="IP">{{row.ip || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="浏览器">{{row.browser || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="操作系统">{{row.operating_system || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="操作时间">{{row.created_at || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="请求方法">{{row.method || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="请求URL">{{row.url || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="方法名">{{row.method_name || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="请求参数">
-                  <pre>{{JSON.parse(row.request_data || '{}')}}</pre>
-                </el-descriptions-item>
-                <el-descriptions-item label="响应参数">
-                  <pre>{{JSON.parse(row.response_data || '{}')}}</pre>
-                </el-descriptions-item>
-              </el-descriptions>
-            </div>
-          </template>
-        </el-table-column>
         <el-table-column
           align="center"
           label="ID"
@@ -90,13 +59,13 @@
         </el-table-column>
         <el-table-column
           align="center"
-          label="操作"
-          prop="operation"
-          width="230" />
-        <el-table-column
-          align="center"
           label="URL"
           prop="url" />
+        <el-table-column
+          align="center"
+          label="请求方法"
+          prop="method"
+          width="100" />
         <el-table-column
           align="center"
           label="IP"
@@ -109,41 +78,56 @@
           width="140" />
         <el-table-column
           align="center"
+          label="操作系统"
+          prop="operating_system" />
+        <el-table-column
+          align="center"
           label="操作时间"
           prop="created_at"
           width="160" />
+        <el-table-column
+          align="center"
+          label="操作"
+          width="80"
+          fixed="right">
+          <template v-slot="{ row }">
+            <el-button
+              v-permission="'errorLog:info'"
+              type="text"
+              @click="viewHandle(row.id)">查看</el-button>
+          </template>
+        </el-table-column>
       </el-table>
+      <Details ref="refDetails" v-if="visible" />
     </template>
     <template #footer>
       <Page :page="page" @change="pageChangeHandle" />
     </template>
-  </ContainerSidebar>
+  </Container>
 </template>
 
 <script>
-import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
+import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
-import ContainerSidebar from '@/components/container-sidebar'
-import EnterpriseSidebar from '@/components/enterprise-sidebar'
+import Details from './components/details'
 
 import usePage from '@/mixins/page'
 import { clearJson, parseDate2Str } from '@/utils'
 
-import { globalPageApi, globalDeleteApi, globalTruncateApi } from '@/api/operation-log'
+import { pageApi, deleteApi, truncateApi } from '@/api/error-log'
 
 export default defineComponent({
-  components: { ContainerSidebar, EnterpriseSidebar },
+  components: { Details },
   setup() {
-    const refContainerSidebar = ref()
     const refForm = ref()
     const refTable = ref()
+    const refDetails = ref()
     const { page } = usePage()
     const data = reactive({
-      active: '',
       loading: false,
+      visible: false,
       form: {
-        operation: '',
         name: '',
         date: []
       },
@@ -152,8 +136,6 @@ export default defineComponent({
 
     const getList = () => {
       const params = {
-        id: data.active,
-        operation: data.form.operation,
         name: data.form.name,
         start: data.form.date && data.form.date.length > 0 ? parseDate2Str(data.form.date[0]) : '',
         end: data.form.date && data.form.date.length > 1 ? parseDate2Str(data.form.date[1]) : '',
@@ -161,7 +143,7 @@ export default defineComponent({
         size: page.size
       }
       data.loading = true
-      globalPageApi(params).then(r => {
+      pageApi(params).then(r => {
         if (r) {
           data.list = r.data.list
           page.total = r.data.total
@@ -175,13 +157,20 @@ export default defineComponent({
       getList()
     }
 
+    const viewHandle = (id) => {
+      data.visible = true
+      nextTick(() => {
+        refDetails.value.init(id)
+      })
+    }
+
     const deleteHandle = () => {
       ElMessageBox.confirm(`确定进行[删除]操作?`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        globalDeleteApi().then(r => {
+        deleteApi().then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
@@ -201,7 +190,7 @@ export default defineComponent({
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        globalTruncateApi().then(r => {
+        truncateApi().then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
@@ -225,24 +214,23 @@ export default defineComponent({
       getList()
     }
 
-    const changeHandle = (_row) => {
-      refContainerSidebar.value.setScrollTop()
-      reacquireHandle()
-    }
+    onBeforeMount(() => {
+      getList()
+    })
 
     return {
-      refContainerSidebar,
       refForm,
       refTable,
+      refDetails,
       page,
       ...toRefs(data),
       getList,
       pageChangeHandle,
       reacquireHandle,
+      viewHandle,
       deleteHandle,
       celarHandle,
       rowClickHandle,
-      changeHandle,
       clearJson
     }
   }
