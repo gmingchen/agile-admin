@@ -250,6 +250,7 @@ export default defineComponent({
             })
             if (r.data) {
               data.row.id = r.data
+              data.form.id = r.data
             }
             data.row.name_cn = data.form.name_cn
             data.row.name_en = data.form.name_en
