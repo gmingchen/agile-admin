@@ -145,13 +145,13 @@ export default defineComponent({
     }
 
     const deleteHandle = (id) => {
-      const params = id ? [id] : data.selection.map(item => item.id)
-      ElMessageBox.confirm(`确定对[id=${ params.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`, '提示', {
+      const ids = id ? [id] : data.selection.map(item => item.id)
+      ElMessageBox.confirm(`确定对[id=${ ids.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteApi(params).then(r => {
+        deleteApi({ keys: ids }).then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',

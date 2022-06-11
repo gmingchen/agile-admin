@@ -175,13 +175,13 @@ export default defineComponent({
     }
 
     const runHandle = (id) => {
-      const params = id ? [id] : data.selection.map(item => item.id)
-      ElMessageBox.confirm(`确定对[id=${ params.join(',') }]进行[${ id ? '立即执行' : '批量立即执行' }]操作?`, '提示', {
+      const ids = id ? [id] : data.selection.map(item => item.id)
+      ElMessageBox.confirm(`确定对[id=${ ids.join(',') }]进行[${ id ? '立即执行' : '批量立即执行' }]操作?`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        runApi(params).then(r => {
+        runApi({ keys: ids }).then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
@@ -196,13 +196,13 @@ export default defineComponent({
     }
 
     const resumeHandle = (id) => {
-      const params = id ? [id] : data.selection.map(item => item.id)
-      ElMessageBox.confirm(`确定对[id=${ params.join(',') }]进行[${ id ? '恢复' : '批量恢复' }]操作?`, '提示', {
+      const ids = id ? [id] : data.selection.map(item => item.id)
+      ElMessageBox.confirm(`确定对[id=${ ids.join(',') }]进行[${ id ? '恢复' : '批量恢复' }]操作?`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        resumeApi(params).then(r => {
+        resumeApi({ keys: ids }).then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
@@ -217,13 +217,13 @@ export default defineComponent({
     }
 
     const pauseHandle = (id) => {
-      const params = id ? [id] : data.selection.map(item => item.id)
-      ElMessageBox.confirm(`确定对[id=${ params.join(',') }]进行[${ id ? '恢复' : '批量恢复' }]操作?`, '提示', {
+      const ids = id ? [id] : data.selection.map(item => item.id)
+      ElMessageBox.confirm(`确定对[id=${ ids.join(',') }]进行[${ id ? '恢复' : '批量恢复' }]操作?`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        pauseApi(params).then(r => {
+        pauseApi({ keys: ids }).then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
@@ -238,13 +238,13 @@ export default defineComponent({
     }
 
     const deleteHandle = (id) => {
-      const params = id ? [id] : data.selection.map(item => item.id)
-      ElMessageBox.confirm(`确定对[id=${ params.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`, '提示', {
+      const ids = id ? [id] : data.selection.map(item => item.id)
+      ElMessageBox.confirm(`确定对[id=${ ids.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteApi(params).then(r => {
+        deleteApi({ keys: ids }).then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
