@@ -57,9 +57,7 @@
           </el-form-item>
           <el-form-item label="性别" prop="sex">
             <el-radio-group v-model="form.sex">
-              <el-radio :label="0">女</el-radio>
-              <el-radio :label="1">男</el-radio>
-              <el-radio :label="2">未知</el-radio>
+              <el-radio :label="item.value" v-for="item in dictionaryList" :key="item.value">{{item.label}}</el-radio>
             </el-radio-group>
           </el-form-item>
         </template>
@@ -78,12 +76,13 @@
 </template>
 
 <script>
-import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
+import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
 import Collapse from '@/components/collapse'
 import ImageUploadSingle from '@/components/image-upload-single'
 
+import useDictionary from '@/mixins/dictionary'
 import { isUsername, isPassword, isEmail, isMobile } from '@/utils/regular'
 
 import { selectListApi } from '@/api/role'
@@ -93,6 +92,7 @@ export default defineComponent({
   emits: ['refresh'],
   components: { Collapse, ImageUploadSingle },
   setup(_props, { emit }) {
+    const { dictionaryList, getDictionaryList } = useDictionary()
     const refForm = ref()
     const data = reactive({
       loading: false,
@@ -222,18 +222,23 @@ export default defineComponent({
       })
     }
 
+    onBeforeMount(() => {
+      getDictionaryList('sex')
+    })
+
     /**
-   * @description: 弹窗关闭动画结束时的回调
-   * @param {*}
-   * @return {*}
-   * @author: gumingchen
-   */
+     * @description: 弹窗关闭动画结束时的回调
+     * @param {*}
+     * @return {*}
+     * @author: gumingchen
+     */
     const dialogClosedHandle = () => {
       refForm.value.resetFields()
     }
 
     return {
       refForm,
+      dictionaryList,
       ...toRefs(data),
       rules,
       init,

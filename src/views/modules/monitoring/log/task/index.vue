@@ -55,8 +55,8 @@
           prop="status"
           width="100">
           <template v-slot="{row}">
-            <el-tag v-if="row.status === 1">成功</el-tag>
-            <el-tag v-if="row.status === 0" type="info">失败</el-tag>
+            <el-tag v-if="row.status === 1">{{dictionaryMap[row.status]}}</el-tag>
+            <el-tag v-if="row.status === 0" type="info">{{dictionaryMap[row.status]}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column
@@ -88,6 +88,7 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 import usePage from '@/mixins/page'
+import useDictionary from '@/mixins/dictionary'
 import { clearJson, parseDate2Str } from '@/utils'
 
 import { pageApi, truncateApi } from '@/api/timed-task-log'
@@ -97,6 +98,7 @@ export default defineComponent({
     const refForm = ref()
     const refTable = ref()
     const { page } = usePage()
+    const { dictionaryMap, getDictionaryMap } = useDictionary()
     const data = reactive({
       loading: false,
       form: {
@@ -156,6 +158,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
+      getDictionaryMap('operation')
       getList()
     })
 
@@ -163,6 +166,7 @@ export default defineComponent({
       refForm,
       refTable,
       page,
+      dictionaryMap,
       ...toRefs(data),
       getList,
       pageChangeHandle,

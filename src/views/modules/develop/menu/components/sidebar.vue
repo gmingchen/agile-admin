@@ -45,11 +45,11 @@
                 @click.stop="deleteHandle(node, data)">
                 <Iconfont name="delete" size="12px" />
               </el-button>
-              <el-tag v-if="data.type === 0">目录</el-tag>
-              <el-tag type="success" v-else-if="data.type === 1">菜单</el-tag>
-              <el-tag type="info" v-else-if="data.type === 2">按钮</el-tag>
-              <el-tag type="warning" v-else-if="data.type === 3">iframe</el-tag>
-              <el-tag type="danger" v-else-if="data.type === 4">外链</el-tag>
+              <el-tag v-if="data.type === 0">{{dictionaryMap[data.type]}}</el-tag>
+              <el-tag type="success" v-else-if="data.type === 1">{{dictionaryMap[data.type]}}</el-tag>
+              <el-tag type="info" v-else-if="data.type === 2">{{dictionaryMap[data.type]}}</el-tag>
+              <el-tag type="warning" v-else-if="data.type === 3">{{dictionaryMap[data.type]}}</el-tag>
+              <el-tag type="danger" v-else-if="data.type === 4">{{dictionaryMap[data.type]}}</el-tag>
             </div>
           </div>
         </template>
@@ -64,6 +64,7 @@ import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRe
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 import useModel from '@/mixins/model'
+import useDictionary from '@/mixins/dictionary'
 import { UPDATE_MODEL_EVENT } from '@/utils/constant'
 import { havePermission } from '@/utils'
 import { VIRTUAL_ID_KEY } from '../index.js'
@@ -82,6 +83,7 @@ export default defineComponent({
     const value = useModel(props)
 
     const refTree = ref()
+    const { dictionaryMap, getDictionaryMap } = useDictionary()
     const data = reactive({
       loading: false,
       form: {
@@ -266,12 +268,14 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
+      getDictionaryMap('menu')
       getList()
     })
 
     return {
       value,
       refTree,
+      dictionaryMap,
       ...toRefs(data),
       treeProps,
       getList,

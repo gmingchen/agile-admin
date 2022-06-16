@@ -78,9 +78,7 @@
           label="性别"
           prop="sex">
           <template v-slot="{row}">
-            <span v-if="row.sex === 0">女</span>
-            <span v-else-if="row.sex === 1">男</span>
-            <span v-else>未知</span>
+            {{dictionaryMap[row.sex]}}
           </template>
         </el-table-column>
         <el-table-column
@@ -147,6 +145,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit'
 
 import usePage from '@/mixins/page'
+import useDictionary from '@/mixins/dictionary'
 import { clearJson, parseDate2Str } from '@/utils'
 
 import { pageApi, deleteApi, setStatusApi } from '@/api/administrator'
@@ -158,6 +157,7 @@ export default defineComponent({
     const refTable = ref()
     const refAddEdit = ref()
     const { page } = usePage()
+    const { dictionaryMap, getDictionaryMap } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -248,6 +248,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
+      getDictionaryMap('sex')
       getList()
     })
 
@@ -256,6 +257,7 @@ export default defineComponent({
       refTable,
       refAddEdit,
       page,
+      dictionaryMap,
       ...toRefs(data),
       getList,
       pageChangeHandle,

@@ -77,9 +77,7 @@
           label="性别"
           prop="sex">
           <template v-slot="{row}">
-            <span v-if="row.sex === 0">女</span>
-            <span v-else-if="row.sex === 1">男</span>
-            <span v-else>未知</span>
+            {{dictionaryMap[row.sex]}}
           </template>
         </el-table-column>
         <el-table-column
@@ -140,7 +138,7 @@
 </template>
 
 <script >
-import { defineComponent, reactive, ref, toRefs, nextTick } from 'vue'
+import { defineComponent, reactive, ref, toRefs, nextTick, onBeforeMount } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
 import ContainerSidebar from '@/components/container-sidebar'
@@ -148,6 +146,7 @@ import EnterpriseSidebar from '@/components/enterprise-sidebar'
 import AddEdit from './components/add-edit'
 
 import usePage from '@/mixins/page'
+import useDictionary from '@/mixins/dictionary'
 import { clearJson, parseDate2Str } from '@/utils'
 
 import { globalPageApi, globalDeleteApi, globalSetStatusApi } from '@/api/administrator'
@@ -161,6 +160,7 @@ export default defineComponent({
     const refAddEdit = ref()
 
     const { page } = usePage()
+    const { dictionaryMap, getDictionaryMap } = useDictionary()
     const data = reactive({
       active: '',
       loading: false,
@@ -207,13 +207,13 @@ export default defineComponent({
     }
 
     const deleteHandle = (id) => {
-      const params = id ? [id] : data.selection.map(item => item.id)
-      ElMessageBox.confirm(`确定对[id=${ params.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`, '提示', {
+      const ids = id ? [id] : data.selection.map(item => item.id)
+      ElMessageBox.confirm(`确定对[id=${ ids.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        globalDeleteApi(params).then(r => {
+        globalDeleteApi({ keys: ids }).then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
@@ -259,12 +259,17 @@ export default defineComponent({
       reacquireHandle()
     }
 
+    onBeforeMount(() => {
+      getDictionaryMap('sex')
+    })
+
     return {
       refContainerSidebar,
       refForm,
       refTable,
       refAddEdit,
       page,
+      dictionaryMap,
       ...toRefs(data),
       getList,
       reacquireHandle,

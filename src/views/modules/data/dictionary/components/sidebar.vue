@@ -9,7 +9,7 @@
       <el-button v-repeat @click="getList()">
         <iconfont name="refresh" />
       </el-button>
-      <el-button v-permission="'dictionary:create'" type="primary" @click="addHandle()">
+      <el-button v-permission="'dictionary:create'" type="primary" @click="addEditHandle()">
         <iconfont name="plus" />
       </el-button>
     </div>
@@ -32,7 +32,8 @@
               <div class="botton-box">
                 <el-button
                   v-permission="'dictionary:update'"
-                  size="small">
+                  size="small"
+                  @click="addEditHandle(item.id)">
                   <Iconfont name="edit" size="12px" />
                 </el-button>
                 <el-button
@@ -47,6 +48,7 @@
         </li>
       </ul>
     </el-scrollbar>
+    <AddEdit ref="refAddEdit" v-if="visible" @refresh="getList" />
   </div>
 </template>
 
@@ -54,6 +56,7 @@
 import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
+import AddEdit from './add-edit'
 
 import useModel from '@/mixins/model'
 import { UPDATE_MODEL_EVENT } from '@/utils/constant'
@@ -68,11 +71,14 @@ export default defineComponent({
       required: true
     }
   },
+  components: { AddEdit },
   setup(props, { emit }) {
     const value = useModel(props)
 
+    const refAddEdit = ref()
     const data = reactive({
       loading: false,
+      visible: false,
       form: {
         keyword: ''
       },
@@ -106,8 +112,11 @@ export default defineComponent({
       })
     }
 
-    const addHandle = (row) => {
-      //
+    const addEditHandle = (id) => {
+      data.visible = true
+      nextTick(() => {
+        refAddEdit.value.init(id)
+      })
     }
 
     const deleteHandle = (id) => {
@@ -145,10 +154,11 @@ export default defineComponent({
 
     return {
       value,
+      refAddEdit,
       ...toRefs(data),
       list,
       getList,
-      addHandle,
+      addEditHandle,
       clickHandle,
       deleteHandle
     }

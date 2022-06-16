@@ -37,11 +37,11 @@
             </el-form-item>
             <el-form-item label="类型" prop="type">
               <el-radio-group v-model="form.type" :disabled="!havePermission('menu:create|menu:update', '|')">
-                <el-radio-button :label="0" :disabled="parentType !== 0">目录</el-radio-button>
-                <el-radio-button :label="1" :disabled="parentType !== 0">菜单</el-radio-button>
-                <el-radio-button :label="2" :disabled="parentType !== 1">按钮</el-radio-button>
-                <el-radio-button :label="3" :disabled="parentType !== 0">iframe</el-radio-button>
-                <el-radio-button :label="4" :disabled="parentType !== 0">外链</el-radio-button>
+                <el-radio-button
+                  :label="item.value"
+                  :disabled="item.value === 2 ? parentType !== 1 : parentType !== 0"
+                  v-for="item in dictionaryList"
+                  :key="item.value">{{item.label}}</el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="组件Path（modules 为根目录可省略首个反斜杠，须省略组件文件的 .vue 后缀） / Http[s] URL" prop="url" v-if="form.type !== 0 && form.type !== 2">
@@ -103,13 +103,14 @@
 </template>
 
 <script>
-import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
+import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
 import ContainerSidebar from '@/components/container-sidebar'
 import Sidebar from './components/sidebar'
 import IconSelectInput from '@/components/icon-select-input'
 
+import useDictionary from '@/mixins/dictionary'
 import { havePermission } from '@/utils'
 import { VIRTUAL_ID_KEY } from './index.js'
 
@@ -120,6 +121,7 @@ export default defineComponent({
   setup() {
     const refContainerSidebar = ref()
     const refForm = ref()
+    const { dictionaryList, getDictionaryList } = useDictionary()
     const data = reactive({
       active: '',
       loading: false,
@@ -261,9 +263,14 @@ export default defineComponent({
       })
     }
 
+    onBeforeMount(() => {
+      getDictionaryList('menu')
+    })
+
     return {
       refContainerSidebar,
       refForm,
+      dictionaryList,
       ...toRefs(data),
       rules,
       changeHandle,

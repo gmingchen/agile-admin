@@ -30,11 +30,6 @@
         <el-table-column align="center" type="selection" width="50" />
         <el-table-column
           align="center"
-          label="ID"
-          prop="id"
-          width="80" />
-        <el-table-column
-          align="center"
           label="名称"
           prop="name" />
         <el-table-column
@@ -82,6 +77,7 @@
           </template>
         </el-table-column>
       </el-table>
+      <SubAddEdit ref="refSubAddEdit" v-if="visible" @refresh="getList" />
     </template>
   </ContainerSidebar>
 </template>
@@ -92,15 +88,16 @@ import { defineComponent, reactive, ref, toRefs, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import ContainerSidebar from '@/components/container-sidebar'
 import Sidebar from './components/sidebar'
+import SubAddEdit from './components/sub-add-edit'
 
 import { subListApi, subDeleteApi, subSetStatusApi } from '@/api/dictionary'
 
 export default defineComponent({
-  components: { ContainerSidebar, Sidebar },
+  components: { ContainerSidebar, Sidebar, SubAddEdit },
   setup() {
     const refContainerSidebar = ref()
     const refTable = ref()
-    const refAddEdit = ref()
+    const refSubAddEdit = ref()
     const data = reactive({
       active: '',
       loading: false,
@@ -127,18 +124,18 @@ export default defineComponent({
     const addEditHandle = (id) => {
       data.visible = true
       nextTick(() => {
-        refAddEdit.value.init(id)
+        refSubAddEdit.value.init({ dictionaryId: data.active, id })
       })
     }
 
     const deleteHandle = (id) => {
-      const params = id ? [id] : data.selection.map(item => item.id)
-      ElMessageBox.confirm(`确定对[id=${ params.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`, '提示', {
+      const ids = id ? [id] : data.selection.map(item => item.id)
+      ElMessageBox.confirm(`确定对[id=${ ids.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        subDeleteApi(params).then(r => {
+        subDeleteApi({ keys: ids }).then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
@@ -184,7 +181,7 @@ export default defineComponent({
     return {
       refContainerSidebar,
       refTable,
-      refAddEdit,
+      refSubAddEdit,
       ...toRefs(data),
       getList,
       addEditHandle,

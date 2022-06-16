@@ -37,11 +37,11 @@
           prop="type"
           width="90">
           <template v-slot="{ row }">
-            <el-tag v-if="row.type === 0">目录</el-tag>
-            <el-tag type="success" v-else-if="row.type === 1">菜单</el-tag>
-            <el-tag type="info" v-else-if="row.type === 2">按钮</el-tag>
-            <el-tag type="warning" v-else-if="row.type === 3">iframe</el-tag>
-            <el-tag type="danger" v-else-if="row.type === 4">外链</el-tag>
+            <el-tag v-if="row.type === 0">{{dictionaryMap[row.type]}}</el-tag>
+            <el-tag type="success" v-else-if="row.type === 1">{{dictionaryMap[row.type]}}</el-tag>
+            <el-tag type="info" v-else-if="row.type === 2">{{dictionaryMap[row.type]}}</el-tag>
+            <el-tag type="warning" v-else-if="row.type === 3">{{dictionaryMap[row.type]}}</el-tag>
+            <el-tag type="danger" v-else-if="row.type === 4">{{dictionaryMap[row.type]}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column
@@ -61,7 +61,7 @@
           width="80">
           <template v-slot="{ row }">
             <el-button
-              v-permission="'enterprise:menu:update'"
+              v-permission="'enterpriseMenu:update'"
               type="text"
               @click="editHandle(row)">编辑</el-button>
           </template>
@@ -77,6 +77,8 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 
 import Edit from './components/edit'
 
+import useDictionary from '@/mixins/dictionary'
+
 import { listApi } from '@/api/enterprise-menu'
 
 export default defineComponent({
@@ -88,6 +90,7 @@ export default defineComponent({
 
     const refTable = ref()
     const refEdit = ref()
+    const { dictionaryMap, getDictionaryMap } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -112,6 +115,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
+      getDictionaryMap('menu')
       getList()
     })
 
@@ -119,6 +123,7 @@ export default defineComponent({
       props,
       refTable,
       refEdit,
+      dictionaryMap,
       ...toRefs(data),
       editHandle
     }

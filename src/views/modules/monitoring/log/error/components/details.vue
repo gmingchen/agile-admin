@@ -36,7 +36,7 @@ export default defineComponent({
       data.loading = true
       infoApi(id).then(r => {
         if (r && r.data) {
-          data.details = r.data.message.replace(/\n/g, '<br />')
+          data.details = r.data.message ? r.data.message.replace(/\n/g, '<br />') : ''
         }
         nextTick(() => {
           data.loading = false

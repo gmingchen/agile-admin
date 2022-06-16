@@ -155,7 +155,7 @@ export default defineComponent({
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        globalDeleteApi(data.active).then(r => {
+        globalDeleteApi({ key: data.active }).then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
