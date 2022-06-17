@@ -160,7 +160,7 @@ export default defineComponent({
     const refAddEdit = ref()
 
     const { page } = usePage()
-    const { dictionaryMap, getDictionaryMap } = useDictionary()
+    const { dictionaryMap, getDictionary } = useDictionary()
     const data = reactive({
       active: '',
       loading: false,
@@ -260,7 +260,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
-      getDictionaryMap('sex')
+      getDictionary('sex')
     })
 
     return {

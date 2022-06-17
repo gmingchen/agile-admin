@@ -94,7 +94,7 @@ export default defineComponent({
     const refAddEdit = ref()
 
     const props = { children: 'children', hasChildren: 'hasChildren' }
-    const { dictionaryMap, getDictionaryMap } = useDictionary()
+    const { dictionaryMap, getDictionary } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -190,7 +190,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
-      getDictionaryMap('region')
+      getDictionary('region')
       init()
     })
 

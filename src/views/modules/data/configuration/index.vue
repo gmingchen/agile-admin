@@ -1,36 +1,28 @@
-<!--
- * @Description:
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2022-04-25 16:50:13
- * @LastEditors: gumingchen
- * @LastEditTime: 2022-05-16 10:37:09
--->
 <template>
   <Container>
     <template #header>
       <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
         <el-form-item>
-          <el-input v-model="form.name" placeholder="用户名/昵称" clearable />
-        </el-form-item>
-        <el-form-item>
           <el-date-picker
             v-model="form.date"
             type="daterange"
             range-separator="-"
-            start-placeholder="创建开始日期"
-            end-placeholder="创建结束日期"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
             clearable />
         </el-form-item>
         <el-form-item>
-          <el-button v-repeat @click="reacquireHandle()">搜索</el-button>
+          <el-button v-repeat @click="reacquireHandle()">查询</el-button>
           <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
-          <el-button v-permission="'administrator:create'" type="primary" @click="addEditHandle()">新增</el-button>
           <el-button
-            v-permission="'administrator:delete'"
+            v-permission="'configuration:create'"
+            type="primary"
+            @click="addEditHandle()">新增</el-button>
+          <el-button
+            v-permission="'configuration:delete'"
             type="danger"
-            :disabled="selection.length <= 0"
-            @click="deleteHandle()">批量删除</el-button>
+            @click="deleteHandle()"
+            :disabled="selection.length <= 0">批量删除</el-button>
         </el-form-item>
       </el-form>
     </template>
@@ -49,54 +41,30 @@
           width="80" />
         <el-table-column
           align="center"
-          label="头像"
-          prop="avatar"
-          width="80">
-          <template v-slot="{ row }">
-            <el-avatar :size="50" :src="row.avatar" v-if="row.avatar" />
-            <span v-else>-</span>
-          </template>
-        </el-table-column>
+          label="名称"
+          prop="name" />
         <el-table-column
           align="center"
-          label="用户名"
-          prop="username" />
+          label="键"
+          prop="json_key" />
         <el-table-column
           align="center"
-          label="昵称"
-          prop="nickname" />
+          label="Json值"
+          prop="json_value"
+          :show-overflow-tooltip="true" />
         <el-table-column
           align="center"
-          label="手机号"
-          prop="mobile" />
+          label="备注"
+          prop="remark"
+          :show-overflow-tooltip="true" />
         <el-table-column
           align="center"
-          label="电子邮箱"
-          prop="email" />
-        <el-table-column
-          align="center"
-          label="性别"
-          prop="sex">
-          <template v-slot="{row}">
-            {{dictionaryMap[row.sex]}}
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="角色"
-          prop="email">
-          <template v-slot="{ row }">
-            <el-tag v-for="item in row.roles" :key="item.id">{{item.name}}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="是否启用"
+          label="状态"
           prop="status"
-          width="100">
+          :show-overflow-tooltip="true">
           <template v-slot="{ row }">
             <el-switch
-              v-permission="'administrator:status'"
+              v-permission="'configuration:status'"
               @change="statusHandle(row)"
               v-model="row.status"
               :active-value="1"
@@ -105,14 +73,20 @@
         </el-table-column>
         <el-table-column
           align="center"
+          label="类型值"
+          prop="type" />
+        <el-table-column
+          align="center"
           label="创建时间"
           prop="created_at"
-          width="160" />
+          width="160"
+          :show-overflow-tooltip="true" />
         <el-table-column
           align="center"
           label="更新时间"
           prop="updated_at"
-          width="160" />
+          width="160"
+          :show-overflow-tooltip="true" />
         <el-table-column
           align="center"
           label="操作"
@@ -120,12 +94,14 @@
           fixed="right">
           <template v-slot="{ row }">
             <el-button
-              v-permission="'administrator:update'"
+              v-permission="'configuration:update'"
               type="text"
+              size="small"
               @click="addEditHandle(row.id)">编辑</el-button>
             <el-button
-              v-permission="'administrator:delete'"
+              v-permission="'configuration:delete'"
               type="text"
+              size="small"
               @click="deleteHandle(row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -142,13 +118,13 @@
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
-import AddEdit from './components/add-edit'
+import AddEdit from './components/add-edit.vue'
 
 import usePage from '@/mixins/page'
 import useDictionary from '@/mixins/dictionary'
 import { clearJson, parseDate2Str } from '@/utils'
 
-import { pageApi, deleteApi, setStatusApi } from '@/api/administrator'
+import { pageApi, delApi, statusApi } from '@/api/configuration'
 
 export default defineComponent({
   components: { AddEdit },
@@ -156,24 +132,31 @@ export default defineComponent({
     const refForm = ref()
     const refTable = ref()
     const refAddEdit = ref()
+
     const { page } = usePage()
     const { dictionaryMap, getDictionary } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
       form: {
-        name: '',
+        key: '',
         date: []
       },
       list: [],
       selection: []
     })
 
+    /**
+       * @description: 获取分页列表
+       * @param {*}
+       * @return {*}
+       * @author: gumingchen
+       */
     const getList = () => {
       const params = {
-        name: data.form.name,
-        start: data.form.date && data.form.date.length > 0 ? parseDate2Str(data.form.date[0]) : '',
-        end: data.form.date && data.form.date.length > 1 ? parseDate2Str(data.form.date[1]) : '',
+        ...data.form,
+        start: data.form.date && data.form.date.length ? parseDate2Str(data.form.date[0]) : '',
+        end: data.form.date && data.form.date.length ? parseDate2Str(data.form.date[1]) : '',
         current: page.current,
         size: page.size
       }
@@ -183,30 +166,50 @@ export default defineComponent({
           data.list = r.data.list
           page.total = r.data.total
         }
-        nextTick(() => { data.loading = false })
+        nextTick(() => {
+          data.loading = false
+        })
       })
     }
 
+    /**
+       * @description: 重新获取、重置 数据
+       * @param {*}
+       * @return {*}
+       * @author: gumingchen
+       */
     const reacquireHandle = () => {
       page.current = 1
       getList()
     }
 
-    const addEditHandle = (id) => {
+    /**
+       * @description: 新增/编辑弹窗
+       * @param {*}
+       * @return {*}
+       * @author: gumingchen
+       */
+    const addEditHandle = id => {
       data.visible = true
       nextTick(() => {
         refAddEdit.value.init(id)
       })
     }
 
-    const deleteHandle = (id) => {
+    /**
+       * @description: 删除
+       * @param {number} id
+       * @return {*}
+       * @author: gumingchen
+       */
+    const deleteHandle = id => {
       const ids = id ? [id] : data.selection.map(item => item.id)
       ElMessageBox.confirm(`确定对[id=${ ids.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteApi({ keys: ids }).then(r => {
+        delApi({ keys: ids }).then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
@@ -220,35 +223,60 @@ export default defineComponent({
       })
     }
 
-    const statusHandle = (row) => {
-      const params = {
-        key: row.id,
-        value: row.status
-      }
-      setStatusApi(params).then(r => {
-        if (r) {
-          ElMessage({
-            message: '操作成功!',
-            type: 'success'
-          })
-        } else {
-          row.status = row.status === 1 ? 0 : 1
+    /**
+       * @description: 状态
+       * @param {number} id
+       * @return {*}
+       * @author: gumingchen
+       */
+    const statusHandle = row => {
+      ElMessageBox.confirm(`确定对[id=${ row.id }]进行[${ dictionaryMap.value[row.status] }]操作`, '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        const params = {
+          key: row.id,
+          value: row.status
         }
+        statusApi(params).then(r => {
+          if (r) {
+            ElMessage({
+              message: '操作成功!',
+              type: 'success'
+            })
+            getList()
+          }
+        })
+      }).catch(() => {
+        // to do something on canceled
       })
     }
 
-    const selectionHandle = (val) => {
+    /**
+       * @description: table多选事件
+       * @param {*} val
+       * @return {*}
+       * @author: gumingchen
+       */
+    const selectionHandle = val => {
       data.selection = val
     }
 
-    const pageChangeHandle = (argPage) => {
+    /**
+       * @description: 分页变化事件
+       * @param {*}
+       * @return {*}
+       * @author: gumingchen
+       */
+    const pageChangeHandle = argPage => {
       page.current = argPage.current
       page.size = argPage.size
       getList()
     }
 
     onBeforeMount(() => {
-      getDictionary('sex')
+      getDictionary('status')
       getList()
     })
 
@@ -260,20 +288,14 @@ export default defineComponent({
       dictionaryMap,
       ...toRefs(data),
       getList,
-      pageChangeHandle,
       reacquireHandle,
       addEditHandle,
       deleteHandle,
       statusHandle,
       selectionHandle,
+      pageChangeHandle,
       clearJson
     }
   }
 })
 </script>
-
-<style lang="scss" scoped>
-.el-tag + .el-tag {
-  margin-left: 5px;
-}
-</style>

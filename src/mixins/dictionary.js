@@ -1,33 +1,27 @@
 import { reactive, toRefs } from 'vue'
-import { getDictionaryMap as dictionaryMap, getDictionaryList as dictionaryList } from '@/utils'
+import { useStore } from 'vuex'
 
 export default function () {
+  const store = useStore()
+
   const dictionary = reactive({
     dictionaryMap: {},
     dictionaryList: []
   })
 
-  const getDictionaryMap = async (code) => {
-    const r = await dictionaryMap(code)
-    dictionary.dictionaryMap = r
-    return r
-  }
+  const getDictionary = async (code) => {
+    const response = await store.dispatch('dictionary/getDictionary', code)
+    dictionary.dictionaryList = response
 
-  const getDictionaryList = async (code) => {
-    const r = await dictionaryList(code)
-    dictionary.dictionaryList = r
-    return r
-  }
-
-  const getDictionaryLabel = async (code, value) => {
-    const r = await dictionaryMap(code)
-    return r[value]
+    const result = {}
+    response.forEach(item => {
+      result[item.value] = item.label
+    })
+    dictionary.dictionaryMap = result
   }
 
   return {
     ...toRefs(dictionary),
-    getDictionaryMap,
-    getDictionaryList,
-    getDictionaryLabel
+    getDictionary
   }
 }

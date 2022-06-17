@@ -98,7 +98,7 @@ export default defineComponent({
     const refForm = ref()
     const refTable = ref()
     const { page } = usePage()
-    const { dictionaryMap, getDictionaryMap } = useDictionary()
+    const { dictionaryMap, getDictionary } = useDictionary()
     const data = reactive({
       loading: false,
       form: {
@@ -158,7 +158,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
-      getDictionaryMap('operation')
+      getDictionary('operation')
       getList()
     })
 

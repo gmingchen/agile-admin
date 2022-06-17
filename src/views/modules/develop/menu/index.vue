@@ -121,7 +121,7 @@ export default defineComponent({
   setup() {
     const refContainerSidebar = ref()
     const refForm = ref()
-    const { dictionaryList, getDictionaryList } = useDictionary()
+    const { dictionaryList, getDictionary } = useDictionary()
     const data = reactive({
       active: '',
       loading: false,
@@ -264,7 +264,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
-      getDictionaryList('menu')
+      getDictionary('menu')
     })
 
     return {

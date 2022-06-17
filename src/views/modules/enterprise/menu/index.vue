@@ -119,7 +119,7 @@ export default defineComponent({
     const refModify = ref()
     const refEdit = ref()
 
-    const { dictionaryMap, getDictionaryMap } = useDictionary()
+    const { dictionaryMap, getDictionary } = useDictionary()
     const data = reactive({
       active: '',
       loading: false,
@@ -184,7 +184,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
-      getDictionaryMap('menu')
+      getDictionary('menu')
     })
 
     return {

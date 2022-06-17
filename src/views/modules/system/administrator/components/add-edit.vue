@@ -92,7 +92,7 @@ export default defineComponent({
   emits: ['refresh'],
   components: { Collapse, ImageUploadSingle },
   setup(_props, { emit }) {
-    const { dictionaryList, getDictionaryList } = useDictionary()
+    const { dictionaryList, getDictionary } = useDictionary()
     const refForm = ref()
     const data = reactive({
       loading: false,
@@ -223,7 +223,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
-      getDictionaryList('sex')
+      getDictionary('sex')
     })
 
     /**
