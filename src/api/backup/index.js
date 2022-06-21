@@ -23,41 +23,27 @@ export function pageApi(params) {
 }
 
 /**
- * @description: 信息
+ * @description: 备份
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function infoApi(params) {
+export function backupApi() {
   return service({
-    url: `/backstage/backup/info/${ params }`,
-    method: 'get'
+    url: '/backstage/backup/backup',
+    method: 'post'
   })
 }
 
 /**
- * @description: 新增
+ * @description: 恢复
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function addApi(params) {
+export function recoveryApi(params) {
   return service({
-    url: '/backstage/backup/create',
-    method: 'post',
-    data: params
-  })
-}
-
-/**
- * @description: 编辑
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function editApi(params) {
-  return service({
-    url: '/backstage/backup/update',
+    url: '/backstage/backup/recovery',
     method: 'post',
     data: params
   })
@@ -78,14 +64,14 @@ export function delApi(params) {
 }
 
 /**
- * @description: 状态切换
- * @param {*} params
+ * @description: 更新配置
+ * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function statusApi(params) {
+export function updateConfigApi(params) {
   return service({
-    url: '/backstage/backup/status',
+    url: '/backstage/backup/update/config',
     method: 'post',
     data: params
   })

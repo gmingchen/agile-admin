@@ -90,3 +90,16 @@ export function statusApi(params) {
     data: params
   })
 }
+
+/**
+ * @description: 编码查询列表
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function listApi(params) {
+  return service({
+    url: `/backstage/configuration/list/${ params }`,
+    method: 'get'
+  })
+}
