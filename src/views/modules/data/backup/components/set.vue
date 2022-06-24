@@ -37,14 +37,14 @@
 import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import Location from './location'
+import Local from './local'
 
 import { listApi } from '@/api/configuration'
 import { updateConfigApi } from '@/api/backup'
 
 export default defineComponent({
   emits: ['refresh'],
-  components: { Location },
+  components: { Local },
   setup() {
     const refForm = ref()
 
@@ -64,7 +64,7 @@ export default defineComponent({
       let result = ''
       switch (data.current.type) {
         case 1:
-          result = 'Location'
+          result = 'Local'
           break
       }
       return result

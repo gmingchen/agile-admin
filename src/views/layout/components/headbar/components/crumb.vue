@@ -2,8 +2,8 @@
   <el-breadcrumb separator="/" class="crumb-container flex-box">
     <transition-group name="right-in-out">
       <el-breadcrumb-item
-        v-for="item in crumbs"
-        :key="item.name"
+        v-for="(item, index) in crumbs"
+        :key="index"
         :to="{ name: item.name, query: item.query, params: item.params }">
         {{ item.label_cn }}
       </el-breadcrumb-item>

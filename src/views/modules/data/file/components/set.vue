@@ -37,21 +37,22 @@
 import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import Location from './location'
+import Local from './local'
+import Qiniu from './qiniu'
 
 import { listApi } from '@/api/configuration'
-import { updateConfigApi } from '@/api/backup'
+import { updateConfigApi } from '@/api/file'
 
 export default defineComponent({
   emits: ['refresh'],
-  components: { Location },
+  components: { Local, Qiniu },
   setup() {
     const refForm = ref()
 
     const data = reactive({
       visible: false,
       loading: false,
-      key: 'BACKUP_STORAGE',
+      key: 'CLOUD_STORAGE',
       types: [],
       id: '',
       current: {
@@ -64,7 +65,10 @@ export default defineComponent({
       let result = ''
       switch (data.current.type) {
         case 1:
-          result = 'Location'
+          result = 'Local'
+          break
+        case 2:
+          result = 'Qiniu'
           break
       }
       return result

@@ -23,6 +23,8 @@ import { ElMessage } from 'element-plus'
 import useModel from '@/mixins/model'
 import { TOKEN_KEY, SUCCESS_CODE } from '@/utils/constant'
 
+import { uploadApi } from '@/api/file'
+
 export default defineComponent({
   props: {
     modelValue: {
@@ -41,7 +43,7 @@ export default defineComponent({
     const value = useModel(props)
 
     const data = reactive({
-      action: 'http://api.frame.gumingchen.icu/slipper/oss/file/upload?token=94b24e46c0d7c81c890e340861308144',
+      action: uploadApi(),
       tokenKey: TOKEN_KEY,
       token: store.getters['administrator/tokenVal']
     })
@@ -80,4 +82,10 @@ export default defineComponent({
     color: var(--el-color-primary);
   }
 }
+.update-container {
+  img {
+    object-fit: contain;
+  }
+}
+
 </style>

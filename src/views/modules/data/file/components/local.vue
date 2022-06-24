@@ -14,9 +14,6 @@
     <el-form-item label="存储目录" prop="path">
       <el-input v-model="form.path" placeholder="存储目录" />
     </el-form-item>
-    <el-form-item label="安装目录" prop="location">
-      <el-input v-model="form.location" placeholder="安装目录" />
-    </el-form-item>
   </el-form>
 </template>
 
@@ -38,16 +35,14 @@ export default defineComponent({
       form: {
         domain: '',
         prefix: '',
-        path: '',
-        location: ''
+        path: ''
       }
     })
 
     const rules = reactive(function() {
       return {
         domain: [{ required: true, message: '请输入域名', trigger: 'blur' }],
-        path: [{ required: true, message: '请输入存储目录', trigger: 'blur' }],
-        location: [{ required: true, message: '请输入安装目录', trigger: 'blur' }]
+        path: [{ required: true, message: '请输入存储目录', trigger: 'blur' }]
       }
     }())
 

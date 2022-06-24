@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login-log-container">
     <el-timeline v-if="list.length">
       <el-timeline-item
         placement="top"

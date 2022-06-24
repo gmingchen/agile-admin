@@ -65,6 +65,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .operation-log-container {
-  max-height: 600px;
+  // max-height: 600px;
 }
 </style>
