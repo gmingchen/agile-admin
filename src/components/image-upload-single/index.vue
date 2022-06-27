@@ -29,7 +29,8 @@ export default defineComponent({
   props: {
     modelValue: {
       type: [String, Array],
-      required: true
+      required: true,
+      default: () => ''
     },
     // 大小 默认 100px
     size: {

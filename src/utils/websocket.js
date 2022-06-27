@@ -88,7 +88,7 @@ export default class WebsocketClass {
    */
   heartHandler() {
     const data = {
-      type: 0
+      type: -1
     }
     this.pingInterval = setInterval(() => {
       if (this.status === 1) {

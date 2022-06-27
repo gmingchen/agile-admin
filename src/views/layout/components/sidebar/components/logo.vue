@@ -1,11 +1,3 @@
-<!--
- * @Description:
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2022-04-22 14:03:19
- * @LastEditors: gumingchen
- * @LastEditTime: 2022-04-26 08:44:32
--->
 <template>
   <div
     class="logo-container padding-n-10 flex-box"

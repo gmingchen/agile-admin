@@ -33,7 +33,7 @@ function menuProcessing(list = [], mode = 1) {
           type: item.type,
           url: item.url,
           path: item.type === 3 ? `/i-${ item.menu_id }` : item.path || (item.url ? `/${ item.url.replace(/\//g, '-') }` : ''),
-          name: item.type === 3 ? `/i-${ item.menu_id }` : item.name || (item.url ? item.url.replace(/\//g, '-') : ''),
+          name: item.type === 3 ? `i-${ item.menu_id }` : item.name || (item.url ? item.url.replace(/\//g, '-') : ''),
           children: []
         }
         if (item.children && item.children.length > 0) {

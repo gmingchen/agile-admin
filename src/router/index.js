@@ -88,7 +88,7 @@ function addRoutes(menus = [], routeList = []) {
         route = {
           path: `/i-${ item.menu_id }`,
           name: `i-${ item.menu_id }`,
-          component: import(`@/views/modules/iframe/index.vue`),
+          component: () => import(`@/views/modules/iframe/index.vue`),
           meta: {
             id: item.menu_id,
             title_cn: item.name_cn,

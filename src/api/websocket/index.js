@@ -1,0 +1,95 @@
+/*
+ * @Description: websocket推送消息
+ * @Author: gumingchen
+ * @Email: 1240235512@qq.com
+ * @Date: 2022-06-24 04:27:11
+ * @LastEditors: gumingchen
+ * @LastEditTime: 2022-06-24 04:27:11
+ */
+import service from '@/utils/request'
+
+/**
+ * @description: 分页列表
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function pageApi(params) {
+  return service({
+    url: '/backstage/websocket/page',
+    method: 'get',
+    params: params
+  })
+}
+
+/**
+ * @description: 推送企业消息
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function addApi(params) {
+  return service({
+    url: '/backstage/websocket/create',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 删除
+ * @param {*} params
+ * @return {*}
+ * @author: gumingchen
+ */
+export function delApi(params) {
+  return service({
+    url: '/backstage/websocket/delete',
+    method: 'post',
+    data: params
+  })
+}
+
+// todo:------------------------------------------------------------------------------------
+
+/**
+ * @description: 推送系统消息
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function globalAddApi(params) {
+  return service({
+    url: '/backstage/websocket/global/create',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 在线管理员分页列表
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function onlinePageApi(params) {
+  return service({
+    url: '/backstage/websocket/online/page',
+    method: 'get',
+    params: params
+  })
+}
+
+/**
+ * @description: 强制管理员退出
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function logoutApi(params) {
+  return service({
+    url: '/backstage/websocket/logout',
+    method: 'post',
+    data: params
+  })
+}

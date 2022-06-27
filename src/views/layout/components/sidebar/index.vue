@@ -7,6 +7,7 @@
         :background-color="theme.backgroundColor !== 'white' ? theme.backgroundColor : ''"
         :text-color="theme.textColor"
         :active-text-color="theme.activeTextColor"
+        :unique-opened="true"
         :collapse="collapse">
         <SubItem v-for="item in menus" :key="item.value" :data="item" />
       </el-menu>
