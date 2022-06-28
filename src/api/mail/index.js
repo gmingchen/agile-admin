@@ -49,3 +49,17 @@ export function delApi(params) {
     data: params
   })
 }
+
+/**
+ * @description: 更新配置
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function updateConfigApi(params) {
+  return service({
+    url: '/backstage/mail/update/config',
+    method: 'post',
+    data: params
+  })
+}

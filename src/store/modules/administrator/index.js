@@ -25,12 +25,7 @@ export default {
       supervisor: '',
       enterprise_id: ''
     },
-    token: {
-      user_id: '',
-      token: getToken(),
-      expired_at: '',
-      created_at: ''
-    }
+    token: getToken()
   },
   getters: {
     tokenVal: state => {
@@ -60,7 +55,7 @@ export default {
     async login({ commit }, params) {
       const r = await loginApi(params)
       if (r) {
-        setToken(r.data.token)
+        setToken(JSON.stringify(r.data))
         commit('SET_TOKEN', r.data)
       }
       return r
@@ -76,17 +71,6 @@ export default {
       }
       return r
     },
-    // /**
-    //  * 编辑当前用户信息
-    //  * @param {*} params
-    //  */
-    // async editUser({ dispatch }, params) {
-    //   const r = await editUserInfoApi(params)
-    //   if (r.data !== 1) {
-    //     dispatch('getUser')
-    //   }
-    //   return r
-    // },
     /**
      * 退出当前账户
      * @returns
@@ -110,6 +94,7 @@ export default {
      */
     clearToken({ commit }) {
       commit('CLEAR_TOKEN')
+      clearToken()
     }
   }
 }

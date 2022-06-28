@@ -6,7 +6,6 @@
     <template #header>
       <el-form :inline="true">
         <el-form-item>
-          <el-button v-repeat @click="getList()" :disabled="!active">搜索</el-button>
           <el-button
             v-permission="'dictionarySub:create'"
             type="primary"

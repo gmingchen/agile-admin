@@ -7,29 +7,30 @@
     @keyup.enter="submit()"
     label-position="top">
     <el-form-item label="头像" prop="avatar">
-      <ImageUploadSingle v-model="form.avatar" />
+      <ImageUploadSingle v-model="form.avatar" :disabled="!havePermission('administrator:basic')" />
     </el-form-item>
     <el-form-item label="昵称" prop="nickname">
       <el-input
         v-model="form.nickname"
         placeholder="昵称"
         maxlength="20"
-        show-word-limit />
+        show-word-limit
+        :disabled="!havePermission('administrator:basic')" />
     </el-form-item>
     <el-form-item label="手机号" prop="mobile">
-      <el-input v-model="form.mobile" placeholder="手机号" />
+      <el-input v-model="form.mobile" placeholder="手机号" :disabled="!havePermission('administrator:basic')" />
     </el-form-item>
     <el-form-item label="邮箱" prop="email">
-      <el-input v-model="form.email" placeholder="邮箱" />
+      <el-input v-model="form.email" placeholder="邮箱" :disabled="!havePermission('administrator:basic')" />
     </el-form-item>
     <el-form-item label="性别" prop="sex">
-      <el-radio-group v-model="form.sex">
+      <el-radio-group v-model="form.sex" :disabled="!havePermission('administrator:basic')">
         <el-radio :label="0">女</el-radio>
         <el-radio :label="1">男</el-radio>
         <el-radio :label="2">未知</el-radio>
       </el-radio-group>
     </el-form-item>
-    <el-form-item>
+    <el-form-item v-if="havePermission('administrator:basic')">
       <el-button v-repeat type="primary" @click="submit()">保存</el-button>
     </el-form-item>
   </el-form>
@@ -43,6 +44,7 @@ import { ElMessage } from 'element-plus'
 import ImageUploadSingle from '@/components/image-upload-single'
 
 import { isEmail, isMobile } from '@/utils/regular'
+import { havePermission } from '@/utils'
 
 import { editBasicApi } from '@/api/administrator'
 
@@ -117,7 +119,8 @@ export default defineComponent({
       refForm,
       ...toRefs(data),
       rules,
-      submit
+      submit,
+      havePermission
     }
   }
 })

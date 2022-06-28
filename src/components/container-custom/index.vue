@@ -10,7 +10,7 @@
       :class="`
       content-container
       ${contanierMode === 2 ? 'flex-item_f-1' : 'height-unset'}`">
-      <div class="content-wrap padding-10">
+      <div class="content-wrap">
         <slot />
       </div>
     </el-scrollbar>
@@ -45,7 +45,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-// .container-custom-container {
-
-// }
+.container-custom-container {
+  margin: unset;
+}
 </style>

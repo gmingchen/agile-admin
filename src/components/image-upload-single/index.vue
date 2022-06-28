@@ -8,6 +8,7 @@
     }"
     :show-file-list="false"
     :on-success="successHandle"
+    :disabled="disabled"
     accept="image/*">
     <img v-if="value" :src="value" class="height-full width-full">
     <Iconfont name="plus" v-else />
@@ -36,6 +37,10 @@ export default defineComponent({
     size: {
       type: String,
       default: () => '100px'
+    },
+    disabled: {
+      type: Boolean,
+      default: () => false
     }
   },
   setup(props) {

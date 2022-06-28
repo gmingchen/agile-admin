@@ -24,6 +24,7 @@ export default defineComponent({
               type: 'warning'
             })
             store.dispatch('websocket/close')
+            store.dispatch('logout')
             router.push({ name: 'login' })
             break
           case -2:
@@ -32,6 +33,7 @@ export default defineComponent({
               type: 'warning'
             })
             store.dispatch('websocket/close')
+            store.dispatch('logout')
             router.push({ name: 'login' })
             break
           case 0:

@@ -9,20 +9,18 @@
     <el-button @click="jump(0)">返回</el-button>
     <el-button type="primary" @click="jump(1)">首页</el-button>
     <el-button type="primary" @click="jump(2)">重新登录</el-button>
-    <look-around class="margin_l-10" />
   </div>
 </template>
 
 <script>
 import { defineComponent, ref, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-
-import LookAround from '@/components/look-around'
+import { useStore } from 'vuex'
 
 export default defineComponent({
-  components: { LookAround },
   setup() {
     const router = useRouter()
+    const store = useStore()
 
     const endTime = ref(10)
     const timer = ref(-1)
@@ -30,7 +28,7 @@ export default defineComponent({
     watch(endTime, (newVal, _oldVal) => {
       if (newVal === 0) {
         clearTimeout(timer.value)
-        router.push({ name: 'home' })
+        router.push({ name: 'login', replace: true })
       }
     })
 
@@ -46,9 +44,10 @@ export default defineComponent({
           router.back(-1)
           break
         case 1:
-          router.push({ name: 'home' })
+          router.push({ name: 'redirect', replace: true })
           break
         case 2:
+          store.dispatch('logout')
           router.push({ name: 'login' })
           break
       }
@@ -76,29 +75,27 @@ export default defineComponent({
   .status-code {
     margin: 20px 0;
     font-size: 10em;
-    color: nth($fontColor, 1);
   }
   .describe {
     margin-bottom: 10px;
     font-size: 26px;
     & > em {
       font-style: normal;
-      color: nth($warningColor, 1);
+      color: var(--el-color-warning);
     }
   }
   .suggest {
     margin-top: 10px;
     font-size: 14px;
     text-align: left;
-    color: nth($fontColor, 3);
+    color: var(--el-text-color-placeholder);
   }
   .timeout {
     margin-bottom: 30px;
     font-size: 18px;
-    color: nth($fontColor, 1);
     > em {
       margin: 0 10px;
-      color: nth($dangerColor, 1);
+      color: var(--el-color-warning);
     }
   }
 }
@@ -114,7 +111,6 @@ export default defineComponent({
       cursor: pointer;
     }
     a {
-      color: nth($brandColor, 1);
       text-decoration: none;
       &:hover {
         text-decoration: underline;

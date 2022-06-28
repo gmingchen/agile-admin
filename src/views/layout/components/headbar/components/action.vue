@@ -74,12 +74,14 @@ export default defineComponent({
       }
     }
 
-    const dropdownHandle = (command) => {
+    const dropdownHandle = async (command) => {
       switch (command) {
         case 'personal':
           router.push({ name: 'personal' })
           break
         case 'logout':
+          await store.dispatch('administrator/logout')
+          store.dispatch('logout')
           router.push({ name: 'login' })
           break
       }

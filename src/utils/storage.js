@@ -76,7 +76,7 @@ function clear(key, storage) {
  * @author: gumingchen
  */
 export function getToken() {
-  return get(TOKEN_KEY, TOKEN_STORAGE)
+  return JSON.parse(get(TOKEN_KEY, TOKEN_STORAGE) || '{}')
 }
 export function setToken(token) {
   set(TOKEN_KEY, token, TOKEN_STORAGE)

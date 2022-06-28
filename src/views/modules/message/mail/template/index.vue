@@ -2,6 +2,12 @@
   <Container>
     <template #header>
       <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
+        <el-form-item v-if="havePermission('configuration:list&mail:updateConfig', '&')">
+          <el-button
+            v-permission="'mail:updateConfig'"
+            type="primary"
+            @click="setupsHandle()">配置</el-button>
+        </el-form-item>
         <el-form-item>
           <el-input v-model="form.subject" placeholder="标题" clearable />
         </el-form-item>
@@ -95,6 +101,7 @@
         </el-table-column>
       </el-table>
       <AddEdit ref="refAddEdit" v-if="visible" @refresh="getList" />
+      <Setups ref="refSetups" v-if="setupsVisible" />
     </template>
     <template #footer>
       <Page :page="page" @change="pageChangeHandle" />
@@ -107,23 +114,26 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 
 import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
+import Setups from './components/setups.vue'
 
 import usePage from '@/mixins/page'
-import { clearJson, parseDate2Str } from '@/utils'
+import { clearJson, parseDate2Str, havePermission } from '@/utils'
 
 import { pageApi, delApi } from '@/api/mail-template'
 
 export default defineComponent({
-  components: { AddEdit },
+  components: { AddEdit, Setups },
   setup() {
     const refForm = ref()
     const refTable = ref()
     const refAddEdit = ref()
+    const refSetups = ref()
 
     const { page } = usePage()
     const data = reactive({
       loading: false,
       visible: false,
+      setupsVisible: false,
       form: {
         subject: '',
         date: []
@@ -179,6 +189,19 @@ export default defineComponent({
       data.visible = true
       nextTick(() => {
         refAddEdit.value.init(id)
+      })
+    }
+
+    /**
+     * @description: 配置弹窗
+     * @param {*}
+     * @return {*}
+     * @author: gumingchen
+     */
+    const setupsHandle = () => {
+      data.setupsVisible = true
+      nextTick(() => {
+        refSetups.value.init()
       })
     }
 
@@ -239,15 +262,18 @@ export default defineComponent({
       refForm,
       refTable,
       refAddEdit,
+      refSetups,
       page,
       ...toRefs(data),
       getList,
       reacquireHandle,
       addEditHandle,
+      setupsHandle,
       deleteHandle,
       selectionHandle,
       pageChangeHandle,
-      clearJson
+      clearJson,
+      havePermission
     }
   }
 })

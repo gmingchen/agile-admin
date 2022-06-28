@@ -55,6 +55,8 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
+import { ElNotification } from 'element-plus'
+
 import { generateUUID } from '@/utils'
 
 import { captchaApi } from '@/api/login'
@@ -119,8 +121,42 @@ export default defineComponent({
       })
     }
 
+    /**
+     * @description: 提示
+     * @param {*}
+     * @return {*}
+     * @author: gumingchen
+     */
+    const notifyHandle = () => {
+      const message = `
+        <div class="login-notify-content">
+          <div class="tip">演示环境，部分权限暂不开放</div>
+          由于是单点登录，所以提供了多个演示帐号
+          <div class="margin_t-10">
+            <p>总后台帐号：</p>
+            <b>demo1，demo2，demo3</b>
+          </div>
+          <div class="margin-10-n">
+            <p>企业超管帐号：</p>
+            <b>admin1，admin2，admin3</b>
+          </div>
+          <p>所有帐号的密码统一为：<b>superadmin</b></p>
+        </div>
+      `
+      ElNotification({
+        title: '提示',
+        dangerouslyUseHTMLString: true,
+        message: message,
+        type: 'warning',
+        position: 'bottom-right',
+        duration: 0,
+        customClass: 'login-notify'
+      })
+    }
+
     onBeforeMount(() => {
       getCaptcha()
+      notifyHandle()
     })
 
     return {
@@ -138,6 +174,33 @@ export default defineComponent({
 .login-container {
   input:focus + .el-input__prefix {
     color: var(--el-color-primary);
+  }
+}
+</style>
+
+<style lang="scss">
+.login-notify {
+  width: 400px;
+  .login-notify-content {
+    position: relative;
+    .tip {
+      position: absolute;
+      top: -30px;
+      left: 40px;
+      color: var(--el-color-warning);
+    }
+    & > div {
+      p {
+        // font-weight: 700;
+        color: var(--el-color-primary);
+      }
+      b {
+        text-indent: 2em;
+      }
+    }
+    p > b {
+      color: var(--el-color-danger);
+    }
   }
 }
 </style>

@@ -3,16 +3,16 @@ import { defineComponent, h } from 'vue'
 import store from '@/store'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import menu from '@/store/modules/menu'
+import { parseStr2Date } from '@/utils'
 
 let refresh = true
 
 const common = [
   { path: '/', redirect: { name: 'login' }, meta: { title_cn: '重定向', title_en: 'Redirect' } },
-  { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title_cn: '登录', title_en: 'Login' } }
-  // { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title_cn: '401', title_en: '401' } },
-  // { path: '/404', name: '404', component: () => import('@/views/common/404.vue'), meta: { title_cn: '404', title_en: '404' } },
-  // { path: '/500', name: '500', component: () => import('@/views/common/500.vue'), meta: { title_cn: '500', title_en: '500' } }
+  { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title_cn: '登录', title_en: 'Login' } },
+  { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title_cn: '401', title_en: '401' } },
+  { path: '/404', name: '404', component: () => import('@/views/common/404.vue'), meta: { title_cn: '404', title_en: '404' } },
+  { path: '/500', name: '500', component: () => import('@/views/common/500.vue'), meta: { title_cn: '500', title_en: '500' } }
 ]
 
 const main = {
@@ -27,6 +27,9 @@ const main = {
   async beforeEnter(to, _from, next) {
     const token = store.getters['administrator/tokenVal']
     if (!token || !/\S/u.test(token)) {
+      // eslint-disable-next-line no-use-before-define
+      clearRouter()
+      store.dispatch('logout')
       next({ name: 'login', replace: true })
     } else {
       await store.dispatch('administrator/getAdministrator')
@@ -161,10 +164,14 @@ function clearRouter() {
 router.beforeEach(async (to, _from, next) => {
   // 标题控制
   document.title = to.meta.title_cn || document.title
-  // 跳转到登录页清除所有信息
+  // 跳转到登录页如果 token 还未过期则调整到系统内部
   if (to.name === 'login') {
-    clearRouter()
-    store.dispatch('logout')
+    const { expired_at } = store.state.administrator.token
+    const now = +new Date()
+    const expired = expired_at ? +parseStr2Date(expired_at) : 0
+    if (expired > now) {
+      next({ name: 'redirect', replace: true })
+    }
   }
   NProgress.start()
   // 处理动态路由页 刷新跳转 401 问题

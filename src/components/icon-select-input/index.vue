@@ -37,10 +37,11 @@
 </template>
 
 <script >
-import { computed, defineComponent, reactive, toRefs, watch, watchEffect } from 'vue'
+import { computed, defineComponent, onBeforeMount, reactive, toRefs, watch, watchEffect } from 'vue'
+import axios from 'axios'
 
 import useModel from '@/mixins/model'
-import { UPDATE_MODEL_EVENT } from '@/utils/constant'
+import { UPDATE_MODEL_EVENT, CONTENT_TYPE, TIME_OUT } from '@/utils/constant'
 
 export default defineComponent({
   emits: [UPDATE_MODEL_EVENT],
@@ -58,38 +59,60 @@ export default defineComponent({
     const value = useModel(props)
 
     const data = reactive({
+      icons: [],
       page: {
         current: 1,
         size: 30
       }
     })
 
-    const icons = ['admin', 'backup', 'clear', 'clock', 'code', 'config', 'data-dictionary', 'demo', 'development', 'druid', 'email', 'error-log', 'exit-full-screen', 'folder', 'full-screen', 'generator', 'git', 'gitee', 'github', 'home', 'language', 'lock', 'log', 'login-log', 'maximize', 'menu', 'message', 'operation-log', 'reduction', 'refresh', 'region', 'request', 'role', 'set', 'system', 'task-log', 'template', 'user', 'verification', 'websocket']
-
     const list = computed(() => {
       const { current, size } = data.page
-      let result = icons.slice(size * (current - 1), size * (current - 1) + size)
+      let result = data.icons.slice(size * (current - 1), size * (current - 1) + size)
       if (current !== 1 && result.length === 0) {
-        result = icons.slice(size * (current - 2), size * (current - 2) + size)
+        result = data.icons.slice(size * (current - 2), size * (current - 2) + size)
       }
       return result
     })
 
     watchEffect(() => {
-      const index = icons.indexOf(value.value)
+      const index = data.icons.indexOf(value.value)
       const page = parseInt(index / data.page.size) + 1
       data.page.current = page
     })
+
+    const getIconfont = () => {
+      const service = axios.create({
+        timeout: TIME_OUT,
+        headers: {
+          'Content-Type': CONTENT_TYPE
+        }
+      })
+      service({
+        url: '//at.alicdn.com/t/font_3225946_00vaoapktln1l.css',
+        method: 'get'
+      }).then(r => {
+        if (r.status === 200) {
+          const arr = r.data.match(/.icon-(.+?):/g)
+          data.icons = arr.map(item => {
+            return item.match(/.icon-(.+?):/)[1]
+          })
+        }
+      })
+    }
 
     const clickHandle = (icon) => {
       value.value = icon
     }
 
+    onBeforeMount(() => {
+      getIconfont()
+    })
+
     return {
       value,
       ...toRefs(data),
       list,
-      icons,
       clickHandle
     }
   }
