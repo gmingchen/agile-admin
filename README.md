@@ -76,6 +76,7 @@
 - [base-refactoring](https://github.com/gmingchen/vue3-element-plus-admin/tree/base-refactoring) 精简版本：单个企业基于 RBAC 的权限功能-仅包含 `菜单管理`、`角色管理`、`用户管理` 三个模块
 - [composition-api](https://github.com/1240235512/vue3/tree/composition-api) 内置__`Type Script`__、__`I18n`__，__已停止维护可以参考相关的配置__
 - [class-style](https://github.com/1240235512/vue3/tree/class-style) 使用 class 风格开发，内置__`Type Script`__、__`I18n`__，__已停止维护可以参考相关的配置__
+- [single](https://github.com/1240235512/vue3/tree/single) 该分支为之前当个企业版本的代码
 - __`说明:`__ 其他分支是作者开发时使用的分支, 由于作者不断优化、重构、版本迭代的原因，[composition-api](https://github.com/1240235512/vue3/tree/composition-api) 和 [class-style](https://github.com/1240235512/vue3/tree/class-style) 没有同步迭代更新，所以建议这两个分支作为参考学习。
 
 ## 环境需求
