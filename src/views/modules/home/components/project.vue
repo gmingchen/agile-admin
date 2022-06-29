@@ -15,7 +15,7 @@ export default defineComponent({
   setup() {
     const data = reactive({
       github: 'https://github.com/gmingchen/vue3-element-plus-admin',
-      stars: 'https://img.shields.io/github/stars/gmingchen/vue3-element-plus-admin.svg?logo=github',
+      stars: 'https://img.shields.io/github/stars/gmingchen/vue3-element-plus-admin.svg?logo=github&color=brightgreen',
       text: '前端基于 Vue3、Element-plus、Vue-router、Vux、Sass、Axios 等技术栈。后端基于 Java 的 Springboot、Mysql、Shiro、Mybatis-plus 等技术栈。如果喜欢就点个星星支持一下。'
     })
 

@@ -71,8 +71,8 @@ export default defineComponent({
       loading: false,
       captcha: '',
       form: {
-        username: 'gumingchen',
-        password: 'gumingchen',
+        username: '',
+        password: '',
         uuid: '',
         code: ''
       }
