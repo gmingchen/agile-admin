@@ -197,44 +197,44 @@ npm run build:test  # 测试环境
 ## 演示图片
 <table>
   <tr>
-    <img src="http://oss.gumingchen.icu/frame/personal.jpg" title="演示图片" width="50%" alt="演示图片" />
-    <img src="http://oss.gumingchen.icu/frame/home.jpg" title="演示图片" width="50%" alt="演示图片" />
+    <td><img src="http://oss.gumingchen.icu/frame/personal.jpg" title="演示图片" alt="演示图片" /></td>
+    <td><img src="http://oss.gumingchen.icu/frame/home.jpg" title="演示图片" alt="演示图片" /></td>
   </tr>
   <tr>
-    <img src="http://oss.gumingchen.icu/frame/menu.jpg" title="演示图片" width="50%"  alt="演示图片" />
-    <img src="http://oss.gumingchen.icu/frame/file.jpg" title="演示图片" width="50%"  alt="演示图片" />
+    <td><img src="http://oss.gumingchen.icu/frame/menu.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="http://oss.gumingchen.icu/frame/file.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <img src="http://oss.gumingchen.icu/frame/operation-log.jpg" title="演示图片" width="50%"  alt="演示图片" />
-    <img src="http://oss.gumingchen.icu/frame/error-log.jpg" title="演示图片" width="50%"  alt="演示图片" />
+    <td><img src="http://oss.gumingchen.icu/frame/operation-log.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="http://oss.gumingchen.icu/frame/error-log.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <img src="http://oss.gumingchen.icu/frame/enterprise.jpg" title="演示图片" width="50%"  alt="演示图片" />
-    <img src="http://oss.gumingchen.icu/frame/enterprise-menu.jpg" title="演示图片" width="50%" alt="演示图片" />
+    <td><img src="http://oss.gumingchen.icu/frame/enterprise.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="http://oss.gumingchen.icu/frame/enterprise-menu.jpg" title="演示图片" alt="演示图片" /></td>
   </tr>
   <tr>
-    <img src="http://oss.gumingchen.icu/frame/enterprise-role.jpg" title="演示图片" width="50%" alt="演示图片" />
-    <img src="http://oss.gumingchen.icu/frame/enterprise-administrator.jpg" title="演示图片" width="50%"  alt="演示图片" />
+    <td><img src="http://oss.gumingchen.icu/frame/enterprise-role.jpg" title="演示图片" alt="演示图片" /></td>
+    <td><img src="http://oss.gumingchen.icu/frame/enterprise-administrator.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <img src="http://oss.gumingchen.icu/frame/online.jpg" title="演示图片" width="50%" alt="演示图片" />
-    <img src="http://oss.gumingchen.icu/frame/dictionary.jpg" title="演示图片" width="50%" alt="演示图片" />
+    <td><img src="http://oss.gumingchen.icu/frame/online.jpg" title="演示图片" alt="演示图片" /></td>
+    <td><img src="http://oss.gumingchen.icu/frame/dictionary.jpg" title="演示图片" alt="演示图片" /></td>
   </tr>
   <tr>
-    <img src="http://oss.gumingchen.icu/frame/api.jpg" title="演示图片" width="50%" alt="演示图片" />
-    <img src="http://oss.gumingchen.icu/frame/region.jpg" title="演示图片" width="50%" alt="演示图片" />
+    <td><img src="http://oss.gumingchen.icu/frame/api.jpg" title="演示图片" alt="演示图片" /></td>
+    <td><img src="http://oss.gumingchen.icu/frame/region.jpg" title="演示图片" alt="演示图片" /></td>
   </tr>
   <tr>
-    <img src="http://oss.gumingchen.icu/frame/login.jpg" title="演示图片" width="50%"  alt="演示图片" />
-    <img src="http://oss.gumingchen.icu/frame/websocket.jpg" title="演示图片" width="50%"  alt="演示图片" />
+    <td><img src="http://oss.gumingchen.icu/frame/login.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="http://oss.gumingchen.icu/frame/websocket.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <img src="http://oss.gumingchen.icu/frame/login-log.jpg" title="演示图片" width="50%" alt="演示图片" />
-    <img src="http://oss.gumingchen.icu/frame/configuration.jpg" title="演示图片" width="50%"  alt="演示图片" />
+    <td><img src="http://oss.gumingchen.icu/frame/login-log.jpg" title="演示图片" alt="演示图片" /></td>
+    <td><img src="http://oss.gumingchen.icu/frame/configuration.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <img src="http://oss.gumingchen.icu/frame/timed-task.jpg" title="演示图片" width="50%" alt="演示图片" />
-    <img src="http://oss.gumingchen.icu/frame/mail-template.jpg" title="演示图片" width="50%" alt="演示图片" />
+    <td><img src="http://oss.gumingchen.icu/frame/timed-task.jpg" title="演示图片" alt="演示图片" /></td>
+    <td><img src="http://oss.gumingchen.icu/frame/mail-template.jpg" title="演示图片" alt="演示图片" /></td>
   </tr>
 </table>
 
