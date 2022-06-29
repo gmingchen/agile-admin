@@ -1,20 +1,35 @@
 <template>
   <div class="action-container flex-item_f-1 flex-box flex_j_c-flex-end flex_a_i-center">
-    <Iconfont
-      class="margin_r-15 cursor-pointer"
-      size="16px"
-      :name="`full-screen-${!fullScreen}`"
-      @click="iconfontClickHandle('full-screen')" />
-    <Iconfont
-      class="margin_r-15 cursor-pointer"
-      size="16px"
-      name="refresh"
-      @click="iconfontClickHandle('refresh')" />
-    <Iconfont
-      class="margin_r-15 cursor-pointer"
-      size="16px"
-      name="clear"
-      @click="iconfontClickHandle('clear')" />
+    <el-tooltip
+      content="全屏"
+      placement="bottom"
+      :show-after="500">
+      <Iconfont
+        class="margin_r-15 cursor-pointer"
+        size="16px"
+        :name="`full-screen-${!fullScreen}`"
+        @click="iconfontClickHandle('full-screen')" />
+    </el-tooltip>
+    <el-tooltip
+      content="刷新页面"
+      placement="bottom"
+      :show-after="500">
+      <Iconfont
+        class="margin_r-15 cursor-pointer"
+        size="16px"
+        name="refresh"
+        @click="iconfontClickHandle('refresh')" />
+    </el-tooltip>
+    <el-tooltip
+      content="清理缓存"
+      placement="bottom"
+      :show-after="500">
+      <Iconfont
+        class="margin_r-15 cursor-pointer"
+        size="16px"
+        name="clear"
+        @click="iconfontClickHandle('clear')" />
+    </el-tooltip>
     <el-dropdown trigger="click" @command="dropdownHandle">
       <el-avatar
         class="cursor-pointer"

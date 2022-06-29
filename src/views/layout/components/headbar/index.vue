@@ -1,9 +1,16 @@
 <template>
   <div class="headbar-container padding-n-10 flex-box flex_w-wrap flex_a_i-center">
-    <Iconfont
-      class="cursor-pointer margin_r-20"
-      :name="`collapse-${collapse ? 'right' : 'left'}`"
-      @click="collapseHandle" />
+    <el-tooltip
+      content="折叠/展开菜单"
+      placement="bottom"
+      :show-after="500"
+      :hide-after="0"
+      transition="">
+      <Iconfont
+        class="cursor-pointer margin_r-20"
+        :name="`collapse-${collapse ? 'right' : 'left'}`"
+        @click="collapseHandle" />
+    </el-tooltip>
     <Crumb />
     <Action />
   </div>

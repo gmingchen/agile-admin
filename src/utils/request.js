@@ -33,6 +33,7 @@ const codeHandle = (code, message) => {
   switch (code) {
     case 4001:
       prompt(message)
+      store.dispatch('logout')
       router.replace({
         name: 'login'
       })
