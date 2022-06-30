@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/vuejs/vue-next">
+  <a href="https://github.com/gmingchen/vue3-element-plus-admin">
     <img src="http://oss.gumingchen.icu/image/slipper.jpeg" alt="logo" width="120">
   </a>
 </p>
