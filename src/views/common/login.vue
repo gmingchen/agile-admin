@@ -41,7 +41,8 @@
             alt="验证码">
         </el-form-item>
         <el-button
-          v-loading="loading"
+          v-repeat
+          :loading="loading"
           class="margin_t-20 width-full"
           type="primary"
           @click="submit()">登录</el-button>
@@ -112,10 +113,10 @@ export default defineComponent({
               router.push({ name: 'redirect', replace: true })
             } else {
               getCaptcha()
+              nextTick(() => {
+                data.loading = false
+              })
             }
-            nextTick(() => {
-              data.loading = false
-            })
           })
         }
       })
