@@ -62,7 +62,8 @@
           <template v-slot="{ row }">
             <el-button
               v-permission="'enterpriseMenu:update'"
-              type="text"
+              type="primary"
+              link
               @click="editHandle(row)">编辑</el-button>
           </template>
         </el-table-column>

@@ -4,7 +4,7 @@
       <slot />
     </div>
   </el-collapse-transition>
-  <el-button type="text" @click="collapseHandle">
+  <el-button type="primary" link @click="collapseHandle">
     {{collapse ? activeText : inactiveText}}
   </el-button>
 </template>

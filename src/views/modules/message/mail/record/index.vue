@@ -98,8 +98,8 @@
           <template v-slot="{ row }">
             <el-button
               v-permission="'mail:delete'"
-              type="text"
-              size="small"
+              type="danger"
+              link
               @click="deleteHandle(row.id)">删除</el-button>
           </template>
         </el-table-column>

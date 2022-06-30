@@ -18,6 +18,21 @@
           <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
           <el-button v-permission="'quartz:timedTask:create'" type="primary" @click="addEditHandle()">新增</el-button>
           <el-button
+            v-permission="'quartz:timedTask:run'"
+            type="success"
+            @click="runHandle()"
+            :disabled="selection.length <= 0">批量立即执行</el-button>
+          <el-button
+            v-permission="'quartz:timedTask:resume'"
+            type="success"
+            @click="resumeHandle()"
+            :disabled="selection.length <= 0">批量恢复</el-button>
+          <el-button
+            v-permission="'quartz:timedTask:pause'"
+            type="success"
+            @click="pauseHandle()"
+            :disabled="selection.length <= 0">批量暂停</el-button>
+          <el-button
             v-permission="'quartz:timedTask:delete'"
             type="danger"
             :disabled="selection.length <= 0"
@@ -77,36 +92,43 @@
         <el-table-column
           align="center"
           label="操作"
-          width="140"
+          width="160"
           fixed="right">
           <template v-slot="{ row }">
-            <el-button
-              v-permission="'quartz:timedTask:update'"
-              type="text"
-              @click="addEditHandle(row.id)">编辑</el-button>
-            <el-button
-              v-permission="'quartz:timedTask:delete'"
-              type="text"
-              @click="deleteHandle(row.id)">删除</el-button>
-            <el-dropdown
-              trigger="click"
-              @command="(command) => commandHandle(command, row.id)"
-              v-if="havePermission('quartz:timedTask:run|quartz:timedTask:resume|quartz:timedTask:pause', '|')">
-              <el-button type="text" class="margin_l-8">更多</el-button>
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item command="run" v-if="havePermission('quartz:timedTask:run')">立即执行</el-dropdown-item>
-                  <el-dropdown-item
-                    command="resume"
-                    v-if="havePermission('quartz:timedTask:resume')"
-                    :disabled="row.status === 1">恢复</el-dropdown-item>
-                  <el-dropdown-item
-                    command="pause"
-                    v-if="havePermission('quartz:timedTask:pause')"
-                    :disabled="row.status === 0">暂停</el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
+            <div class="flex-box flex_j_c-center">
+              <el-button
+                v-permission="'quartz:timedTask:update'"
+                type="primary"
+                link
+                @click="addEditHandle(row.id)">编辑</el-button>
+              <el-button
+                v-permission="'quartz:timedTask:delete'"
+                type="danger"
+                link
+                @click="deleteHandle(row.id)">删除</el-button>
+              <el-dropdown
+                trigger="click"
+                @command="(command) => commandHandle(command, row.id)"
+                v-if="havePermission('quartz:timedTask:run|quartz:timedTask:resume|quartz:timedTask:pause', '|')">
+                <el-button
+                  class="margin_l-12"
+                  type="primary"
+                  link>更多</el-button>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item command="run" v-if="havePermission('quartz:timedTask:run')">立即执行</el-dropdown-item>
+                    <el-dropdown-item
+                      command="resume"
+                      v-if="havePermission('quartz:timedTask:resume')"
+                      :disabled="row.status === 1">恢复</el-dropdown-item>
+                    <el-dropdown-item
+                      command="pause"
+                      v-if="havePermission('quartz:timedTask:pause')"
+                      :disabled="row.status === 0">暂停</el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -300,6 +322,9 @@ export default defineComponent({
       pageChangeHandle,
       reacquireHandle,
       addEditHandle,
+      runHandle,
+      resumeHandle,
+      pauseHandle,
       deleteHandle,
       commandHandle,
       selectionHandle,

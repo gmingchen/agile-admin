@@ -84,16 +84,18 @@
         <el-table-column
           align="center"
           label="操作"
-          width="100"
+          width="110"
           fixed="right">
           <template v-slot="{ row }">
             <el-button
               v-permission="'enterprise:update'"
-              type="text"
+              type="primary"
+              link
               @click="addEditHandle(row.id)">编辑</el-button>
             <el-button
               v-permission="'enterprise:delete'"
-              type="text"
+              type="danger"
+              link
               @click="deleteHandle(row.id)">删除</el-button>
           </template>
         </el-table-column>

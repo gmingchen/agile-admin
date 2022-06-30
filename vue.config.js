@@ -94,10 +94,10 @@ module.exports = defineConfig({
   // 对内部的webpack配置(比如修改、增加Loader选项)(链式操作).
   chainWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
-      const analyzer = new BundleAnalyzerPlugin({
-        analyzerPort: 9999
-      })
-      config.plugin('webpack-bundle-analyzer').use(analyzer)
+      // const analyzer = new BundleAnalyzerPlugin({
+      //   analyzerPort: 9999
+      // })
+      // config.plugin('webpack-bundle-analyzer').use(analyzer)
     }
     config.resolve.alias
       .set('@', resolve('src'))

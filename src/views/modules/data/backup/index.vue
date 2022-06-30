@@ -96,18 +96,18 @@
         <el-table-column
           align="center"
           label="操作"
-          width="100"
+          width="110"
           fixed="right">
           <template v-slot="{ row }">
             <el-button
               v-permission="'backup:recovery'"
-              type="text"
-              size="small"
+              type="primary"
+              link
               @click="recoveryHandle(row.id)">恢复</el-button>
             <el-button
               v-permission="'backup:delete'"
-              type="text"
-              size="small"
+              type="danger"
+              link
               @click="deleteHandle(row.id)">删除</el-button>
           </template>
         </el-table-column>

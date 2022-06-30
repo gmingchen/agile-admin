@@ -72,16 +72,18 @@
           align="center"
           label="操作"
           prop="type"
-          width="100">
+          width="110">
           <template v-slot="{ row }">
             <el-button
               v-permission="'global:enterpriseMenu:update'"
-              type="text"
+              type="primary"
+              link
               @click="editHandle(row)">编辑</el-button>
             <el-button
               v-if="!row.children"
               v-permission="'global:enterpriseMenu:delete'"
-              type="text"
+              type="danger"
+              link
               @click="deleteHandle(row.id)">删除</el-button>
           </template>
         </el-table-column>

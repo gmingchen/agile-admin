@@ -65,12 +65,13 @@
         <el-table-column
           align="center"
           label="操作"
-          width="100"
+          width="80"
           fixed="right">
           <template v-slot="{ row }">
             <el-button
               v-permission="'generator:create'"
-              type="text"
+              type="primary"
+              link
               @click="generateHandle(row.name)">生成</el-button>
           </template>
         </el-table-column>

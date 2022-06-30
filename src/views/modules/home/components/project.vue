@@ -3,7 +3,10 @@
     <div class="panel-title margin_b-10 font-size-18">项目</div>
     <div class="panel-content">
       <div class="text font-size-12">{{ text }}</div>
-      <el-image :src="stars" class="margin_t-10 cursor-pointer" @click="githubHandle()" />
+      <el-image :src="githubStars" class="margin_t-10 margin_r-5 cursor-pointer" @click="githubHandle()"  />
+      <el-image :src="githubForks" class="margin_t-10 margin_r-5 cursor-pointer" @click="githubHandle()" />
+      <el-image :src="giteeStars" class="margin_t-10 margin_r-5 cursor-pointer" @click="giteeHandle()" />
+      <el-image :src="giteeForks" class="margin_t-10 cursor-pointer" @click="giteeHandle()" />
     </div>
   </div>
 </template>
@@ -15,16 +18,25 @@ export default defineComponent({
   setup() {
     const data = reactive({
       github: 'https://github.com/gmingchen/vue3-element-plus-admin',
-      stars: 'https://img.shields.io/github/stars/gmingchen/vue3-element-plus-admin.svg?logo=github&color=brightgreen',
+      githubStars: 'https://img.shields.io/github/stars/gmingchen/vue3-element-plus-admin.svg?logo=github&color=brightgreen',
+      githubForks: 'https://img.shields.io/github/forks/gmingchen/vue3-element-plus-admin.svg?logo=github&color=brightgreen',
+      gitee: 'https://gitee.com/shychen/vue3-element-plus-admin',
+      giteeStars: 'http://gitee.com/shychen/vue3-element-plus-admin/badge/star.svg?theme=dark',
+      giteeForks: 'http://gitee.com/shychen/vue3-element-plus-admin/badge/fork.svg?theme=dark',
       text: '前端基于 Vue3、Element-plus、Vue-router、Vux、Sass、Axios 等技术栈。后端基于 Java 的 Springboot、Mysql、Shiro、Mybatis-plus 等技术栈。如果喜欢就点个星星支持一下。'
     })
 
     const githubHandle = () => {
       window.open(data.github)
     }
+
+    const giteeHandle = () => {
+      window.open(data.gitee)
+    }
     return {
       ...toRefs(data),
-      githubHandle
+      githubHandle,
+      giteeHandle
     }
   }
 })

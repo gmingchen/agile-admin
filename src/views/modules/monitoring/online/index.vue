@@ -73,7 +73,8 @@
           <template v-slot="{ row }">
             <el-button
               v-permission="'websocket:logout'"
-              type="text"
+              type="danger"
+              link
               @click="logoutHandle(row.id)">强制退出</el-button>
           </template>
         </el-table-column>

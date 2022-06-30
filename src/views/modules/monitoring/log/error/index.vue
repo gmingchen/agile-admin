@@ -93,7 +93,8 @@
           <template v-slot="{ row }">
             <el-button
               v-permission="'errorLog:info'"
-              type="text"
+              type="primary"
+              link
               @click="viewHandle(row.id)">查看</el-button>
           </template>
         </el-table-column>

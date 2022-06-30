@@ -74,13 +74,13 @@
         <el-table-column
           align="center"
           label="操作"
-          width="90"
+          width="80"
           fixed="right">
           <template v-slot="{ row }">
             <el-button
               v-permission="'websocket:delete'"
-              type="text"
-              size="small"
+              type="danger"
+              link
               @click="deleteHandle(row.id)">删除</el-button>
           </template>
         </el-table-column>
