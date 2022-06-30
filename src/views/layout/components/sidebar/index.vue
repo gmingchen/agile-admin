@@ -4,7 +4,7 @@
     <el-scrollbar class="flex-item_f-1">
       <el-menu
         :default-active="active"
-        :background-color="theme.backgroundColor !== 'white' ? theme.backgroundColor : ''"
+        :background-color="theme.backgroundColor !== '#fff' ? theme.backgroundColor : ''"
         :text-color="theme.textColor"
         :active-text-color="theme.activeTextColor"
         :unique-opened="true"

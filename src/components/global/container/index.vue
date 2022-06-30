@@ -5,7 +5,7 @@
     flex_d-column
     overflow-auto
     ${panelMode !== 1 ? 'container-panel' : ''}`">
-    <div class="header-container margin_b-10 padding-10" v-if="slots.header">
+    <div class="header-container margin_b-10" v-if="slots.header">
       <slot name="header" />
     </div>
     <el-scrollbar
@@ -14,7 +14,7 @@
       content-container
       ${contanierMode === 2 ? 'flex-item_f-1' : 'height-unset'}`"
       v-if="slots.default">
-      <div class="content-wrap padding-10">
+      <div class="content-wrap">
         <slot />
       </div>
     </el-scrollbar>
@@ -67,6 +67,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+$padding: 15px;
+
 .container {
   border-radius: var(--el-border-radius-base);
   &-panel {
@@ -85,8 +87,15 @@ export default defineComponent({
     border-radius: var(--el-border-radius-base);
   }
   // todo: 主要处理左侧菜单折叠起来后再展开表格宽度不缩减问题
-  // .content-wrap {
-  //   width: 99%;
-  // }
+  .header-container {
+    padding: $padding $padding 0 $padding;
+    ::v-deep(.el-form-item) {
+      margin-bottom: $padding;
+    }
+  }
+  .content-wrap {
+    padding: $padding;
+  }
+
 }
 </style>

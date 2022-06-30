@@ -42,7 +42,7 @@
             :on-success="successHandle">
             <el-button type="primary">上传文件</el-button>
           </el-upload>
-          <el-button-group class="margin-n-12">
+          <el-button-group class="margin-n-12" v-if="havePermission('file:delete')">
             <el-button @click="selectionHandle(1)">全选</el-button>
             <el-button @click="selectionHandle(2)">反选</el-button>
             <el-button @click="selectionHandle(0)">清除</el-button>
@@ -100,6 +100,7 @@
           </el-popover>
           <el-checkbox :label="item.id">&nbsp;</el-checkbox>
           <Iconfont
+            v-if="havePermission('file:delete')"
             class="cursor-pointer"
             size="16px"
             name="delete"

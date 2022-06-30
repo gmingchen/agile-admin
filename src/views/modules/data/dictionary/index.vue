@@ -3,7 +3,7 @@
     <template #sidebar>
       <Sidebar v-model="active" @change="changeHandle" />
     </template>
-    <template #header>
+    <template #header v-if="havePermission('dictionarySub:create|dictionarySub:delete', '|')">
       <el-form :inline="true">
         <el-form-item>
           <el-button
@@ -88,6 +88,8 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import ContainerSidebar from '@/components/container-sidebar'
 import Sidebar from './components/sidebar'
 import SubAddEdit from './components/sub-add-edit'
+
+import { havePermission } from '@/utils'
 
 import { subListApi, subDeleteApi, subSetStatusApi } from '@/api/dictionary'
 
@@ -187,7 +189,8 @@ export default defineComponent({
       deleteHandle,
       statusHandle,
       selectionHandle,
-      changeHandle
+      changeHandle,
+      havePermission
     }
   }
 })

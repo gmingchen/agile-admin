@@ -14,6 +14,9 @@
   <a href="https://github.com/element-plus/element-plus">
     <img src="https://img.shields.io/badge/element--plus-1.x-brightgreen.svg" alt="element-plus">
   </a>
+  <a href="https://github.com/gmingchen/vue3-element-plus-admin">
+    <img src="https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg" />
+  </a>
 </p>
 <p align="center">
   <a href="https://github.com/gmingchen/vue3-element-plus-admin">
@@ -22,8 +25,11 @@
   <a href="https://github.com/gmingchen/vue3-element-plus-admin">
     <img src="https://img.shields.io/github/forks/gmingchen/vue3-element-plus-admin.svg?logo=github&color=brightgreen">
   </a>
-  <a href="https://github.com/gmingchen/vue3-element-plus-admin">
-    <img src="https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg" />
+  <a href="https://gitee.com/shychen/vue3-element-plus-admin">
+    <img src="https://gitee.com/shychen/vue3-element-plus-admin/badge/star.svg?theme=dark">
+  </a>
+  <a href="https://gitee.com/shychen/vue3-element-plus-admin">
+    <img src="https://gitee.com/shychen/vue3-element-plus-admin/badge/fork.svg?theme=dark">
   </a>
 </p>
 

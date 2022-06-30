@@ -3,7 +3,7 @@
     <template #sidebar>
       <EnterpriseSidebar v-model="active" @change="changeHandle" />
     </template>
-    <template #header>
+    <template #header v-if="havePermission('global:enterpriseMenu:modify')">
       <el-form ref="refForm" :inline="true">
         <el-form-item>
           <el-button
@@ -102,7 +102,7 @@ import Modify from './components/modify'
 import Edit from './components/edit'
 
 import useDictionary from '@/mixins/dictionary'
-import { clearJson } from '@/utils'
+import { clearJson, havePermission } from '@/utils'
 
 import { globalListApi, globalDeleteApi } from '@/api/enterprise-menu'
 
@@ -201,7 +201,8 @@ export default defineComponent({
       editHandle,
       deleteHandle,
       changeHandle,
-      clearJson
+      clearJson,
+      havePermission
     }
   }
 })
