@@ -98,9 +98,6 @@ module.exports = defineConfig({
       //   analyzerPort: 9999
       // })
       // config.plugin('webpack-bundle-analyzer').use(analyzer)
-      /* 移除 console.log */
-      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
-      config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs = ['console.log']
     }
     config.resolve.alias
       .set('@', resolve('src'))
