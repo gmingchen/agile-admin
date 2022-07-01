@@ -20,7 +20,8 @@
         name="refresh"
         @click="iconfontClickHandle('refresh')" />
     </el-tooltip>
-    <el-tooltip
+    <!--
+ <el-tooltip
       content="主题设置"
       placement="bottom"
       :show-after="500">
@@ -30,6 +31,7 @@
         name="set"
         @click="iconfontClickHandle('setting')" />
     </el-tooltip>
+-->
     <el-tooltip
       content="清理缓存"
       placement="bottom"

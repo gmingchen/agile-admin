@@ -2,6 +2,7 @@
   <div class="sidebar-container flex-box flex_d-column">
     <Logo />
     <el-scrollbar class="flex-item_f-1">
+      {{theme.textColor}}
       <el-menu
         :default-active="active"
         :background-color="theme.backgroundColor !== '#fff' ? theme.backgroundColor : ''"
