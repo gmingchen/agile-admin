@@ -39,7 +39,7 @@ module.exports = defineConfig({
     // 局域网和本地访问.
     host: '0.0.0.0',
     // 端口.
-    port: process.env.VUE_APP_PORT || 9585,
+    port: process.env.VUE_APP_PORT || 9527,
     // 代理.
     proxy: process.env.NODE_ENV.VUE_APP_PROXY === 'false' ? null
       : {
