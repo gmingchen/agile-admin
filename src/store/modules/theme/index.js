@@ -80,7 +80,6 @@ export default {
         for (const key in defaultTheme.text) {
           result.text[key] = getComputedStyle(el).getPropertyValue(`--el-text-color-${ key }`)
         }
-        console.log(123)
         result.menu.backgroundColor = getComputedStyle(el).getPropertyValue(`--gl-sidebar-background-color`)
         // result.menu.textColor = getComputedStyle(el).getPropertyValue(`--el-text-color-primary`)
         result.menu.activeTextColor = getComputedStyle(el).getPropertyValue(`--el-color-primary`)
