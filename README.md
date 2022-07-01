@@ -8,6 +8,9 @@
   <a href="http://frame.gumingchen.icu/docs/">预览</a>
 </p>
 <p align="center">
+  <a href="https://www.oscs1024.com/project/gmingchen/vue3-element-plus-admin?ref=badge_small">
+    <img src="https://www.oscs1024.com/platform/badge/gmingchen/vue3-element-plus-admin.svg?size=small" alt="vue">
+  </a>
   <a href="https://github.com/vuejs/vue-next">
     <img src="https://img.shields.io/badge/vue-3.x-brightgreen.svg" alt="vue">
   </a>
