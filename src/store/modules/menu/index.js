@@ -105,7 +105,7 @@ export default {
         commit('SET_MENUS', r.data.menus)
         commit('SET_PERMISSIONS', r.data.permissions)
       }
-      return r.data.menus
+      return r && r.data ? r.data.menus : []
     },
     /**
      * 设置选中菜单
