@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-04-30 14:01:54
  */
 import cookie from 'js-cookie'
-import { IS_GET_MENU_KEY, MENU_KEY, MENU_STORAGE, PERMISSION_KEY, TOKEN_KEY, TOKEN_STORAGE, THEME_KEY, THEME_STORAGE } from '@/utils/constant'
+import { IS_GET_MENU_KEY, MENU_KEY, MENU_STORAGE, PERMISSION_KEY, TOKEN_KEY, TOKEN_STORAGE, THEME_KEY, THEME_MODE_KEY, THEME_STORAGE } from '@/utils/constant'
 import { StorageType } from '@/utils/dictionary'
 
 /**
@@ -130,4 +130,21 @@ export function setTheme(theme) {
 }
 export function clearTheme() {
   clear(THEME_KEY, THEME_STORAGE)
+}
+
+/**
+ * @description: 主题模式-存储、获取、清除
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function getThemeMode() {
+  const mode = get(THEME_MODE_KEY, THEME_STORAGE)
+  return mode || null
+}
+export function setThemeMode(mode) {
+  set(THEME_MODE_KEY, mode, THEME_STORAGE)
+}
+export function clearThemeMode() {
+  clear(THEME_MODE_KEY, THEME_STORAGE)
 }

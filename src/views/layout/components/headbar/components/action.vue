@@ -21,6 +21,16 @@
         @click="iconfontClickHandle('refresh')" />
     </el-tooltip>
     <el-tooltip
+      content="主题设置"
+      placement="bottom"
+      :show-after="500">
+      <Iconfont
+        class="margin_r-15 cursor-pointer"
+        size="16px"
+        name="set"
+        @click="iconfontClickHandle('setting')" />
+    </el-tooltip>
+    <el-tooltip
       content="清理缓存"
       placement="bottom"
       :show-after="500">
@@ -29,6 +39,20 @@
         size="16px"
         name="clear"
         @click="iconfontClickHandle('clear')" />
+    </el-tooltip>
+    <el-tooltip
+      content="暗黑模式"
+      placement="bottom"
+      :show-after="500">
+      <el-switch
+        class="margin_r-15"
+        v-model="mode"
+        :active-value="ThemeMode.DARK"
+        :inactive-value="ThemeMode.LIGHT"
+        inline-prompt
+        active-text="黑"
+        inactive-text="亮"
+        active-color="#222222" />
     </el-tooltip>
     <el-dropdown trigger="click" @command="dropdownHandle">
       <el-avatar
@@ -47,13 +71,14 @@
 </template>
 
 <script>
-import { computed, defineComponent, nextTick, ref } from 'vue'
+import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import screenfull from 'screenfull'
 
 import { ElMessage } from 'element-plus'
 
-import screenfull from 'screenfull'
+import { ThemeMode } from '@/utils/dictionary'
 
 export default defineComponent({
   setup() {
@@ -63,6 +88,15 @@ export default defineComponent({
     const fullScreen = computed(() => store.state.settings.fullScreen)
 
     const administrator = computed(() => store.state.administrator.administrator)
+
+    const mode = computed({
+      get: () => {
+        return store.state.theme.mode
+      },
+      set: (val) => {
+        store.dispatch('theme/setMode', val)
+      }
+    })
 
     const iconfontClickHandle = (type) => {
       switch (type) {
@@ -103,8 +137,10 @@ export default defineComponent({
     }
 
     return {
+      ThemeMode,
       fullScreen,
       administrator,
+      mode,
       iconfontClickHandle,
       dropdownHandle
     }
@@ -115,7 +151,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .action-container {
   .iconfont {
-    margin-right: 15px;
+    // margin-right: 15px;
   }
 }
 </style>

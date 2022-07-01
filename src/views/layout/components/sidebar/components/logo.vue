@@ -46,7 +46,7 @@ export default defineComponent({
   width: var(--gl-sidebar-width);
   line-height: var(--gl-headbar-height);
   background-color: var(--gl-sidebar-background-color);
-  transition: all 0.4s;
+  transition: width 0.4s;
   &-collapse {
     width: var(--gl-sidebar-collapse-width);
   }

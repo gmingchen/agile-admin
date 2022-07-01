@@ -18,6 +18,7 @@ export const PERMISSION_KEY = 'permissions'
 // 主题本地存储类型
 export const THEME_STORAGE = StorageType.LOCAL
 export const THEME_KEY = 'theme'
+export const THEME_MODE_KEY = 'themeMode'
 // 请求成功响应code
 export const SUCCESS_CODE = [SuccessCode.ZERO, SuccessCode.TWO_HUNDRED]
 // 双向绑定方法名

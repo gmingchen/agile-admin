@@ -6,7 +6,8 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-04-18 09:16:20
  */
-import { getTheme, setTheme } from '@/utils/storage'
+import { getTheme, setTheme, getThemeMode, setThemeMode } from '@/utils/storage'
+import { ThemeMode } from '@/utils/dictionary'
 
 const defaultTheme = {
   color: {
@@ -34,6 +35,7 @@ const defaultTheme = {
 export default {
   state: {
     reload: false,
+    mode: ThemeMode.LIGHT,
     theme: defaultTheme
   },
   getters: {
@@ -44,6 +46,9 @@ export default {
     },
     SET_THEME: (state, theme) => {
       state.theme = theme
+    },
+    SET_MODE: (state, mode) => {
+      state.mode = mode
     }
   },
   actions: {
@@ -58,7 +63,7 @@ export default {
      * 获取当前主题
      * @returns
      */
-    getTheme({ commit }) {
+    getTheme({ commit, dispatch }) {
       const theme = getTheme()
       const result = {
         color: {},
@@ -80,12 +85,14 @@ export default {
         result.menu.activeTextColor = getComputedStyle(el).getPropertyValue(`--el-color-primary`)
       }
       commit('SET_THEME', result)
+      const mode = getThemeMode() || ThemeMode.LIGHT
+      dispatch('setMode', mode)
     },
     /**
      * 设置当前主题
      * @returns
      */
-    setTheme(_store, theme) {
+    setTheme({ state }, theme) {
       const el = document.documentElement
       for (const key in defaultTheme.color) {
         el.style.setProperty(`--el-color-${ key }`, theme.color[key])
@@ -94,6 +101,16 @@ export default {
         el.style.setProperty(`--el-text-color-${ key }`, theme.text[key])
       }
       el.style.setProperty(`--gl-sidebar-background-color`, theme.menu.backgroundColor)
+      setTheme(state.theme)
+    },
+    /**
+     * 设置主题模式
+     * @returns
+     */
+    setMode({ commit }, mode) {
+      mode === ThemeMode.DARK ? document.documentElement.classList.add(ThemeMode.DARK) : document.documentElement.classList.remove(ThemeMode.DARK)
+      commit('SET_MODE', mode)
+      setThemeMode(mode)
     }
   }
 }

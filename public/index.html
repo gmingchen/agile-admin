@@ -8,6 +8,14 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
 
+  <script>
+    /* 暗黑模式 loading 处理 */
+    const mode = localStorage.getItem('themeMode')
+    console.log(mode);
+    if (mode === 'dark')
+      document.documentElement.classList.add('dark')
+  </script>
+
   <style>
     html,
     body,
@@ -21,6 +29,10 @@
       background: #409EFF;
       color: #000;
       padding: 0.1em 0;
+    }
+
+    .dark #loader-wrapper {
+      background-color: #141414;
     }
 
     #loader-wrapper {

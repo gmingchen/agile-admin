@@ -31,3 +31,8 @@ export const ModelBinding = {
   MODEL_VALUE: 'update:modelValue',
   MODEL_EVENT: 'update:modelEvent'
 }
+// 主题模式
+export const ThemeMode = {
+  DARK: 'dark',
+  LIGHT: 'light'
+}
