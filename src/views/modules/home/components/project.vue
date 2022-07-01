@@ -24,7 +24,7 @@
         <el-button
           size="small"
           type="danger"
-          @click="releaseHandle()"
+          @click="giteeHandle()"
           round>Gitee</el-button>
       </div>
     </div>
