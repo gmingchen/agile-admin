@@ -99,7 +99,8 @@
               @change="statusHandle(row)"
               v-model="row.status"
               :active-value="1"
-              :inactive-value="0" />
+              :inactive-value="0"
+              :disabled="row.id === administratorId" />
           </template>
         </el-table-column>
         <el-table-column
@@ -140,7 +141,8 @@
 </template>
 
 <script >
-import { defineComponent, reactive, ref, toRefs, nextTick, onBeforeMount } from 'vue'
+import { computed, defineComponent, reactive, ref, toRefs, nextTick, onBeforeMount } from 'vue'
+import { useStore } from 'vuex'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
 import ContainerSidebar from '@/components/container-sidebar'
@@ -156,6 +158,8 @@ import { globalPageApi, globalDeleteApi, globalSetStatusApi } from '@/api/admini
 export default defineComponent({
   components: { ContainerSidebar, EnterpriseSidebar, AddEdit },
   setup() {
+    const store = useStore()
+
     const refContainerSidebar = ref()
     const refForm = ref()
     const refTable = ref()
@@ -174,6 +178,8 @@ export default defineComponent({
       list: [],
       selection: []
     })
+
+    const administratorId = computed(() => store.state.administrator.administrator.id)
 
     const getList = () => {
       if (data.active) {
@@ -273,6 +279,7 @@ export default defineComponent({
       page,
       dictionaryMap,
       ...toRefs(data),
+      administratorId,
       getList,
       reacquireHandle,
       addEditHandle,

@@ -100,7 +100,8 @@
               @change="statusHandle(row)"
               v-model="row.status"
               :active-value="1"
-              :inactive-value="0" />
+              :inactive-value="0"
+              :disabled="row.id === administratorId" />
           </template>
         </el-table-column>
         <el-table-column
@@ -141,7 +142,8 @@
 </template>
 
 <script>
-import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
+import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
+import { useStore } from 'vuex'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit'
@@ -155,9 +157,12 @@ import { pageApi, deleteApi, setStatusApi } from '@/api/administrator'
 export default defineComponent({
   components: { AddEdit },
   setup() {
+    const store = useStore()
+
     const refForm = ref()
     const refTable = ref()
     const refAddEdit = ref()
+
     const { page } = usePage()
     const { dictionaryMap, getDictionary } = useDictionary()
     const data = reactive({
@@ -170,6 +175,8 @@ export default defineComponent({
       list: [],
       selection: []
     })
+
+    const administratorId = computed(() => store.state.administrator.administrator.id)
 
     const getList = () => {
       const params = {
@@ -261,6 +268,7 @@ export default defineComponent({
       page,
       dictionaryMap,
       ...toRefs(data),
+      administratorId,
       getList,
       pageChangeHandle,
       reacquireHandle,
