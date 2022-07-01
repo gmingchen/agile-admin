@@ -62,8 +62,9 @@ export default defineComponent({
     }
 
     const oscsHandle = () => {
-      window.open(data.release)
+      window.open(data.oscs)
     }
+
     return {
       ...toRefs(data),
       githubHandle,
