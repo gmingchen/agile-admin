@@ -6,7 +6,7 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-04-18 09:16:20
  */
-import { getTheme, setTheme, getThemeMode, setThemeMode } from '@/utils/storage'
+import { getTheme, setTheme, clearTheme, getThemeMode, setThemeMode, clearThemeMode } from '@/utils/storage'
 import { ThemeMode } from '@/utils/dictionary'
 
 const defaultTheme = {
@@ -111,6 +111,14 @@ export default {
       mode === ThemeMode.DARK ? document.documentElement.classList.add(ThemeMode.DARK) : document.documentElement.classList.remove(ThemeMode.DARK)
       commit('SET_MODE', mode)
       setThemeMode(mode)
+    },
+    /**
+     * 清除主题 主题模式
+     * @param {*}
+     */
+    clear({ commit }) {
+      clearThemeMode()
+      clearTheme()
     }
   }
 }

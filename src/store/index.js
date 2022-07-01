@@ -20,7 +20,7 @@ const store = createStore({
   },
   actions: {
     /**
-     * 清除数据 用户信息 菜单 权限 标签页
+     * 清除数据 用户信息 菜单 权限 标签页 主题
      * @param {*}
      */
     clearData({ dispatch }) {
@@ -39,6 +39,7 @@ const store = createStore({
         background: 'rgba(0, 0, 0, 0.3)'
       })
       dispatch('clearData')
+      dispatch('theme/clear')
       window.location.reload()
     },
     /**
