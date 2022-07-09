@@ -84,6 +84,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .tabsbar-container {
+  z-index: 5;
   padding: 10px 10px 0 10px;
   height: var(--gl-tabsbar-height);
   background-color: var(--gl-tabsbar-background-color);
