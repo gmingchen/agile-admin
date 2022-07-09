@@ -89,7 +89,8 @@ export default {
         commit('SET_NAVIGATION_MODE', navigationMode || 1)
         commit('SET_CONTANIER_MODE', contanierMode || 2)
         commit('SET_PANEL_MODE', panelMode || 1)
-        commit('SET_SHOW_TABS', showTabs || true)
+        // eslint-disable-next-line no-undefined
+        commit('SET_SHOW_TABS', showTabs !== undefined ? showTabs : true)
       }
     },
     /**
