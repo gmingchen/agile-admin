@@ -101,7 +101,6 @@ export default {
           result.color[key] = getComputedStyle(el).getPropertyValue(`--el-color-${ key }`)
         }
         result.menu.backgroundColor = getComputedStyle(el).getPropertyValue(`--gl-sidebar-background-color`)
-        result.menu.activeTextColor = getComputedStyle(el).getPropertyValue(`--el-color-primary`)
       }
       commit('SET_THEME', result)
       dispatch('setMode', getThemeMode() || ThemeMode.LIGHT)
