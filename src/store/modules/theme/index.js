@@ -8,6 +8,7 @@
  */
 import { getTheme, setTheme, clearTheme, getThemeMode, setThemeMode, clearThemeMode } from '@/utils/storage'
 import { ThemeMode } from '@/utils/dictionary'
+import { lighten, darken } from '@/utils'
 
 const defaultTheme = {
   color: {
@@ -32,10 +33,18 @@ const defaultTheme = {
   }
 }
 
+/**
+ * 主题颜色设置处理
+ * @param {*} theme 主题
+ */
 const setThemeHandle = (theme) => {
   const el = document.documentElement
   for (const key in defaultTheme.color) {
     el.style.setProperty(`--el-color-${ key }`, theme.color[key])
+    for (let i = 1; i <= 9; i++) {
+      el.style.setProperty(`--el-color-${ key }-light-${ i }`, lighten(theme.color[key], i / 10))
+      el.style.setProperty(`--el-color-${ key }-dark-${ i }`, darken(theme.color[key], i / 10))
+    }
   }
   // for (const key in defaultTheme.text) {
   //   el.style.setProperty(`--el-text-color-${ key }`, theme.text[key])
