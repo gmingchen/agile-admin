@@ -132,7 +132,7 @@ export default defineComponent({
       const message = `
         <div class="login-notify-content">
           <div class="tip">演示环境，部分权限暂不开放</div>
-          由于是单点登录，所以提供了多个演示帐号
+          因系统禁止多点在线 所以会遇到token失效、退出登录的情况属，可以尝试更换帐号登录！
           <div class="margin_t-10">
             <p>总后台帐号：</p>
             <b>demo1，demo2，demo3</b>

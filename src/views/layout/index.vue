@@ -5,7 +5,7 @@
       <template #headbar>
         <Headbar />
       </template>
-      <template #tabsbar>
+      <template #tabsbar v-if="showTabs">
         <Tabsbar />
       </template>
       <template #default v-if="!refresh">
@@ -35,6 +35,8 @@ export default defineComponent({
 
     const navigationMode = computed(() => store.state.settings.navigationMode)
 
+    const showTabs = computed(() => store.state.settings.showTabs)
+
     const refresh = computed(() => store.state.settings.refresh)
 
     const component = computed(() => {
@@ -52,6 +54,7 @@ export default defineComponent({
 
     return {
       navigationMode,
+      showTabs,
       refresh,
       component
     }

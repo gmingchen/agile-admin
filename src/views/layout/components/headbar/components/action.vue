@@ -20,8 +20,7 @@
         name="refresh"
         @click="iconfontClickHandle('refresh')" />
     </el-tooltip>
-    <!--
- <el-tooltip
+    <el-tooltip
       content="主题设置"
       placement="bottom"
       :show-after="500">
@@ -31,7 +30,6 @@
         name="set"
         @click="iconfontClickHandle('setting')" />
     </el-tooltip>
--->
     <el-tooltip
       content="清理缓存"
       placement="bottom"
@@ -69,6 +67,7 @@
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+    <Theme ref="refTheme" v-if="visible" />
   </div>
 </template>
 
@@ -79,13 +78,21 @@ import { useRouter } from 'vue-router'
 import screenfull from 'screenfull'
 
 import { ElMessage } from 'element-plus'
+import Theme from './theme.vue'
 
 import { ThemeMode } from '@/utils/dictionary'
 
 export default defineComponent({
+  components: { Theme },
   setup() {
     const store = useStore()
     const router = useRouter()
+
+    const refTheme = ref()
+
+    const data = reactive({
+      visible: false
+    })
 
     const fullScreen = computed(() => store.state.settings.fullScreen)
 
@@ -119,6 +126,12 @@ export default defineComponent({
             store.dispatch('settings/setRefresh', false)
           })
           break
+        case 'setting':
+          data.visible = true
+          nextTick(() => {
+            refTheme.value.init()
+          })
+          break
         case 'clear':
           store.dispatch('clear')
           break
@@ -139,6 +152,8 @@ export default defineComponent({
     }
 
     return {
+      refTheme,
+      ...toRefs(data),
       ThemeMode,
       fullScreen,
       administrator,

@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-04-30 14:01:54
  */
 import cookie from 'js-cookie'
-import { IS_GET_MENU_KEY, MENU_KEY, MENU_STORAGE, PERMISSION_KEY, TOKEN_KEY, TOKEN_STORAGE, THEME_KEY, THEME_MODE_KEY, THEME_STORAGE } from '@/utils/constant'
+import { IS_GET_MENU_KEY, MENU_KEY, MENU_STORAGE, PERMISSION_KEY, TOKEN_KEY, TOKEN_STORAGE, THEME_KEY, THEME_MODE_KEY, THEME_STORAGE, LAYOUT_KEY } from '@/utils/constant'
 import { StorageType } from '@/utils/dictionary'
 
 /**
@@ -147,4 +147,21 @@ export function setThemeMode(mode) {
 }
 export function clearThemeMode() {
   clear(THEME_MODE_KEY, THEME_STORAGE)
+}
+
+/**
+ * @description: 布局-存储、获取、清除
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function getLayout() {
+  const layout = get(LAYOUT_KEY, THEME_STORAGE)
+  return layout ? JSON.parse(layout) : null
+}
+export function setLayout(layout) {
+  set(LAYOUT_KEY, JSON.stringify(layout), THEME_STORAGE)
+}
+export function clearLayout() {
+  clear(LAYOUT_KEY, THEME_STORAGE)
 }

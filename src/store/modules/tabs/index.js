@@ -44,6 +44,8 @@ export default {
   actions: {
     /**
      * 设置当前选中
+     * @param {*} param0
+     * @param {*} active
      * @returns
      */
     setActive({ commit }, active) {

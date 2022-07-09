@@ -19,6 +19,8 @@ export default defineComponent({
 
     store.dispatch('theme/getTheme')
 
+    store.dispatch('settings/getLayout')
+
     const reload = computed({
       get: () => {
         return store.state.theme.reload

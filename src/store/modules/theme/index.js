@@ -32,6 +32,19 @@ const defaultTheme = {
   }
 }
 
+const setThemeHandle = (theme) => {
+  const el = document.documentElement
+  for (const key in defaultTheme.color) {
+    el.style.setProperty(`--el-color-${ key }`, theme.color[key])
+  }
+  // for (const key in defaultTheme.text) {
+  //   el.style.setProperty(`--el-text-color-${ key }`, theme.text[key])
+  // }
+  if (theme.menu.backgroundColor !== '#fff') {
+    el.style.setProperty(`--gl-sidebar-background-color`, theme.menu.backgroundColor)
+  }
+}
+
 export default {
   state: {
     reload: false,
@@ -72,36 +85,26 @@ export default {
       }
       if (theme) {
         Object.assign(result, defaultTheme, theme)
+        setThemeHandle(result)
       } else {
         const el = document.querySelector(':root')
         for (const key in defaultTheme.color) {
           result.color[key] = getComputedStyle(el).getPropertyValue(`--el-color-${ key }`)
         }
-        for (const key in defaultTheme.text) {
-          result.text[key] = getComputedStyle(el).getPropertyValue(`--el-text-color-${ key }`)
-        }
         result.menu.backgroundColor = getComputedStyle(el).getPropertyValue(`--gl-sidebar-background-color`)
-        // result.menu.textColor = getComputedStyle(el).getPropertyValue(`--el-text-color-primary`)
         result.menu.activeTextColor = getComputedStyle(el).getPropertyValue(`--el-color-primary`)
       }
       commit('SET_THEME', result)
-      const mode = getThemeMode() || ThemeMode.LIGHT
-      dispatch('setMode', mode)
+      dispatch('setMode', getThemeMode() || ThemeMode.LIGHT)
     },
     /**
      * 设置当前主题
      * @returns
      */
-    setTheme({ state }, theme) {
-      const el = document.documentElement
-      for (const key in defaultTheme.color) {
-        el.style.setProperty(`--el-color-${ key }`, theme.color[key])
-      }
-      for (const key in defaultTheme.text) {
-        el.style.setProperty(`--el-text-color-${ key }`, theme.text[key])
-      }
-      el.style.setProperty(`--gl-sidebar-background-color`, theme.menu.backgroundColor)
+    setTheme({ commit, state }, theme) {
+      commit('SET_THEME', theme)
       setTheme(state.theme)
+      setThemeHandle(state.theme)
     },
     /**
      * 设置主题模式

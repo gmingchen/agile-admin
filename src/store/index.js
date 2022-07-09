@@ -40,6 +40,7 @@ const store = createStore({
       })
       dispatch('clearData')
       dispatch('theme/clear')
+      dispatch('settings/clear')
       window.location.reload()
     },
     /**

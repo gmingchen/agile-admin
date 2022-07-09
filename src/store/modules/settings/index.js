@@ -6,6 +6,21 @@
  * @LastEditors: gumingchen
  * @LastEditTime: 2021-04-18 09:16:20
  */
+import { getLayout, setLayout, clearLayout } from '@/utils/storage'
+
+/**
+ * 存储layout处理
+ * @param {*} state
+ */
+const setLayoutHandle = (state) => {
+  setLayout({
+    navigationMode: state.navigationMode,
+    contanierMode: state.contanierMode,
+    panelMode: state.panelMode,
+    showTabs: state.showTabs
+  })
+}
+
 export default {
   state: {
     /**
@@ -28,6 +43,10 @@ export default {
      */
     panelMode: 1,
     /**
+     * 是否显示标签页
+     */
+    showTabs: true,
+    /**
      * 是否全屏
      */
     fullScreen: false,
@@ -45,6 +64,12 @@ export default {
     SET_CONTANIER_MODE: (state, contanierMode) => {
       state.contanierMode = contanierMode
     },
+    SET_PANEL_MODE: (state, panelMode) => {
+      state.panelMode = panelMode
+    },
+    SET_SHOW_TABS: (state, show) => {
+      state.showTabs = show
+    },
     SET_FULL_SCREEN: (state, fullScreen) => {
       state.fullScreen = fullScreen
     },
@@ -54,18 +79,50 @@ export default {
   },
   actions: {
     /**
+     * 获取布局
+     * @param {*} param0
+     */
+    getLayout({ commit }) {
+      const layout = getLayout()
+      if (layout) {
+        const { navigationMode, contanierMode, panelMode, showTabs } = layout
+        commit('SET_NAVIGATION_MODE', navigationMode || 1)
+        commit('SET_CONTANIER_MODE', contanierMode || 2)
+        commit('SET_PANEL_MODE', panelMode || 1)
+        commit('SET_SHOW_TABS', showTabs || true)
+      }
+    },
+    /**
      * 设置导航模式
      * @returns
      */
-    setNavigationMode({ commit }, navigationMode) {
+    setNavigationMode({ commit, state }, navigationMode) {
       commit('SET_NAVIGATION_MODE', navigationMode)
+      setLayoutHandle(state)
     },
     /**
      * 设置主内容容器布局
      * @returns
      */
-    setContanierMode({ commit }, contanierMode) {
+    setContanierMode({ commit, state }, contanierMode) {
       commit('SET_CONTANIER_MODE', contanierMode)
+      setLayoutHandle(state)
+    },
+    /**
+     * 设置面板模式
+     * @returns
+     */
+    setPanelMode({ commit, state }, panelMode) {
+      commit('SET_PANEL_MODE', panelMode)
+      setLayoutHandle(state)
+    },
+    /**
+     * 是否显示标签页
+     * @returns
+     */
+    setShowTabs({ commit, state }, show) {
+      commit('SET_SHOW_TABS', show)
+      setLayoutHandle(state)
     },
     /**
      * 设置是否全屏
@@ -80,6 +137,13 @@ export default {
      */
     setRefresh({ commit }, refresh) {
       commit('SET_REFRESH', refresh)
+    },
+    /**
+     * 清除布局模式
+     * @param {*}
+     */
+    clear({ commit }) {
+      clearLayout()
     }
   }
 }
