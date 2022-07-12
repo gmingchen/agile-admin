@@ -8,9 +8,6 @@
   <a href="http://frame.gumingchen.icu/docs/">预览</a>
 </p>
 <p align="center">
-  <a href="https://www.oscs1024.com/project/gmingchen/vue3-element-plus-admin?ref=badge_small">
-    <img src="https://www.oscs1024.com/platform/badge/gmingchen/vue3-element-plus-admin.svg?size=small" alt="vue">
-  </a>
   <a href="https://github.com/vuejs/vue-next">
     <img src="https://img.shields.io/badge/vue-3.x-brightgreen.svg" alt="vue">
   </a>
@@ -19,6 +16,9 @@
   </a>
   <a href="https://github.com/gmingchen/vue3-element-plus-admin">
     <img src="https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg" />
+  </a>
+  <a href="https://www.oscs1024.com/project/gmingchen/vue3-element-plus-admin?ref=badge_small">
+    <img src="https://www.oscs1024.com/platform/badge/gmingchen/vue3-element-plus-admin.svg?size=small" alt="vue">
   </a>
 </p>
 <p align="center">
@@ -36,7 +36,7 @@
   </a>
 </p>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java + Vue 有很多优秀的后台管理系统，但是为了可以高效的开发后台权限管理系统，作者就自己开发出 vue3-element-plus-admin。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java + Vue 有很多优秀的后台管理系统，但是为了可以高效的开发后台权限管理系统，作者就自己开发出 vue3-element-plus-admin。<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[vue3-element-plus-admin](https://github.com/gmingchen/vue3-element-plus-admin) 是一个基于 Vue3 + Element-plus + Java 的多企业后台权限管理系统，提供了完善的权限体系，让开发者把注意力集中到具体业务当中，降低开发成本，提高项目效率。
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以用于网站管理后台、SAAS、CMS、CRM、OA、ERP等，企业和个人都可以免费使用。欢迎提交PR（需求），若开发中遇到问题可以上 Github 提 Issues。
 

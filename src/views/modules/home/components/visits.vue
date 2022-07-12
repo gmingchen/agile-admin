@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { defineComponent, nextTick, onMounted, reactive, ref, toRefs } from 'vue'
+import { defineComponent, nextTick, onMounted, reactive, ref, toRefs, markRaw, onBeforeUnmount } from 'vue'
 
 import * as echarts from 'echarts'
 
@@ -59,14 +59,26 @@ export default defineComponent({
       await getList()
       data.option.xAxis.data = data.list.map(item => item.date)
       data.option.series[0].data = data.list.map(item => item.count)
-      data.echart = echarts.init(refEchart.value)
+      data.echart = markRaw(echarts.init(refEchart.value))
       data.echart.setOption(data.option)
+    }
+
+    const resizeHandle = () => {
+      if (data.echart) {
+        console.log(111)
+        data.echart.resize()
+      }
     }
 
     onMounted(() => {
       nextTick(() => {
         init()
+        window.addEventListener('resize', resizeHandle)
       })
+    })
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('resize', resizeHandle)
     })
 
     return {
@@ -87,7 +99,7 @@ export default defineComponent({
     font-weight: 700;
   }
   &-content {
-    height: 500px;
+    height: 400px;
   }
 }
 </style>

@@ -7,12 +7,12 @@ import { parseStr2Date } from '@/utils'
 
 let refresh = true
 
-const common = [
+const constant = [
   { path: '/', redirect: { name: 'login' }, meta: { title_cn: '重定向', title_en: 'Redirect' } },
-  { path: '/login', name: 'login', component: () => import('@/views/common/login.vue'), meta: { title_cn: '登录', title_en: 'Login' } },
-  { path: '/401', name: '401', component: () => import('@/views/common/401.vue'), meta: { title_cn: '401', title_en: '401' } },
-  { path: '/404', name: '404', component: () => import('@/views/common/404.vue'), meta: { title_cn: '404', title_en: '404' } },
-  { path: '/500', name: '500', component: () => import('@/views/common/500.vue'), meta: { title_cn: '500', title_en: '500' } }
+  { path: '/login', name: 'login', component: () => import('@/views/constant/login.vue'), meta: { title_cn: '登录', title_en: 'Login' } },
+  { path: '/401', name: '401', component: () => import('@/views/constant/401.vue'), meta: { title_cn: '401', title_en: '401' } },
+  { path: '/404', name: '404', component: () => import('@/views/constant/404.vue'), meta: { title_cn: '404', title_en: '404' } },
+  { path: '/500', name: '500', component: () => import('@/views/constant/500.vue'), meta: { title_cn: '500', title_en: '500' } }
 ]
 
 const main = {
@@ -46,7 +46,7 @@ const main = {
   }
 }
 
-const routes = common.concat(main)
+const routes = constant.concat(main)
 
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL || '/'),
@@ -54,19 +54,19 @@ const router = createRouter({
 })
 
 /**
- * @description: 判断当前路由类型, common: 通用路由, main: 主入口路由
+ * @description: 判断当前路由类型, constant: 常量路由, main: 主入口路由
  * @param {RouteLocationNormalized} route
- * @param {Array} commonRoutes
+ * @param {Array} constantRoutes
  * @return {*}
  * @author: gumingchen
  */
-function currentRouteType(route, commonRoutes = []) {
+function currentRouteType(route, constantRoutes = []) {
   let temp = []
-  for (let i = 0; i < commonRoutes.length; i++) {
-    if (route.path === commonRoutes[i].path) {
-      return 'common'
-    } else if (commonRoutes[i].children && commonRoutes[i].children.length >= 1) {
-      temp = temp.concat(commonRoutes[i].children)
+  for (let i = 0; i < constantRoutes.length; i++) {
+    if (route.path === constantRoutes[i].path) {
+      return 'constant'
+    } else if (constantRoutes[i].children && constantRoutes[i].children.length >= 1) {
+      temp = temp.concat(constantRoutes[i].children)
     }
   }
   return temp.length >= 1 ? currentRouteType(route, temp) : 'main'
@@ -180,7 +180,7 @@ router.beforeEach(async (to, _from, next) => {
     router.addRoute({ path: '/:pathMatch(.*)', redirect: { name: '401' } })
   }
   // todo: 动态添加路由
-  const isCommon = currentRouteType(to, common) === 'common'
+  const isCommon = currentRouteType(to, constant) === 'constant'
   if (isCommon) {
     next()
   } else {

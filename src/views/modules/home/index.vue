@@ -7,7 +7,10 @@
           <Project />
           <Interacted class="margin_t-20" />
         </div>
-        <Visits class="margin-10 width-full" />
+        <div class="width-full flex-box">
+          <Visits class="margin-10 flex-item_f-3" />
+          <Advertisement class="margin-10 flex-item_f-2" />
+        </div>
       </div>
     </template>
   </ContainerCustom>
@@ -21,9 +24,10 @@ import Introduction from './components/introduction'
 import Project from './components/project'
 import Interacted from './components/interacted'
 import Visits from './components/visits'
+import Advertisement from './components/advertisement'
 
 export default defineComponent({
-  components: { ContainerCustom, Introduction, Project, Interacted, Visits },
+  components: { ContainerCustom, Introduction, Project, Interacted, Visits, Advertisement },
   setup() {
     const data = reactive({
     })
