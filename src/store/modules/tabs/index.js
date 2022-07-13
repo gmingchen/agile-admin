@@ -58,8 +58,8 @@ export default {
      */
     changeHandle({ commit, state }, route) {
       const meta = route.meta
+      let val = `${ route.name }-${ meta.id }`
       if (meta.tab) {
-        let val = `${ route.name }-${ meta.id }`
         if (meta.multiple) {
           const queryStr = JSON.stringify(route.query)
           const paramsStr = JSON.stringify(route.params)
@@ -81,8 +81,8 @@ export default {
           }
           commit('ADD_TABS', tab)
         }
-        commit('SET_ACTIVE', val)
       }
+      commit('SET_ACTIVE', val)
     },
     /**
      * 删除tabs

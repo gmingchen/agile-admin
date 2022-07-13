@@ -36,7 +36,7 @@
                 :readonly="!havePermission('menu:create|menu:update', '|')" />
             </el-form-item>
             <el-form-item label="类型" prop="type">
-              <el-radio-group v-model="form.type" :disabled="!havePermission('menu:create|menu:update', '|')">
+              <el-radio-group v-model="form.type" :disabled="!havePermission('menu:create|menu:update', '|')" @change="clearRouterParams">
                 <el-radio-button
                   :label="item.value"
                   :disabled="item.value === 2 ? parentType !== 1 : parentType !== 0"
@@ -79,18 +79,20 @@
                   <el-radio :label="1">是</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="是否支持tab页签多开（如：用户1的详情页、用户2的详情并存在tab页签）" prop="multiple">
-                <el-radio-group v-model="form.multiple" :disabled="!havePermission('menu:create|menu:update', '|')">
-                  <el-radio :label="0">否</el-radio>
-                  <el-radio :label="1">是</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="是否支持缓存" prop="keepalive">
-                <el-radio-group v-model="form.keepalive" :disabled="!havePermission('menu:create|menu:update', '|')">
-                  <el-radio :label="0">否</el-radio>
-                  <el-radio :label="1">是</el-radio>
-                </el-radio-group>
-              </el-form-item>
+              <template v-if="form.type === 1">
+                <el-form-item label="是否支持tab页签多开（如：用户1的详情页、用户2的详情并存在tab页签）" prop="multiple">
+                  <el-radio-group v-model="form.multiple" :disabled="!havePermission('menu:create|menu:update', '|')">
+                    <el-radio :label="0">否</el-radio>
+                    <el-radio :label="1">是</el-radio>
+                  </el-radio-group>
+                </el-form-item>
+                <el-form-item label="是否支持缓存" prop="keepalive">
+                  <el-radio-group v-model="form.keepalive" :disabled="!havePermission('menu:create|menu:update', '|')">
+                    <el-radio :label="0">否</el-radio>
+                    <el-radio :label="1">是</el-radio>
+                  </el-radio-group>
+                </el-form-item>
+              </template>
             </template>
             <el-form-item>
               <el-button v-permission="'menu:update'" type="primary" @click="submit">保存</el-button>
@@ -136,7 +138,7 @@ export default defineComponent({
         type: '',
         icon: '',
         show: 1,
-        tab: 0,
+        tab: 1,
         multiple: 0,
         keepalive: 0,
         sort: 1,
@@ -223,6 +225,13 @@ export default defineComponent({
       // refForm.value.resetFields()
     }
 
+    const clearRouterParams = () => {
+      data.form.show = 1
+      data.form.tab = 1
+      data.form.multiple = 0
+      data.form.keepalive = 0
+    }
+
     const changeHandle = ({ row, parentType }) => {
       refContainerSidebar.value.setScrollTop()
       data.row = row
@@ -273,6 +282,7 @@ export default defineComponent({
       dictionaryList,
       ...toRefs(data),
       rules,
+      clearRouterParams,
       changeHandle,
       submit,
       havePermission
