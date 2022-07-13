@@ -66,7 +66,7 @@
                 controls-position="right"
                 :disabled="!havePermission('menu:create|menu:update', '|')" />
             </el-form-item>
-            <template v-if="form.type === 1">
+            <template v-if="form.type === 1 || form.type === 3">
               <el-form-item label="是否在侧边菜单栏显示（如：个人中心，详情页都不需要显示）" prop="show">
                 <el-radio-group v-model="form.show" :disabled="!havePermission('menu:create|menu:update', '|')">
                   <el-radio :label="0">否</el-radio>
