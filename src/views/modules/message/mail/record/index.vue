@@ -42,6 +42,11 @@
         :data="list"
         @selection-change="selectionHandle"
         border>
+        <el-table-column type="expand">
+          <template #default="{row}">
+            <div v-html="row.content" />
+          </template>
+        </el-table-column>
         <el-table-column align="center" type="selection" width="50" />
         <el-table-column
           align="center"
@@ -63,11 +68,6 @@
           align="center"
           label="标题"
           prop="subject"
-          :show-overflow-tooltip="true" />
-        <el-table-column
-          align="center"
-          label="内容"
-          prop="content"
           :show-overflow-tooltip="true" />
         <el-table-column
           align="center"

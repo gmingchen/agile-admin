@@ -48,6 +48,11 @@ const codeHandle = (code, message) => {
         name: '404'
       })
       break
+    case 500:
+      router.replace({
+        name: '500'
+      })
+      break
     default:
       prompt(message)
       break

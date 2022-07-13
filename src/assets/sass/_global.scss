@@ -107,14 +107,20 @@ ul {
 }
 // 文字省略
 .ellipse {
+  display: -webkit-box;
   overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 @for $i from 1 through 5 {
   .ellipse-#{$i} {
     display: -webkit-box;
     overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: #{$i};
   }
