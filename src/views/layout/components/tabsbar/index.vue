@@ -93,10 +93,6 @@ export default defineComponent({
     .el-tabs__header {
       margin: 0;
       border: none;
-      .el-tabs__item {
-        height: 36px;
-        line-height: 36px;
-      }
     }
   }
 
