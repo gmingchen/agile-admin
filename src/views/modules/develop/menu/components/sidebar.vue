@@ -34,7 +34,7 @@
               <el-button
                 v-permission="'menu:create'"
                 size="small"
-                v-if="data.type !== 2"
+                v-if="data.type !== 2 && data.type !== 3 && data.type !== 4"
                 @click.stop="addHandle(data)">
                 <Iconfont name="plus" size="12px" />
               </el-button>

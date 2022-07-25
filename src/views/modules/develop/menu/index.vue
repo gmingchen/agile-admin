@@ -39,7 +39,7 @@
               <el-radio-group v-model="form.type" :disabled="!havePermission('menu:create|menu:update', '|')" @change="clearRouterParams">
                 <el-radio-button
                   :label="item.value"
-                  :disabled="item.value === 2 ? parentType !== 1 : parentType !== 0"
+                  :disabled="buttonHandle(item.value)"
                   v-for="item in dictionaryList"
                   :key="item.value">{{item.label}}</el-radio-button>
               </el-radio-group>
@@ -183,11 +183,11 @@ export default defineComponent({
         permission: [
           { required: false, message: '请输入授权标识', trigger: 'blur' },
           { validator: checkPermission, trigger: 'blur' }
-        ],
-        icon: [
-          { required: false, message: '请选择图标', trigger: 'change' },
-          { validator: checkIcon, trigger: 'blur' }
         ]
+        // icon: [
+        //   { required: false, message: '请选择图标', trigger: 'change' },
+        //   { validator: checkIcon, trigger: 'blur' }
+        // ]
       }
     }())
 
@@ -250,6 +250,23 @@ export default defineComponent({
       }
     }
 
+    const buttonHandle = (val) => {
+      let result = false
+      switch (data.parentType) {
+        case 0:
+          if (val === 2) {
+            result = true
+          }
+          break
+        case 1:
+          if (val === 0 || val === 3 || val === 4) {
+            result = true
+          }
+          break
+      }
+      return result
+    }
+
     const submit = () => {
       refForm.value.validate(async valid => {
         if (valid) {
@@ -284,6 +301,7 @@ export default defineComponent({
       rules,
       clearRouterParams,
       changeHandle,
+      buttonHandle,
       submit,
       havePermission
     }
