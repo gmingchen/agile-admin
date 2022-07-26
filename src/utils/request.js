@@ -70,6 +70,7 @@ const baseURL = getApiBaseUrl()
  */
 const service = axios.create({
   baseURL,
+  withCredentials: true,
   timeout: TIME_OUT,
   headers: {
     'Content-Type': CONTENT_TYPE
