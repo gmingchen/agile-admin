@@ -83,7 +83,7 @@
 ## 分支
 - [master](https://github.com/gmingchen/vue3-element-plus-admin/tree/master) 多企业完整功能版本：多企业后台管理，持续维护分支
 - [dev](https://github.com/gmingchen/vue3-element-plus-admin/tree/master) 多企业完整功能开发分支
-- [base](https://github.com/gmingchen/vue3-element-plus-admin/tree/base) 多企业基础版本：多企业基于 RBAC 的权限功能-仅包含 `菜单管理`、`企业管理`、`企业角色管理`、`企业管理员管理`、`企业菜单管理`、`角色管理`、`管理员管理`
+- [base](https://github.com/gmingchen/vue3-element-plus-admin/tree/base) 多企业基础版本：多企业基于 RBAC 的权限功能-仅包含 `菜单管理`、`企业管理`、`企业角色管理`、`企业管理员管理`、`企业菜单管理`、`角色管理`、`管理员管理`、`操作日志`、`登录日志`
 - [single](https://github.com/1240235512/vue3/tree/single) 单企业完整功能版本：单企业后台管理，已停止维护
 - [single-base](https://github.com/1240235512/vue3/tree/single-base) 单企业基础功能版本：单个企业基于 RBAC 的权限功能-仅包含 `菜单管理`、`角色管理`、`用户管理`，已停止维护
 - [composition-api](https://github.com/1240235512/vue3/tree/composition-api) 内置__`Type Script`__、__`I18n`__，__已停止维护可以参考相关的配置__
@@ -279,17 +279,17 @@ npm run build:test  # 测试环境
 
 ### 其它开源项目
 
-[java-admin-base](https://github.com/gmingchen/java-admin-base)
+[java-spring-boot-admin](https://github.com/gmingchen/java-spring-boot-admin/tree/base)
 
-是一个管理后台基础功能框架 [base-refactoring](https://github.com/gmingchen/vue3-element-plus-admin/tree/base-refactoring) 分支的后端代码，基于 __`java`__ 的 __`springboot`__
+是多企业管理后台基础功能 [base](https://github.com/gmingchen/vue3-element-plus-admin/tree/base) 分支的后端代码，基于 __`java`__ 的 __`springboot`__
 
 [vue3-element-plus-im](https://github.com/gmingchen/vue3-element-plus-im)
 
 是一个即时聊天系统，基于 [vue3](https://github.com/vuejs/vue-next) 、 [element-plus](https://github.com/element-plus/element-plus) 实现。内置了好友私聊功能。
 
-[java-im](https://github.com/gmingchen/java-im)
+[java-spring-boot-im](https://github.com/gmingchen/java-spring-boot-im)
 
 是[vue3-element-plus-im](https://github.com/gmingchen/vue3-element-plus-im)即时聊天系统的 __`java`__ 后端代码，__`springboot`__ 基于 [netty](https://github.com/netty/netty) 、 [shiro](https://github.com/apache/shiro) 实现。
 
-[nod-server](https://github.com/gmingchen/node-server)
+[node-server](https://github.com/gmingchen/node-server)
 是一个基于 node 开发的后端服务框架，只要你会 SQL 就也可以写接口了，再也不用看后端的脸色了。
