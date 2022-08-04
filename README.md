@@ -80,13 +80,14 @@
   - [X] 接口文档：后端使用的是 apidoc 生成的接口文档
 - [X] 主题设置：整体页面主题设置，布局设置，暗黑模式
 
-
 ## 分支
-- [master](https://github.com/gmingchen/vue3-element-plus-admin/tree/master) 轻量版本：多企业后台管理，持续维护分支
-- [base-refactoring](https://github.com/gmingchen/vue3-element-plus-admin/tree/base-refactoring) 精简版本：单个企业基于 RBAC 的权限功能-仅包含 `菜单管理`、`角色管理`、`用户管理` 三个模块
+- [master](https://github.com/gmingchen/vue3-element-plus-admin/tree/master) 多企业完整功能版本：多企业后台管理，持续维护分支
+- [dev](https://github.com/gmingchen/vue3-element-plus-admin/tree/master) 多企业完整功能开发分支
+- [base](https://github.com/gmingchen/vue3-element-plus-admin/tree/base) 多企业基础版本：多企业基于 RBAC 的权限功能-仅包含 `菜单管理`、`企业管理`、`企业角色管理`、`企业管理员管理`、`企业菜单管理`、`角色管理`、`管理员管理`
+- [single](https://github.com/1240235512/vue3/tree/single) 单企业完整功能版本：单企业后台管理，已停止维护
+- [single-base](https://github.com/1240235512/vue3/tree/single-base) 单企业基础功能版本：单个企业基于 RBAC 的权限功能-仅包含 `菜单管理`、`角色管理`、`用户管理`，已停止维护
 - [composition-api](https://github.com/1240235512/vue3/tree/composition-api) 内置__`Type Script`__、__`I18n`__，__已停止维护可以参考相关的配置__
 - [class-style](https://github.com/1240235512/vue3/tree/class-style) 使用 class 风格开发，内置__`Type Script`__、__`I18n`__，__已停止维护可以参考相关的配置__
-- [single](https://github.com/1240235512/vue3/tree/single) 该分支为之前单个企业版本的代码
 - __`说明:`__ 其他分支是作者开发时使用的分支, 由于作者不断优化、重构、版本迭代的原因，[composition-api](https://github.com/1240235512/vue3/tree/composition-api) 和 [class-style](https://github.com/1240235512/vue3/tree/class-style) 没有同步迭代更新，所以建议这两个分支作为参考学习。
 
 ## 环境需求
