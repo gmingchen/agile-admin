@@ -18,6 +18,22 @@ export default defineComponent({
     watch(() => response, (newVal, _oldVal) => {
       if (newVal.value) {
         switch (newVal.value.type) {
+          case -5:
+            ElMessage({
+              message: '已在其它地方登录！',
+              type: 'warning'
+            })
+            store.dispatch('websocket/close')
+            store.dispatch('logout')
+            router.push({ name: 'login' })
+            break
+          case -4:
+            ElMessage({
+              message: '已在其它地方连接，将不会收到推送消息！',
+              type: 'warning'
+            })
+            store.dispatch('websocket/close')
+            break
           case -3:
             ElMessage({
               message: '你已被强制退出登录！',
