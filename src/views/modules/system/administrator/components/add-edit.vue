@@ -57,7 +57,7 @@
           </el-form-item>
           <el-form-item label="性别" prop="sex">
             <el-radio-group v-model="form.sex">
-              <el-radio :label="item.value" v-for="item in dictionaryList" :key="item.value">{{item.label}}</el-radio>
+              <el-radio :label="item.value" v-for="item in Sexs" :key="item.value">{{item.label}}</el-radio>
             </el-radio-group>
           </el-form-item>
         </template>
@@ -82,7 +82,7 @@ import { ElMessage } from 'element-plus'
 import Collapse from '@/components/collapse'
 import ImageUploadSingle from '@/components/image-upload-single'
 
-import useDictionary from '@/mixins/dictionary'
+import { Sexs } from '@/utils/dictionary'
 import { isUsername, isPassword, isEmail, isMobile } from '@/utils/regular'
 
 import { selectListApi } from '@/api/role'
@@ -92,11 +92,11 @@ export default defineComponent({
   emits: ['refresh'],
   components: { Collapse, ImageUploadSingle },
   setup(_props, { emit }) {
-    const { dictionaryList, getDictionary } = useDictionary()
     const refForm = ref()
     const data = reactive({
       loading: false,
       visible: false,
+      Sexs,
       form: {
         id: null,
         nickname: '',
@@ -222,10 +222,6 @@ export default defineComponent({
       })
     }
 
-    onBeforeMount(() => {
-      getDictionary('sex')
-    })
-
     /**
      * @description: 弹窗关闭动画结束时的回调
      * @param {*}
@@ -238,7 +234,6 @@ export default defineComponent({
 
     return {
       refForm,
-      dictionaryList,
       ...toRefs(data),
       rules,
       init,

@@ -77,7 +77,7 @@
           label="性别"
           prop="sex">
           <template v-slot="{row}">
-            {{dictionaryMap[row.sex]}}
+            {{Sex[row.sex]}}
           </template>
         </el-table-column>
         <el-table-column
@@ -150,7 +150,7 @@ import EnterpriseSidebar from '@/components/enterprise-sidebar'
 import AddEdit from './components/add-edit'
 
 import usePage from '@/mixins/page'
-import useDictionary from '@/mixins/dictionary'
+import { Sex } from '@/utils/dictionary'
 import { clearJson, parseDate2Str } from '@/utils'
 
 import { globalPageApi, globalDeleteApi, globalSetStatusApi } from '@/api/administrator'
@@ -166,11 +166,11 @@ export default defineComponent({
     const refAddEdit = ref()
 
     const { page } = usePage()
-    const { dictionaryMap, getDictionary } = useDictionary()
     const data = reactive({
       active: '',
       loading: false,
       visible: false,
+      Sex,
       form: {
         name: '',
         date: []
@@ -267,17 +267,12 @@ export default defineComponent({
       reacquireHandle()
     }
 
-    onBeforeMount(() => {
-      getDictionary('sex')
-    })
-
     return {
       refContainerSidebar,
       refForm,
       refTable,
       refAddEdit,
       page,
-      dictionaryMap,
       ...toRefs(data),
       administratorId,
       getList,

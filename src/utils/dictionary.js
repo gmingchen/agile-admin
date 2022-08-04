@@ -36,3 +36,31 @@ export const ThemeMode = {
   DARK: 'dark',
   LIGHT: 'light'
 }
+// 菜单类型
+export const MenuTypes = [
+  { value: 0, label: '目录' },
+  { value: 1, label: '菜单' },
+  { value: 2, label: '按钮' },
+  { value: 3, label: 'iframe' },
+  { value: 4, label: '外链' }
+]
+export const MenuType = (() => {
+  const result = {}
+  MenuTypes.forEach(item => {
+    result[item.value] = item.label
+  })
+  return result
+})()
+// 性别
+export const Sexs = [
+  { value: 0, label: '女' },
+  { value: 1, label: '男' },
+  { value: 2, label: '未知' }
+]
+export const Sex = (() => {
+  const result = {}
+  Sexs.forEach(item => {
+    result[item.value] = item.label
+  })
+  return result
+})()

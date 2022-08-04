@@ -51,11 +51,11 @@
           prop="type"
           width="90">
           <template v-slot="{ row }">
-            <el-tag v-if="row.type === 0">{{dictionaryMap[row.type]}}</el-tag>
-            <el-tag type="success" v-else-if="row.type === 1">{{dictionaryMap[row.type]}}</el-tag>
-            <el-tag type="info" v-else-if="row.type === 2">{{dictionaryMap[row.type]}}</el-tag>
-            <el-tag type="warning" v-else-if="row.type === 3">{{dictionaryMap[row.type]}}</el-tag>
-            <el-tag type="danger" v-else-if="row.type === 4">{{dictionaryMap[row.type]}}</el-tag>
+            <el-tag v-if="row.type === 0">{{MenuType[row.type]}}</el-tag>
+            <el-tag type="success" v-else-if="row.type === 1">{{MenuType[row.type]}}</el-tag>
+            <el-tag type="info" v-else-if="row.type === 2">{{MenuType[row.type]}}</el-tag>
+            <el-tag type="warning" v-else-if="row.type === 3">{{MenuType[row.type]}}</el-tag>
+            <el-tag type="danger" v-else-if="row.type === 4">{{MenuType[row.type]}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column
@@ -103,7 +103,7 @@ import EnterpriseSidebar from '@/components/enterprise-sidebar'
 import Modify from './components/modify'
 import Edit from './components/edit'
 
-import useDictionary from '@/mixins/dictionary'
+import { MenuType } from '@/utils/dictionary'
 import { clearJson, havePermission } from '@/utils'
 
 import { globalListApi, globalDeleteApi } from '@/api/enterprise-menu'
@@ -121,12 +121,12 @@ export default defineComponent({
     const refModify = ref()
     const refEdit = ref()
 
-    const { dictionaryMap, getDictionary } = useDictionary()
     const data = reactive({
       active: '',
       loading: false,
       modifyVisible: false,
       editVisible: false,
+      MenuType,
       form: {
         name: '',
         date: []
@@ -185,10 +185,6 @@ export default defineComponent({
       getList()
     }
 
-    onBeforeMount(() => {
-      getDictionary('menu')
-    })
-
     return {
       refContainerSidebar,
       props,
@@ -196,7 +192,6 @@ export default defineComponent({
       refTable,
       refModify,
       refEdit,
-      dictionaryMap,
       ...toRefs(data),
       getList,
       modifyHandle,

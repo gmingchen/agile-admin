@@ -45,11 +45,11 @@
                 @click.stop="deleteHandle(node, data)">
                 <Iconfont name="delete" size="12px" />
               </el-button>
-              <el-tag v-if="data.type === 0">{{dictionaryMap[data.type]}}</el-tag>
-              <el-tag type="success" v-else-if="data.type === 1">{{dictionaryMap[data.type]}}</el-tag>
-              <el-tag type="info" v-else-if="data.type === 2">{{dictionaryMap[data.type]}}</el-tag>
-              <el-tag type="warning" v-else-if="data.type === 3">{{dictionaryMap[data.type]}}</el-tag>
-              <el-tag type="danger" v-else-if="data.type === 4">{{dictionaryMap[data.type]}}</el-tag>
+              <el-tag v-if="data.type === 0">{{MenuType[data.type]}}</el-tag>
+              <el-tag type="success" v-else-if="data.type === 1">{{MenuType[data.type]}}</el-tag>
+              <el-tag type="info" v-else-if="data.type === 2">{{MenuType[data.type]}}</el-tag>
+              <el-tag type="warning" v-else-if="data.type === 3">{{MenuType[data.type]}}</el-tag>
+              <el-tag type="danger" v-else-if="data.type === 4">{{MenuType[data.type]}}</el-tag>
             </div>
           </div>
         </template>
@@ -64,9 +64,9 @@ import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRe
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 import useModel from '@/mixins/model'
-import useDictionary from '@/mixins/dictionary'
 import { UPDATE_MODEL_EVENT } from '@/utils/constant'
 import { havePermission } from '@/utils'
+import { MenuType } from '@/utils/dictionary'
 import { VIRTUAL_ID_KEY } from '../index.js'
 
 import { selectListApi, deleteApi, dragApi } from '@/api/menu'
@@ -83,9 +83,9 @@ export default defineComponent({
     const value = useModel(props)
 
     const refTree = ref()
-    const { dictionaryMap, getDictionary } = useDictionary()
     const data = reactive({
       loading: false,
+      MenuType,
       form: {
         name: ''
       },
@@ -268,14 +268,12 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
-      getDictionary('menu')
       getList()
     })
 
     return {
       value,
       refTree,
-      dictionaryMap,
       ...toRefs(data),
       treeProps,
       getList,

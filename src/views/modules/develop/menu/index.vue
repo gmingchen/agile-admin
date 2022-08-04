@@ -40,7 +40,7 @@
                 <el-radio-button
                   :label="item.value"
                   :disabled="buttonHandle(item.value)"
-                  v-for="item in dictionaryList"
+                  v-for="item in MenuTypes"
                   :key="item.value">{{item.label}}</el-radio-button>
               </el-radio-group>
             </el-form-item>
@@ -112,8 +112,8 @@ import ContainerSidebar from '@/components/container-sidebar'
 import Sidebar from './components/sidebar'
 import IconSelectInput from '@/components/icon-select-input'
 
-import useDictionary from '@/mixins/dictionary'
 import { havePermission } from '@/utils'
+import { MenuTypes } from '@/utils/dictionary'
 import { VIRTUAL_ID_KEY } from './index.js'
 
 import { infoApi, addApi, editApi } from '@/api/menu'
@@ -123,10 +123,10 @@ export default defineComponent({
   setup() {
     const refContainerSidebar = ref()
     const refForm = ref()
-    const { dictionaryList, getDictionary } = useDictionary()
     const data = reactive({
       active: '',
       loading: false,
+      MenuTypes,
       form: {
         id: null,
         name_cn: '',
@@ -289,14 +289,9 @@ export default defineComponent({
       })
     }
 
-    onBeforeMount(() => {
-      getDictionary('menu')
-    })
-
     return {
       refContainerSidebar,
       refForm,
-      dictionaryList,
       ...toRefs(data),
       rules,
       clearRouterParams,
