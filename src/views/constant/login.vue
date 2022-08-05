@@ -131,17 +131,12 @@ export default defineComponent({
     const notifyHandle = () => {
       const message = `
         <div class="login-notify-content">
-          <div class="tip">演示环境，部分权限暂不开放</div>
-          因系统禁止多点在线 所以会遇到token失效、退出登录的情况属，可以尝试更换帐号登录！
           <div class="margin_t-10">
-            <p>总后台帐号：</p>
-            <b>demo1，demo2，demo3，demo4</b>
+            <p>总后台超管帐号：<b>admin</b></p>
           </div>
-          <div class="margin-10-n">
-            <p>企业超管帐号：</p>
-            <b>admin1，admin2，admin3，admin4</b>
+          <div class="margin_t-10">
+            <p>总后台超管密码：<b>superadmin</b></p>
           </div>
-          <p>所有帐号的密码统一为：<b>superadmin</b></p>
         </div>
       `
       ElNotification({
@@ -184,23 +179,13 @@ export default defineComponent({
   width: 400px;
   .login-notify-content {
     position: relative;
-    .tip {
-      position: absolute;
-      top: -30px;
-      left: 40px;
-      color: var(--el-color-warning);
-    }
     & > div {
       p {
-        // font-weight: 700;
         color: var(--el-color-primary);
       }
       b {
-        text-indent: 2em;
+        color: var(--el-color-danger);
       }
-    }
-    p > b {
-      color: var(--el-color-danger);
     }
   }
 }
