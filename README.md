@@ -4,7 +4,7 @@
   </a>
 </p>
 <p align="center">
-  <a href="http://admin.gumingchen.icu/docs/">文档</a> |
+  <a href="http://admin.gumingchen.icu/doc/">文档</a> |
   <a href="http://admin.gumingchen.icu">预览</a>
 </p>
 <p align="center">
