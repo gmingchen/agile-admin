@@ -17,7 +17,7 @@ export default defineComponent({
   setup() {
     const data = reactive({
       logo: 'http://oss.gumingchen.icu/image/slipper.jpeg',
-      document: 'http://admin.gumingchen.icu/docs/',
+      document: 'http://admin.gumingchen.icu/doc/',
       texts: [
         'Java + Vue 有很多优秀的后台管理系统，但是为了可以高效的开发后台权限管理系统，作者就自己开发出 vue3-element-plus-admin。',
         'vue3-element-plus-admin 是一个基于 Vue3 + Element-plus + Java 的多企业后台权限管理系统，提供了完善的权限体系，让开发者把注意力集中到具体业务当中，降低开发成本，提高项目效率。',
