@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    width="450px"
+    width="600px"
     :title="form.id ? '编辑' : '新增'"
     v-model="visible"
     :close-on-click-modal="false"
@@ -15,51 +15,87 @@
       ref="refForm"
       @keyup.enter="submit()"
       label-position="top">
-      <el-form-item label="昵称" prop="nickname">
-        <el-input
-          v-model="form.nickname"
-          placeholder="昵称"
-          maxlength="20"
-          show-word-limit />
-      </el-form-item>
-      <el-form-item label="用户名" prop="username">
-        <el-input
-          v-model="form.username"
-          placeholder="用户名"
-          maxlength="20"
-          show-word-limit />
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input
-          v-model="form.password"
-          type="password"
-          placeholder="密码"
-          maxlength="20" />
-      </el-form-item>
-      <el-form-item label="确认密码" prop="confirmPassword">
-        <el-input v-model="form.confirmPassword" placeholder="确认密码" show-password />
-      </el-form-item>
-      <el-form-item label="角色" prop="role_ids">
-        <el-checkbox-group v-model="form.role_ids">
-          <el-checkbox v-for="role in roles" :key="role.id" :label="role.id">{{ role.name }}</el-checkbox>
-        </el-checkbox-group>
-      </el-form-item>
-      <Collapse inactive-text="展开（非必填项）">
-        <template #default>
-          <el-form-item label="头像" prop="avatar">
-            <ImageUploadSingle v-model="form.avatar" />
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="昵称" prop="nickname">
+            <el-input
+              v-model="form.nickname"
+              placeholder="昵称"
+              maxlength="20"
+              show-word-limit />
           </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="用户名" prop="username">
+            <el-input
+              v-model="form.username"
+              placeholder="用户名"
+              maxlength="20"
+              show-word-limit />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="密码" prop="password">
+            <el-input
+              v-model="form.password"
+              type="password"
+              placeholder="密码"
+              maxlength="20" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="确认密码" prop="confirmPassword">
+            <el-input v-model="form.confirmPassword" placeholder="确认密码" show-password />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="部门" prop="department_id">
+            <el-cascader
+              class="width-full"
+              ref="refCascader"
+              v-model="form.department_id"
+              :options="departments"
+              :props="cascaderProps"
+              :show-all-levels="false"
+              collapse-tags
+              collapse-tags-tooltip
+              clearable />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
           <el-form-item label="手机号" prop="mobile">
             <el-input v-model="form.mobile" placeholder="手机号" />
           </el-form-item>
-          <el-form-item label="邮箱" prop="email">
-            <el-input v-model="form.email" placeholder="邮箱" />
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="角色" prop="role_ids">
+            <el-checkbox-group v-model="form.role_ids">
+              <el-checkbox v-for="role in roles" :key="role.id" :label="role.id">{{ role.name }}</el-checkbox>
+            </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="性别" prop="sex">
-            <el-radio-group v-model="form.sex">
-              <el-radio :label="item.value" v-for="item in dictionaryList" :key="item.value">{{item.label}}</el-radio>
-            </el-radio-group>
-          </el-form-item>
+        </el-col>
+      </el-row>
+      <Collapse inactive-text="展开（非必填项）">
+        <template #default>
+          <el-row :gutter="20">
+            <el-col :span="24">
+              <el-form-item label="头像" prop="avatar">
+                <ImageUploadSingle v-model="form.avatar" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="性别" prop="sex">
+                <el-radio-group v-model="form.sex">
+                  <el-radio :label="item.value" v-for="item in dictionaryList" :key="item.value">{{item.label}}</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="邮箱" prop="email">
+                <el-input v-model="form.email" placeholder="邮箱" />
+              </el-form-item>
+            </el-col>
+          </el-row>
         </template>
       </Collapse>
     </el-form>
@@ -85,8 +121,9 @@ import ImageUploadSingle from '@/components/image-upload-single'
 import useDictionary from '@/mixins/dictionary'
 import { isUsername, isPassword, isEmail, isMobile } from '@/utils/regular'
 
-import { selectListApi } from '@/api/role'
+import { selectListApi as roleSelectApi } from '@/api/role'
 import { infoApi, addApi, editApi } from '@/api/administrator'
+import { selectListApi as departmentSelectApi } from '@/api/department'
 
 export default defineComponent({
   emits: ['refresh'],
@@ -94,9 +131,11 @@ export default defineComponent({
   setup(_props, { emit }) {
     const { dictionaryList, getDictionary } = useDictionary()
     const refForm = ref()
+    const refCascader = ref()
     const data = reactive({
       loading: false,
       visible: false,
+      departments: [],
       form: {
         id: null,
         nickname: '',
@@ -107,7 +146,8 @@ export default defineComponent({
         mobile: '',
         email: '',
         sex: 2,
-        role_ids: []
+        role_ids: [],
+        department_id: ''
       },
       roles: []
     })
@@ -170,10 +210,27 @@ export default defineComponent({
       }
     })
 
+    const cascaderProps = computed(() => {
+      const reuslt = {
+        checkStrictly: true,
+        value: 'id',
+        label: `name`,
+        children: 'children'
+      }
+      return reuslt
+    })
+
     const getRole = async () => {
-      const r = await selectListApi()
+      const r = await roleSelectApi()
       if (r) {
         data.roles = r.data
+      }
+    }
+
+    const getDepartment = async () => {
+      const r = await departmentSelectApi({ status: 1 })
+      if (r) {
+        data.departments = r.data
       }
     }
 
@@ -183,6 +240,7 @@ export default defineComponent({
       data.form.id = id
 
       await getRole()
+      await getDepartment()
       if (id) {
         const r = await infoApi(id)
         if (r) {
@@ -193,6 +251,7 @@ export default defineComponent({
           data.form.mobile = r.data.mobile
           data.form.email = r.data.email
           data.form.sex = r.data.sex
+          data.form.department_id = r.data.department_id
           data.form.role_ids = r.data.roles.map(item => item.id)
         }
       }
@@ -209,7 +268,15 @@ export default defineComponent({
     const submit = () => {
       refForm.value.validate(async valid => {
         if (valid) {
-          const r = data.form.id ? await editApi(data.form) : await addApi(data.form)
+          const params = { ...data.form }
+          if (params.department_id) {
+            const checkedNodes = refCascader.value.getCheckedNodes()
+            params.department_id = checkedNodes.map(item => item.value).join(';')
+          } else {
+            params.department_id = -1
+          }
+          delete params.confirmPassword
+          const r = data.form.id ? await editApi(params) : await addApi(params)
           if (r) {
             data.visible = false
             ElMessage({
@@ -238,9 +305,11 @@ export default defineComponent({
 
     return {
       refForm,
+      refCascader,
       dictionaryList,
       ...toRefs(data),
       rules,
+      cascaderProps,
       init,
       submit,
       dialogClosedHandle

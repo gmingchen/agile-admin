@@ -51,5 +51,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '//at.alicdn.com/t/font_3225946_00vaoapktln1l.css';
+@import '//at.alicdn.com/t/c/font_3225946_j1j10aooqn.css';
 </style>

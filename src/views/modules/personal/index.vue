@@ -19,6 +19,12 @@
             </el-descriptions-item>
             <el-descriptions-item>
               <template #label>
+                <Iconfont name="department" />
+              </template>
+              {{administrator.department_name || '- '}}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label>
                 <Iconfont name="mobile" />
               </template>
               {{administrator.mobile || '-'}}

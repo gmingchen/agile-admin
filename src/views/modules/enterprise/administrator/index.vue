@@ -9,6 +9,9 @@
           <el-input v-model="form.name" placeholder="用户名/昵称" clearable />
         </el-form-item>
         <el-form-item>
+          <el-input v-model="form.department" placeholder="部门" clearable />
+        </el-form-item>
+        <el-form-item>
           <el-date-picker
             v-model="form.date"
             type="daterange"
@@ -78,6 +81,14 @@
           prop="sex">
           <template v-slot="{row}">
             {{dictionaryMap[row.sex]}}
+          </template>
+        </el-table-column>
+        <el-table-column
+          align="center"
+          label="部门"
+          prop="department_name">
+          <template v-slot="{ row }">
+            {{row.department_name || '-'}}
           </template>
         </el-table-column>
         <el-table-column
@@ -173,6 +184,7 @@ export default defineComponent({
       visible: false,
       form: {
         name: '',
+        department: '',
         date: []
       },
       list: [],
@@ -186,6 +198,7 @@ export default defineComponent({
         const params = {
           id: data.active,
           name: data.form.name,
+          department: data.form.department,
           start: data.form.date && data.form.date.length > 0 ? parseDate2Str(data.form.date[0]) : '',
           end: data.form.date && data.form.date.length > 1 ? parseDate2Str(data.form.date[1]) : '',
           current: page.current,

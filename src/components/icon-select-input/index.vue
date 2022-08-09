@@ -89,7 +89,7 @@ export default defineComponent({
         }
       })
       service({
-        url: '//at.alicdn.com/t/font_3225946_00vaoapktln1l.css',
+        url: '//at.alicdn.com/t/c/font_3225946_j1j10aooqn.css',
         method: 'get'
       }).then(r => {
         if (r.status === 200) {

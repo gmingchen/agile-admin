@@ -18,6 +18,7 @@ export default function () {
       result[item.value] = item.label
     })
     dictionary.dictionaryMap = result
+    return { list: response, map: result }
   }
 
   return {
