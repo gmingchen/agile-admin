@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function selfPageApi(params) {
   return service({
-    url: '/backstage/log/login/self/page',
+    url: '/admin/log/login/self/page',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function selfPageApi(params) {
  */
 export function pageApi(params) {
   return service({
-    url: '/backstage/log/login/page',
+    url: '/admin/log/login/page',
     method: 'get',
     params: params
   })
@@ -44,7 +44,7 @@ export function pageApi(params) {
  */
 export function deleteApi() {
   return service({
-    url: `/backstage/log/login/delete`,
+    url: `/admin/log/login/delete`,
     method: 'post'
   })
 }
@@ -59,7 +59,7 @@ export function deleteApi() {
  */
 export function globalPageApi(params) {
   return service({
-    url: '/backstage/log/login/global/page',
+    url: '/admin/log/login/global/page',
     method: 'get',
     params: params
   })
@@ -73,7 +73,7 @@ export function globalPageApi(params) {
  */
 export function globalDeleteApi(params) {
   return service({
-    url: `/backstage/log/login/global/delete`,
+    url: `/admin/log/login/global/delete`,
     method: 'post',
     data: params
   })
@@ -87,7 +87,7 @@ export function globalDeleteApi(params) {
  */
 export function globalTruncateApi() {
   return service({
-    url: `/backstage/log/login/global/truncate`,
+    url: `/admin/log/login/global/truncate`,
     method: 'post'
   })
 }

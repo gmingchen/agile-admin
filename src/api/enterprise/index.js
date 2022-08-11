@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function selfInfoApi() {
   return service({
-    url: '/backstage/enterprise/self/info',
+    url: '/admin/enterprise/self/info',
     method: 'get'
   })
 }
@@ -29,7 +29,7 @@ export function selfInfoApi() {
  */
 export function pageApi(params) {
   return service({
-    url: '/backstage/enterprise/page',
+    url: '/admin/enterprise/page',
     method: 'get',
     params: params
   })
@@ -43,7 +43,7 @@ export function pageApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/enterprise/info/${ params }`,
+    url: `/admin/enterprise/info/${ params }`,
     method: 'get'
   })
 }
@@ -56,7 +56,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: `/backstage/enterprise/create`,
+    url: `/admin/enterprise/create`,
     method: 'post',
     data: params
   })
@@ -70,7 +70,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: `/backstage/enterprise/update`,
+    url: `/admin/enterprise/update`,
     method: 'post',
     data: params
   })
@@ -84,7 +84,7 @@ export function editApi(params) {
  */
 export function deleteApi(params) {
   return service({
-    url: `/backstage/enterprise/delete`,
+    url: `/admin/enterprise/delete`,
     method: 'post',
     data: params
   })
@@ -98,7 +98,7 @@ export function deleteApi(params) {
  */
 export function setStatusApi(params) {
   return service({
-    url: `/backstage/enterprise/status`,
+    url: `/admin/enterprise/status`,
     method: 'post',
     data: params
   })
@@ -112,7 +112,7 @@ export function setStatusApi(params) {
  */
 export function pageSimplifyApi(params) {
   return service({
-    url: '/backstage/enterprise/global/page',
+    url: '/admin/enterprise/global/page',
     method: 'get',
     params: params
   })

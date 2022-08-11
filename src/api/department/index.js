@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function listApi(params) {
   return service({
-    url: '/backstage/department/list',
+    url: '/admin/department/list',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function listApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/department/info/${ params }`,
+    url: `/admin/department/info/${ params }`,
     method: 'get'
   })
 }
@@ -43,7 +43,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: '/backstage/department/create',
+    url: '/admin/department/create',
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: '/backstage/department/update',
+    url: '/admin/department/update',
     method: 'post',
     data: params
   })
@@ -71,7 +71,7 @@ export function editApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/backstage/department/delete',
+    url: '/admin/department/delete',
     method: 'post',
     data: params
   })
@@ -85,7 +85,7 @@ export function delApi(params) {
  */
 export function statusApi(params) {
   return service({
-    url: '/backstage/department/status',
+    url: '/admin/department/status',
     method: 'post',
     data: params
   })
@@ -99,7 +99,7 @@ export function statusApi(params) {
  */
 export function selectListApi(params) {
   return service({
-    url: '/backstage/department/select/list',
+    url: '/admin/department/select/list',
     method: 'get',
     params: params
   })
@@ -115,7 +115,7 @@ export function selectListApi(params) {
  */
 export function globalSelectListApi(params) {
   return service({
-    url: '/backstage/department/global/select/list',
+    url: '/admin/department/global/select/list',
     method: 'get',
     params: params
   })

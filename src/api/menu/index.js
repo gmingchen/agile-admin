@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function selectListApi() {
   return service({
-    url: '/backstage/menu/select/list',
+    url: '/admin/menu/select/list',
     method: 'get'
   })
 }
@@ -29,7 +29,7 @@ export function selectListApi() {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/menu/info/${ params }`,
+    url: `/admin/menu/info/${ params }`,
     method: 'get'
   })
 }
@@ -42,7 +42,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: `/backstage/menu/create`,
+    url: `/admin/menu/create`,
     method: 'post',
     data: params
   })
@@ -56,7 +56,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: `/backstage/menu/update`,
+    url: `/admin/menu/update`,
     method: 'post',
     data: params
   })
@@ -70,7 +70,7 @@ export function editApi(params) {
  */
 export function deleteApi(params) {
   return service({
-    url: `/backstage/menu/delete`,
+    url: `/admin/menu/delete`,
     method: 'post',
     data: params
   })
@@ -84,7 +84,7 @@ export function deleteApi(params) {
  */
 export function dragApi(params) {
   return service({
-    url: `/backstage/menu/drag`,
+    url: `/admin/menu/drag`,
     method: 'post',
     data: params
   })

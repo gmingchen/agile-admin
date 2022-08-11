@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function visitsApi() {
   return service({
-    url: '/backstage/home/visits',
+    url: '/admin/home/visits',
     method: 'get'
   })
 }

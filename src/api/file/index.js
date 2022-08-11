@@ -17,7 +17,7 @@ import { parseJson2Param, getApiBaseUrl } from '@/utils'
  */
 export function pageApi(params) {
   return service({
-    url: '/backstage/file/page',
+    url: '/admin/file/page',
     method: 'get',
     params: params
   })
@@ -31,7 +31,7 @@ export function pageApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/backstage/file/delete',
+    url: '/admin/file/delete',
     method: 'post',
     data: params
   })
@@ -45,7 +45,7 @@ export function delApi(params) {
  */
 export function updateConfigApi(params) {
   return service({
-    url: '/backstage/file/update/config',
+    url: '/admin/file/update/config',
     method: 'post',
     data: params
   })
@@ -60,7 +60,7 @@ export function updateConfigApi(params) {
 export function uploadApi(params) {
   let result = ''
   const options = {
-    url: '/backstage/file/upload',
+    url: '/admin/file/upload',
     method: 'get',
     params: params
   }

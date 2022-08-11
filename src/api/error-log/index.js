@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function pageApi(params) {
   return service({
-    url: '/backstage/log/error/page',
+    url: '/admin/log/error/page',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function pageApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/log/error/info/${ params }`,
+    url: `/admin/log/error/info/${ params }`,
     method: 'get'
   })
 }
@@ -43,7 +43,7 @@ export function infoApi(params) {
  */
 export function deleteApi() {
   return service({
-    url: `/backstage/log/error/delete`,
+    url: `/admin/log/error/delete`,
     method: 'post'
   })
 }
@@ -56,7 +56,7 @@ export function deleteApi() {
  */
 export function truncateApi() {
   return service({
-    url: `/backstage/log/error/truncate`,
+    url: `/admin/log/error/truncate`,
     method: 'post'
   })
 }

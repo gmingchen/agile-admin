@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function pageApi(params) {
   return service({
-    url: '/backstage/configuration/page',
+    url: '/admin/configuration/page',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function pageApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/configuration/info/${ params }`,
+    url: `/admin/configuration/info/${ params }`,
     method: 'get'
   })
 }
@@ -43,7 +43,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: '/backstage/configuration/create',
+    url: '/admin/configuration/create',
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: '/backstage/configuration/update',
+    url: '/admin/configuration/update',
     method: 'post',
     data: params
   })
@@ -71,7 +71,7 @@ export function editApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/backstage/configuration/delete',
+    url: '/admin/configuration/delete',
     method: 'post',
     data: params
   })
@@ -85,7 +85,7 @@ export function delApi(params) {
  */
 export function statusApi(params) {
   return service({
-    url: '/backstage/configuration/status',
+    url: '/admin/configuration/status',
     method: 'post',
     data: params
   })
@@ -99,7 +99,7 @@ export function statusApi(params) {
  */
 export function listApi(params) {
   return service({
-    url: `/backstage/configuration/list/${ params }`,
+    url: `/admin/configuration/list/${ params }`,
     method: 'get'
   })
 }

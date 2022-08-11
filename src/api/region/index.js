@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function listApi(params) {
   return service({
-    url: `/backstage/region/list/${ params }`,
+    url: `/admin/region/list/${ params }`,
     method: 'get'
   })
 }
@@ -29,7 +29,7 @@ export function listApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/region/info/${ params }`,
+    url: `/admin/region/info/${ params }`,
     method: 'get'
   })
 }
@@ -42,7 +42,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: '/backstage/region/create',
+    url: '/admin/region/create',
     method: 'post',
     data: params
   })
@@ -56,7 +56,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: '/backstage/region/update',
+    url: '/admin/region/update',
     method: 'post',
     data: params
   })
@@ -70,7 +70,7 @@ export function editApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/backstage/region/delete',
+    url: '/admin/region/delete',
     method: 'post',
     data: params
   })
@@ -84,7 +84,7 @@ export function delApi(params) {
  */
 export function selectListApi(params) {
   return service({
-    url: `/backstage/region/select/list/${ params }`,
+    url: `/admin/region/select/list/${ params }`,
     method: 'get'
   })
 }

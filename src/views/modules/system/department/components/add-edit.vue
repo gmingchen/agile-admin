@@ -72,7 +72,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="12" v-if="form.permission === 4">
+        <el-col :span="12" v-show="form.permission === 4">
           <el-form-item label="自定义权限" prop="custom">
             <el-cascader
               class="width-full"
@@ -183,6 +183,7 @@ export default defineComponent({
       data.visible = true
       data.loading = true
       data.form.id = id
+      getDepartment()
       if (id) {
         const r = await infoApi(data.form.id)
         if (r) {
@@ -191,7 +192,7 @@ export default defineComponent({
           data.form.leader = r.data.leader
           data.form.mobile = r.data.mobile
           data.form.permission = r.data.permission
-          data.form.custom = r.data.custom ? +r.data.custom.split(';') : []
+          data.form.custom = r.data.custom ? r.data.custom.split(';').map(item => +item) : []
           data.form.sort = r.data.sort
           data.form.remark = r.data.remark
           data.form.status = r.data.status
@@ -249,7 +250,6 @@ export default defineComponent({
     onBeforeMount(async () => {
       data.statusDictionary = await getDictionary('status')
       data.permissionDictionary = await getDictionary('dataPermission')
-      getDepartment()
     })
 
     return {

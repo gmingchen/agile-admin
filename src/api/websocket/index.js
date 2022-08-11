@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function pageApi(params) {
   return service({
-    url: '/backstage/websocket/page',
+    url: '/admin/websocket/page',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function pageApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: '/backstage/websocket/create',
+    url: '/admin/websocket/create',
     method: 'post',
     data: params
   })
@@ -44,7 +44,7 @@ export function addApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/backstage/websocket/delete',
+    url: '/admin/websocket/delete',
     method: 'post',
     data: params
   })
@@ -60,7 +60,7 @@ export function delApi(params) {
  */
 export function globalAddApi(params) {
   return service({
-    url: '/backstage/websocket/global/create',
+    url: '/admin/websocket/global/create',
     method: 'post',
     data: params
   })
@@ -74,7 +74,7 @@ export function globalAddApi(params) {
  */
 export function onlinePageApi(params) {
   return service({
-    url: '/backstage/websocket/online/page',
+    url: '/admin/websocket/online/page',
     method: 'get',
     params: params
   })
@@ -88,7 +88,7 @@ export function onlinePageApi(params) {
  */
 export function logoutApi(params) {
   return service({
-    url: '/backstage/websocket/logout',
+    url: '/admin/websocket/logout',
     method: 'post',
     data: params
   })

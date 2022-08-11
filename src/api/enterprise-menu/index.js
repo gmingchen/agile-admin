@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function selfInfoApi() {
   return service({
-    url: '/backstage/enterprise/menu/self/info',
+    url: '/admin/enterprise/menu/self/info',
     method: 'get'
   })
 }
@@ -29,7 +29,7 @@ export function selfInfoApi() {
  */
 export function listApi() {
   return service({
-    url: '/backstage/enterprise/menu/list',
+    url: '/admin/enterprise/menu/list',
     method: 'get'
   })
 }
@@ -42,7 +42,7 @@ export function listApi() {
  */
 export function updateApi(params) {
   return service({
-    url: '/backstage/enterprise/menu/update',
+    url: '/admin/enterprise/menu/update',
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function updateApi(params) {
  */
 export function selectListApi() {
   return service({
-    url: '/backstage/enterprise/menu/select/list',
+    url: '/admin/enterprise/menu/select/list',
     method: 'get'
   })
 }
@@ -72,7 +72,7 @@ export function selectListApi() {
  */
 export function globalListApi(params) {
   return service({
-    url: `/backstage/enterprise/menu/global/list/${ params }`,
+    url: `/admin/enterprise/menu/global/list/${ params }`,
     method: 'get'
   })
 }
@@ -85,7 +85,7 @@ export function globalListApi(params) {
  */
 export function globalIdsApi(params) {
   return service({
-    url: `/backstage/enterprise/menu/global/ids/${ params }`,
+    url: `/admin/enterprise/menu/global/ids/${ params }`,
     method: 'get'
   })
 }
@@ -98,7 +98,7 @@ export function globalIdsApi(params) {
  */
 export function globalModifyApi(params) {
   return service({
-    url: '/backstage/enterprise/menu/global/modify',
+    url: '/admin/enterprise/menu/global/modify',
     method: 'post',
     data: params
   })
@@ -112,7 +112,7 @@ export function globalModifyApi(params) {
  */
 export function globalUpdateApi(params) {
   return service({
-    url: '/backstage/enterprise/menu/global/update',
+    url: '/admin/enterprise/menu/global/update',
     method: 'post',
     data: params
   })
@@ -126,7 +126,7 @@ export function globalUpdateApi(params) {
  */
 export function globalDeleteApi(params) {
   return service({
-    url: `/backstage/enterprise/menu/global/delete`,
+    url: `/admin/enterprise/menu/global/delete`,
     method: 'post',
     data: params
   })
@@ -140,7 +140,7 @@ export function globalDeleteApi(params) {
  */
 export function globalSelectListApi(params) {
   return service({
-    url: `/backstage/enterprise/menu/global/select/list/${ params }`,
+    url: `/admin/enterprise/menu/global/select/list/${ params }`,
     method: 'get'
   })
 }

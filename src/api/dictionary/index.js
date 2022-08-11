@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function listApi() {
   return service({
-    url: '/backstage/dictionary/list',
+    url: '/admin/dictionary/list',
     method: 'get'
   })
 }
@@ -29,7 +29,7 @@ export function listApi() {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/dictionary/info/${ params }`,
+    url: `/admin/dictionary/info/${ params }`,
     method: 'get'
   })
 }
@@ -42,7 +42,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: `/backstage/dictionary/create`,
+    url: `/admin/dictionary/create`,
     method: 'post',
     data: params
   })
@@ -56,7 +56,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: `/backstage/dictionary/update`,
+    url: `/admin/dictionary/update`,
     method: 'post',
     data: params
   })
@@ -70,7 +70,7 @@ export function editApi(params) {
  */
 export function deleteApi(params) {
   return service({
-    url: `/backstage/dictionary/delete`,
+    url: `/admin/dictionary/delete`,
     method: 'post',
     data: params
   })
@@ -84,7 +84,7 @@ export function deleteApi(params) {
  */
 export function setStatusApi(params) {
   return service({
-    url: `/backstage/dictionary/status`,
+    url: `/admin/dictionary/status`,
     method: 'post',
     data: params
   })
@@ -100,7 +100,7 @@ export function setStatusApi(params) {
  */
 export function subListApi(params) {
   return service({
-    url: `/backstage/dictionary/sub/list`,
+    url: `/admin/dictionary/sub/list`,
     method: 'get',
     params: params
   })
@@ -114,7 +114,7 @@ export function subListApi(params) {
  */
 export function subInfoApi(params) {
   return service({
-    url: `/backstage/dictionary/sub/info/${ params }`,
+    url: `/admin/dictionary/sub/info/${ params }`,
     method: 'get'
   })
 }
@@ -127,7 +127,7 @@ export function subInfoApi(params) {
  */
 export function subAddApi(params) {
   return service({
-    url: `/backstage/dictionary/sub/create`,
+    url: `/admin/dictionary/sub/create`,
     method: 'post',
     data: params
   })
@@ -141,7 +141,7 @@ export function subAddApi(params) {
  */
 export function subEditApi(params) {
   return service({
-    url: `/backstage/dictionary/sub/update`,
+    url: `/admin/dictionary/sub/update`,
     method: 'post',
     data: params
   })
@@ -155,7 +155,7 @@ export function subEditApi(params) {
  */
 export function subDeleteApi(params) {
   return service({
-    url: `/backstage/dictionary/sub/delete`,
+    url: `/admin/dictionary/sub/delete`,
     method: 'post',
     data: params
   })
@@ -169,7 +169,7 @@ export function subDeleteApi(params) {
  */
 export function subSetStatusApi(params) {
   return service({
-    url: `/backstage/dictionary/sub/status`,
+    url: `/admin/dictionary/sub/status`,
     method: 'post',
     data: params
   })
@@ -183,7 +183,7 @@ export function subSetStatusApi(params) {
  */
 export function subSelectListApi(params) {
   return service({
-    url: `/backstage/dictionary/sub/select/list/${ params }`,
+    url: `/admin/dictionary/sub/select/list/${ params }`,
     method: 'get'
   })
 }

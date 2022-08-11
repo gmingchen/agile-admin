@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function selfInfoApi() {
   return service({
-    url: '/backstage/administrator/self/info',
+    url: '/admin/administrator/self/info',
     method: 'get'
   })
 }
@@ -29,7 +29,7 @@ export function selfInfoApi() {
  */
 export function editBasicApi(params) {
   return service({
-    url: `/backstage/administrator/update/basic`,
+    url: `/admin/administrator/update/basic`,
     method: 'post',
     data: params
   })
@@ -43,7 +43,7 @@ export function editBasicApi(params) {
  */
 export function editPasswordApi(params) {
   return service({
-    url: `/backstage/administrator/update/password`,
+    url: `/admin/administrator/update/password`,
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function editPasswordApi(params) {
  */
 export function pageApi(params) {
   return service({
-    url: '/backstage/administrator/page',
+    url: '/admin/administrator/page',
     method: 'get',
     params: params
   })
@@ -71,7 +71,7 @@ export function pageApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/administrator/info/${ params }`,
+    url: `/admin/administrator/info/${ params }`,
     method: 'get'
   })
 }
@@ -84,7 +84,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: `/backstage/administrator/create`,
+    url: `/admin/administrator/create`,
     method: 'post',
     data: params
   })
@@ -98,7 +98,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: `/backstage/administrator/update`,
+    url: `/admin/administrator/update`,
     method: 'post',
     data: params
   })
@@ -112,7 +112,7 @@ export function editApi(params) {
  */
 export function deleteApi(params) {
   return service({
-    url: `/backstage/administrator/delete`,
+    url: `/admin/administrator/delete`,
     method: 'post',
     data: params
   })
@@ -126,7 +126,7 @@ export function deleteApi(params) {
  */
 export function setStatusApi(params) {
   return service({
-    url: `/backstage/administrator/status`,
+    url: `/admin/administrator/status`,
     method: 'post',
     data: params
   })
@@ -142,7 +142,7 @@ export function setStatusApi(params) {
  */
 export function globalPageApi(params) {
   return service({
-    url: '/backstage/administrator/global/page',
+    url: '/admin/administrator/global/page',
     method: 'get',
     params: params
   })
@@ -156,7 +156,7 @@ export function globalPageApi(params) {
  */
 export function globalInfoApi(params) {
   return service({
-    url: `/backstage/administrator/global/info/${ params }`,
+    url: `/admin/administrator/global/info/${ params }`,
     method: 'get'
   })
 }
@@ -169,7 +169,7 @@ export function globalInfoApi(params) {
  */
 export function globalAddApi(params) {
   return service({
-    url: `/backstage/administrator/global/create`,
+    url: `/admin/administrator/global/create`,
     method: 'post',
     data: params
   })
@@ -183,7 +183,7 @@ export function globalAddApi(params) {
  */
 export function globalEditApi(params) {
   return service({
-    url: `/backstage/administrator/global/update`,
+    url: `/admin/administrator/global/update`,
     method: 'post',
     data: params
   })
@@ -197,7 +197,7 @@ export function globalEditApi(params) {
  */
 export function globalDeleteApi(params) {
   return service({
-    url: `/backstage/administrator/global/delete`,
+    url: `/admin/administrator/global/delete`,
     method: 'post',
     data: params
   })
@@ -211,7 +211,7 @@ export function globalDeleteApi(params) {
  */
 export function globalSetStatusApi(params) {
   return service({
-    url: `/backstage/administrator/global/status`,
+    url: `/admin/administrator/global/status`,
     method: 'post',
     data: params
   })

@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function pageApi(params) {
   return service({
-    url: '/backstage/role/page',
+    url: '/admin/role/page',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function pageApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: `/backstage/role/info/${ params }`,
+    url: `/admin/role/info/${ params }`,
     method: 'get'
   })
 }
@@ -43,7 +43,7 @@ export function infoApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: `/backstage/role/create`,
+    url: `/admin/role/create`,
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function addApi(params) {
  */
 export function editApi(params) {
   return service({
-    url: `/backstage/role/update`,
+    url: `/admin/role/update`,
     method: 'post',
     data: params
   })
@@ -71,7 +71,7 @@ export function editApi(params) {
  */
 export function deleteApi(params) {
   return service({
-    url: `/backstage/role/delete`,
+    url: `/admin/role/delete`,
     method: 'post',
     data: params
   })
@@ -85,7 +85,7 @@ export function deleteApi(params) {
  */
 export function setShowApi(params) {
   return service({
-    url: `/backstage/role/show`,
+    url: `/admin/role/show`,
     method: 'post',
     data: params
   })
@@ -99,7 +99,7 @@ export function setShowApi(params) {
  */
 export function selectListApi() {
   return service({
-    url: `/backstage/role/select/list`,
+    url: `/admin/role/select/list`,
     method: 'get'
   })
 }
@@ -114,7 +114,7 @@ export function selectListApi() {
  */
 export function globalPageApi(params) {
   return service({
-    url: '/backstage/role/global/page',
+    url: '/admin/role/global/page',
     method: 'get',
     params: params
   })
@@ -128,7 +128,7 @@ export function globalPageApi(params) {
  */
 export function globalInfoApi(params) {
   return service({
-    url: `/backstage/role/global/info/${ params }`,
+    url: `/admin/role/global/info/${ params }`,
     method: 'get'
   })
 }
@@ -141,7 +141,7 @@ export function globalInfoApi(params) {
  */
 export function globalAddApi(params) {
   return service({
-    url: `/backstage/role/global/create`,
+    url: `/admin/role/global/create`,
     method: 'post',
     data: params
   })
@@ -155,7 +155,7 @@ export function globalAddApi(params) {
  */
 export function globalEditApi(params) {
   return service({
-    url: `/backstage/role/global/update`,
+    url: `/admin/role/global/update`,
     method: 'post',
     data: params
   })
@@ -169,7 +169,7 @@ export function globalEditApi(params) {
  */
 export function globalDeleteApi(params) {
   return service({
-    url: `/backstage/role/global/delete`,
+    url: `/admin/role/global/delete`,
     method: 'post',
     data: params
   })
@@ -183,7 +183,7 @@ export function globalDeleteApi(params) {
  */
 export function globalSetShowApi(params) {
   return service({
-    url: `/backstage/role/global/show`,
+    url: `/admin/role/global/show`,
     method: 'post',
     data: params
   })
@@ -197,7 +197,7 @@ export function globalSetShowApi(params) {
  */
 export function globalSelectListApi(params) {
   return service({
-    url: `/backstage/role/global/select/list/${ params }`,
+    url: `/admin/role/global/select/list/${ params }`,
     method: 'get'
   })
 }

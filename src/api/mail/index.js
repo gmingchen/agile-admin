@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function pageApi(params) {
   return service({
-    url: '/backstage/mail/page',
+    url: '/admin/mail/page',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function pageApi(params) {
  */
 export function addApi(params) {
   return service({
-    url: '/backstage/mail/create',
+    url: '/admin/mail/create',
     method: 'post',
     data: params
   })
@@ -44,7 +44,7 @@ export function addApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/backstage/mail/delete',
+    url: '/admin/mail/delete',
     method: 'post',
     data: params
   })
@@ -58,7 +58,7 @@ export function delApi(params) {
  */
 export function updateConfigApi(params) {
   return service({
-    url: '/backstage/mail/update/config',
+    url: '/admin/mail/update/config',
     method: 'post',
     data: params
   })

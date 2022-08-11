@@ -19,7 +19,7 @@ import { getApiBaseUrl } from '@/utils'
 export function captchaApi(params) {
   let result = ''
   const options = {
-    url: '/backstage/captcha.jpg',
+    url: '/admin/captcha.jpg',
     method: 'get',
     params: params
   }
@@ -35,7 +35,7 @@ export function captchaApi(params) {
  */
 export function loginApi(params) {
   return service({
-    url: '/backstage/login',
+    url: '/admin/login',
     method: 'post',
     data: params
   })
@@ -49,7 +49,7 @@ export function loginApi(params) {
  */
 export function logoutApi() {
   return service({
-    url: '/backstage/logout',
+    url: '/admin/logout',
     method: 'post'
   })
 }

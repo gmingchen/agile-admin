@@ -16,7 +16,7 @@ import service from '@/utils/request'
  */
 export function pageApi(params) {
   return service({
-    url: '/backstage/backup/page',
+    url: '/admin/backup/page',
     method: 'get',
     params: params
   })
@@ -30,7 +30,7 @@ export function pageApi(params) {
  */
 export function backupApi() {
   return service({
-    url: '/backstage/backup/backup',
+    url: '/admin/backup/backup',
     method: 'post'
   })
 }
@@ -43,7 +43,7 @@ export function backupApi() {
  */
 export function recoveryApi(params) {
   return service({
-    url: '/backstage/backup/recovery',
+    url: '/admin/backup/recovery',
     method: 'post',
     data: params
   })
@@ -57,7 +57,7 @@ export function recoveryApi(params) {
  */
 export function delApi(params) {
   return service({
-    url: '/backstage/backup/delete',
+    url: '/admin/backup/delete',
     method: 'post',
     data: params
   })
@@ -71,7 +71,7 @@ export function delApi(params) {
  */
 export function updateConfigApi(params) {
   return service({
-    url: '/backstage/backup/update/config',
+    url: '/admin/backup/update/config',
     method: 'post',
     data: params
   })

@@ -36,6 +36,17 @@
           prop="name" />
         <el-table-column
           align="center"
+          label="数据权限"
+          prop="permission"
+          width="190">
+          <template v-slot="{ row }">
+            <el-tag type="success">
+              {{ dictionaryMap[row.permission] }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column
+          align="center"
           label="备注"
           prop="remark" />
         <el-table-column
@@ -96,6 +107,7 @@ import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 
 import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit'
 
+import useDictionary from '@/mixins/dictionary'
 import usePage from '@/mixins/page'
 import { clearJson, havePermission } from '@/utils'
 
@@ -107,6 +119,7 @@ export default defineComponent({
     const refForm = ref()
     const refTable = ref()
     const refAddEdit = ref()
+    const { dictionaryMap, getDictionary } = useDictionary()
     const { page } = usePage()
     const data = reactive({
       loading: false,
@@ -195,6 +208,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
+      getDictionary('dataPermission')
       getList()
     })
 
@@ -203,6 +217,7 @@ export default defineComponent({
       refTable,
       refAddEdit,
       page,
+      dictionaryMap,
       ...toRefs(data),
       getList,
       reacquireHandle,

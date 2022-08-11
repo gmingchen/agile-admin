@@ -76,7 +76,7 @@
           align="center"
           label="数据权限"
           prop="permission"
-          show-overflow-tooltip>
+          width="190">
           <template v-slot="{ row }">
             <el-tag type="success">
               {{ permissionDictionary.map[row.permission] }}
@@ -86,7 +86,8 @@
         <el-table-column
           align="center"
           label="排序"
-          prop="sort" />
+          prop="sort"
+          width="80" />
         <el-table-column
           align="center"
           label="状态"

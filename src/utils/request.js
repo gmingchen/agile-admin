@@ -49,9 +49,9 @@ const codeHandle = (code, message) => {
       })
       break
     case 500:
-      router.replace({
-        name: '500'
-      })
+      // router.replace({
+      //   name: '500'
+      // })
       break
     default:
       prompt(message)
