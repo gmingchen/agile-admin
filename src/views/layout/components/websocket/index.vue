@@ -66,11 +66,11 @@ export default defineComponent({
     }, { deep: true })
 
     onBeforeMount(() => {
-      // store.dispatch('websocket/init')
+      store.dispatch('websocket/init')
     })
 
     onUnmounted(() => {
-      // store.dispatch('websocket/close')
+      store.dispatch('websocket/close')
     })
 
     return {}
