@@ -65,7 +65,6 @@ export default defineComponent({
 
     const resizeHandle = () => {
       if (data.echart) {
-        console.log(111)
         data.echart.resize()
       }
     }

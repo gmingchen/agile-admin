@@ -75,7 +75,7 @@
               v-permission="'websocket:logout'"
               type="danger"
               link
-              @click="logoutHandle(row.id)">强制退出</el-button>
+              @click="logoutHandle(row)">强制退出</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -135,13 +135,13 @@ export default defineComponent({
       getList()
     }
 
-    const logoutHandle = (id) => {
+    const logoutHandle = (row) => {
       ElMessageBox.confirm(`确定进行[强制退出]操作?`, '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        logoutApi({ key: id }).then(r => {
+        logoutApi({ id: row.id, token: row.token }).then(r => {
           if (r) {
             ElMessage({
               message: '操作成功!',
