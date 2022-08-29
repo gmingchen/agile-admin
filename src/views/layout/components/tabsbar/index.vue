@@ -90,6 +90,7 @@ export default defineComponent({
   background-color: var(--gl-tabsbar-background-color);
   box-shadow: var(--el-box-shadow-light);
   ::v-deep(.el-tabs) {
+    width: 100%;
     .el-tabs__header {
       margin: 0;
       border: none;
