@@ -57,12 +57,10 @@ export default defineConfig(({ mode }) => {
       open: false,
       // 代理。
       proxy: env.VITE_APP_PROXY === 'false' ? null : {
-        '/proxy': {
-          target: 'http://localhost:8888',
+        '^/proxy': {
+          target: 'http://api.admin.gumingchen.icu',
           changeOrigin: true,
-          pathRewrite: {
-            '^/proxy': '/'
-          }
+          rewrite: (path) => path.replace(/^\/proxy/, '/')
         }
       },
       // 为开发服务器配置 CORS。
