@@ -42,6 +42,18 @@
             :on-success="successHandle">
             <el-button type="primary">上传文件</el-button>
           </el-upload>
+          <el-upload
+            class="flex-box margin_l-12"
+            :action="action"
+            :headers="{
+              [tokenKey]: token
+            }"
+            :show-file-list="false"
+            :auto-upload="false"
+            :on-change="changeHandle"
+            :on-success="successHandle">
+            <el-button type="primary">分片上传</el-button>
+          </el-upload>
           <el-button-group class="margin-n-12" v-if="havePermission('file:delete')">
             <el-button @click="selectionHandle(1)">全选</el-button>
             <el-button @click="selectionHandle(2)">反选</el-button>
@@ -128,6 +140,8 @@ import { TOKEN_KEY, SUCCESS_CODE } from '@/utils/constant'
 import { clearJson, parseDate2Str, havePermission } from '@/utils'
 
 import { pageApi, delApi, uploadApi } from '@/api/file'
+
+import SparkMD5 from 'spark-md5'
 
 export default defineComponent({
   components: { Set },
@@ -252,6 +266,18 @@ export default defineComponent({
       }
     }
 
+    const changeHandle = (file) => {
+      console.log(file)
+      const spark = new SparkMD5.ArrayBuffer()
+      const fileReader = new FileReader()
+      fileReader.readAsArrayBuffer(file)
+      fileReader.onload = (e) => {
+        spark.append(e.target.result)
+        const md5 = spark.end()
+        console.log(md5)
+      }
+    }
+
     /**
      * @description: table多选事件
      * @param {*} val
@@ -302,6 +328,7 @@ export default defineComponent({
       setHandle,
       deleteHandle,
       successHandle,
+      changeHandle,
       selectionHandle,
       pageChangeHandle,
       clearJson,
