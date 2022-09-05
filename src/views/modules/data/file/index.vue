@@ -49,10 +49,16 @@
               [tokenKey]: token
             }"
             :show-file-list="false"
-            :auto-upload="false"
-            :on-change="changeHandle"
+            :auto-upload="true"
+            :before-upload="beforeHandle"
+            :http-request="uploadHandle"
             :on-success="successHandle">
-            <el-button type="primary">分片上传</el-button>
+            <el-tooltip
+              effect="dark"
+              content="默认大于5M的文件才会触发"
+              placement="top">
+              <el-button type="primary">分片上传</el-button>
+            </el-tooltip>
           </el-upload>
           <el-button-group class="margin-n-12" v-if="havePermission('file:delete')">
             <el-button @click="selectionHandle(1)">全选</el-button>
@@ -139,9 +145,9 @@ import useDictionary from '@/mixins/dictionary'
 import { TOKEN_KEY, SUCCESS_CODE } from '@/utils/constant'
 import { clearJson, parseDate2Str, havePermission } from '@/utils'
 
-import { pageApi, delApi, uploadApi } from '@/api/file'
+import { pageApi, delApi, uploadUrlApi } from '@/api/file'
 
-import SparkMD5 from 'spark-md5'
+import Uploader from '@/utils/uploader'
 
 export default defineComponent({
   components: { Set },
@@ -166,7 +172,7 @@ export default defineComponent({
       list: [],
       urls: [],
       selection: [],
-      action: uploadApi(),
+      action: uploadUrlApi(),
       tokenKey: TOKEN_KEY,
       token: store.getters['administrator/tokenVal']
     })
@@ -266,16 +272,32 @@ export default defineComponent({
       }
     }
 
-    const changeHandle = (file) => {
-      console.log(file)
-      const spark = new SparkMD5.ArrayBuffer()
-      const fileReader = new FileReader()
-      fileReader.readAsArrayBuffer(file)
-      fileReader.onload = (e) => {
-        spark.append(e.target.result)
-        const md5 = spark.end()
-        console.log(md5)
-      }
+    /**
+     * @description: 上传之前回调
+     * @param {number} id
+     * @return {*}
+     * @author: gumingchen
+     */
+    const beforeHandle = (r) => {
+      return true
+    }
+
+    /**
+     * @description: 分片上传
+     * @param {number} id
+     * @return {*}
+     * @author: gumingchen
+     */
+    const uploadHandle = (request) => {
+      const uploader = new Uploader(request.file)
+      uploader.start(null, null, (r) => {
+        getList()
+      }, (message) => {
+        ElMessage({
+          message: message,
+          type: 'warning'
+        })
+      })
     }
 
     /**
@@ -328,7 +350,8 @@ export default defineComponent({
       setHandle,
       deleteHandle,
       successHandle,
-      changeHandle,
+      beforeHandle,
+      uploadHandle,
       selectionHandle,
       pageChangeHandle,
       clearJson,

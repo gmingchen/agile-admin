@@ -24,7 +24,7 @@ import { ElMessage } from 'element-plus'
 import useModel from '@/mixins/model'
 import { TOKEN_KEY, SUCCESS_CODE } from '@/utils/constant'
 
-import { uploadApi } from '@/api/file'
+import { uploadUrlApi } from '@/api/file'
 
 export default defineComponent({
   props: {
@@ -49,7 +49,7 @@ export default defineComponent({
     const value = useModel(props)
 
     const data = reactive({
-      action: uploadApi(),
+      action: uploadUrlApi(),
       tokenKey: TOKEN_KEY,
       token: store.getters['administrator/tokenVal']
     })

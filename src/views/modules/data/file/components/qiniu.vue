@@ -20,6 +20,9 @@
     <el-form-item label="空间名称" prop="bucket">
       <el-input v-model="form.bucket" placeholder="空间名称" />
     </el-form-item>
+    <el-form-item label="临时文件目录" prop="temp">
+      <el-input v-model="form.temp" placeholder="临时文件目录" />
+    </el-form-item>
   </el-form>
 </template>
 
@@ -42,7 +45,8 @@ export default defineComponent({
         domain: '',
         prefix: '',
         access: '',
-        bucket: ''
+        bucket: '',
+        temp: ''
       }
     })
 
