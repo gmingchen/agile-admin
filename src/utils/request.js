@@ -43,16 +43,16 @@ const codeHandle = (code, message) => {
         name: '401'
       })
       break
-    // case 404:
-    //   router.replace({
-    //     name: '404'
-    //   })
-    //   break
-    // case 500:
-    //   router.replace({
-    //     name: '500'
-    //   })
-    //   break
+    case 404:
+      router.replace({
+        name: '404'
+      })
+      break
+    case 500:
+      router.replace({
+        name: '500'
+      })
+      break
     default:
       prompt(message)
       break
@@ -176,9 +176,9 @@ service.interceptors.response.use(
       }
     } else {
       console.log('连接到服务器失败')
-      // router.replace({
-      //   name: '500'
-      // })
+      router.replace({
+        name: '500'
+      })
     }
     return Promise.reject(error)
   }
