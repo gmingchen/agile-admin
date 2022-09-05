@@ -14,6 +14,9 @@
     <el-form-item label="存储目录" prop="path">
       <el-input v-model="form.path" placeholder="存储目录" />
     </el-form-item>
+    <el-form-item label="临时文件目录" prop="temp">
+      <el-input v-model="form.temp" placeholder="临时文件目录" />
+    </el-form-item>
   </el-form>
 </template>
 
@@ -31,7 +34,8 @@ const types = ref([])
 const form = ref({
   domain: '',
   prefix: '',
-  path: ''
+  path: '',
+  temp: ''
 })
 const rules = reactive(function() {
   return {

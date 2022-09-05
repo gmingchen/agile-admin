@@ -1,4 +1,4 @@
-import { uploadApi } from '@/api/file'
+import { uploadUrlApi } from '@/api/file'
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html'
 
 // const QuillDeltaToHtmlConverter = require('quill-delta-to-html').QuillDeltaToHtmlConverter
@@ -47,7 +47,7 @@ export const handlers = {
       fileInput.addEventListener('change', function () {
         const formData = new FormData()
         formData.append('file', fileInput.files[0])
-        uploadApi(formData).then(r => {
+        uploadUrlApi(formData).then(r => {
           if (r) {
             const length = self.quill.getSelection(true).index
             self.quill.insertEmbed(length, 'image', r.data.url)

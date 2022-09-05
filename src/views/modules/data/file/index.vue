@@ -42,6 +42,24 @@
             :on-success="successHandle">
             <el-button type="primary">上传文件</el-button>
           </el-upload>
+          <el-upload
+            class="flex-box margin_l-12"
+            :action="action"
+            :headers="{
+              [tokenKey]: tokenVal
+            }"
+            :show-file-list="false"
+            :auto-upload="true"
+            :before-upload="beforeHandle"
+            :http-request="uploadHandle"
+            :on-success="successHandle">
+            <el-tooltip
+              effect="dark"
+              content="默认大于5M的文件才会触发"
+              placement="top">
+              <el-button type="primary">分片上传</el-button>
+            </el-tooltip>
+          </el-upload>
           <el-button-group class="margin-n-12" v-if="havePermission('file:delete')">
             <el-button @click="selectionHandle(1)">全选</el-button>
             <el-button @click="selectionHandle(2)">反选</el-button>
@@ -129,7 +147,9 @@ import useDictionary from '@/mixins/dictionary'
 import { TOKEN_KEY, SUCCESS_CODE } from '@/utils/constant'
 import { clearJson, parseDate2Str, havePermission } from '@/utils'
 
-import { pageApi, delApi, uploadApi } from '@/api/file'
+import { pageApi, delApi, uploadUrlApi } from '@/api/file'
+
+import Uploader from '@/utils/uploader'
 
 const administratorStore = useAdministratorStore()
 
@@ -152,7 +172,7 @@ const form = reactive({
 const list = ref([])
 const urls = ref([])
 const selection = ref([])
-const action = ref(uploadApi())
+const action = ref(uploadUrlApi())
 const tokenKey = ref(TOKEN_KEY)
 
 /**
@@ -248,6 +268,34 @@ const successHandle = (r) => {
       type: 'warning'
     })
   }
+}
+
+/**
+   * @description: 上传之前回调
+   * @param {number} id
+   * @return {*}
+   * @author: gumingchen
+   */
+const beforeHandle = (r) => {
+  return true
+}
+
+/**
+   * @description: 分片上传
+   * @param {number} id
+   * @return {*}
+   * @author: gumingchen
+   */
+const uploadHandle = (request) => {
+  const uploader = new Uploader(request.file)
+  uploader.start(null, null, (r) => {
+    getList()
+  }, (message) => {
+    ElMessage({
+      message: message,
+      type: 'warning'
+    })
+  })
 }
 
 /**

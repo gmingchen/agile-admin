@@ -8,6 +8,7 @@
  */
 import service from '@/utils/request'
 import { parseJson2Param, getApiBaseUrl } from '@/utils'
+import { ContentType } from '@/utils/dictionary'
 
 /**
  * @description: 分页列表
@@ -57,13 +58,83 @@ export function updateConfigApi(params) {
  * @return {*}
  * @author: gumingchen
  */
-export function uploadApi(params) {
+export function uploadUrlApi(params) {
   let result = ''
   const options = {
     url: '/admin/file/upload',
-    method: 'get',
+    method: 'post',
     params: params
   }
   result = `${ getApiBaseUrl(import.meta.env) + options.url }${ options.params ? parseJson2Param(options.params) : '' }`
   return result
+}
+
+/**
+ * @description: 文件上传
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function uploadApi(params) {
+  const formData = new FormData()
+  for (const key in params) {
+    formData.append(key, params[key])
+  }
+  return service({
+    url: '/admin/file/upload',
+    method: 'post',
+    data: formData,
+    headers: {
+      'Content-Type': ContentType.UPLOAD
+    }
+  })
+}
+
+/**
+ * @description: 分片上传
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function uploadSliceApi(params) {
+  const formData = new FormData()
+  for (const key in params) {
+    formData.append(key, params[key])
+  }
+  return service({
+    url: '/admin/file/slice/upload',
+    method: 'post',
+    data: formData,
+    headers: {
+      'Content-Type': ContentType.UPLOAD
+    }
+  })
+}
+
+/**
+ * @description: 分片合并
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function mergeSliceApi(params) {
+  return service({
+    url: '/admin/file/slice/merge',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * @description: 分片删除
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function deleteSliceApi(params) {
+  return service({
+    url: '/admin/file/slice/delete',
+    method: 'post',
+    data: params
+  })
 }

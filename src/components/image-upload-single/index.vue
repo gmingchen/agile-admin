@@ -24,7 +24,7 @@ import { ElMessage } from 'element-plus'
 import useModel from '@/mixins/model'
 import { TOKEN_KEY, SUCCESS_CODE } from '@/utils/constant'
 
-import { uploadApi } from '@/api/file'
+import { uploadUrlApi } from '@/api/file'
 
 const props = defineProps({
   modelValue: {
@@ -47,7 +47,7 @@ const administratorStore = useAdministratorStore()
 
 const value = useModel(props)
 
-const action = ref(uploadApi())
+const action = ref(uploadUrlApi())
 const tokenKey = ref(TOKEN_KEY)
 const token = ref(administratorStore.tokenVal)
 
