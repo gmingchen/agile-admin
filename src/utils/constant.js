@@ -5,7 +5,7 @@ export const MAPPING = RequestMapping.SLIPPER
 // 请求数据类型
 export const CONTENT_TYPE = ContentType.JSON
 // 请求超时时长
-export const TIME_OUT = 10000
+export const TIME_OUT = 60000 * 2
 // 访问秘钥 存储
 export const TOKEN_KEY = TokenKey.TOKEN
 // 秘钥本地存储类型
