@@ -76,7 +76,7 @@
 <script setup>
 import { nextTick, onBeforeMount, ref } from 'vue'
 
-import Edit from './components/edit'
+import Edit from './components/edit.vue'
 
 import useDictionary from '@/mixins/dictionary'
 
