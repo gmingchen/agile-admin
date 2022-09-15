@@ -115,8 +115,8 @@
 import { computed, nextTick, onBeforeMount, reactive, ref } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import Collapse from '@/components/collapse'
-import ImageUploadSingle from '@/components/image-upload-single'
+import Collapse from '@/components/collapse/index.vue'
+import ImageUploadSingle from '@/components/image-upload-single/index.vue'
 
 import useDictionary from '@/mixins/dictionary'
 import { isUsername, isPassword, isEmail, isMobile } from '@/utils/regular'

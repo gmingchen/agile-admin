@@ -7,6 +7,7 @@
  * @LastEditTime: 2021-05-20 15:47:56
  */
 import service from '@/utils/request'
+import { download } from '@/utils'
 
 /**
  * @description: 获取当前管理员
@@ -130,6 +131,25 @@ export function setStatusApi(params) {
     method: 'post',
     data: params
   })
+}
+
+/**
+ * @description: 导出
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export async function exportApi(params) {
+  const r = await service({
+    url: '/admin/administrator/export',
+    method: 'get',
+    responseType: 'blob',
+    data: params
+  })
+  if (r) {
+    const { blob, name } = r
+    download(blob, name)
+  }
 }
 
 // todo:------------------------------------------------------------------------------------

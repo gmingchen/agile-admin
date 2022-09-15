@@ -21,6 +21,7 @@
           <el-button v-repeat @click="reacquireHandle()">搜索</el-button>
           <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
           <el-button v-permission="'administrator:create'" type="primary" @click="addEditHandle()">新增</el-button>
+          <el-button v-permission="'administrator:export'" type="primary" @click="exportHandle()">导出</el-button>
           <el-button
             v-permission="'administrator:delete'"
             type="danger"
@@ -157,7 +158,7 @@ import usePage from '@/mixins/page'
 import useDictionary from '@/mixins/dictionary'
 import { clearJson, parseDate2Str } from '@/utils'
 
-import { pageApi, deleteApi, setStatusApi } from '@/api/administrator'
+import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/administrator'
 
 const administratorStore = useAdministratorStore()
 const { administrator } = storeToRefs(administratorStore)
@@ -245,6 +246,16 @@ const statusHandle = (row) => {
       row.status = row.status === 1 ? 0 : 1
     }
   })
+}
+
+const exportHandle = () => {
+  const params = {
+    name: form.name,
+    department: form.department,
+    start: form.date && form.date.length > 0 ? parseDate2Str(form.date[0]) : '',
+    end: form.date && form.date.length > 1 ? parseDate2Str(form.date[1]) : ''
+  }
+  exportApi(params)
 }
 
 const selectionHandle = (val) => {

@@ -303,3 +303,22 @@ export function darken(color, level) {
   return result
 }
 
+/**
+ * @description: 文件下载
+ * @param {*} blob
+ * @param {*} name 文件名称
+ * @return {*}
+ * @author: gumingchen
+ */
+export function download(blob, name) {
+  if (blob) {
+    const href = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = href
+    a.download = name
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    window.URL.revokeObjectURL(href)
+  }
+}

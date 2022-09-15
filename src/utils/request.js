@@ -114,7 +114,15 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     if (response.headers['content-type'] === ContentType.STREAM) {
-      return response.data || null
+      console.log(response)
+      if (!response.data.code) {
+        return {
+          blob: response.data,
+          name: decodeURI(response.headers['content-disposition'].replace('attachment;filename=', ''))
+        }
+      } else {
+        return response.data || null
+      }
     }
     const { code, message } = response.data
     if (!SUCCESS_CODE.includes(code)) {
