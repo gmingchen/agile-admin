@@ -131,21 +131,11 @@ export default defineComponent({
       data.selection = val
     }
 
-    const generateHandle = async (name) => {
+    const generateHandle = (name) => {
       const names = name ? [name] : data.selection.map(item => {
         return item.name
       })
-      const blob = await generatorApi(names)
-      if (blob) {
-        const href = URL.createObjectURL(blob)
-        const a = document.createElement('a')
-        a.href = href
-        a.download = 'code.zip'
-        document.body.appendChild(a)
-        a.click()
-        document.body.removeChild(a)
-        window.URL.revokeObjectURL(href)
-      }
+      generatorApi(names)
     }
 
     const pageChangeHandle = (argPage) => {

@@ -29,6 +29,7 @@
           <el-button v-repeat @click="reacquireHandle()">搜索</el-button>
           <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
           <el-button v-permission="'administrator:create'" type="primary" @click="addEditHandle()">新增</el-button>
+          <el-button v-permission="'administrator:export'" type="primary" @click="exportHandle()">导出</el-button>
           <el-button
             v-permission="'administrator:delete'"
             type="danger"
@@ -163,7 +164,7 @@ import usePage from '@/mixins/page'
 import useDictionary from '@/mixins/dictionary'
 import { clearJson, parseDate2Str } from '@/utils'
 
-import { pageApi, deleteApi, setStatusApi } from '@/api/administrator'
+import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/administrator'
 
 export default defineComponent({
   components: { AddEdit },
@@ -259,6 +260,16 @@ export default defineComponent({
       })
     }
 
+    const exportHandle = () => {
+      const params = {
+        name: data.form.name,
+        department: data.form.department,
+        start: data.form.date && data.form.date.length > 0 ? parseDate2Str(data.form.date[0]) : '',
+        end: data.form.date && data.form.date.length > 1 ? parseDate2Str(data.form.date[1]) : ''
+      }
+      exportApi(params)
+    }
+
     const selectionHandle = (val) => {
       data.selection = val
     }
@@ -288,6 +299,7 @@ export default defineComponent({
       addEditHandle,
       deleteHandle,
       statusHandle,
+      exportHandle,
       selectionHandle,
       clearJson
     }

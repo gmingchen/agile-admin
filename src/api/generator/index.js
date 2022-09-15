@@ -7,6 +7,7 @@
  * @LastEditTime: 2021-05-20 15:47:56
  */
 import service from '@/utils/request'
+import { download } from '@/utils'
 
 /**
  * @description: 表格分页列表
@@ -28,11 +29,15 @@ export function pageApi(params) {
  * @return {*}
  * @author: gumingchen
  */
-export function generatorApi(params) {
-  return service({
+export async function generatorApi(params) {
+  const r = await service({
     url: '/generator/create',
     method: 'post',
     responseType: 'blob',
     data: params
   })
+  if (r) {
+    const { blob, name } = r
+    download(blob, name)
+  }
 }
