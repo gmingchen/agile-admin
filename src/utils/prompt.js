@@ -21,8 +21,22 @@ export default class Prompt {
   }
   [prompt] (options, single) {
     if (single) {
-      if (document.getElementsByClassName('el-message').length === 0 || document.getElementsByClassName('el-message')[0].style.display === 'none') {
+      if (document.getElementsByClassName('el-message').length === 0) {
         ElMessage(options)
+        return
+      }
+      const elements = document.getElementsByClassName('el-message')
+      if (elements.length) {
+        let flag = false
+        for (let index = 0; index < elements.length; index++) {
+          const element = elements[index]
+          if (element.style.display !== 'none') {
+            flag = true
+          }
+        }
+        if (flag) {
+          ElMessage(options)
+        }
       }
     } else {
       ElMessage(options)
