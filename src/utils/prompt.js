@@ -24,13 +24,13 @@ export default class Prompt {
       if (document.getElementsByClassName('el-message').length === 0) {
         ElMessage(options)
         return
-      } 
+      }
       const elements = document.getElementsByClassName('el-message')
       if (elements.length) {
         let flag = false
         for (let index = 0; index < elements.length; index++) {
-          const element = elements[index];
-          if (element.style.display !== 'none') {
+          const element = elements[index]
+          if (element.style.display !== 'none' && element.style.display !== '') {
             flag = true
           }
         }
