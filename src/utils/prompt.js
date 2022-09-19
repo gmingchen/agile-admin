@@ -30,7 +30,7 @@ export default class Prompt {
         let flag = false
         for (let index = 0; index < elements.length; index++) {
           const element = elements[index]
-          if (element.style.display !== 'none') {
+          if (element.style.display !== 'none' && element.style.display !== '') {
             flag = true
           }
         }
