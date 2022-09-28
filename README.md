@@ -4,8 +4,8 @@
   </a>
 </p>
 <p align="center">
-  <a href="http://frame.gumingchen.icu/docs/">文档</a> |
-  <a href="http://frame.gumingchen.icu/docs/">预览</a>
+  <a href="http://admin.gumingchen.icu/doc/">文档</a> |
+  <a href="http://admin.gumingchen.icu">预览</a>
 </p>
 <p align="center">
   <a href="https://github.com/vuejs/vue-next">
@@ -195,7 +195,7 @@ npm run build:test  # 测试环境
 ```
 
 ## 在线预览
-<a href="https://github.com/gmingchen/vue3-element-plus-admin">
+<a href="http://admin.gumingchen.icu">
   <img src="https://img.shields.io/badge/点这里-brightgreen.svg" />
 </a>
 ```
