@@ -50,7 +50,7 @@
 import { reactive, ref } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import IconSelectInput from '@/components/icon-select-input'
+import IconSelectInput from '@/components/icon-select-input/index.vue'
 
 import { updateApi } from '@/api/enterprise-menu'
 
