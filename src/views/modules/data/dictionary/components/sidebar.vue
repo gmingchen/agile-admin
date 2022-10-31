@@ -56,7 +56,7 @@
 import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
-import AddEdit from './add-edit'
+import AddEdit from './add-edit.vue'
 
 import useModel from '@/mixins/model'
 import { UPDATE_MODEL_EVENT } from '@/utils/constant'

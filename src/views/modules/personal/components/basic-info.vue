@@ -41,7 +41,7 @@ import { computed, defineComponent, onBeforeMount, reactive, ref, toRefs } from 
 import { useStore } from 'vuex'
 
 import { ElMessage } from 'element-plus'
-import ImageUploadSingle from '@/components/image-upload-single'
+import ImageUploadSingle from '@/components/image-upload-single/index.vue'
 
 import { isEmail, isMobile } from '@/utils/regular'
 import { havePermission } from '@/utils'

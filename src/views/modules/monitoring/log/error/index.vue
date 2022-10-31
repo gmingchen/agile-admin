@@ -111,7 +111,7 @@
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
-import Details from './components/details'
+import Details from './components/details.vue'
 
 import usePage from '@/mixins/page'
 import { clearJson, parseDate2Str } from '@/utils'

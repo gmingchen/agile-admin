@@ -78,7 +78,7 @@
 import { defineComponent, nextTick, reactive, ref, toRefs, onBeforeMount } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import Quill from '@/components/editor/quill'
+import Quill from '@/components/editor/quill/index.vue'
 
 import { isEmail } from '@/utils/regular'
 

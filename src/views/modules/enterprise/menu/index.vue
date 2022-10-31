@@ -98,10 +98,10 @@
 import { defineComponent, reactive, ref, toRefs, nextTick, onBeforeMount } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
-import ContainerSidebar from '@/components/container-sidebar'
-import EnterpriseSidebar from '@/components/enterprise-sidebar'
-import Modify from './components/modify'
-import Edit from './components/edit'
+import ContainerSidebar from '@/components/container-sidebar/index.vue'
+import EnterpriseSidebar from '@/components/enterprise-sidebar/index.vue'
+import Modify from './components/modify.vue'
+import Edit from './components/edit.vue'
 
 import useDictionary from '@/mixins/dictionary'
 import { clearJson, havePermission } from '@/utils'

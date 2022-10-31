@@ -19,12 +19,12 @@
 <script >
 import { defineComponent, reactive, toRefs } from 'vue'
 
-import ContainerCustom from '@/components/container-custom'
-import Introduction from './components/introduction'
-import Project from './components/project'
-import Interacted from './components/interacted'
-import Visits from './components/visits'
-import Advertisement from './components/advertisement'
+import ContainerCustom from '@/components/container-custom/index.vue'
+import Introduction from './components/introduction.vue'
+import Project from './components/project.vue'
+import Interacted from './components/interacted.vue'
+import Visits from './components/visits.vue'
+import Advertisement from './components/advertisement.vue'
 
 export default defineComponent({
   components: { ContainerCustom, Introduction, Project, Interacted, Visits, Advertisement },

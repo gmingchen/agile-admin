@@ -144,7 +144,7 @@
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
-import AddEdit from './components/add-edit'
+import AddEdit from './components/add-edit.vue'
 
 import usePage from '@/mixins/page'
 import useDictionary from '@/mixins/dictionary'

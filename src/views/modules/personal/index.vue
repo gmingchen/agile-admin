@@ -70,11 +70,11 @@
 import { computed, defineComponent, reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
-import ContainerCustom from '@/components/container-custom'
-import BasicInfo from './components/basic-info'
-import EditPassword from './components/edit-password'
-import LoginLog from './components/login-log'
-import OperationLog from './components/operation-log'
+import ContainerCustom from '@/components/container-custom/index.vue'
+import BasicInfo from './components/basic-info.vue'
+import EditPassword from './components/edit-password.vue'
+import LoginLog from './components/login-log.vue'
+import OperationLog from './components/operation-log.vue'
 
 import { havePermission } from '@/utils'
 

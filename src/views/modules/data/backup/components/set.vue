@@ -37,7 +37,7 @@
 import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import Local from './local'
+import Local from './local.vue'
 
 import { listApi } from '@/api/configuration'
 import { updateConfigApi } from '@/api/backup'

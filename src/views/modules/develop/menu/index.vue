@@ -108,9 +108,9 @@
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import ContainerSidebar from '@/components/container-sidebar'
-import Sidebar from './components/sidebar'
-import IconSelectInput from '@/components/icon-select-input'
+import ContainerSidebar from '@/components/container-sidebar/index.vue'
+import Sidebar from './components/sidebar.vue'
+import IconSelectInput from '@/components/icon-select-input/index.vue'
 
 import useDictionary from '@/mixins/dictionary'
 import { havePermission } from '@/utils'

@@ -20,8 +20,8 @@
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 
-import Crumb from './components/crumb'
-import Action from './components/action'
+import Crumb from './components/crumb.vue'
+import Action from './components/action.vue'
 
 export default defineComponent({
   components: { Crumb, Action },

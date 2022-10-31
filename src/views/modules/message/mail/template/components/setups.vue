@@ -37,7 +37,7 @@
 import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import QQ from './qq'
+import QQ from './qq.vue'
 
 import { listApi } from '@/api/configuration'
 import { updateConfigApi } from '@/api/mail'

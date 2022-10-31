@@ -112,7 +112,7 @@
 import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
-import AddEdit from './components/add-edit'
+import AddEdit from './components/add-edit.vue'
 
 import usePage from '@/mixins/page'
 import { clearJson, havePermission, parseDate2Str } from '@/utils'

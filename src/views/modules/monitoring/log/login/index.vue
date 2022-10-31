@@ -100,8 +100,8 @@
 import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
-import ContainerSidebar from '@/components/container-sidebar'
-import EnterpriseSidebar from '@/components/enterprise-sidebar'
+import ContainerSidebar from '@/components/container-sidebar/index.vue'
+import EnterpriseSidebar from '@/components/enterprise-sidebar/index.vue'
 
 import usePage from '@/mixins/page'
 import { clearJson, parseDate2Str } from '@/utils'

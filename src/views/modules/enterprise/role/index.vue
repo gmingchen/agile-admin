@@ -100,9 +100,9 @@
 import { defineComponent, reactive, ref, toRefs, nextTick } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
-import ContainerSidebar from '@/components/container-sidebar'
-import EnterpriseSidebar from '@/components/enterprise-sidebar'
-import AddEdit from './components/add-edit'
+import ContainerSidebar from '@/components/container-sidebar/index.vue'
+import EnterpriseSidebar from '@/components/enterprise-sidebar/index.vue'
+import AddEdit from './components/add-edit.vue'
 
 import usePage from '@/mixins/page'
 import { clearJson } from '@/utils'

@@ -87,9 +87,9 @@
 import { defineComponent, reactive, ref, toRefs, nextTick } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
-import ContainerSidebar from '@/components/container-sidebar'
-import Sidebar from './components/sidebar'
-import SubAddEdit from './components/sub-add-edit'
+import ContainerSidebar from '@/components/container-sidebar/index.vue'
+import Sidebar from './components/sidebar.vue'
+import SubAddEdit from './components/sub-add-edit.vue'
 
 import { havePermission } from '@/utils'
 

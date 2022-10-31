@@ -52,7 +52,7 @@
 import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import Quill from '@/components/editor/quill'
+import Quill from '@/components/editor/quill/index.vue'
 
 import { infoApi, addApi, editApi } from '@/api/mail-template'
 

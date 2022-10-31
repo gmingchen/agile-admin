@@ -40,7 +40,7 @@
 import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import Region from '@/components/region'
+import Region from '@/components/region/index.vue'
 
 import { isInteger } from '@/utils/regular'
 

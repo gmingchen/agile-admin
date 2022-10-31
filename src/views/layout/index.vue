@@ -20,13 +20,13 @@
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 
-import Sidebar from './components/sidebar'
-import Headbar from './components/headbar'
-import Tabsbar from './components/tabsbar'
-import View from '@/components/view'
-import NavigationActive from './components/navigation/active'
-import NavigationFixed from './components/navigation/fixed'
-import Websocket from './components/websocket'
+import Sidebar from './components/sidebar/index.vue'
+import Headbar from './components/headbar/index.vue'
+import Tabsbar from './components/tabsbar/index.vue'
+import View from '@/components/view/index.vue'
+import NavigationActive from './components/navigation/active/index.vue'
+import NavigationFixed from './components/navigation/fixed/index.vue'
+import Websocket from './components/websocket/index.vue'
 
 export default defineComponent({
   components: { Sidebar, Headbar, Tabsbar, View, NavigationActive, NavigationFixed, Websocket },
