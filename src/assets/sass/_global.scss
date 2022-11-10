@@ -1,0 +1,230 @@
+/**
+ * todo: n->none    没有
+ * todo: t->top     上
+ * todo: r->right   右
+ * todo: b->bottom  下
+ * todo: l->left    左
+ * todo: a->auto    自动
+ */
+
+// 怪异盒子模型
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+// 通用ul li
+ul {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style-type: none;
+  }
+}
+
+// todo: 后期若没有那么多可以改为 @each
+// 高度 宽度
+.height-full {
+  height: 100%;
+}
+.height-unset {
+  height: unset!important;
+}
+.width-full {
+  width: 100%;
+}
+@for $i from 1 through 1000 {
+  .height-#{$i} {
+    height: #{$i}px;
+  }
+  .width-#{$i} {
+    width: #{$i}px;
+  }
+}
+// 字体大小
+@for $i from 12 through 60 {
+  .font-size-#{$i} {
+    font-size: #{$i}px;
+  }
+}
+// 居中方式
+@each $var in left, center, right {
+  .text-align-#{$var} {
+    text-align: #{$var};
+  }
+}
+// 外边框
+@for $i from 0 through 200 {
+  .margin-#{$i} {
+    margin: #{$i}px;
+  }
+  .margin-#{$i}-a {
+    margin: #{$i}px auto;
+  }
+  .margin-#{$i}-n {
+    margin: #{$i}px 0px;
+  }
+  .margin-n-#{$i} {
+    margin: 0px #{$i}px;
+  }
+  .margin_t-#{$i} {
+    margin-top: #{$i}px;
+  }
+  .margin_r-#{$i} {
+    margin-right: #{$i}px;
+  }
+  .margin_b-#{$i} {
+    margin-bottom: #{$i}px;
+  }
+  .margin_l-#{$i} {
+    margin-left: #{$i}px;
+  }
+}
+// 内边框
+@for $i from 1 through 200 {
+  .padding-#{$i} {
+    padding: #{$i}px;
+  }
+  .padding-#{$i}-n {
+    padding: #{$i}px 0px;
+  }
+  .padding-n-#{$i} {
+    padding: 0px #{$i}px;
+  }
+  .padding_t-#{$i} {
+    padding-top: #{$i}px;
+  }
+  .padding_r-#{$i} {
+    padding-right: #{$i}px;
+  }
+  .padding_b-#{$i} {
+    padding-bottom: #{$i}px;
+  }
+  .padding_l-#{$i} {
+    padding-left: #{$i}px;
+  }
+}
+// 文字省略
+.ellipse {
+  display: -webkit-box;
+  overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+@for $i from 1 through 5 {
+  .ellipse-#{$i} {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: #{$i};
+  }
+}
+// 鼠标显示 手指
+.cursor-pointer {
+  cursor: pointer;
+};
+// overflow
+$overflow: visible, hidden, scroll, auto, inherit;
+@each $var in $overflow {
+  .overflow-#{$var} {
+    overflow: #{$var};
+  }
+}
+
+
+// todo: flex 布局
+$directions: row, row-reverse, column, column-reverse;
+$wraps: nowrap, wrap, wrap-reverse;
+$justifyContents: flex-start, flex-end, center, space-between, space-around;
+$alignItems: flex-start, flex-end, center, baseline, stretch;
+$alignContents: flex-start, flex-end, center, space-between, space-around, stretch;
+
+$alignSelfs: auto, flex-start, flex-end, center, baseline, stretch;
+
+.flex {
+  // todo: 容器属性
+  &-box {
+    display: flex;
+    display: -webkit-flex; /* Safari */
+  }
+  // flex-direction
+  &_d {
+    @each $var in $directions {
+      &-#{$var} {
+        flex-direction: #{$var};
+      }
+    }
+  }
+  // flex-wrap
+  &_w {
+    @each $var in $wraps {
+      &-#{$var} {
+        flex-wrap: #{$var};
+      }
+    }
+  }
+  // justify-content
+  &_j_c {
+    @each $var in $justifyContents {
+      &-#{$var} {
+        justify-content: #{$var};
+      }
+    }
+  }
+  // align-items
+  &_a_i {
+    @each $var in $alignItems {
+      &-#{$var} {
+        align-items: #{$var};
+      }
+    }
+  }
+  // align-content
+  &_a_c {
+    @each $var in $alignContents {
+      &-#{$var} {
+        align-content: #{$var};
+      }
+    }
+  }
+  // todo: 子元素属性
+  &-item {
+    // order
+    @for $i from -20 to 20 {
+      &_o-#{$i} {
+        order: #{$i};
+      }
+    }
+    // flex: flex-grow flex-shrink flex-basis
+    &_f-a {
+      flex: auto;
+    }
+    &_f-n {
+      flex: none;
+    }
+    @for $i from 0 to 10 {
+      &_f-#{$i} {
+        flex: #{$i};
+      }
+      // @for $j from 1 to 10 {
+      //   @for $k from 1 to 10 {
+      //     &_f-#{$i}-#{$j}-#{$k} {
+      //       flex: #{&i} #{&j} #{&k};
+      //     }
+      //   }
+      // }
+    }
+    // align-self
+    @each $var in $alignSelfs {
+      &_a_s-#{$var} {
+        align-self: #{$var};
+      }
+    }
+  }
+}

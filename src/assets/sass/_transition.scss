@@ -1,0 +1,47 @@
+// 浅入浅出
+.shallow-in-out-enter-active,
+.shallow-in-out-leave-active {
+  transition: opacity 0.3s;
+}
+.shallow-in-out-enter,
+.shallow-in-out-leave-to {
+  opacity: 0;
+}
+
+// 左浅入右浅出
+.left-in-right-out-enter-active,
+.left-in-right-out-leave-active {
+  transition: all .4s;
+}
+.left-in-right-out-enter-active {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.left-in-right-out-enter-to {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.left-in-right-out-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+// 右浅入浅出
+.right-in-out-move,
+.right-in-out-enter-active,
+.right-in-out-leave-active {
+  transition: all 0.4s;
+}
+.right-in-out-enter-active {
+  transition-delay: 0.4s;
+  opacity: 0;
+  transform: translateX(50px);
+}
+.right-in-out-enter-to {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.right-in-out-leave-to {
+  opacity: 0;
+  transform: translateX(50px);
+}
