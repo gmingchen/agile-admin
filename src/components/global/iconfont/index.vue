@@ -18,7 +18,7 @@
  *    2.size      大小 font-size
  *    3.color     颜色
 -->
-<script >
+<script>
 import { defineComponent, computed } from 'vue'
 
 export default defineComponent({

@@ -151,7 +151,7 @@
   </ContainerSidebar>
 </template>
 
-<script >
+<script>
 import { computed, defineComponent, reactive, ref, toRefs, nextTick, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
 

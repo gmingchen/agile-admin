@@ -36,7 +36,7 @@
   </el-popover>
 </template>
 
-<script >
+<script>
 import { computed, defineComponent, onBeforeMount, reactive, toRefs, watch, watchEffect } from 'vue'
 import axios from 'axios'
 

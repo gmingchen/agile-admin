@@ -96,7 +96,7 @@
   </ContainerSidebar>
 </template>
 
-<script >
+<script>
 import { defineComponent, reactive, ref, toRefs, nextTick } from 'vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'

@@ -17,7 +17,8 @@ module.exports = {
     'vue/max-attributes-per-line': [1, { 'singleline': 3, 'multiline': { 'max': 1 } }], // 超过3个特性的元素应该分多行撰写，每个特性一行
     'vue/singleline-html-element-content-newline': 0, // 在单行元素的内容前后需要换行符
     'vue/multiline-html-element-content-newline': 0, // 在多行元素的内容之前和之后需要换行符
-    'vue/name-property-casing': [2, 'PascalCase'], // JS/JSX中的组件名应该始终是帕斯卡命名法
+    'vue/no-reserved-component-names': [0],
+    'vue/name-property-casing': [0, 'PascalCase'], // JS/JSX中的组件名应该始终是帕斯卡命名法
     'vue/html-closing-bracket-newline': [1, { 'singleline': 'never', 'multiline': 'never' }], // 结束标签不能在新行
     'vue/html-closing-bracket-spacing': [1, { 'startTag': 'never', 'endTag': 'never', 'selfClosingTag': 'always' }], // 开始、结束标签空格
     'vue/html-end-tags': 1, // 需要结束标签

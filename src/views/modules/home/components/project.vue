@@ -31,7 +31,7 @@
   </div>
 </template>
 
-<script >
+<script>
 import { defineComponent, reactive, toRefs } from 'vue'
 
 export default defineComponent({

@@ -14,7 +14,7 @@
   </el-menu-item>
 </template>
 
-<script >
+<script>
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 

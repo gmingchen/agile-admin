@@ -9,7 +9,7 @@
   </el-button>
 </template>
 
-<script >
+<script>
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({

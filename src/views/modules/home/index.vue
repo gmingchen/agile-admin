@@ -16,7 +16,7 @@
   </ContainerCustom>
 </template>
 
-<script >
+<script>
 import { defineComponent, reactive, toRefs } from 'vue'
 
 import ContainerCustom from '@/components/container-custom/index.vue'

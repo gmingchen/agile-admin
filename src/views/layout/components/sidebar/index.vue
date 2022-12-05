@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script >
+<script>
 import { computed, defineComponent, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'

@@ -139,7 +139,7 @@
   </el-drawer>
 </template>
 
-<script >
+<script>
 import { computed, defineComponent, reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
 

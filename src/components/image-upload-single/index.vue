@@ -15,7 +15,7 @@
   </el-upload>
 </template>
 
-<script >
+<script>
 import { defineComponent, reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
 

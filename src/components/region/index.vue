@@ -6,7 +6,7 @@
     :show-all-levels="false" />
 </template>
 
-<script >
+<script>
 import { defineComponent, reactive, ref, toRefs } from 'vue'
 
 import useModel from '@/mixins/model'

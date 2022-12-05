@@ -68,6 +68,7 @@ export default defineComponent({
   background-color: var(--gl-content-background-color);
   .navigation-container {
     z-index: 0;
+    overflow: hidden;
   }
 }
 </style>

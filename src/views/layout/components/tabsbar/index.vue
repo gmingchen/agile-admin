@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script >
+<script>
 import { computed, defineComponent, nextTick, onBeforeMount } from 'vue'
 import { onBeforeRouteUpdate, useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
