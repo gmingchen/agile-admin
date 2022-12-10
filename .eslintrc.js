@@ -29,6 +29,7 @@ module.exports = {
     'vue/no-v-html': 0,
     'vue/require-default-prop': 0, // 使用 defineProps 不需要设置默认
     'vue/multi-word-component-names': [0, { 'ignores': ['index', '401', '404', '500', 'Sub', 'detail', 'set', 'comment'] }], // 组件名字限制多字
+    'vue/valid-v-model': 0,
     // todo: eslint
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

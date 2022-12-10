@@ -17,14 +17,19 @@ import { getApiBaseUrl } from '@/utils'
  * @author: gumingchen
  */
 export function captchaApi(params) {
-  let result = ''
-  const options = {
-    url: '/admin/captcha.jpg',
+  // let result = ''
+  // const options = {
+  //   url: '/admin/captcha.jpeg',
+  //   method: 'get',
+  //   params: params
+  // }
+  // result = `${ getApiBaseUrl() + options.url }?${ parseJson2Param(options.params) }`
+  // return result
+  return service({
+    url: '/admin/captcha.jpeg',
     method: 'get',
     params: params
-  }
-  result = `${ getApiBaseUrl() + options.url }?${ parseJson2Param(options.params) }`
-  return result
+  })
 }
 
 /**

@@ -65,6 +65,7 @@
           <template v-slot="{ row }">
             <el-switch
               v-permission="'configuration:status'"
+              :before-change="statusBefore.bind(this, row)"
               @change="statusHandle(row)"
               v-model="row.status"
               :active-value="1"
@@ -224,32 +225,41 @@ export default defineComponent({
     }
 
     /**
-       * @description: 状态
-       * @param {number} id
-       * @return {*}
-       * @author: gumingchen
-       */
-    const statusHandle = row => {
-      ElMessageBox.confirm(`确定对[id=${ row.id }]进行[${ dictionaryMap.value[row.status] }]操作`, '提示', {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        const params = {
-          key: row.id,
-          value: row.status
-        }
-        statusApi(params).then(r => {
-          if (r) {
-            ElMessage({
-              message: '操作成功!',
-              type: 'success'
-            })
-            getList()
-          }
+     * 状态变化之前操作
+     * @param {*} row
+     */
+    const statusBefore = row => {
+      return new Promise((resolve) => {
+        ElMessageBox.confirm(`确定对[id=${ row.id }]进行[${ dictionaryMap.value[row.status] }]操作`, '提示', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          resolve(true)
+        }).catch(() => {
+          resolve(false)
         })
-      }).catch(() => {
-        // to do something on canceled
+      })
+    }
+    /**
+     * @description: 状态
+     * @param {number} id
+     * @return {*}
+     * @author: gumingchen
+     */
+    const statusHandle = row => {
+      const params = {
+        key: row.id,
+        value: row.status
+      }
+      statusApi(params).then(r => {
+        if (r) {
+          ElMessage({
+            message: '操作成功!',
+            type: 'success'
+          })
+          getList()
+        }
       })
     }
 
@@ -291,6 +301,7 @@ export default defineComponent({
       reacquireHandle,
       addEditHandle,
       deleteHandle,
+      statusBefore,
       statusHandle,
       selectionHandle,
       pageChangeHandle,

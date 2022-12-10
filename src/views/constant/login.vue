@@ -35,6 +35,7 @@
             </template>
           </el-input>
           <img
+            v-show="captcha"
             class="height-32 cursor-pointer"
             :src="captcha"
             @click="getCaptcha()"
@@ -95,7 +96,11 @@ export default defineComponent({
     const getCaptcha = () => {
       const uuid = generateUUID()
       data.form.uuid = uuid
-      data.captcha = captchaApi({ uuid })
+      captchaApi({ uuid }).then(r => {
+        if (r) {
+          data.captcha = r.data
+        }
+      })
     }
 
     /**
