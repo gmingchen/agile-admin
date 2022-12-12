@@ -92,7 +92,11 @@ const rules = reactive(function() {
 const getCaptcha = () => {
   const uuid = generateUUID()
   form.uuid = uuid
-  captcha.value = captchaApi({ uuid })
+  captchaApi({ uuid }).then(r => {
+    if (r) {
+      captcha.value = r.data
+    }
+  })
 }
 
 /**

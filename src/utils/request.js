@@ -17,12 +17,12 @@ import Prompt from '@/utils/prompt'
  * @return {*}
  * @author: gumingchen
  */
-const prompt = message => {
+const prompt = (message, single = true) => {
   new Prompt().warning({
     message: message,
     type: 'warning',
     duration: 3000
-  })
+  }, single)
 }
 
 /**
@@ -57,7 +57,7 @@ const codeHandle = (code, message) => {
       })
       break
     default:
-      prompt(message)
+      prompt(message, false)
       break
   }
 }

@@ -21,7 +21,8 @@
         <el-input v-model="form.json_key" placeholder="键" />
       </el-form-item>
       <el-form-item label="Json值" prop="json_value">
-        <el-input v-model="form.json_value" placeholder="Json值" type="textarea" />
+        <!-- <el-input v-model="form.json_value" placeholder="Json值" type="textarea" /> -->
+        <Codemirror class="codemirror" v-model:value="form.json_value" :options="options" />
       </el-form-item>
       <el-form-item label="类型值" prop="type">
         <el-input-number
@@ -55,6 +56,14 @@ import { nextTick, reactive, ref, onBeforeMount } from 'vue'
 
 import { ElMessage } from 'element-plus'
 
+import Codemirror from 'codemirror-editor-vue3'
+import 'codemirror/theme/dracula.css'
+import 'codemirror/mode/javascript/javascript.js'
+import 'codemirror/addon/fold/foldgutter.css'
+import 'codemirror/addon/fold/foldcode.js'
+import 'codemirror/addon/fold/foldgutter.js'
+import 'codemirror/addon/fold/brace-fold.js'
+
 import useDictionary from '@/mixins/dictionary'
 
 import { infoApi, addApi, editApi } from '@/api/configuration'
@@ -75,6 +84,20 @@ const form = reactive({
   remark: '',
   status: 0
 })
+const options = {
+  mode: 'application/json',
+  theme: 'dracula',
+  readOnly: false,
+  lineNumbers: true,
+  lineWrapping: true,
+  autocorrect: true,
+  spellcheck: true,
+  smartIndent: true,
+  indentUnit: 2,
+  foldGutter: true,
+  styleActiveLine: true,
+  gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
+}
 const rules = reactive(function() {
   return {
     name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
@@ -94,7 +117,7 @@ const init = async (id) => {
       form.id = r.data.id
       form.name = r.data.name
       form.json_key = r.data.json_key
-      form.json_value = r.data.json_value
+      form.json_value = JSON.stringify(JSON.parse(r.data.json_value), null, '\t')
       form.type = r.data.type
       form.remark = r.data.remark
       form.status = r.data.status
@@ -112,7 +135,10 @@ const init = async (id) => {
 const submit = () => {
   refForm.value.validate(async valid => {
     if (valid) {
-      const params = { ...form }
+      const params = {
+        ...form,
+        json_value: JSON.stringify(JSON.parse(form.json_value))
+      }
       const r = form.id ? await editApi(params) : await addApi(params)
       if (r) {
         visible.value = false
@@ -139,4 +165,15 @@ const dialogClosedHandle = () => {
 onBeforeMount(() => {
   getDictionary('status')
 })
+
+defineExpose({
+  init
+})
 </script>
+
+<style lang="scss" scoped>
+.codemirror {
+  height: 200px;
+  line-height: 18px;
+}
+</style>
