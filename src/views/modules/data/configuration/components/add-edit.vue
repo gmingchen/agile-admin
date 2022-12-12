@@ -23,7 +23,6 @@
       <el-form-item label="Json值" prop="json_value">
         <!-- <el-input v-model="form.json_value" placeholder="Json值" type="textarea" /> -->
         <Codemirror class="codemirror" v-model:value="form.json_value" :options="options" />
-        {{form.json_value}}
       </el-form-item>
       <el-form-item label="类型值" prop="type">
         <el-input-number
