@@ -287,6 +287,8 @@ export default defineComponent({
             message: '操作成功!',
             type: 'success'
           })
+        } else {
+          getList()
         }
       })
     }
