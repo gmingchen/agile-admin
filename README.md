@@ -87,7 +87,7 @@
 - [webpack-vuex](https://github.com/gmingchen/vue3-element-plus-admin/tree/webpack-vuex) 该分支使用的是webpack + vuex 实现的功能，使用的是vue组合式api。
 - [vite-pinia](https://github.com/gmingchen/vue3-element-plus-admin/tree/vite-pinia) 该分支使用的是vite + pinia 实现的功能，使用的是vue组合式api的 setup 标签。
 - [dev](https://github.com/gmingchen/vue3-element-plus-admin/tree/master) 多企业完整功能开发分支
-- [base](https://github.com/gmingchen/vue3-element-plus-admin/tree/base) 多企业基础版本：多企业基于 RBAC 的权限功能-仅包含 `菜单管理`、`企业管理`、`企业角色管理`、`企业管理员管理`、`企业菜单管理`、`角色管理`、`管理员管理`、`操作日志`、`登录日志`
+- [base](https://github.com/gmingchen/vue3-element-plus-admin/tree/base) 多企业基础版本：多企业基于 RBAC 的权限功能-仅包含 `菜单管理`、`企业管理`、`企业角色管理`、`企业管理员管理`、`企业菜单管理`、`角色管理`、`管理员管理`、`操作日志`、`登录日志`，对应后端[java-spring-boot-admin](https://github.com/gmingchen/java-spring-boot-admin)master分支
 - [single](https://github.com/1240235512/vue3/tree/single) 单企业完整功能版本：单企业后台管理，已停止维护
 - [single-base](https://github.com/1240235512/vue3/tree/single-base) 单企业基础功能版本：单个企业基于 RBAC 的权限功能-仅包含 `菜单管理`、`角色管理`、`用户管理`，已停止维护
 - [composition-api](https://github.com/1240235512/vue3/tree/composition-api) 内置__`Type Script`__、__`I18n`__，__已停止维护可以参考相关的配置__
