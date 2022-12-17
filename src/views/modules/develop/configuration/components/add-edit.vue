@@ -5,6 +5,7 @@
     v-model="visible"
     :close-on-click-modal="false"
     @closed="dialogClosedHandle"
+    destroy-on-close
     append-to-body
     draggable>
     <el-form
@@ -12,7 +13,6 @@
       :model="form"
       :rules="rules"
       ref="refForm"
-      @keyup.enter="submit()"
       label-position="top">
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" placeholder="名称" />
@@ -22,7 +22,10 @@
       </el-form-item>
       <el-form-item label="Json值" prop="json_value">
         <!-- <el-input v-model="form.json_value" placeholder="Json值" type="textarea" /> -->
-        <Codemirror class="codemirror" v-model:value="form.json_value" :options="options" />
+        <JsonEditorVue
+          :mode-list="['code']"
+          class="json-editor width-full"
+          v-model="form.json_value"  />
       </el-form-item>
       <el-form-item label="类型值" prop="type">
         <el-input-number
@@ -56,13 +59,7 @@ import { defineComponent, nextTick, reactive, ref, toRefs, onBeforeMount } from 
 
 import { ElMessage } from 'element-plus'
 
-import Codemirror from 'codemirror-editor-vue3'
-import 'codemirror/theme/dracula.css'
-import 'codemirror/mode/javascript/javascript.js'
-import 'codemirror/addon/fold/foldgutter.css'
-import 'codemirror/addon/fold/foldcode.js'
-import 'codemirror/addon/fold/foldgutter.js'
-import 'codemirror/addon/fold/brace-fold.js'
+import JsonEditorVue from 'json-editor-vue3'
 
 import useDictionary from '@/mixins/dictionary'
 
@@ -70,7 +67,7 @@ import { infoApi, addApi, editApi } from '@/api/configuration'
 
 export default defineComponent({
   emits: ['refresh'],
-  components: { Codemirror },
+  components: { JsonEditorVue },
   setup(_props, { emit }) {
     const refForm = ref()
 
@@ -82,24 +79,10 @@ export default defineComponent({
         id: '',
         name: '',
         json_key: '',
-        json_value: '',
+        json_value: {},
         type: 0,
         remark: '',
         status: 0
-      },
-      options: {
-        mode: 'application/json',
-        theme: 'dracula',
-        readOnly: false,
-        lineNumbers: true,
-        lineWrapping: true,
-        autocorrect: true,
-        spellcheck: true,
-        smartIndent: true,
-        indentUnit: 2,
-        foldGutter: true,
-        styleActiveLine: true,
-        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
       }
     })
 
@@ -122,7 +105,7 @@ export default defineComponent({
           data.form.id = r.data.id
           data.form.name = r.data.name
           data.form.json_key = r.data.json_key
-          data.form.json_value = JSON.stringify(JSON.parse(r.data.json_value), null, '\t')
+          data.form.json_value = JSON.parse(r.data.json_value)
           data.form.type = r.data.type
           data.form.remark = r.data.remark
           data.form.status = r.data.status
@@ -142,7 +125,7 @@ export default defineComponent({
         if (valid) {
           const params = {
             ...data.form,
-            json_value: JSON.stringify(JSON.parse(data.form.json_value))
+            json_value: JSON.stringify(data.form.json_value)
           }
           const r = data.form.id ? await editApi(params) : await addApi(params)
           if (r) {
@@ -185,8 +168,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.codemirror {
-  height: 200px;
-  line-height: 18px;
+::v-deep(.json-editor) {
+  .jsoneditor-sort, .jsoneditor-transform, .jsoneditor-repair, .jsoneditor-modes, .jsoneditor-poweredBy, .full-screen {
+    display: none;
+  }
 }
 </style>
