@@ -253,7 +253,6 @@ const statusHandle = row => {
         message: '操作成功!',
         type: 'success'
       })
-    } else {
       getList()
     }
   })
