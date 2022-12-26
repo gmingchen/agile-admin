@@ -135,7 +135,7 @@ export default defineComponent({
       const names = name ? [name] : data.selection.map(item => {
         return item.name
       })
-      generatorApi(names)
+      generatorApi({ names })
     }
 
     const pageChangeHandle = (argPage) => {

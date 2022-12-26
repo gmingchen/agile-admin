@@ -53,6 +53,9 @@
             <el-tab-pane label="修改密码" name="password" v-if="havePermission('administrator:password')">
               <EditPassword />
             </el-tab-pane>
+            <el-tab-pane label="消息通知" name="message" v-if="havePermission('websocketAdministrator:unread:page|websocketAdministrator:page|websocketAdministrator:read|websocketAdministrator:allRead|websocketAdministrator:delete', '|')">
+              <Message />
+            </el-tab-pane>
             <el-tab-pane label="最近登录日志" name="login">
               <LoginLog />
             </el-tab-pane>
@@ -67,26 +70,45 @@
 </template>
 
 <script>
-import { computed, defineComponent, reactive, toRefs } from 'vue'
+import { computed, defineComponent, reactive, toRefs, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
+import { useRoute, useRouter } from 'vue-router'
 
 import ContainerCustom from '@/components/container-custom/index.vue'
 import BasicInfo from './components/basic-info.vue'
 import EditPassword from './components/edit-password.vue'
 import LoginLog from './components/login-log.vue'
 import OperationLog from './components/operation-log.vue'
+import Message from './components/message.vue'
 
 import { havePermission } from '@/utils'
 
 export default defineComponent({
-  components: { ContainerCustom, BasicInfo, EditPassword, LoginLog, OperationLog },
+  components: { ContainerCustom, BasicInfo, EditPassword, LoginLog, OperationLog, Message },
   setup() {
     const store = useStore()
+    const route = useRoute()
+    const router = useRouter()
 
     const administrator = computed(() => store.state.administrator.administrator)
 
     const data = reactive({
       active: 'basic'
+    })
+
+    /**
+     * 初始化 判断页面展示的内容
+     */
+    const init = () => {
+      const { panel } = route.query
+      if (panel) {
+        data.active = panel
+        router.push({ name: 'personal' })
+      }
+    }
+
+    onBeforeMount(() => {
+      init()
     })
 
     return {

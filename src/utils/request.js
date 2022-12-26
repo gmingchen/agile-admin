@@ -110,23 +110,37 @@ service.interceptors.request.use(
  */
 service.interceptors.response.use(
   response => {
-    if (response.headers['content-type'] === ContentType.STREAM) {
-      if (!response.data.code) {
+    const { data, headers, config } = response
+    // 如果是文件流的处理方式
+    if (headers['content-type'] === ContentType.STREAM) {
+      if (!data.code) {
         return {
-          blob: response.data,
-          name: decodeURI(response.headers['content-disposition'].replace('attachment;filename=', ''))
+          blob: data,
+          name: decodeURI(headers['content-disposition'].replace('attachment;filename=', ''))
         }
       } else {
         return response.data || null
       }
     }
-    const { code, message } = response.data
-    if (!SUCCESS_CODE.includes(code)) {
-      codeHandle(code, message)
-      return null
+    // 如果设置的响应类型是 blob 但是返回的不是 文件流的处理方式
+    if (config.responseType === 'blob') {
+      data.text().then(text => {
+        const r = JSON.parse(text)
+        const { code, message } = r
+        if (!SUCCESS_CODE.includes(code)) {
+          codeHandle(code, message)
+          return null
+        }
+        return response.data || null
+      })
+    } else {
+      const { code, message } = data
+      if (!SUCCESS_CODE.includes(code)) {
+        codeHandle(code, message)
+        return null
+      }
+      return response.data || null
     }
-
-    return response.data || null
   },
   error => {
     if (error && error.response) {

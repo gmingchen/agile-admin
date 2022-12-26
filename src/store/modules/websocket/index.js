@@ -1,5 +1,4 @@
 import WebsocketClass from '@/utils/websocket'
-import { parseStringDate } from '@/utils'
 
 export default {
   state: {

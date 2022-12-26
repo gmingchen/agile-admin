@@ -60,6 +60,7 @@ export default defineComponent({
               type: 'success',
               duration: 3000
             })
+            store.dispatch('message/getList')
             break
         }
       }

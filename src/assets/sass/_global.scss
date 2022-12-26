@@ -107,7 +107,6 @@ ul {
 }
 // 文字省略
 .ellipse {
-  display: -webkit-box;
   overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -117,7 +116,6 @@ ul {
 }
 @for $i from 1 through 5 {
   .ellipse-#{$i} {
-    display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;

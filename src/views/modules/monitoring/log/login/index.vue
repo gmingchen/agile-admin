@@ -36,9 +36,8 @@
       <el-table
         ref="refTable"
         v-loading="loading"
-        :data="list"
-        @row-dblclick="rowClickHandle"
         row-key="id"
+        :data="list"
         border>
         <el-table-column
           align="center"
@@ -189,10 +188,6 @@ export default defineComponent({
       })
     }
 
-    const rowClickHandle = (row) => {
-      refTable.value.toggleRowExpansion(row)
-    }
-
     const pageChangeHandle = (argPage) => {
       page.current = argPage.current
       page.size = argPage.size
@@ -215,7 +210,6 @@ export default defineComponent({
       reacquireHandle,
       deleteHandle,
       celarHandle,
-      rowClickHandle,
       changeHandle,
       clearJson
     }

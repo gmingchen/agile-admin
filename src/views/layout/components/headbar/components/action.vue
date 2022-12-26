@@ -54,6 +54,7 @@
         inactive-text="亮"
         active-color="#222222" />
     </el-tooltip>
+    <Message v-if="havePermission('websocketAdministrator:unread:page|websocketAdministrator:page|websocketAdministrator:read|websocketAdministrator:allRead|websocketAdministrator:delete', '|')" />
     <el-dropdown trigger="click" @command="dropdownHandle">
       <el-avatar
         class="cursor-pointer"
@@ -79,11 +80,14 @@ import screenfull from 'screenfull'
 
 import { ElMessage } from 'element-plus'
 import Theme from './theme.vue'
+import Message from './message.vue'
 
 import { ThemeMode } from '@/utils/dictionary'
 
+import { havePermission } from '@/utils'
+
 export default defineComponent({
-  components: { Theme },
+  components: { Theme, Message },
   setup() {
     const store = useStore()
     const router = useRouter()
@@ -159,7 +163,8 @@ export default defineComponent({
       administrator,
       mode,
       iconfontClickHandle,
-      dropdownHandle
+      dropdownHandle,
+      havePermission
     }
   }
 })

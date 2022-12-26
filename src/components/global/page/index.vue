@@ -2,6 +2,7 @@
   <el-pagination
     class="page flex_j_c-flex-end"
     background
+    :small="small"
     layout="total, sizes, prev, pager, next, jumper, ->"
     :current-page="page.current"
     :page-sizes="page.sizes"
@@ -21,6 +22,10 @@ export default defineComponent({
     page: {
       type: Object,
       required: true
+    },
+    small: {
+      type: Boolean,
+      defalut: () => false
     }
   },
   setup(props, { emit }) {
