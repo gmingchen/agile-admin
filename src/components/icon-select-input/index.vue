@@ -85,7 +85,7 @@ const getIconfont = () => {
     }
   })
   service({
-    url: '//at.alicdn.com/t/c/font_3225946_j1j10aooqn.css',
+    url: '//at.alicdn.com/t/c/font_3225946_mem6qq7wpdb.css',
     method: 'get'
   }).then(r => {
     if (r.status === 200) {
