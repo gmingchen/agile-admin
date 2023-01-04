@@ -47,10 +47,6 @@ export default {
      */
     showTabs: true,
     /**
-     * 是否全屏
-     */
-    fullScreen: false,
-    /**
      * 用于主内容部分刷新
      */
     refresh: false
@@ -69,9 +65,6 @@ export default {
     },
     SET_SHOW_TABS: (state, show) => {
       state.showTabs = show
-    },
-    SET_FULL_SCREEN: (state, fullScreen) => {
-      state.fullScreen = fullScreen
     },
     SET_REFRESH: (state, refresh) => {
       state.refresh = refresh
@@ -124,13 +117,6 @@ export default {
     setShowTabs({ commit, state }, show) {
       commit('SET_SHOW_TABS', show)
       setLayoutHandle(state)
-    },
-    /**
-     * 设置是否全屏
-     * @returns
-     */
-    setFullScreen({ commit }, fullScreen) {
-      commit('SET_FULL_SCREEN', fullScreen)
     },
     /**
      * 设置刷新

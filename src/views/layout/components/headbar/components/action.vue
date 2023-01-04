@@ -1,13 +1,14 @@
 <template>
   <div class="action-container flex-item_f-1 flex-box flex_j_c-flex-end flex_a_i-center">
     <el-tooltip
+      v-if="isSupported"
       content="全屏"
       placement="bottom"
       :show-after="500">
       <Iconfont
         class="margin_r-15 cursor-pointer"
         size="16px"
-        :name="`full-screen-${!fullScreen}`"
+        :name="`full-screen-${!isFullscreen}`"
         @click="iconfontClickHandle('full-screen')" />
     </el-tooltip>
     <el-tooltip
@@ -73,10 +74,10 @@
 </template>
 
 <script>
-import { computed, defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
+import { computed, defineComponent, nextTick, reactive, ref, toRefs, onBeforeMount, onBeforeUnmount } from 'vue'
+import { useFullscreen } from '@vueuse/core'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import screenfull from 'screenfull'
 
 import { ElMessage } from 'element-plus'
 import Theme from './theme.vue'
@@ -92,13 +93,13 @@ export default defineComponent({
     const store = useStore()
     const router = useRouter()
 
+    const { isSupported, isFullscreen, toggle } = useFullscreen()
+
     const refTheme = ref()
 
     const data = reactive({
       visible: false
     })
-
-    const fullScreen = computed(() => store.state.settings.fullScreen)
 
     const administrator = computed(() => store.state.administrator.administrator)
 
@@ -114,9 +115,8 @@ export default defineComponent({
     const iconfontClickHandle = (type) => {
       switch (type) {
         case 'full-screen':
-          if (screenfull.isEnabled) {
-            screenfull.toggle()
-            store.dispatch('settings/setFullScreen', !screenfull.isFullscreen)
+          if (isSupported.value) {
+            toggle()
           } else {
             ElMessage({
               message: `Your browser doesn't support full screen`,
@@ -155,11 +155,36 @@ export default defineComponent({
       }
     }
 
+    /**
+     * 阻止 F11 默认事件 使用项目内的方式全屏
+     * @param {*} event 
+     */
+    const fullScreenHandle = (event) => {
+      const { key } = event
+      if (key === 'F11') {
+        event.preventDefault()
+        toggle()
+      }
+    }    
+
+    onBeforeMount(() => {
+      if (isSupported.value) {
+        window.addEventListener('keydown', fullScreenHandle, true)
+      }
+    })
+
+    onBeforeUnmount(() => {
+      if (isSupported.value) {
+        window.removeEventListener('keydown', fullScreenHandle, true)
+      }
+    })
+
     return {
       refTheme,
       ...toRefs(data),
       ThemeMode,
-      fullScreen,
+      isSupported,
+      isFullscreen,
       administrator,
       mode,
       iconfontClickHandle,
