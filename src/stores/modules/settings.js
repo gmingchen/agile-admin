@@ -41,10 +41,6 @@ export const useSettingsStore = defineStore('settings', {
       */
     showTabs: true,
     /**
-      * 是否全屏
-      */
-    fullScreen: false,
-    /**
       * 用于主内容部分刷新
       */
     refresh: false

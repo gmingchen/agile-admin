@@ -7,7 +7,7 @@
       <Iconfont
         class="margin_r-15 cursor-pointer"
         size="16px"
-        :name="`full-screen-${!fullScreen}`"
+        :name="`full-screen-${!isFullscreen}`"
         @click="iconfontClickHandle('full-screen')" />
     </el-tooltip>
     <el-tooltip
@@ -73,10 +73,10 @@
 </template>
 
 <script setup>
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, ref, onBeforeMount, onBeforeUnmount } from 'vue'
+import { useFullscreen } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import screenfull from 'screenfull'
 
 import { useSettingsStore } from '@stores/settings'
 import { useAdministratorStore } from '@stores/administrator'
@@ -96,8 +96,9 @@ const settingsStore = useSettingsStore()
 const administratorStore = useAdministratorStore()
 const themeStore = useThemeStore()
 const rootStore = useRootStore()
+const { isSupported, isFullscreen, toggle } = useFullscreen()
 
-const { fullScreen, refresh } = storeToRefs(settingsStore)
+const { refresh } = storeToRefs(settingsStore)
 const { administrator } = storeToRefs(administratorStore)
 
 const refTheme = ref()
@@ -116,9 +117,8 @@ const mode = computed({
 const iconfontClickHandle = (type) => {
   switch (type) {
     case 'full-screen':
-      if (screenfull.isEnabled) {
-        screenfull.toggle()
-        fullScreen.value = !screenfull.isFullscreen
+      if (isSupported.value) {
+        toggle()
       } else {
         ElMessage({
           message: `Your browser doesn't support full screen`,
@@ -156,6 +156,30 @@ const dropdownHandle = async (command) => {
       break
   }
 }
+
+/**
+ * 阻止 F11 默认事件 使用项目内的方式全屏
+ * @param {*} event
+ */
+const fullScreenHandle = (event) => {
+  const { key } = event
+  if (key === 'F11') {
+    event.preventDefault()
+    toggle()
+  }
+}
+
+onBeforeMount(() => {
+  if (isSupported.value) {
+    window.addEventListener('keydown', fullScreenHandle, true)
+  }
+})
+
+onBeforeUnmount(() => {
+  if (isSupported.value) {
+    window.removeEventListener('keydown', fullScreenHandle, true)
+  }
+})
 </script>
 
 <style lang="scss" scoped>
