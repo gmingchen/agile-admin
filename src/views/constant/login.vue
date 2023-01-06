@@ -6,8 +6,15 @@
         :model="form"
         :rules="rules"
         @keyup.enter="submit()">
+        <el-tabs v-model="form.type" @tab-change="tabChangeHandle">
+          <el-tab-pane
+            v-for="item in dictionaryList"
+            :key="item.value"
+            :label="item.label"
+            :name="item.value" />
+        </el-tabs>
         <el-form-item prop="username">
-          <el-input v-model="form.username" placeholder="账户" clearable>
+          <el-input v-model="form.username" :placeholder="type" clearable>
             <template #prefix>
               <Iconfont name="user" />
             </template>
@@ -53,12 +60,13 @@
 </template>
 
 <script>
-import { defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
+import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 import { ElNotification } from 'element-plus'
 
+import useDictionary from '@/mixins/dictionary'
 import { generateUUID } from '@/utils'
 
 import { captchaApi } from '@/api/login'
@@ -68,6 +76,8 @@ export default defineComponent({
     const router = useRouter()
     const store = useStore()
 
+    const { dictionaryMap, dictionaryList, getDictionary } = useDictionary()
+
     const refForm = ref()
     const data = reactive({
       loading: false,
@@ -76,16 +86,25 @@ export default defineComponent({
         username: '',
         password: '',
         uuid: '',
-        code: ''
+        code: '',
+        type: 1 // 登录方式：1-账号 2-手机号 3-邮箱
       }
     })
-    const rules = reactive(function() {
+
+    const type = computed({
+      get: () => {
+        const types = ['', '账号', '手机号', '邮箱']
+        return types[data.form.type]
+      }
+    })
+
+    const rules = computed(function() {
       return {
-        username: [{ required: true, message: '账户不能为空', trigger: 'blur' }],
+        username: [{ required: true, message: `${ type.value }不能为空`, trigger: 'blur' }],
         password: [{ required: true, message: '密码不能为空', trigger: 'blur' }],
         code: [{ required: true, message: '验证码不能为空', trigger: 'blur' }]
       }
-    }())
+    })
 
     /**
      * @description: 获取验证码图片
@@ -101,6 +120,18 @@ export default defineComponent({
           data.captcha = r.data
         }
       })
+    }
+
+    /**
+     * @description: 标签页变化事件
+     * @param {*}
+     * @return {*}
+     * @author: gumingchen
+     */
+    const tabChangeHandle = () => {
+      setTimeout(() => {
+        refForm.value.clearValidate() // resetField
+      }, 0)
     }
 
     /**
@@ -161,15 +192,20 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
+      getDictionary('login')
       getCaptcha()
       notifyHandle()
     })
 
     return {
       refForm,
+      dictionaryMap,
+      dictionaryList,
       ...toRefs(data),
+      type,
       rules,
       getCaptcha,
+      tabChangeHandle,
       submit
     }
   }

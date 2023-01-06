@@ -157,7 +157,7 @@ export default defineComponent({
 
     /**
      * 阻止 F11 默认事件 使用项目内的方式全屏
-     * @param {*} event 
+     * @param {*} event
      */
     const fullScreenHandle = (event) => {
       const { key } = event
@@ -165,7 +165,7 @@ export default defineComponent({
         event.preventDefault()
         toggle()
       }
-    }    
+    }
 
     onBeforeMount(() => {
       if (isSupported.value) {
