@@ -7,11 +7,12 @@
         :key="item.id"
         :timestamp="item.created_at">
         <el-card>
-          <el-descriptions :column="2">
+          <el-descriptions :column="3">
             <el-descriptions-item label="登录信息">{{item.message}}</el-descriptions-item>
             <el-descriptions-item label="浏览器">{{item.browser}}</el-descriptions-item>
-            <el-descriptions-item label="IP">{{item.ip}}</el-descriptions-item>
             <el-descriptions-item label="操作系统">{{item.operating_system}}</el-descriptions-item>
+            <el-descriptions-item label="IP">{{item.ip}}</el-descriptions-item>
+            <el-descriptions-item label="地址">{{item.address}}</el-descriptions-item>
           </el-descriptions>
         </el-card>
       </el-timeline-item>

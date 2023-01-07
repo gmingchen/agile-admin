@@ -71,7 +71,11 @@
           align="center"
           label="IP"
           prop="ip"
-          width="120" />
+          width="140" />
+        <el-table-column
+          align="center"
+          label="地址"
+          prop="address" />
         <el-table-column
           align="center"
           label="浏览器"

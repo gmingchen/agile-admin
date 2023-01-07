@@ -39,21 +39,22 @@
         <el-table-column type="expand">
           <template #default="{row}">
             <div class="padding-n-8">
-              <el-descriptions :column="3" border>
-                <el-descriptions-item label="操作" :span="3">{{row.operation || '-'}}</el-descriptions-item>
+              <el-descriptions :column="4" border>
+                <el-descriptions-item label="操作">{{row.operation || '-'}}</el-descriptions-item>
                 <el-descriptions-item label="昵称">{{row.nickname || '-'}}</el-descriptions-item>
                 <el-descriptions-item label="帐号">{{row.username || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="操作时间">{{row.created_at || '-'}}</el-descriptions-item>
                 <el-descriptions-item label="IP">{{row.ip || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="地址">{{row.address || '-'}}</el-descriptions-item>
                 <el-descriptions-item label="浏览器">{{row.browser || '-'}}</el-descriptions-item>
                 <el-descriptions-item label="操作系统">{{row.operating_system || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="操作时间">{{row.created_at || '-'}}</el-descriptions-item>
                 <el-descriptions-item label="请求方法">{{row.method || '-'}}</el-descriptions-item>
                 <el-descriptions-item label="请求URL">{{row.url || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="方法名">{{row.method_name || '-'}}</el-descriptions-item>
-                <el-descriptions-item label="请求参数">
+                <el-descriptions-item label="方法名" :span="2">{{row.method_name || '-'}}</el-descriptions-item>
+                <el-descriptions-item label="请求参数" :span="2">
                   <pre>{{JSON.parse(row.request_data || '{}')}}</pre>
                 </el-descriptions-item>
-                <el-descriptions-item label="响应参数">
+                <el-descriptions-item label="响应参数" :span="2">
                   <pre>{{JSON.parse(row.response_data || '{}')}}</pre>
                 </el-descriptions-item>
               </el-descriptions>
@@ -94,7 +95,11 @@
           align="center"
           label="IP"
           prop="ip"
-          width="120" />
+          width="140" />
+        <el-table-column
+          align="center"
+          label="地址"
+          prop="address" />
         <el-table-column
           align="center"
           label="浏览器"
@@ -213,4 +218,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+pre {
+  white-space: pre-wrap;
+}
+::v-deep(.el-descriptions__label) {
+  width: 80px;
+}
 </style>

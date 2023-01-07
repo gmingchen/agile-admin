@@ -51,7 +51,8 @@
         <el-table-column
           align="center"
           label="登录信息"
-          prop="message" />
+          prop="message"
+          width="120" />
         <el-table-column
           align="center"
           label="管理员"
@@ -72,7 +73,11 @@
           align="center"
           label="IP"
           prop="ip"
-          width="120" />
+          width="140" />
+        <el-table-column
+          align="center"
+          label="地址"
+          prop="address" />
         <el-table-column
           align="center"
           label="浏览器"

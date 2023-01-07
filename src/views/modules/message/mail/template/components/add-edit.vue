@@ -12,7 +12,6 @@
       :model="form"
       :rules="rules"
       ref="refForm"
-      @keyup.enter="submit()"
       label-position="top">
       <el-form-item label="标题" prop="subject">
         <el-input
@@ -22,6 +21,7 @@
           show-word-limit />
       </el-form-item>
       <el-form-item label="内容" prop="content">
+        {{form.content}}
         <quill
           ref="refQuill"
           v-model="form.content"
@@ -69,7 +69,7 @@ export default defineComponent({
       form: {
         id: '',
         subject: '',
-        content: '',
+        content: '<p>123<br /> 13444</p>',
         remark: ''
       }
     })
@@ -109,6 +109,7 @@ export default defineComponent({
         if (valid) {
           const params = { ...data.form }
           params.content = refQuill.value.getEncodeHtml()
+          console.log('params.content', data.form.content)
           const r = data.form.id ? await editApi(params) : await addApi(params)
           if (r) {
             data.visible = false
