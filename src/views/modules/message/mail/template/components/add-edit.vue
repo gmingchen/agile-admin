@@ -21,11 +21,7 @@
           show-word-limit />
       </el-form-item>
       <el-form-item label="内容" prop="content">
-        {{form.content}}
-        <quill
-          ref="refQuill"
-          v-model="form.content"
-          placeholder="输入邮件内容..." />
+        <Wang v-model="form.content" placeholder="输入邮件内容..." />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input
@@ -52,16 +48,15 @@
 import { defineComponent, nextTick, reactive, ref, toRefs } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import Quill from '@/components/editor/quill/index.vue'
+import Wang from '@/components/editor/wang/index.vue'
 
 import { infoApi, addApi, editApi } from '@/api/mail-template'
 
 export default defineComponent({
   emits: ['refresh'],
-  components: { Quill },
+  components: { Wang },
   setup(_props, { emit }) {
     const refForm = ref()
-    const refQuill = ref()
 
     const data = reactive({
       visible: false,
@@ -69,7 +64,7 @@ export default defineComponent({
       form: {
         id: '',
         subject: '',
-        content: '<p>123<br /> 13444</p>',
+        content: '',
         remark: ''
       }
     })
@@ -108,8 +103,7 @@ export default defineComponent({
       refForm.value.validate(async valid => {
         if (valid) {
           const params = { ...data.form }
-          params.content = refQuill.value.getEncodeHtml()
-          console.log('params.content', data.form.content)
+          params.content = encodeURI(data.form.content)
           const r = data.form.id ? await editApi(params) : await addApi(params)
           if (r) {
             data.visible = false
@@ -135,7 +129,6 @@ export default defineComponent({
 
     return {
       refForm,
-      refQuill,
       ...toRefs(data),
       rules,
       init,

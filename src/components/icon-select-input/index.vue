@@ -42,12 +42,13 @@ import axios from 'axios'
 
 import useModel from '@/mixins/model'
 import { UPDATE_MODEL_EVENT, CONTENT_TYPE, TIME_OUT } from '@/utils/constant'
+import { number } from 'prop-types'
 
 export default defineComponent({
   emits: [UPDATE_MODEL_EVENT],
   props: {
     modelValue: {
-      type: [String],
+      type: [String, Number],
       required: true
     },
     readonly: {
