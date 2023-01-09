@@ -22,10 +22,7 @@
           show-word-limit />
       </el-form-item>
       <el-form-item label="内容" prop="content">
-        <quill
-          ref="refQuill"
-          v-model="form.content"
-          placeholder="输入邮件内容..." />
+        <Wang v-model="form.content" placeholder="输入邮件内容..." />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input
@@ -52,14 +49,12 @@
 import { nextTick, reactive, ref } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import Quill from '@/components/editor/quill/index.vue'
 
 import { infoApi, addApi, editApi } from '@/api/mail-template'
 
 const emits = defineEmits(['refresh'])
 
 const refForm = ref()
-const refQuill = ref()
 const visible = ref(false)
 const loading = ref(false)
 const form = reactive({
@@ -102,7 +97,7 @@ const submit = () => {
   refForm.value.validate(async valid => {
     if (valid) {
       const params = { ...form }
-      params.content = refQuill.value.getEncodeHtml()
+      params.content = encodeURI(form.content)
       const r = form.id ? await editApi(params) : await addApi(params)
       if (r) {
         visible.value = false

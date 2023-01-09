@@ -13,6 +13,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^0.27.2",
     "codemirror-editor-vue3": "^2.1.7",
     "element-plus": "^2.2.14",

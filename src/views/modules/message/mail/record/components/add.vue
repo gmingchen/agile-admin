@@ -20,10 +20,7 @@
           show-word-limit />
       </el-form-item>
       <el-form-item label="邮件内容" prop="content">
-        <quill
-          ref="refQuill"
-          v-model="form.content"
-          placeholder="输入邮件内容..." />
+        <Wang v-model="form.content" placeholder="输入邮件内容..." />
       </el-form-item>
       <el-form-item label="发送类型" prop="type">
         <el-radio-group v-model="form.type">
@@ -78,7 +75,6 @@
 import { nextTick, reactive, ref } from 'vue'
 
 import { ElMessage } from 'element-plus'
-import Quill from '@/components/editor/quill/index.vue'
 
 import { isEmail } from '@/utils/regular'
 
@@ -87,7 +83,6 @@ import { addApi } from '@/api/mail'
 const emits = defineEmits(['refresh'])
 
 const refForm = ref()
-const refQuill = ref()
 const refInput = ref()
 const visible = ref(false)
 const inputVisible = ref(false)
@@ -177,7 +172,7 @@ const submit = () => {
     if (valid) {
       const params = {
         subject: form.subject,
-        content: refQuill.value.getEncodeHtml(),
+        content: encodeURI(form.content),
         type: form.type,
         emails: form.type === 1 ? [form.email] : form.emails,
         enclosures: []
