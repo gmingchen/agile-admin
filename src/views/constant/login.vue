@@ -56,7 +56,7 @@
           @click="submit()">登录</el-button>
       </el-form>
     </el-card>
-    <HappyYear />
+    <HappyYear ref="refHappYear" />
   </div>
 </template>
 
@@ -83,6 +83,7 @@ export default defineComponent({
     const { dictionaryMap, dictionaryList, getDictionary } = useDictionary()
 
     const refForm = ref()
+    const refHappYear = ref()
     const data = reactive({
       loading: false,
       captcha: '',
@@ -139,6 +140,42 @@ export default defineComponent({
     }
 
     /**
+     * 拦截
+     * @param {*} callback 
+     */
+    const filterHandle = (callback) => {
+      if (refHappYear.value.visible) {
+        ElMessageBox.confirm(
+          '删除弹窗DOM的方式可不行哦！',
+          '提示',
+          {
+            confirmButtonText: '继续卷',
+            cancelButtonText: '不卷啦',
+            type: 'warning',
+          }
+        ).then(() => {
+          //
+        }).catch(() => {
+          openLink()
+        })
+      } else {
+        ElMessageBox.confirm(
+          '居然被你关闭了弹窗，那我再问你最后一次确定要继续卷?',
+          '确认',
+          {
+            confirmButtonText: '继续卷',
+            cancelButtonText: '不卷啦',
+            type: 'warning',
+          }
+        ).then(() => {
+          callback()
+        }).catch(() => {
+          openLink()
+        })
+      }
+    }
+
+    /**
      * @description: 登录表单提交
      * @param {*}
      * @return {*}
@@ -147,28 +184,18 @@ export default defineComponent({
     const submit = () => {
       refForm.value.validate(valid => {
         if (valid) {
-          ElMessageBox.confirm(
-            '居然被你关闭了弹窗，那我再问你最后一次确定要继续卷?',
-            '确认',
-            {
-              confirmButtonText: '继续卷',
-              cancelButtonText: '不卷啦',
-              type: 'warning',
-            }
-          ).then(() => {
+          filterHandle(() => {
             data.loading = true
-            store.dispatch('administrator/login', data.form).then(r => {
-              if (r) {
-                router.push({ name: 'redirect', replace: true })
-              } else {
-                getCaptcha()
-                nextTick(() => {
-                  data.loading = false
-                })
-              }
-            })
-          }).catch(() => {
-            openLink()
+              store.dispatch('administrator/login', data.form).then(r => {
+                if (r) {
+                  router.push({ name: 'redirect', replace: true })
+                } else {
+                  getCaptcha()
+                  nextTick(() => {
+                    data.loading = false
+                  })
+                }
+              })
           })
         }
       })
@@ -215,6 +242,7 @@ export default defineComponent({
 
     return {
       refForm,
+      refHappYear,
       dictionaryMap,
       dictionaryList,
       ...toRefs(data),

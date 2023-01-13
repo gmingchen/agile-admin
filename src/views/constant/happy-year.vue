@@ -54,7 +54,7 @@ export default defineComponent({
       { 
         id: 2,
         text: '继续卷', 
-        click: () => { console.log(1) },
+        click: () => { visible.value = false },
         class: 'confirm',
         type: 'primary'
       }
