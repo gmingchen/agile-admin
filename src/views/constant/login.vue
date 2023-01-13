@@ -56,6 +56,7 @@
           @click="submit()">登录</el-button>
       </el-form>
     </el-card>
+    <HappyYear />
   </div>
 </template>
 
@@ -64,14 +65,17 @@ import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRe
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
-import { ElNotification } from 'element-plus'
+import { ElNotification, ElMessageBox } from 'element-plus'
+import HappyYear from './happy-year.vue'
 
 import useDictionary from '@/mixins/dictionary'
 import { generateUUID } from '@/utils'
+import { openLink } from './config.js'
 
 import { captchaApi } from '@/api/login'
 
 export default defineComponent({
+  components: { HappyYear },
   setup() {
     const router = useRouter()
     const store = useStore()
@@ -143,16 +147,28 @@ export default defineComponent({
     const submit = () => {
       refForm.value.validate(valid => {
         if (valid) {
-          data.loading = true
-          store.dispatch('administrator/login', data.form).then(r => {
-            if (r) {
-              router.push({ name: 'redirect', replace: true })
-            } else {
-              getCaptcha()
-              nextTick(() => {
-                data.loading = false
-              })
+          ElMessageBox.confirm(
+            '居然被你关闭了弹窗，那我再问你最后一次确定要继续卷?',
+            '确认',
+            {
+              confirmButtonText: '继续卷',
+              cancelButtonText: '不卷啦',
+              type: 'warning',
             }
+          ).then(() => {
+            data.loading = true
+            store.dispatch('administrator/login', data.form).then(r => {
+              if (r) {
+                router.push({ name: 'redirect', replace: true })
+              } else {
+                getCaptcha()
+                nextTick(() => {
+                  data.loading = false
+                })
+              }
+            })
+          }).catch(() => {
+            openLink()
           })
         }
       })
