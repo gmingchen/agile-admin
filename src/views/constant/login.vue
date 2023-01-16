@@ -56,7 +56,7 @@
           @click="submit()">登录</el-button>
       </el-form>
     </el-card>
-    <HappyYear ref="refHappYear" />
+    <!-- <HappyYear ref="refHappYear" /> -->
   </div>
 </template>
 
@@ -66,7 +66,7 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 import { ElNotification, ElMessageBox } from 'element-plus'
-import HappyYear from './happy-year.vue'
+// import HappyYear from './happy-year.vue'
 
 import useDictionary from '@/mixins/dictionary'
 import { generateUUID } from '@/utils'
@@ -75,7 +75,7 @@ import { openLink } from './config.js'
 import { captchaApi } from '@/api/login'
 
 export default defineComponent({
-  components: { HappyYear },
+  // components: { HappyYear },
   setup() {
     const router = useRouter()
     const store = useStore()
@@ -141,7 +141,7 @@ export default defineComponent({
 
     /**
      * 拦截
-     * @param {*} callback 
+     * @param {*} callback
      */
     const filterHandle = (callback) => {
       if (refHappYear.value.visible) {
@@ -151,7 +151,7 @@ export default defineComponent({
           {
             confirmButtonText: '继续卷',
             cancelButtonText: '不卷啦',
-            type: 'warning',
+            type: 'warning'
           }
         ).then(() => {
           //
@@ -165,7 +165,7 @@ export default defineComponent({
           {
             confirmButtonText: '继续卷',
             cancelButtonText: '不卷啦',
-            type: 'warning',
+            type: 'warning'
           }
         ).then(() => {
           callback()
@@ -184,19 +184,19 @@ export default defineComponent({
     const submit = () => {
       refForm.value.validate(valid => {
         if (valid) {
-          filterHandle(() => {
-            data.loading = true
-              store.dispatch('administrator/login', data.form).then(r => {
-                if (r) {
-                  router.push({ name: 'redirect', replace: true })
-                } else {
-                  getCaptcha()
-                  nextTick(() => {
-                    data.loading = false
-                  })
-                }
+          // filterHandle(() => {
+          data.loading = true
+          store.dispatch('administrator/login', data.form).then(r => {
+            if (r) {
+              router.push({ name: 'redirect', replace: true })
+            } else {
+              getCaptcha()
+              nextTick(() => {
+                data.loading = false
               })
+            }
           })
+          // })
         }
       })
     }
