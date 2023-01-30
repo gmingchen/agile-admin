@@ -230,7 +230,7 @@ export default defineComponent({
      */
     const statusBefore = row => {
       return new Promise((resolve) => {
-        ElMessageBox.confirm(`确定对[id=${ row.id }]进行[${ dictionaryMap.value[row.status] }]操作`, '提示', {
+        ElMessageBox.confirm(`确定对[id=${ row.id }]进行[${ dictionaryMap.value[row.status ? 0 : 1] }]操作`, '提示', {
           confirmButtonText: '确认',
           cancelButtonText: '取消',
           type: 'warning'

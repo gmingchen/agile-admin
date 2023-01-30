@@ -56,7 +56,6 @@
           @click="submit()">登录</el-button>
       </el-form>
     </el-card>
-    <!-- <HappyYear ref="refHappYear" /> -->
   </div>
 </template>
 
@@ -65,17 +64,14 @@ import { computed, defineComponent, nextTick, onBeforeMount, reactive, ref, toRe
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
-import { ElNotification, ElMessageBox } from 'element-plus'
-// import HappyYear from './happy-year.vue'
+import { ElNotification } from 'element-plus'
 
 import useDictionary from '@/mixins/dictionary'
 import { generateUUID } from '@/utils'
-import { openLink } from './config.js'
 
 import { captchaApi } from '@/api/login'
 
 export default defineComponent({
-  // components: { HappyYear },
   setup() {
     const router = useRouter()
     const store = useStore()
@@ -140,42 +136,6 @@ export default defineComponent({
     }
 
     /**
-     * 拦截
-     * @param {*} callback
-     */
-    const filterHandle = (callback) => {
-      if (refHappYear.value.visible) {
-        ElMessageBox.confirm(
-          '删除弹窗DOM的方式可不行哦！',
-          '提示',
-          {
-            confirmButtonText: '继续卷',
-            cancelButtonText: '不卷啦',
-            type: 'warning'
-          }
-        ).then(() => {
-          //
-        }).catch(() => {
-          openLink()
-        })
-      } else {
-        ElMessageBox.confirm(
-          '居然被你关闭了弹窗，那我再问你最后一次确定要继续卷?',
-          '确认',
-          {
-            confirmButtonText: '继续卷',
-            cancelButtonText: '不卷啦',
-            type: 'warning'
-          }
-        ).then(() => {
-          callback()
-        }).catch(() => {
-          openLink()
-        })
-      }
-    }
-
-    /**
      * @description: 登录表单提交
      * @param {*}
      * @return {*}
@@ -184,7 +144,6 @@ export default defineComponent({
     const submit = () => {
       refForm.value.validate(valid => {
         if (valid) {
-          // filterHandle(() => {
           data.loading = true
           store.dispatch('administrator/login', data.form).then(r => {
             if (r) {
@@ -196,7 +155,6 @@ export default defineComponent({
               })
             }
           })
-          // })
         }
       })
     }

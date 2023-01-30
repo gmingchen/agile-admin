@@ -283,7 +283,25 @@ npm run build:test  # 测试环境
   </tr>
 </table>
 
-## 捐赠名单
+## 捐赠
+>如果你觉得这个项目帮助到了你，你可以帮作者买一杯热饮表示鼓励 ☕
+
+<table>
+  <tr align="center">
+    <td>微信捐赠</td>
+    <td>支付宝捐赠</td>
+  </tr>
+  <tr>
+    <td>
+      <img src="http://oss.gumingchen.icu/image/wechat-collection-code.png" width="200px" title="微信捐赠" alt="微信捐赠" />
+    </td>
+    <td>
+      <img src="http://oss.gumingchen.icu/image/ali-collection-code.png" width="200px" title="支付宝捐赠" alt="支付宝捐赠" />
+    </td>
+  </tr>
+</table>
+
+### 捐赠名单
 > ❤️‍🔥以下是捐赠赞助人员名单，感谢TA们的捐赠让`vue-element-plus-admin`变的更好。
 
 | 来源 | 昵称 | 金额 | 时间 |
