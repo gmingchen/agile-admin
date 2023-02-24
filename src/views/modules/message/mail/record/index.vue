@@ -81,7 +81,7 @@
           width="100">
           <template v-slot="{ row }">
             <el-tag :type="row.status === 1 ? 'success' : 'info'">
-              {{ dictionaryMap[row.status] }}
+              {{ row.status_dict }}
             </el-tag>
           </template>
         </el-table-column>
@@ -125,7 +125,7 @@ import { clearJson, parseDate2Str } from '@/utils'
 import { pageApi, delApi } from '@/api/mail'
 
 const { page } = usePage()
-const { dictionaryMap, getDictionary } = useDictionary()
+const { getDictionary } = useDictionary()
 
 const refForm = ref()
 const refTable = ref()

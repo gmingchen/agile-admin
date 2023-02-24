@@ -157,7 +157,7 @@ const { tokenVal } = storeToRefs(administratorStore)
 
 const { page } = usePage()
 page.size = 30
-const { dictionaryMap, dictionaryList, getDictionary } = useDictionary()
+const { dictionaryList, getDictionary } = useDictionary()
 
 const refForm = ref()
 const refTable = ref()

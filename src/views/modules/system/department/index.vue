@@ -79,7 +79,7 @@
           width="190">
           <template v-slot="{ row }">
             <el-tag type="success">
-              {{ permissionDictionary.map[row.permission] }}
+              {{ row.permission_dict }}
             </el-tag>
           </template>
         </el-table-column>

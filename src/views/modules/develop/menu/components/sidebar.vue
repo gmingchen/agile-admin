@@ -45,11 +45,11 @@
                 @click.stop="deleteHandle(node, data)">
                 <Iconfont name="delete" size="12px" />
               </el-button>
-              <el-tag v-if="data.type === 0">{{dictionaryMap[data.type]}}</el-tag>
-              <el-tag type="success" v-else-if="data.type === 1">{{dictionaryMap[data.type]}}</el-tag>
-              <el-tag type="info" v-else-if="data.type === 2">{{dictionaryMap[data.type]}}</el-tag>
-              <el-tag type="warning" v-else-if="data.type === 3">{{dictionaryMap[data.type]}}</el-tag>
-              <el-tag type="danger" v-else-if="data.type === 4">{{dictionaryMap[data.type]}}</el-tag>
+              <el-tag v-if="data.type === 0">{{ data.type_dict }}</el-tag>
+              <el-tag type="success" v-else-if="data.type === 1">{{ data.type_dict }}</el-tag>
+              <el-tag type="info" v-else-if="data.type === 2">{{ data.type_dict }}</el-tag>
+              <el-tag type="warning" v-else-if="data.type === 3">{{ data.type_dict }}</el-tag>
+              <el-tag type="danger" v-else-if="data.type === 4">{{ data.type_dict }}</el-tag>
             </div>
           </div>
         </template>
@@ -81,7 +81,7 @@ const props = defineProps({
 
 const value = useModel(props)
 
-const { dictionaryMap, getDictionary } = useDictionary()
+const { getDictionary } = useDictionary()
 
 const treeProps = {
   children: 'children',

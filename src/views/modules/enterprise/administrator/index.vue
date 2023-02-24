@@ -78,11 +78,7 @@
         <el-table-column
           align="center"
           label="性别"
-          prop="sex">
-          <template v-slot="{row}">
-            {{dictionaryMap[row.sex]}}
-          </template>
-        </el-table-column>
+          prop="sex_dict" />
         <el-table-column
           align="center"
           label="部门"
@@ -172,7 +168,7 @@ const administratorStore = useAdministratorStore()
 const { administrator } = storeToRefs(administratorStore)
 
 const { page } = usePage()
-const { dictionaryMap, getDictionary } = useDictionary()
+const { getDictionary } = useDictionary()
 
 const refContainerSidebar = ref()
 const refForm = ref()

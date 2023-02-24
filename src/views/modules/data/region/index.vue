@@ -34,7 +34,7 @@
           label="等级"
           prop="level">
           <template v-slot="{ row }">
-            {{ dictionaryMap[row.level] }}
+            {{ row.level_dict }}
           </template>
         </el-table-column>
         <el-table-column
@@ -86,7 +86,7 @@ import { havePermission } from '@/utils'
 
 import { listApi, delApi } from '@/api/region'
 
-const { dictionaryMap, getDictionary } = useDictionary()
+const { getDictionary } = useDictionary()
 
 const refForm = ref()
 const refTable = ref()

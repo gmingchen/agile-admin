@@ -41,7 +41,7 @@
           width="190">
           <template v-slot="{ row }">
             <el-tag type="success">
-              {{ dictionaryMap[row.permission] }}
+              {{ row.permission_dict }}
             </el-tag>
           </template>
         </el-table-column>
@@ -114,7 +114,7 @@ import { clearJson, havePermission } from '@/utils'
 import { pageApi, deleteApi, setShowApi } from '@/api/role'
 
 const { page } = usePage()
-const { dictionaryMap, getDictionary } = useDictionary()
+const { getDictionary } = useDictionary()
 
 const refForm = ref()
 const refTable = ref()

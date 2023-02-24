@@ -57,7 +57,7 @@
         prop="type"
         width="120">
         <template v-slot="{ row }">
-          <el-tag>{{ dictionaryMap[row.type] }}</el-tag>
+          <el-tag>{{ row.type_dict }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -114,7 +114,7 @@ const refTable = ref()
 
 const { page } = usePage()
 
-const { dictionaryMap, dictionaryList, getDictionary } = useDictionary()
+const { dictionaryList, getDictionary } = useDictionary()
 
 const loading = ref(false)
 const form = ref({

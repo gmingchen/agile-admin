@@ -16,7 +16,7 @@
             <div class="message-item flex-box flex_j_c-space-between flex_a_i-center" v-for="item in list" :key="item.id">
               <div class="message-content flex-item_f-1 margin-n-5">
                 <div class="message-time margin_b-3 font-size-12">
-                  <el-tag size="small">{{ dictionaryMap[item.type] }}</el-tag>
+                  <el-tag size="small">{{ item.type_dict }}</el-tag>
                   <span class="margin_l-10">{{ item.created_at }}</span>
                 </div>
                 <div class="ellipse font-size-14">{{ item.content }}</div>

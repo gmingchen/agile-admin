@@ -83,7 +83,7 @@
           prop="type">
           <template v-slot="{ row }">
             <el-tag :type="row.type === 1 ? 'success' : 'info'">
-              {{ dictionaryMap[row.type] }}
+              {{ row.type_dict }}
             </el-tag>
           </template>
         </el-table-column>
@@ -133,7 +133,7 @@ import { clearJson, parseDate2Str, havePermission } from '@/utils'
 import { pageApi, delApi, backupApi, recoveryApi } from '@/api/backup'
 
 const { page } = usePage()
-const { dictionaryMap, dictionaryList, getDictionary } = useDictionary()
+const { dictionaryList, getDictionary } = useDictionary()
 
 const refForm = ref()
 const refTable = ref()

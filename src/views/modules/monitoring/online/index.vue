@@ -55,11 +55,7 @@
         <el-table-column
           align="center"
           label="性别"
-          prop="sex">
-          <template v-slot="{row}">
-            {{dictionaryMap[row.sex]}}
-          </template>
-        </el-table-column>
+          prop="sex_dict" />
         <el-table-column
           align="center"
           label="登录时间"
@@ -98,7 +94,7 @@ import { clearJson } from '@/utils'
 import { onlinePageApi, logoutApi } from '@/api/websocket'
 
 const { page } = usePage()
-const { dictionaryMap, getDictionary } = useDictionary()
+const { getDictionary } = useDictionary()
 
 const refForm = ref()
 const refTable = ref()

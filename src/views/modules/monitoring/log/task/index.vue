@@ -55,8 +55,8 @@
           prop="status"
           width="100">
           <template v-slot="{row}">
-            <el-tag v-if="row.status === 1">{{dictionaryMap[row.status]}}</el-tag>
-            <el-tag v-if="row.status === 0" type="info">{{dictionaryMap[row.status]}}</el-tag>
+            <el-tag v-if="row.status === 1">{{ row.status_dict }}</el-tag>
+            <el-tag v-if="row.status === 0" type="info">{{ row.status_dict }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column
@@ -94,7 +94,7 @@ import { clearJson, parseDate2Str } from '@/utils'
 import { pageApi, truncateApi } from '@/api/timed-task-log'
 
 const { page } = usePage()
-const { dictionaryMap, getDictionary } = useDictionary()
+const { getDictionary } = useDictionary()
 
 const refForm = ref()
 const refTable = ref()

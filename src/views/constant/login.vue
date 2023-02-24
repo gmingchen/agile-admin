@@ -74,7 +74,7 @@ import { captchaApi } from '@/api/login'
 const router = useRouter()
 const administratorStore = useAdministratorStore()
 
-const { dictionaryMap, dictionaryList, getDictionary } = useDictionary()
+const { dictionaryList, getDictionary } = useDictionary()
 
 const refForm = ref()
 const loading = ref(false)
