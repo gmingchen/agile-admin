@@ -19,7 +19,7 @@
             active-color="#222222" />
         </el-form-item>
         <el-divider>布局</el-divider>
-        <el-form-item label="导航栏模式">
+        <el-form-item label="侧边栏模式">
           <el-select v-model="sidebar">
             <el-option
               :value="item.value"
