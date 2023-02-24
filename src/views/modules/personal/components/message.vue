@@ -57,7 +57,7 @@
         prop="type"
         width="120">
         <template v-slot="{ row }">
-          <el-tag>{{ dictionaryMap[row.type] }}</el-tag>
+          <el-tag>{{ row.type_dict }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -115,7 +115,7 @@ export default defineComponent({
 
     const { page } = usePage()
 
-    const { dictionaryMap, dictionaryList, getDictionary } = useDictionary()
+    const { dictionaryList, getDictionary } = useDictionary()
 
     const data = reactive({
       loading: false,
@@ -246,7 +246,6 @@ export default defineComponent({
       refForm,
       refTable,
       page,
-      dictionaryMap,
       dictionaryList,
       ...toRefs(data),
       getList,

@@ -32,11 +32,7 @@
         <el-table-column
           align="center"
           label="等级"
-          prop="level">
-          <template v-slot="{ row }">
-            {{ dictionaryMap[row.level] }}
-          </template>
-        </el-table-column>
+          prop="level_dict" />
         <el-table-column
           align="center"
           label="区域编码"
@@ -94,7 +90,7 @@ export default defineComponent({
     const refAddEdit = ref()
 
     const props = { children: 'children', hasChildren: 'hasChildren' }
-    const { dictionaryMap, getDictionary } = useDictionary()
+    const { getDictionary } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -199,7 +195,6 @@ export default defineComponent({
       refTable,
       refAddEdit,
       props,
-      dictionaryMap,
       ...toRefs(data),
       init,
       loadHandle,

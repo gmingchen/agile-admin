@@ -80,7 +80,7 @@
           label="性别"
           prop="sex">
           <template v-slot="{row}">
-            {{dictionaryMap[row.sex]}}
+            {{ row.sex_dict }}
           </template>
         </el-table-column>
         <el-table-column
@@ -177,7 +177,7 @@ export default defineComponent({
     const refAddEdit = ref()
 
     const { page } = usePage()
-    const { dictionaryMap, getDictionary } = useDictionary()
+    const { getDictionary } = useDictionary()
     const data = reactive({
       active: '',
       loading: false,
@@ -290,7 +290,6 @@ export default defineComponent({
       refTable,
       refAddEdit,
       page,
-      dictionaryMap,
       ...toRefs(data),
       administratorId,
       getList,

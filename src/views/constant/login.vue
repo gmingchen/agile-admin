@@ -76,7 +76,7 @@ export default defineComponent({
     const router = useRouter()
     const store = useStore()
 
-    const { dictionaryMap, dictionaryList, getDictionary } = useDictionary()
+    const { dictionaryList, getDictionary } = useDictionary()
 
     const refForm = ref()
     const refHappYear = ref()
@@ -201,7 +201,6 @@ export default defineComponent({
     return {
       refForm,
       refHappYear,
-      dictionaryMap,
       dictionaryList,
       ...toRefs(data),
       type,

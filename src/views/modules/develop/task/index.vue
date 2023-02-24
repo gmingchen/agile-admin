@@ -71,8 +71,8 @@
           prop="status"
           width="100">
           <template v-slot="{row}">
-            <el-tag v-if="row.status === 1">{{dictionaryMap[row.status]}}</el-tag>
-            <el-tag type="info" v-if="row.status === 0">{{dictionaryMap[row.status]}}</el-tag>
+            <el-tag v-if="row.status === 1">{{ row.status_dict }}</el-tag>
+            <el-tag type="info" v-if="row.status === 0">{{ row.status_dict }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column
@@ -159,7 +159,7 @@ export default defineComponent({
     const refTable = ref()
     const refAddEdit = ref()
     const { page } = usePage()
-    const { dictionaryMap, getDictionary } = useDictionary()
+    const { getDictionary } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -316,7 +316,6 @@ export default defineComponent({
       refTable,
       refAddEdit,
       page,
-      dictionaryMap,
       ...toRefs(data),
       getList,
       pageChangeHandle,

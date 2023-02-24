@@ -81,7 +81,7 @@
           width="100">
           <template v-slot="{ row }">
             <el-tag :type="row.status === 1 ? 'success' : 'info'">
-              {{ dictionaryMap[row.status] }}
+              {{ row.status_dict }}
             </el-tag>
           </template>
         </el-table-column>
@@ -132,7 +132,7 @@ export default defineComponent({
     const refAdd = ref()
 
     const { page } = usePage()
-    const { dictionaryMap, getDictionary } = useDictionary()
+    const { getDictionary } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -256,7 +256,6 @@ export default defineComponent({
       refTable,
       refAdd,
       page,
-      dictionaryMap,
       ...toRefs(data),
       getList,
       reacquireHandle,

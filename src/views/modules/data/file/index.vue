@@ -160,7 +160,7 @@ export default defineComponent({
 
     const { page } = usePage()
     page.size = 30
-    const { dictionaryMap, dictionaryList, getDictionary } = useDictionary()
+    const { dictionaryList, getDictionary } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -342,7 +342,6 @@ export default defineComponent({
       refTable,
       refSet,
       page,
-      dictionaryMap,
       dictionaryList,
       ...toRefs(data),
       getList,

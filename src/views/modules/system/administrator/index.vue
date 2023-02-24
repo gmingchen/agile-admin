@@ -4,7 +4,7 @@
  * @Email: 1240235512@qq.com
  * @Date: 2022-04-25 16:50:13
  * @LastEditors: gumingchen
- * @LastEditTime: 2022-05-16 10:37:09
+ * @LastEditTime: 2023-02-24 08:54:08
 -->
 <template>
   <Container>
@@ -82,7 +82,7 @@
           label="性别"
           prop="sex">
           <template v-slot="{row}">
-            {{dictionaryMap[row.sex]}}
+            {{ row.sex_dict }}
           </template>
         </el-table-column>
         <el-table-column
@@ -176,7 +176,7 @@ export default defineComponent({
     const refAddEdit = ref()
 
     const { page } = usePage()
-    const { dictionaryMap, getDictionary } = useDictionary()
+    const { getDictionary } = useDictionary()
     const data = reactive({
       loading: false,
       visible: false,
@@ -290,7 +290,6 @@ export default defineComponent({
       refTable,
       refAddEdit,
       page,
-      dictionaryMap,
       ...toRefs(data),
       administratorId,
       getList,

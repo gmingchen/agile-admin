@@ -51,11 +51,11 @@
           prop="type"
           width="90">
           <template v-slot="{ row }">
-            <el-tag v-if="row.type === 0">{{dictionaryMap[row.type]}}</el-tag>
-            <el-tag type="success" v-else-if="row.type === 1">{{dictionaryMap[row.type]}}</el-tag>
-            <el-tag type="info" v-else-if="row.type === 2">{{dictionaryMap[row.type]}}</el-tag>
-            <el-tag type="warning" v-else-if="row.type === 3">{{dictionaryMap[row.type]}}</el-tag>
-            <el-tag type="danger" v-else-if="row.type === 4">{{dictionaryMap[row.type]}}</el-tag>
+            <el-tag v-if="row.type === 0">{{ row.type_dict }}</el-tag>
+            <el-tag type="success" v-else-if="row.type === 1">{{ row.type_dict }}</el-tag>
+            <el-tag type="info" v-else-if="row.type === 2">{{ row.type_dict }}</el-tag>
+            <el-tag type="warning" v-else-if="row.type === 3">{{ row.type_dict }}</el-tag>
+            <el-tag type="danger" v-else-if="row.type === 4">{{ row.type_dict }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column
@@ -121,7 +121,7 @@ export default defineComponent({
     const refModify = ref()
     const refEdit = ref()
 
-    const { dictionaryMap, getDictionary } = useDictionary()
+    const { getDictionary } = useDictionary()
     const data = reactive({
       active: '',
       loading: false,
@@ -196,7 +196,6 @@ export default defineComponent({
       refTable,
       refModify,
       refEdit,
-      dictionaryMap,
       ...toRefs(data),
       getList,
       modifyHandle,
