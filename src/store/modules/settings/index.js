@@ -14,6 +14,7 @@ import { getLayout, setLayout, clearLayout } from '@/utils/storage'
  */
 const setLayoutHandle = (state) => {
   setLayout({
+    sidebarMode: state.sidebarMode,
     navigationMode: state.navigationMode,
     contanierMode: state.contanierMode,
     panelMode: state.panelMode,
@@ -23,6 +24,12 @@ const setLayoutHandle = (state) => {
 
 export default {
   state: {
+    /**
+     * 侧边菜单栏模式
+     * 1：传统模式
+     * 2：分栏模式
+     */
+    sidebarMode: 1,
     /**
      * 导航模式
      * 1：固定导航
@@ -54,6 +61,9 @@ export default {
   getters: {
   },
   mutations: {
+    SET_SIDEBAR_MODE: (state, sidebarMode) => {
+      state.sidebarMode = sidebarMode
+    },
     SET_NAVIGATION_MODE: (state, navigationMode) => {
       state.navigationMode = navigationMode
     },
@@ -85,6 +95,14 @@ export default {
         // eslint-disable-next-line no-undefined
         commit('SET_SHOW_TABS', showTabs !== undefined ? showTabs : true)
       }
+    },
+    /**
+     * 设置导航模式
+     * @returns
+     */
+    setSidebarMode({ commit, state }, sidebarMode) {
+      commit('SET_SIDEBAR_MODE', sidebarMode)
+      setLayoutHandle(state)
     },
     /**
      * 设置导航模式

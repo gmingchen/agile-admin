@@ -1,7 +1,6 @@
 <template>
   <div
-    class="logo-container padding-n-10 flex-box"
-    :class="{ 'logo-container-collapse': collapse }"
+    class="logo-container padding-n-10 width-full flex-box"
     v-if="enterprise.name || enterprise.logo">
     <transition name="el-fade-in" mode="out-in">
       <div class="flex-box flex-item_f-1 flex_j_c-center flex_a_i-center" v-if="!collapse">
@@ -25,16 +24,19 @@ import { computed, defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
+  props: {
+    collapse: {
+      type: Boolean,
+      default: () => true
+    }
+  },
   setup() {
     const store = useStore()
-
     const enterprise = computed(() => store.state.enterprise.enterprise)
 
-    const collapse = computed(() => store.state.menu.collapse)
-
     return {
-      enterprise,
-      collapse
+      enterprise
+
     }
   }
 })
@@ -43,12 +45,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .logo-container {
   height: var(--gl-headbar-height);
-  width: var(--gl-sidebar-width);
   line-height: var(--gl-headbar-height);
   background-color: var(--gl-sidebar-background-color);
   transition: width 0.4s;
-  &-collapse {
-    width: var(--gl-sidebar-collapse-width);
-  }
 }
 </style>

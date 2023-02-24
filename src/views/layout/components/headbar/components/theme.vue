@@ -20,6 +20,15 @@
         </el-form-item>
         <el-divider>布局</el-divider>
         <el-form-item label="导航栏模式">
+          <el-select v-model="sidebar">
+            <el-option
+              :value="item.value"
+              :label="item.label"
+              v-for="item in sidebars"
+              :key="item.value" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="导航栏模式">
           <el-select v-model="navigation">
             <el-option
               :value="item.value"
@@ -177,6 +186,14 @@ export default defineComponent({
       }
     })
 
+    const sidebar = computed({
+      get: () => {
+        return store.state.settings.sidebarMode
+      },
+      set: (val) => {
+        store.dispatch('settings/setSidebarMode', val)
+      }
+    })
     const navigation = computed({
       get: () => {
         return store.state.settings.navigationMode
@@ -341,6 +358,10 @@ export default defineComponent({
 
     const data = reactive({
       visible: false,
+      sidebars: [
+        { label: '经典模式', value: 1 },
+        { label: '分栏模式', value: 2 }
+      ],
       navigations: [
         { label: '固定导航', value: 1 },
         { label: '不固定导航', value: 2 }
@@ -362,6 +383,7 @@ export default defineComponent({
 
     return {
       mode,
+      sidebar,
       navigation,
       contanier,
       panel,

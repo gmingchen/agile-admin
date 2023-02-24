@@ -41,7 +41,7 @@ export default defineComponent({
 
     const component = computed(() => {
       let result = ''
-      switch (store.state.settings.navigationMode) {
+      switch (navigationMode.value) {
         case 1:
           result = NavigationFixed
           break

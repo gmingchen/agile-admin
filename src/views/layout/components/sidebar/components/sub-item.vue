@@ -1,13 +1,13 @@
 <template>
   <el-sub-menu v-if="data.children && data.children.length > 0" :index="data.name || data.id + ''">
     <template #title>
-      <Iconfont :name="data.icon" class="padding_r-5" v-if="data.icon" />
+      <Iconfont :name="data.icon" :class="{ 'padding_r-5' : !collapse }" v-if="data.icon" />
       <span>{{ data.name_cn }}</span>
     </template>
     <sub-item v-for="item in data.children" :key="item.id" :data="item" />
   </el-sub-menu>
   <el-menu-item v-else :index="data.name || data.id + ''" @click="clickHandle">
-    <Iconfont :name="data.icon" class="padding_r-5" v-if="data.icon" />
+    <Iconfont :name="data.icon" :class="{ 'padding_r-5' : !collapse }" v-if="data.icon" />
     <template #title>
       <span>{{ data.name_cn }}</span>
     </template>
@@ -24,6 +24,10 @@ export default defineComponent({
     data: {
       type: Object,
       required: true
+    },
+    collapse: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {

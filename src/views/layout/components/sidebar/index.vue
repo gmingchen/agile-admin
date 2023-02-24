@@ -1,18 +1,5 @@
 <template>
-  <div class="sidebar-container flex-box flex_d-column">
-    <Logo />
-    <el-scrollbar class="flex-item_f-1">
-      <el-menu
-        :default-active="active"
-        :background-color="theme.backgroundColor !== '#fff' ? theme.backgroundColor : ''"
-        :text-color="theme.textColor"
-        :active-text-color="theme.activeTextColor"
-        :unique-opened="true"
-        :collapse="collapse">
-        <SubItem v-for="item in menus" :key="item.value" :data="item" />
-      </el-menu>
-    </el-scrollbar>
-  </div>
+  <component :is="component" />
 </template>
 
 <script>
@@ -20,22 +7,30 @@ import { computed, defineComponent, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 
-import Logo from './components/logo.vue'
-import SubItem from './components/sub-item.vue'
+import Classic from './classic/index.vue'
+import Subfield from './subfield/index.vue'
 
 export default defineComponent({
-  components: { Logo, SubItem },
+  components: { Classic, Subfield },
   setup() {
     const store = useStore()
     const route = useRoute()
 
-    const theme = computed(() => store.state.theme.theme.menu)
+    const sidebarMode = computed(() => store.state.settings.sidebarMode)
 
-    const menus = computed(() => store.getters['menu/menus'])
+    const component = computed(() => {
+      let result = ''
+      switch (sidebarMode.value) {
+        case 1:
+          result = Classic
+          break
+        case 2:
+          result = Subfield
+          break
+      }
+      return result
+    })
 
-    const active = computed(() => store.state.menu.active)
-
-    const collapse = computed(() => store.state.menu.collapse)
     /**
      * @description: 路由变化事件
      * @param {*}
@@ -52,38 +47,12 @@ export default defineComponent({
     })
 
     return {
-      theme,
-      menus,
-      active,
-      collapse
+      component
     }
   }
 })
 </script>
 
-<style lang="scss" scoped>
-.sidebar-container {
-  z-index: 10;
-  background-color: var(--gl-sidebar-background-color);
-  // box-shadow: var(--el-box-shadow-light);
-  .el-menu:not(.el-menu--collapse) {
-    width: var(--gl-sidebar-width); // todo: 侧边栏的宽度
-  }
-  .el-menu {
-    border: none;
-    ::v-deep(.el-menu-item) {
-      padding-right: 20px;
-    }
-    ::v-deep(.el-menu-item), ::v-deep(.el-sub-menu), ::v-deep(.el-sub-menu__title) {
-      display: block;
-      overflow: hidden;
-      text-overflow:ellipsis;
-      white-space: nowrap;
-      & > .el-sub-menu__icon-arrow {
-        position: absolute;
-        right: 8px;
-      }
-    }
-  }
-}
+<style>
+
 </style>

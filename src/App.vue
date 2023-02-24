@@ -49,5 +49,6 @@ export default defineComponent({
   width: 100%;
   display: flex;
   color: var(--el-text-color-primary);
+  font-size: var(--el-font-size-base);
 }
 </style>
