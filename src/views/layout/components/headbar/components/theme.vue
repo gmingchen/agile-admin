@@ -19,6 +19,15 @@
             active-color="#222222" />
         </el-form-item>
         <el-divider>布局</el-divider>
+        <el-form-item label="侧边栏模式">
+          <el-select v-model="sidebar">
+            <el-option
+              :value="item.value"
+              :label="item.label"
+              v-for="item in sidebars"
+              :key="item.value" />
+          </el-select>
+        </el-form-item>
         <el-form-item label="导航栏模式">
           <el-select v-model="navigation">
             <el-option
@@ -178,6 +187,14 @@ const mode = computed({
   }
 })
 
+const sidebar = computed({
+  get: () => {
+    return settingsStore.sidebarMode
+  },
+  set: (val) => {
+    settingsStore.setSidebarMode(val)
+  }
+})
 const navigation = computed({
   get: () => {
     return settingsStore.navigationMode
@@ -341,6 +358,10 @@ const menuActiveTextColor = computed({
 })
 
 const visible = ref(false)
+const sidebars = ref([
+  { label: '经典模式', value: 1 },
+  { label: '分栏模式', value: 2 }
+])
 const navigations = ref([
   { label: '固定导航', value: 1 },
   { label: '不固定导航', value: 2 }

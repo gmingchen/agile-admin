@@ -8,6 +8,7 @@ import { getLayout, setLayout, clearLayout } from '@/utils/storage'
  */
 const setLayoutHandle = (store) => {
   setLayout({
+    sidebarMode: store.sidebarMode,
     navigationMode: store.navigationMode,
     contanierMode: store.contanierMode,
     panelMode: store.panelMode,
@@ -17,6 +18,12 @@ const setLayoutHandle = (store) => {
 
 export const useSettingsStore = defineStore('settings', {
   state: () => ({
+    /**
+     * 侧边菜单栏模式
+     * 1：传统模式
+     * 2：分栏模式
+     */
+    sidebarMode: 1,
     /**
      * 导航模式
      * 1：固定导航
@@ -53,13 +60,22 @@ export const useSettingsStore = defineStore('settings', {
     getLayout() {
       const layout = getLayout()
       if (layout) {
-        const { navigationMode, contanierMode, panelMode, showTabs } = layout
+        const { sidebarMode, navigationMode, contanierMode, panelMode, showTabs } = layout
+        this.sidebarMode = sidebarMode || 1
         this.navigationMode = navigationMode || 1
         this.contanierMode = contanierMode || 2
         this.panelMode = panelMode || 1
         // eslint-disable-next-line no-undefined
         this.showTabs = showTabs !== undefined ? showTabs : true
       }
+    },
+    /**
+     * 设置导航模式
+     * @param {*} navigationMode
+     */
+    setSidebarMode(sidebarMode) {
+      this.sidebarMode = sidebarMode
+      setLayoutHandle(this)
     },
     /**
      * 设置导航模式
