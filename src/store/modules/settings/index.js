@@ -88,7 +88,8 @@ export default {
     getLayout({ commit }) {
       const layout = getLayout()
       if (layout) {
-        const { navigationMode, contanierMode, panelMode, showTabs } = layout
+        const { sidebarMode, navigationMode, contanierMode, panelMode, showTabs } = layout
+        commit('SET_SIDEBAR_MODE', sidebarMode || 1)
         commit('SET_NAVIGATION_MODE', navigationMode || 1)
         commit('SET_CONTANIER_MODE', contanierMode || 2)
         commit('SET_PANEL_MODE', panelMode || 1)
