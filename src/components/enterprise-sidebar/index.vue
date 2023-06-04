@@ -1,6 +1,6 @@
 <template>
-  <div class="enterprise-sidebar-container height-full width-200 flex-box flex_d-column">
-    <el-input class="margin_b-10" v-model="form.name" @keyup.enter="reacquireHandle()">
+  <div class="enterprise-sidebar-container height-full width-200 flex flex_d-column">
+    <el-input class="margin_b-10" v-model="form.name" @keyup.enter="reacquireHandle">
       <template #suffix>
         <Iconfont name="search" />
       </template>
@@ -8,7 +8,7 @@
     <el-scrollbar class="flex-item_f-1" v-loading="loading">
       <ul>
         <li
-          class="cursor-pointer font-size-14 ellipse-1"
+          class="cursor-pointer font-size-14 ellipse"
           :class="{ 'is-active': item.id === value }"
           v-for="item in list"
           :key="item.id"
@@ -30,10 +30,9 @@
 </template>
 
 <script setup>
-import { nextTick, onBeforeMount, ref, reactive, toRefs } from 'vue'
 
-import usePage from '@/mixins/page'
-import useModel from '@/mixins/model'
+import usePage from '@/hooks/page'
+import useModel from '@/hooks/model'
 import { UPDATE_MODEL_EVENT } from '@/utils/constant'
 
 import { pageSimplifyApi } from '@/api/enterprise'

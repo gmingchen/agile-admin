@@ -1,11 +1,4 @@
-import { defineStore } from 'pinia'
 import { ElLoading } from 'element-plus'
-
-import { useAdministratorStore } from './modules/administrator'
-import { useMenuStore } from './modules/menu'
-import { useTabsStore } from './modules/tabs'
-import { useThemeStore } from './modules/theme'
-import { useSettingsStore } from './modules/settings'
 
 export const useRootStore = defineStore('root', {
   state: () => ({}),
@@ -16,7 +9,7 @@ export const useRootStore = defineStore('root', {
      * @param {*}
      */
     clearData() {
-      useAdministratorStore().clearAdministrator()
+      useAdminerStore().clear()
       useMenuStore().clear()
       useTabsStore().clear()
     },
@@ -32,7 +25,6 @@ export const useRootStore = defineStore('root', {
       })
       this.clearData()
       useThemeStore().clear()
-      useSettingsStore().clear()
       window.location.reload()
     },
     /**
@@ -41,7 +33,7 @@ export const useRootStore = defineStore('root', {
      */
     logout() {
       this.clearData()
-      useAdministratorStore().clearToken()
+      useAuthStore().clear()
     }
   }
 })

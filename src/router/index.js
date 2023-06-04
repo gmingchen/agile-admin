@@ -1,52 +1,58 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { defineComponent, defineAsyncComponent, h } from 'vue'
-import pinia from '@/stores'
-import { useRootStore } from '@/stores/root'
-import { useAdministratorStore } from '@stores/administrator'
-import { useEnterpriseStore } from '@stores/enterprise'
-import { useMenuStore } from '@stores/menu'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+
 import { parseStr2Date } from '@/utils'
+import Prompt from '@/utils/prompt'
+import { useMenuStore } from '../stores/modules/menu'
+import { useRootStore } from '../stores/root'
+
+let refresh = true
 
 // 需要动态加载的组件
 const dynamics = import.meta.glob('../views/modules/**/*.vue')
 
-let refresh = true
-
 const constant = [
-  { path: '/', redirect: { name: 'login' }, meta: { title_cn: '重定向', title_en: 'Redirect' } },
-  { path: '/login', name: 'login', component: () => import('@/views/constant/login.vue'), meta: { title_cn: '登录', title_en: 'Login' } },
-  { path: '/401', name: '401', component: () => import('@/views/constant/401.vue'), meta: { title_cn: '401', title_en: '401' } },
-  { path: '/404', name: '404', component: () => import('@/views/constant/404.vue'), meta: { title_cn: '404', title_en: '404' } },
-  { path: '/500', name: '500', component: () => import('@/views/constant/500.vue'), meta: { title_cn: '500', title_en: '500' } }
+  { path: '/', redirect: { name: 'login' }, meta: { name: '重定向' } },
+  { path: '/login', name: 'login', component: () => import('@/views/constant/login.vue'), meta: { name: '登录' } },
+  { path: '/401', name: '401', component: () => import('@/views/constant/401.vue'), meta: { title: '401' } },
+  { path: '/404', name: '404', component: () => import('@/views/constant/404.vue'), meta: { title: '404' } },
+  { path: '/500', name: '500', component: () => import('@/views/constant/500.vue'), meta: { title: '500' } }
 ]
 
 const main = {
   path: '/layout',
   name: 'layout',
+  redirect: { name: 'redirect' },
   component: () => import('@/views/layout/index.vue'),
-  meta: { title_cn: '主入口整体布局', title_en: 'Overall layout of main entrance' },
+  meta: { title: '主入口整体布局' },
   children: [
-    // todo 动态路由未注册之前 直接 push 会报错 所以使用了个中间件
+    // todo 动态路由未注册之前 直接跳转会报错 所以使用了个中间件
     { path: '/redirect', name: 'redirect', component: defineComponent({ render: () => h('div') }), meta: {} }
   ],
-  async beforeEnter(to, _from, next) {
-    const token = useAdministratorStore(pinia).tokenVal
-    if (!token || !/\S/u.test(token)) {
-      // eslint-disable-next-line no-use-before-define
-      clearRouter()
-      useRootStore(pinia).logout()
+  beforeEnter: async (to, from, next) => {
+    const { token, expiredAt } = useAuthStore()
+    if (!token.trim() || +parseStr2Date(expiredAt) < +new Date()) {
       next({ name: 'login', replace: true })
     } else {
-      await useAdministratorStore(pinia).getAdministrator()
-      await useEnterpriseStore(pinia).getEnterprise()
       if (to.name === 'redirect') {
-        const exists = main.children.filter(item => item.name !== 'redirect') || []
-        const name = exists.length ? exists[0].name : '404'
-        useMenuStore(pinia).active = name
+        const exists = useMenuStore().allMenus.filter(item => item.name !== 'redirect') || []
+        let name = ''
+        if (exists.length) {
+          name = exists[0].name
+          useMenuStore().active = name
+        } else {
+          name = 'login'
+          new Prompt().warning({
+            message: '暂无可用菜单！',
+            type: 'warning',
+            duration: 3000
+          }, true)
+          useRootStore().logout()
+        }
         next({ name, replace: true })
       } else {
+        await useAdminerStore().getAdminer()
         next()
       }
     }
@@ -57,17 +63,14 @@ const routes = constant.concat(main)
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL || '/'),
-  routes
+  routes: routes
 })
 
 /**
- * @description: 判断当前路由类型, constant: 常量路由, main: 主入口路由
- * @param {RouteLocationNormalized} route
- * @param {Array} constantRoutes
- * @return {*}
- * @author: gumingchen
+ * 判断路由类型
+ * @param {*} route
  */
-function currentRouteType(route, constantRoutes = []) {
+function routeType(route, constantRoutes = []) {
   let temp = []
   for (let i = 0; i < constantRoutes.length; i++) {
     if (route.path === constantRoutes[i].path) {
@@ -76,15 +79,13 @@ function currentRouteType(route, constantRoutes = []) {
       temp = temp.concat(constantRoutes[i].children)
     }
   }
-  return temp.length >= 1 ? currentRouteType(route, temp) : 'main'
+  return temp.length >= 1 ? routeType(route, temp) : 'main'
 }
 
 /**
- * @description: 动态添加路由
- * @param {Array} menus
- * @param {Array} routeList
- * @return {*}
- * @author: gumingchen
+ * 动态添加路由
+ * @param {*} menus
+ * @param {*} routeList
  */
 function addRoutes(menus = [], routeList = []) {
   let list = []
@@ -96,13 +97,12 @@ function addRoutes(menus = [], routeList = []) {
     switch (item.type) {
       case 3:
         route = {
-          path: `/i-${ item.menu_id }`,
-          name: `i-${ item.menu_id }`,
+          path: `/i-${ item.id }`,
+          name: `i-${ item.id }`,
           component: dynamics[`../views/modules/iframe/index.vue`],
           meta: {
-            id: item.menu_id,
-            title_cn: item.name_cn,
-            title_en: item.name_en,
+            id: item.id,
+            title: item.name,
             type: item.type,
             url: item.url,
             dynamic: true,
@@ -118,14 +118,14 @@ function addRoutes(menus = [], routeList = []) {
         break
       default:
         if (item.url && /\S/u.test(item.url)) {
+          const defaultValue = item.url.substring(1, item.url.length).replace(/\//g, '-')
           route = {
-            path: item.path || `/${ item.url.replace(/\//g, '-') }`,
-            name: item.name || item.url.replace(/\//g, '-'),
-            component: dynamics[`../views/modules/${ item.url }.vue`],
+            path: item.routePath || `/${ defaultValue }`,
+            name: item.routeName || defaultValue,
+            component: dynamics[`../views/modules${ item.url }.vue`],
             meta: {
-              id: item.menu_id,
-              title_cn: item.name_cn,
-              title_en: item.name_en,
+              id: item.id,
+              label: item.name,
               type: item.type,
               url: item.url,
               dynamic: true,
@@ -152,71 +152,63 @@ function addRoutes(menus = [], routeList = []) {
   }
 }
 
-/**
- * @description: 清除动态添加的路由
- * @param {Array} menus
- * @param {Array} routeList
- * @return {*}
- * @author: gumingchen
- */
-function clearRouter() {
-  const routers = router.getRoutes().filter(item => item.meta.isDynamic)
-  routers.forEach(item => {
-    router.removeRoute(item.name)
-  })
-  // 其实只要这一行就可以
-  main.children = main.children.filter(item => !item.meta.dynamic)
-}
-
 router.beforeEach(async (to, _from, next) => {
-  // 标题控制
-  document.title = to.meta.title_cn || document.title
-  // 跳转到登录页如果 token 还未过期则调整到系统内部
-  if (to.name === 'login') {
-    const { expired_at } = useAdministratorStore(pinia).token
-    const now = +new Date()
-    const expired = expired_at ? +parseStr2Date(expired_at) : 0
-    if (expired > now) {
-      next({ name: 'redirect', replace: true })
-    }
-  }
+  // debugger
   NProgress.start()
+  // 标题控制
+  document.title = to.meta.label || document.title
   // 处理动态路由页 刷新跳转 401 问题
   if (refresh) {
     // 添加 401 重定向
     router.addRoute({ path: '/:pathMatch(.*)', redirect: { name: '401' } })
   }
-  // todo: 动态添加路由
-  const isCommon = currentRouteType(to, constant) === 'constant'
-  if (isCommon) {
-    next()
-  } else {
-    const isGet = useMenuStore(pinia).get
-    if (isGet) {
+  // 如果跳转登录页且token未失效，则跳转首页，否则清除缓存数据
+  if (to.name === 'login') {
+    const { expiredAt } = useAuthStore()
+    if (+parseStr2Date(expiredAt) > +new Date()) {
+      next({ name: 'redirect', replace: true })
+    } else {
+      useRootStore().clearData()
+    }
+  }
+  // 判断当前路由类型
+  const isConstant = routeType(to, constant) === 'constant'
+  if (!isConstant) {
+    // 如果是动态路由
+    const { load } = useMenuStore()
+    if (load) {
       if (!refresh) {
         next()
         return
       }
     } else {
-      const menus = await useMenuStore(pinia).getMenuAndPermission()
+      const { menus } = await useMenuStore().getMenuAndPermission()
       if (!menus) {
         next()
         return
       }
     }
     refresh = false
-    const menus = useMenuStore(pinia).menus
+    const { menus } = useMenuStore()
     if (!menus || menus.length === 0) {
-      useMenuStore(pinia).get = false
-      next({ name: '404', replace: true })
+      // useMenuStore().setLoad(false)
+      // useRootStore().logout()
+      // next({ name: 'login', replace: true })
+      next()
     } else {
       addRoutes(menus)
       next({ ...to, replace: true })
     }
+  } else {
+    // 如果不是动态路由则直接跳转
+    next()
   }
 })
 
-router.afterEach((_to, _from) => {
+/**
+ * 关闭加载条
+ */
+router.afterEach(() => {
   NProgress.done()
 })
 

@@ -15,8 +15,8 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+
+
 
 import { useRootStore } from '@/stores/root'
 

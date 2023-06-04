@@ -1,18 +1,16 @@
 /*
- * @Description: 邮件发送记录
- * @Author: gumingchen
+ * @Description: 邮件记录
+ * @Author: 拖孩
  * @Email: 1240235512@qq.com
- * @Date: 2022-06-24 09:20:26
- * @LastEditors: gumingchen
- * @LastEditTime: 2022-06-24 09:20:26
+ * @Date: 2023-06-01 09:16:10
  */
 import service from '@/utils/request'
+import { download } from '@/utils'
 
 /**
  * @description: 分页列表
  * @param {*}
  * @return {*}
- * @author: gumingchen
  */
 export function pageApi(params) {
   return service({
@@ -23,43 +21,57 @@ export function pageApi(params) {
 }
 
 /**
- * @description: 发送邮件
+ * @description: 信息
  * @param {*}
  * @return {*}
- * @author: gumingchen
  */
-export function addApi(params) {
+export function infoApi(params) {
   return service({
-    url: '/admin/mail/create',
-    method: 'post',
-    data: params
+    url: '/admin/mail/info',
+    method: 'get',
+    params
   })
 }
 
 /**
  * @description: 删除
- * @param {*} params
+ * @param {*}
  * @return {*}
- * @author: gumingchen
  */
-export function delApi(params) {
+export function deleteApi(data) {
   return service({
     url: '/admin/mail/delete',
     method: 'post',
-    data: params
+    data
   })
 }
 
 /**
- * @description: 更新配置
+ * @description: 推送
  * @param {*}
  * @return {*}
- * @author: gumingchen
  */
-export function updateConfigApi(params) {
+export function sendApi(data) {
   return service({
-    url: '/admin/mail/update/config',
+    url: '/admin/mail/send',
     method: 'post',
-    data: params
+    data
   })
+}
+
+/**
+ * 导出
+ * @returns
+ */
+export async function exportApi(params) {
+  const r = await service({
+    url: 'admin/mail/export',
+    method: 'get',
+    responseType: 'blob',
+    params
+  })
+  if (r) {
+    const { blob, name } = r
+    download(blob, name)
+  }
 }

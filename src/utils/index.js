@@ -1,6 +1,3 @@
-import pinia from '@/stores'
-import { useMenuStore } from '@stores/menu'
-import { useDictionaryStore } from '@stores/dictionary'
 import { MAPPING } from '@/utils/constant'
 
 /**
@@ -183,8 +180,9 @@ export function clearJson(data) {
  * @return {*}
  * @author: gumingchen
  */
-export function havePermission(permission, separator = '&') {
+export function havePermission(permission) {
   let result = false
+  const separator = permission.indexOf('|') === -1 ? '&' : '|'
   const permissions = permission.split(separator)
   let fn = ''
   switch (separator) {
@@ -195,7 +193,7 @@ export function havePermission(permission, separator = '&') {
       fn = 'some'
       break
   }
-  const list = useMenuStore(pinia).permissions
+  const list = useMenuStore().permissions
   result = fn && permissions[fn](item => {
     return list.indexOf(item) !== -1
   })
@@ -213,32 +211,6 @@ export function getApiBaseUrl (env) {
     ? `/proxy${ MAPPING }`
     : env.VITE_BASE_API + MAPPING
   return baseUrl
-}
-
-/**
- * @description: 获取数据字典列表
- * @param {*} code 编码
- * @return {*}
- * @author: gumingchen
- */
-export async function getDictionaryList(code) {
-  const result = await useDictionaryStore(pinia).getDictionary(code)
-  return result
-}
-
-/**
- * @description: 获取数据字典键值对
- * @param {*} key
- * @return {*}
- * @author: gumingchen
- */
-export async function getDictionaryMap(code) {
-  const response = await useDictionaryStore(pinia).getDictionary(code)
-  const result = {}
-  response.forEach(item => {
-    result[item.value] = item.label
-  })
-  return result
 }
 
 /**
@@ -321,4 +293,42 @@ export function download(blob, name) {
     document.body.removeChild(a)
     window.URL.revokeObjectURL(href)
   }
+}
+
+/**
+ * 格式化存储单位
+ * @param {*} value 计量单位为 bit
+ */
+export function formatStorageUnit(value) {
+  const base = 1024
+  const units = ['B', 'KB', 'MB', 'GB', 'TB']
+  let index = 0
+  while (value > 1000 && index < units.length) {
+    value = value / base
+    index++
+  }
+  return value.toFixed(2) + units[index]
+}
+
+/**
+ * blob 转 json
+ * @param {*} blob
+ */
+export function blob2Json(blob) {
+  return new Promise((resolve, reject) => {
+    try {
+      const reader = new FileReader()
+      reader.readAsText(blob, 'utf-8')
+      reader.addEventListener('loadend', () => {
+        try {
+          const result = JSON.parse(reader.result)
+          resolve(result)
+        } catch (error) {
+          reject({})
+        }
+      })
+    } catch (error) {
+      reject({})
+    }
+  })
 }

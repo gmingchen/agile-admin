@@ -1,7 +1,7 @@
 <template>
   <div :class="`
     container-custom-container
-    flex-box
+    flex
     flex_d-column
     overflow-auto
     ${panelMode !== 1 ? 'container-panel' : ''}`">
@@ -18,14 +18,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { storeToRefs } from 'pinia'
 
-import { useSettingsStore } from '@stores/settings'
+const themeStore = useThemeStore()
 
-const settingsStore = useSettingsStore()
-
-const { contanierMode, panelMode } = storeToRefs(settingsStore)
+const contanierMode = computed(() => themeStore.layout.contanierMode)
+const panelMode = computed(() => themeStore.layout.panelMode)
 
 const refScrollbar = ref()
 

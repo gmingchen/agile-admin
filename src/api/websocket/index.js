@@ -28,7 +28,7 @@ export function pageApi(params) {
  * @return {*}
  * @author: gumingchen
  */
-export function addApi(params) {
+export function createApi(params) {
   return service({
     url: '/admin/websocket/create',
     method: 'post',
@@ -58,7 +58,7 @@ export function delApi(params) {
  * @return {*}
  * @author: gumingchen
  */
-export function globalAddApi(params) {
+export function globalcreateApi(params) {
   return service({
     url: '/admin/websocket/global/create',
     method: 'post',

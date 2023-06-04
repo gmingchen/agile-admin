@@ -1,24 +1,13 @@
-<template>
-  <component :is="component" />
-</template>
-
 <script setup>
-import { computed, watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia'
-
-import { useMenuStore } from '@stores/menu'
-import { useSettingsStore } from '@stores/settings'
-
-import Classic from './classic/index.vue'
-import Subfield from './subfield/index.vue'
+import Classic from './components/classic/index.vue'
+import Subfield from './components/subfield/index.vue'
 
 const route = useRoute()
 
 const menuStore = useMenuStore()
-const settingsStore = useSettingsStore()
+const settingsStore = useThemeStore()
 
-const sidebarMode = computed(() => settingsStore.sidebarMode)
+const sidebarMode = computed(() => settingsStore.layout.sidebarMode)
 
 const { active } = storeToRefs(menuStore)
 
@@ -51,6 +40,10 @@ watchEffect(() => {
 })
 </script>
 
-<style>
+<template>
+  <component :is="component" />
+</template>
+
+<style lang="scss" scoped>
 
 </style>

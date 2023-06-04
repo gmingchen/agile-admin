@@ -19,7 +19,6 @@
  *    3.color     颜色
 -->
 <script setup>
-import { computed } from 'vue'
 
 const props = defineProps({
   name: {
@@ -45,5 +44,5 @@ const style = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '//at.alicdn.com/t/c/font_3225946_mem6qq7wpdb.css';
+@import '//at.alicdn.com/t/c/font_3225946_ayhw3s099fs.css';
 </style>

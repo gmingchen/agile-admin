@@ -1,34 +1,11 @@
-<template>
-  <div class="wang-container width-full">
-    <Toolbar
-      class="toolbar"
-      :editor="editorRef"
-      :defaultConfig="config.toolOptions" />
-    <Editor
-      class="editor"
-      :style="{ height: height }"
-      v-model="value"
-      :defaultConfig="config.editorOptions"
-      @onCreated="createdHandle"
-      @onChange="changeHandle"
-      @onFocus="focusHandle"
-      @onBlur="blurHandle"
-      @onDestroyed="destroyedHandle" />
-  </div>
-</template>
-
 <script setup>
-import { ref, shallowRef, onBeforeUnmount } from 'vue'
-
-import { useAdministratorStore } from '@stores/administrator'
-
 import '@wangeditor/editor/dist/css/style.css'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 
 import { toolOptions, editorOptions } from './config.js'
 
-import useModel from '@/mixins/model'
-import { UPDATE_MODEL_EVENT, TOKEN_KEY } from '@/utils/constant'
+import useModel from '@/hooks/model'
+import { UPDATE_MODEL_EVENT, AUTH_KEY } from '@/utils/constant'
 
 const emits = defineEmits([UPDATE_MODEL_EVENT, 'created', 'change', 'focus', 'blur', 'destroyed'])
 const props = defineProps({
@@ -64,7 +41,7 @@ const props = defineProps({
   }
 })
 
-const administratorStore = useAdministratorStore()
+const authStore = useAuthStore()
 const editorRef = shallowRef()
 
 const value = useModel(props)
@@ -93,14 +70,14 @@ const config = ref({
         ...editorOptions.MENU_CONF.uploadImage,
         ...props.options.editorOptions.MENU_CONF.uploadImage,
         headers: {
-          [TOKEN_KEY]: administratorStore.tokenVal
+          [AUTH_KEY]: authStore.token
         }
       },
       uploadVideo: {
         ...editorOptions.MENU_CONF.uploadVideo,
         ...props.options.editorOptions.MENU_CONF.uploadVideo,
         headers: {
-          [TOKEN_KEY]: administratorStore.tokenVal
+          [AUTH_KEY]: authStore.token
         }
       }
     }
@@ -149,6 +126,25 @@ onBeforeUnmount(() => {
 
 </script>
 
+<template>
+  <div class="wang-container width-full">
+    <Toolbar
+      class="toolbar"
+      :editor="editorRef"
+      :defaultConfig="config.toolOptions" />
+    <Editor
+      class="editor"
+      :style="{ height: height }"
+      v-model="value"
+      :defaultConfig="config.editorOptions"
+      @onCreated="createdHandle"
+      @onChange="changeHandle"
+      @onFocus="focusHandle"
+      @onBlur="blurHandle"
+      @onDestroyed="destroyedHandle" />
+  </div>
+</template>
+
 <style lang="scss" scoped>
 .wang-container {
   border: 1px solid var(--el-border-color);
@@ -158,6 +154,9 @@ onBeforeUnmount(() => {
   .editor {
     // height: 500px !important;
     overflow-y: hidden;
+    ::v-deep(.w-e-text-placeholder) {
+      top: 11px !important;
+    }
   }
 }
 </style>

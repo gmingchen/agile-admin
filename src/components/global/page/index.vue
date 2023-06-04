@@ -1,24 +1,36 @@
-<template>
-  <el-pagination
-    class="page flex_j_c-flex-end"
-    background
-    layout="total, sizes, prev, pager, next, jumper, ->"
-    :current-page="page.current"
-    :page-sizes="page.sizes"
-    :page-size="page.size"
-    :total="page.total"
-    @current-change="currentChangeHandle"
-    @size-change="sizeChangeHandle" />
-    <!-- :hide-on-single-page="page.total <= page.size" -->
-</template>
-
 <script setup>
-const emits = defineEmits(['change'])
+const emits = defineEmits(['update:current', 'update:size', 'change'])
 
 const props = defineProps({
-  page: {
-    type: Object,
+  current: {
+    type: Number,
     required: true
+  },
+  size: {
+    type: Number,
+    required: true
+  },
+  total: {
+    type: Number,
+    required: true
+  },
+  sizes: {
+    type: Array,
+    default: () => [10, 20, 30, 40, 50, 100, 200]
+  }
+})
+
+const currentPage = computed({
+  get: () => props.current,
+  set: val => {
+    emits('update:current', val)
+  }
+})
+
+const pageSize = computed({
+  get: () => props.size,
+  set: val => {
+    emits('update:size', val)
   }
 })
 
@@ -28,20 +40,26 @@ const props = defineProps({
  * @return {*}
  * @author: gumingchen
  */
-const currentChangeHandle = val => {
-  emits('change', { current: val, size: props.page.size })
-}
-
-/**
- * @description: 当前页数变化事件
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-const sizeChangeHandle = val => {
-  emits('change', { current: props.page.current, size: val })
+const changeHandle = () => {
+  emits('change', { current: currentPage.value, size: pageSize.value })
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<template>
+  <el-pagination
+    v-bind="$attrs"
+    class="page flex_j_c-flex-end"
+    layout="total, sizes, prev, pager, next, jumper, ->"
+    background
+    v-model:current-page="currentPage"
+    v-model:page-size="pageSize"
+    :total="total"
+    :page-sizes="sizes"
+    @current-change="changeHandle"
+    @size-change="changeHandle">
+    <template v-for="(_value, name) in $slots" #[name]="slotData">
+      <slot :name="name" v-bind="slotData || {}" />
+    </template>
+  </el-pagination>
+  <!-- :hide-on-single-page="page.total <= page.size" -->
+</template>

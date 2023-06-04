@@ -1,22 +1,14 @@
-/*
- * @Description: 菜单
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2020-12-28 16:25:18
- * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-20 15:47:56
- */
 import service from '@/utils/request'
 
 /**
- * @description: 获取所有菜单 权限
+ * @description: 获取所有菜单
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function selectListApi() {
+export function listApi() {
   return service({
-    url: '/admin/menu/select/list',
+    url: '/admin/menu/list',
     method: 'get'
   })
 }
@@ -29,8 +21,9 @@ export function selectListApi() {
  */
 export function infoApi(params) {
   return service({
-    url: `/admin/menu/info/${ params }`,
-    method: 'get'
+    url: '/admin/menu/info',
+    method: 'get',
+    params
   })
 }
 
@@ -40,7 +33,7 @@ export function infoApi(params) {
  * @return {*}
  * @author: gumingchen
  */
-export function addApi(params) {
+export function createApi(params) {
   return service({
     url: `/admin/menu/create`,
     method: 'post',
@@ -54,7 +47,7 @@ export function addApi(params) {
  * @return {*}
  * @author: gumingchen
  */
-export function editApi(params) {
+export function updateApi(params) {
   return service({
     url: `/admin/menu/update`,
     method: 'post',
@@ -87,5 +80,18 @@ export function dragApi(params) {
     url: `/admin/menu/drag`,
     method: 'post',
     data: params
+  })
+}
+
+/**
+ * @description: 获取未禁用的所有菜单
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+export function selectApi() {
+  return service({
+    url: '/admin/menu/select',
+    method: 'get'
   })
 }

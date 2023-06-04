@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-
 import router from '@/router'
 
 // todo: ITab value 格式：{a}-{b}-{c}-{d}
@@ -7,8 +5,7 @@ import router from '@/router'
 // todo: c、d 支持多开的时候需要
 const defaultTabs = [{
   value: 'home-home-{}-{}',
-  label_cn: '首页',
-  label_en: 'Home',
+  label: '首页',
   name: 'home',
   path: '/home',
   query: {}, // 路由参数
@@ -44,8 +41,7 @@ export const useTabsStore = defineStore('tabs', {
           const tab = {
             value: val,
             menuId: meta.id,
-            title_cn: meta.title_cn,
-            title_en: meta.title_en,
+            label: meta.label,
             name: route.name,
             path: route.path,
             query: route.query,

@@ -1,21 +1,4 @@
-<template>
-  <div class="loading-container height-full" ref="refContainer">
-    <div v-loading="loading" class="height-full">
-      <iframe
-        ref="refIframe"
-        :src="url"
-        width="100%"
-        height="100%"
-        frameborder="0"
-        scrolling="yes" />
-    </div>
-  </div>
-</template>
-
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
-
 const route = useRoute()
 
 const refContainer = ref()
@@ -38,3 +21,18 @@ onMounted(() => {
   }
 })
 </script>
+
+<template>
+  <div class="loading-container height-full" ref="refContainer">
+    <div v-loading="loading" class="height-full">
+      <iframe
+        ref="refIframe"
+        :src="url"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        scrolling="yes" />
+    </div>
+  </div>
+</template>
+

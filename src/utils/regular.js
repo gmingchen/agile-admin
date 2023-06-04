@@ -32,6 +32,17 @@ export function isNegtiveInteger(input) {
 }
 
 /**
+ * @description: 两位小数
+ * @param {*} input
+ * @return {*}
+ * @author: gumingchen
+ */
+export function isTwoDecimal(input) {
+  const reg = /^-?\d*(\.\d{1,2})?$/
+  return reg.test(input)
+}
+
+/**
  * @description: 邮箱
  * @param {*} input
  * @return {*}
@@ -50,6 +61,17 @@ export function isEmail(input) {
  */
 export function isURL(input) {
   const reg = /^http[s]?:\/\/.*/
+  return reg.test(input)
+}
+
+/**
+ * @description: 域名（带协议）
+ * @param {*} input
+ * @return {*}
+ * @author: gumingchen
+ */
+export function isDomain(input) {
+  const reg = /^http[s]?:\/\/[a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+$/
   return reg.test(input)
 }
 
@@ -78,7 +100,7 @@ export function isMobile(input) {
  * @param {*} input
  */
 export function isUsername(input) {
-  const reg = /^[a-zA-Z0-9_-]{4,16}$/
+  const reg = /^[a-zA-Z]\w{3,11}$/
   return reg.test(input)
 }
 

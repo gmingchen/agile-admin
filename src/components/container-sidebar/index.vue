@@ -1,7 +1,7 @@
 <template>
   <div :class="`
     container-sidebar
-    flex-box
+    flex
     overflow-auto
     ${panelMode === 3 ? 'container-sidebar-panel' : ''}`">
     <el-scrollbar class="sidebar-container margin_r-10" v-if="scroll && slots.sidebar">
@@ -29,10 +29,6 @@
 </template>
 
 <script setup>
-import { getCurrentInstance, ref } from 'vue'
-import { storeToRefs } from 'pinia'
-
-import { useSettingsStore } from '@stores/settings'
 
 const props = defineProps({
   /**
@@ -54,11 +50,11 @@ const props = defineProps({
   }
 })
 
-const { slots } = getCurrentInstance()
+const slots = useSlots()
 
-const settingsStore = useSettingsStore()
+const themeStore = useThemeStore()
 
-const { panelMode } = storeToRefs(settingsStore)
+const panelMode = computed(() => themeStore.layout.panelMode)
 
 const refContainer = ref()
 

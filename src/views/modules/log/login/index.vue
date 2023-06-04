@@ -1,27 +1,97 @@
+<script setup>
+import { clearJson } from '@/utils'
+
+import { pageApi, exportApi } from '@/api/login-log'
+
+const refForm = ref()
+const refTable = ref()
+
+const loading = ref(false)
+const form = reactive({
+  account: '',
+  status: '',
+  start: '',
+  end: ''
+})
+const page = reactive({
+  current: 1,
+  size: 10,
+  total: 0
+})
+const list = ref([])
+
+const getList = () => {
+  const { current, size } = page
+  const params = {
+    ...form,
+    current,
+    size
+  }
+  loading.value = true
+  pageApi(params).then(r => {
+    if (r) {
+      list.value = r.data.list
+      page.total = r.data.total
+    }
+    nextTick(() => {
+      loading.value = false
+    })
+  })
+}
+
+/**
+ * @description: 重新获取数据
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+const reacquireHandle = () => {
+  page.current = 1
+  getList()
+}
+/**
+ * @description: 重置并重新获取数据
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+const resetHandle = () => {
+  clearJson(form)
+  reacquireHandle()
+}
+
+/**
+ * @description: 导出
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+const exportHandle = () => {
+  exportApi(form)
+}
+
+onBeforeMount(() => {
+  getList()
+})
+</script>
+
 <template>
   <Container>
     <template #header>
       <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
         <el-form-item>
-          <el-input v-model="form.name" placeholder="用户名/昵称" clearable />
+          <el-input v-model="form.account" placeholder="用户名/昵称/手机号" clearable />
         </el-form-item>
         <el-form-item>
-          <el-date-picker
-            v-model="form.date"
-            type="daterange"
-            range-separator="-"
-            start-placeholder="创建开始日期"
-            end-placeholder="创建结束日期"
-            clearable />
+          <DictSelect v-model="form.status" code="RESULT" placeholder="状态" />
         </el-form-item>
         <el-form-item>
-          <el-button v-repeat @click="reacquireHandle()">搜索</el-button>
-          <el-button v-repeat @click="clearJson(form), reacquireHandle()">重置</el-button>
-          <el-button
-            v-permission="'loginLog:delete'"
-            type="danger"
-            :disabled="page.total == 0"
-            @click="deleteHandle()">删除所有日志</el-button>
+          <DateRangePicker v-model:start="form.start" v-model:end="form.end" />
+        </el-form-item>
+        <el-form-item>
+          <el-button v-repeat @click="reacquireHandle">查询</el-button>
+          <el-button v-repeat @click="resetHandle">重置</el-button>
+          <el-button v-repeat v-permission="'loginLog:export'" @click="exportHandle">导出</el-button>
         </el-form-item>
       </el-form>
     </template>
@@ -30,8 +100,6 @@
         ref="refTable"
         v-loading="loading"
         :data="list"
-        @row-dblclick="rowClickHandle"
-        row-key="id"
         border>
         <el-table-column
           align="center"
@@ -40,29 +108,14 @@
           width="80" />
         <el-table-column
           align="center"
-          label="帐号"
-          prop="account" />
+          label="账户"
+          prop="account"
+          show-overflow-tooltip />
         <el-table-column
           align="center"
-          label="登录信息"
-          prop="message"
-          width="120" />
-        <el-table-column
-          align="center"
-          label="管理员"
-          prop="username"
-          width="180">
-          <template v-slot="{ row }">
-            <div class="flex-box flex_j_c-center flex_a_i-center">
-              <el-avatar
-                class="margin_r-10"
-                :size="50"
-                :src="row.avatar"
-                v-if="row.avatar" />
-              <div class="ellipse">{{row.nickname || row.username }}</div>
-            </div>
-          </template>
-        </el-table-column>
+          label="结果"
+          prop="result"
+          show-overflow-tooltip />
         <el-table-column
           align="center"
           label="IP"
@@ -71,107 +124,43 @@
         <el-table-column
           align="center"
           label="地址"
-          prop="address" />
+          prop="address"
+          show-overflow-tooltip />
         <el-table-column
           align="center"
           label="浏览器"
           prop="browser"
-          width="140" />
+          show-overflow-tooltip />
         <el-table-column
           align="center"
           label="操作系统"
-          prop="operating_system" />
+          prop="operatingSystem"
+          show-overflow-tooltip />
         <el-table-column
           align="center"
-          label="操作时间"
-          prop="created_at"
+          label="状态"
+          prop="result"
+          width="80">
+          <template v-slot="{ row }">
+            <el-tag :type="row.status_type">{{ row.status_dict }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column
+          align="center"
+          label="登录时间"
+          prop="createdAt"
           width="160" />
       </el-table>
     </template>
     <template #footer>
-      <Page :page="page" @change="pageChangeHandle" />
+      <Page
+        v-model:current="page.current"
+        v-model:size="page.size"
+        :total="page.total"
+        @change="getList" />
     </template>
   </Container>
 </template>
-
-<script setup>
-import { nextTick, onBeforeMount, reactive, ref } from 'vue'
-
-import { ElMessage, ElMessageBox } from 'element-plus'
-
-import usePage from '@/mixins/page'
-import { clearJson, parseDate2Str } from '@/utils'
-
-import { pageApi, deleteApi } from '@/api/login-log'
-
-const { page } = usePage()
-
-const refForm = ref()
-const refTable = ref()
-const loading = ref(false)
-const form = reactive({
-  name: '',
-  date: []
-})
-const list = ref([])
-
-const getList = () => {
-  const params = {
-    name: form.name,
-    start: form.date && form.date.length > 0 ? parseDate2Str(form.date[0]) : '',
-    end: form.date && form.date.length > 1 ? parseDate2Str(form.date[1]) : '',
-    current: page.current,
-    size: page.size
-  }
-  loading.value = true
-  pageApi(params).then(r => {
-    if (r) {
-      list.value = r.data.list
-      page.total = r.data.total
-    }
-    nextTick(() => { loading.value = false })
-  })
-}
-
-const reacquireHandle = () => {
-  page.current = 1
-  getList()
-}
-
-const deleteHandle = () => {
-  ElMessageBox.confirm(`确定进行[删除]操作?`, '提示', {
-    confirmButtonText: '确认',
-    cancelButtonText: '取消',
-    type: 'warning'
-  }).then(() => {
-    deleteApi().then(r => {
-      if (r) {
-        ElMessage({
-          message: '操作成功!',
-          type: 'success'
-        })
-        getList()
-      }
-    })
-  }).catch(() => {
-    // to do something on canceled
-  })
-}
-
-const rowClickHandle = (row) => {
-  refTable.value.toggleRowExpansion(row)
-}
-
-const pageChangeHandle = (argPage) => {
-  page.current = argPage.current
-  page.size = argPage.size
-  getList()
-}
-
-onBeforeMount(() => {
-  getList()
-})
-</script>
 
 <style lang="scss" scoped>
 </style>

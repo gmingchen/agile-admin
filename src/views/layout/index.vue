@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-container height-full flex-box overflow-auto">
+  <div class="layout-container height-full flex overflow-auto">
     <Sidebar />
     <component :is="component" class="navigation-container">
       <template #headbar>
@@ -17,22 +17,18 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { storeToRefs } from 'pinia'
-
-import { useSettingsStore } from '@stores/settings'
-
 import Sidebar from './components/sidebar/index.vue'
 import Headbar from './components/headbar/index.vue'
 import Tabsbar from './components/tabsbar/index.vue'
-import View from '@/components/view/index.vue'
 import NavigationActive from './components/navigation/active/index.vue'
 import NavigationFixed from './components/navigation/fixed/index.vue'
 import Websocket from './components/websocket/index.vue'
 
-const settingsStore = useSettingsStore()
+const themeStore = useThemeStore()
 
-const { navigationMode, showTabs, refresh } = storeToRefs(settingsStore)
+const navigationMode = computed(() => themeStore.layout.navigationMode)
+const showTabs = computed(() => themeStore.layout.showTabs)
+const refresh = computed(() => themeStore.refresh)
 
 const component = computed(() => {
   let result = ''

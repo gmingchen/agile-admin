@@ -34,7 +34,7 @@ ul {
 .width-full {
   width: 100%;
 }
-@for $i from 1 through 1000 {
+@for $i from 0 through 1000 {
   .height-#{$i} {
     height: #{$i}px;
   }
@@ -110,7 +110,6 @@ ul {
   display: -webkit-box;
   overflow: hidden;
 	text-overflow: ellipsis;
-	white-space: nowrap;
   word-break: break-all;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
@@ -149,7 +148,7 @@ $alignSelfs: auto, flex-start, flex-end, center, baseline, stretch;
 
 .flex {
   // todo: 容器属性
-  &-box {
+  & {
     display: flex;
     display: -webkit-flex; /* Safari */
   }

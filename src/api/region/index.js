@@ -1,10 +1,8 @@
 /*
  * @Description: 全国区域
- * @Author: gumingchen
+ * @Author: 拖孩
  * @Email: 1240235512@qq.com
- * @Date: 2022-06-17 09:50:35
- * @LastEditors: gumingchen
- * @LastEditTime: 2022-06-17 09:50:35
+ * @Date: 2023-06-02 09:14:46
  */
 import service from '@/utils/request'
 
@@ -12,12 +10,12 @@ import service from '@/utils/request'
  * @description: 分页列表
  * @param {*}
  * @return {*}
- * @author: gumingchen
  */
 export function listApi(params) {
   return service({
-    url: `/admin/region/list/${ params }`,
-    method: 'get'
+    url: '/admin/region/list',
+    method: 'get',
+    params: params
   })
 }
 
@@ -25,12 +23,12 @@ export function listApi(params) {
  * @description: 信息
  * @param {*}
  * @return {*}
- * @author: gumingchen
  */
 export function infoApi(params) {
   return service({
-    url: `/admin/region/info/${ params }`,
-    method: 'get'
+    url: '/admin/region/info',
+    method: 'get',
+    params
   })
 }
 
@@ -38,53 +36,50 @@ export function infoApi(params) {
  * @description: 新增
  * @param {*}
  * @return {*}
- * @author: gumingchen
  */
-export function addApi(params) {
+export function createApi(data) {
   return service({
     url: '/admin/region/create',
     method: 'post',
-    data: params
+    data
   })
 }
 
 /**
- * @description: 编辑
+ * @description: 更新
  * @param {*}
  * @return {*}
- * @author: gumingchen
  */
-export function editApi(params) {
+export function updateApi(data) {
   return service({
     url: '/admin/region/update',
     method: 'post',
-    data: params
+    data
   })
 }
 
 /**
  * @description: 删除
- * @param {*} params
+ * @param {*}
  * @return {*}
- * @author: gumingchen
  */
-export function delApi(params) {
+export function deleteApi(data) {
   return service({
     url: '/admin/region/delete',
     method: 'post',
-    data: params
+    data
   })
 }
 
 /**
- * @description: 下拉选择列表
- * @param {*} params
+ * @description: 选择列表
+ * @param {*}
  * @return {*}
- * @author: gumingchen
  */
-export function selectListApi(params) {
+export function selectApi(params) {
   return service({
-    url: `/admin/region/select/list/${ params }`,
-    method: 'get'
+    url: '/admin/region/select',
+    method: 'get',
+    params
   })
 }

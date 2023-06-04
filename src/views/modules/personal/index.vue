@@ -1,66 +1,33 @@
 <template>
   <ContainerCustom>
     <template #default>
-      <div class="personal-container margin-10 flex-box flex_w-wrap">
-        <div class="panel flex-item_f-2 margin-10 padding-30">
-          <div class="flex-box flex_d-column flex_a_i-center">
-            <el-avatar
-              :size="120"
-              :src="administrator.avatar"
-              v-if="administrator.avatar" />
-            <h2>{{administrator.nickname}}</h2>
-          </div>
-          <el-descriptions :column="1" class="padding-n-30">
-            <el-descriptions-item>
-              <template #label>
-                <Iconfont name="account" />
-              </template>
-              {{administrator.username}}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>
-                <Iconfont name="department" />
-              </template>
-              {{administrator.department_name || '- '}}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>
-                <Iconfont name="mobile" />
-              </template>
-              {{administrator.mobile || '-'}}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>
-                <Iconfont name="email" />
-              </template>
-              {{administrator.email || '-'}}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>
-                <Iconfont name="sex" />
-              </template>
-              <span v-if="administrator.sex === 0">女</span>
-              <span v-else-if="administrator.sex === 1">男</span>
-              <span v-else>未知</span>
-            </el-descriptions-item>
-          </el-descriptions>
-        </div>
+      <div class="personal-container margin-10 flex flex_w-wrap">
+        <InfoPanel class="panel flex-item_f-2 margin-10 padding-30" :adminer="adminer" />
         <div class="panel flex-item_f-5 margin-10 padding-30">
           <el-tabs v-model="active" class="demo-tabs">
             <el-tab-pane label="基本信息" name="basic">
-              <BasicInfo :administrator="administrator" />
+              <BasicInfo :adminer="adminer" />
             </el-tab-pane>
-            <el-tab-pane label="修改密码" name="password" v-if="havePermission('administrator:password')">
+            <el-tab-pane label="修改密码" name="password">
               <EditPassword />
             </el-tab-pane>
-            <el-tab-pane label="消息通知" name="message" v-if="havePermission('websocketAdministrator:unread:page|websocketAdministrator:page|websocketAdministrator:read|websocketAdministrator:allRead|websocketAdministrator:delete', '|')">
-              <Message />
+            <el-tab-pane name="message">
+              <template #label>
+                <el-badge
+                  :value="noticeUnreadCount"
+                  :max="99"
+                  class="cursor-pointer"
+                  :hidden="noticeUnreadCount < 1">
+                  消息通知
+                </el-badge>
+              </template>
+              <Notice />
+            </el-tab-pane>
+            <el-tab-pane label="最近操作日志" name="operate">
+              <OperateLog />
             </el-tab-pane>
             <el-tab-pane label="最近登录日志" name="login">
               <LoginLog />
-            </el-tab-pane>
-            <el-tab-pane label="最近操作日志" name="operation">
-              <OperationLog />
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -70,26 +37,40 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 
-import { useAdministratorStore } from '@stores/administrator'
-
-import ContainerCustom from '@/components/container-custom/index.vue'
+import InfoPanel from './components/info-panel.vue'
 import BasicInfo from './components/basic-info.vue'
 import EditPassword from './components/edit-password.vue'
+import Notice from './components/notice.vue'
+import OperateLog from './components/operate-log.vue'
 import LoginLog from './components/login-log.vue'
-import OperationLog from './components/operation-log.vue'
-import Message from './components/message.vue'
 
 import { havePermission } from '@/utils'
 
 const route = useRoute()
 const router = useRouter()
 
-const administratorStore = useAdministratorStore()
-const { administrator } = storeToRefs(administratorStore)
+const adminerStore = useAdminerStore()
+const noticeStore = useNoticeStore()
+
+const noticeUnreadCount = computed(() => noticeStore.page.total)
+
+const adminer = computed(() => {
+  const { username, nickname, avatar, mobile, email, sex, sex_dict, dept, posts, roles } = adminerStore
+  return {
+    username: username,
+    nickname: nickname,
+    avatar: avatar,
+    mobile: mobile,
+    email: email,
+    sex: sex,
+    sex_dict: sex_dict,
+    dept: dept ? dept.name : '',
+    post: posts ? posts.map(item => item.name).join(',') : '',
+    role: roles ? roles.map(item => item.name).join(',') : ''
+  }
+})
 
 const active = ref('basic')
 
@@ -107,7 +88,6 @@ const init = () => {
 onBeforeMount(() => {
   init()
 })
-
 </script>
 
 <style lang="scss" scoped>

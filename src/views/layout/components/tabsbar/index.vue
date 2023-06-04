@@ -1,36 +1,12 @@
-<template>
-  <div class="tabsbar-container flex-box flex_a_i-flex-end">
-    <el-tabs
-      class="margin_b-1"
-      type="card"
-      v-model="active"
-      @tab-click="clickHandle"
-      @tab-remove="removeHandle">
-      <el-tab-pane
-        v-for="tab in tabs"
-        :key="tab.value"
-        :label="tab.title_cn"
-        :name="tab.value"
-        :closable="tabs.length > 1" />
-    </el-tabs>
-  </div>
-</template>
 
 <script setup>
-import { nextTick, onBeforeMount } from 'vue'
-import { onBeforeRouteUpdate, useRouter, useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia'
-
-import { useTabsStore } from '@stores/tabs'
-import { useSettingsStore } from '@stores/settings'
-
 const router = useRouter()
 const route = useRoute()
 const tabsStore = useTabsStore()
-const settingsStore = useSettingsStore()
+const themeStore = useThemeStore()
 
 const { active, tabs } = storeToRefs(tabsStore)
-const { refresh } = storeToRefs(settingsStore)
+const { refresh } = storeToRefs(themeStore)
 
 /**
  * 点击跳转
@@ -67,6 +43,24 @@ onBeforeMount(() => {
 })
 
 </script>
+
+<template>
+  <div class="tabsbar-container flex flex_a_i-flex-end">
+    <el-tabs
+      class="margin_b-1"
+      type="card"
+      v-model="active"
+      @tab-click="clickHandle"
+      @tab-remove="removeHandle">
+      <el-tab-pane
+        v-for="tab in tabs"
+        :key="tab.value"
+        :label="tab.label"
+        :name="tab.value"
+        :closable="tabs.length > 1" />
+    </el-tabs>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .tabsbar-container {

@@ -1,8 +1,5 @@
-import { defineStore } from 'pinia'
-
-import { useAdministratorStore } from './administrator'
-
 import WebsocketClass from '@/utils/websocket'
+import { useAuthStore } from './auth'
 
 export const useWebsocketStore = defineStore('websocket', {
   state: () => ({
@@ -16,15 +13,19 @@ export const useWebsocketStore = defineStore('websocket', {
      */
     init() {
       if (!this.socket) {
-        const url = import.meta.env.VITE_WS_URL + useAdministratorStore().token.token
+        const url = import.meta.env.VITE_WS_URL + useAuthStore().token
         this.socket = new WebsocketClass(url, data => {
           this.response = data
-          switch (data.type) {
-            case -1:
-              break
-            default:
-              console.log('🚲~~:', data)
-              break
+          if (data.data) {
+            switch (data.data.type) {
+              case -1:
+                break
+              default:
+                console.log('🚲~~:', data)
+                break
+            }
+          } else {
+            console.log('🚲~~:', data)
           }
         })
         this.socket.connect()

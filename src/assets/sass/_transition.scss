@@ -11,7 +11,7 @@
 // 左浅入右浅出
 .left-in-right-out-enter-active,
 .left-in-right-out-leave-active {
-  transition: all .4s;
+  transition: all 0.3s;
 }
 .left-in-right-out-enter-active {
   opacity: 0;
@@ -30,10 +30,10 @@
 .right-in-out-move,
 .right-in-out-enter-active,
 .right-in-out-leave-active {
-  transition: all 0.4s;
+  transition: all 0.3s;
 }
 .right-in-out-enter-active {
-  transition-delay: 0.4s;
+  transition-delay: 0.3s;
   opacity: 0;
   transform: translateX(50px);
 }

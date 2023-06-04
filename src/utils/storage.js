@@ -7,8 +7,8 @@
  * @LastEditTime: 2021-04-30 14:01:54
  */
 import cookie from 'js-cookie'
-import { IS_GET_MENU_KEY, MENU_KEY, MENU_STORAGE, PERMISSION_KEY, TOKEN_KEY, TOKEN_STORAGE, THEME_KEY, THEME_MODE_KEY, THEME_STORAGE, LAYOUT_KEY } from '@/utils/constant'
-import { StorageType } from '@/utils/dictionary'
+import { AUTH_KEY, AUTH_STORAGE, LOAD_MENU_KEY, MENU_KEY, MENU_STORAGE, PERMISSION_KEY, THEME_KEY, THEME_MODE_KEY, THEME_STORAGE, LAYOUT_KEY } from '@/utils/constant'
+import { StorageType } from '@/utils/enum'
 
 /**
  * @description: 本地存储、获取、清除
@@ -75,14 +75,14 @@ function clear(key, storage) {
  * @return {*}
  * @author: gumingchen
  */
-export function getToken() {
-  return JSON.parse(get(TOKEN_KEY, TOKEN_STORAGE) || '{}')
+export function getAuth() {
+  return JSON.parse(get(AUTH_KEY, AUTH_STORAGE) || '{}')
 }
-export function setToken(token) {
-  set(TOKEN_KEY, token, TOKEN_STORAGE)
+export function setAuth(auth) {
+  set(AUTH_KEY, JSON.stringify(auth), AUTH_STORAGE)
 }
-export function clearToken() {
-  clear(TOKEN_KEY, TOKEN_STORAGE)
+export function clearAuth() {
+  clear(AUTH_KEY, AUTH_STORAGE)
 }
 
 /**
@@ -105,14 +105,14 @@ export function clearMenuAndPermission() {
   clear(MENU_KEY, MENU_STORAGE)
   clear(PERMISSION_KEY, MENU_STORAGE)
 }
-export function getGet() {
-  return get(IS_GET_MENU_KEY, MENU_STORAGE) === 'true'
+export function getLoad() {
+  return get(LOAD_MENU_KEY, MENU_STORAGE) === 'true'
 }
-export function setGet(val = true) {
-  set(IS_GET_MENU_KEY, val, MENU_STORAGE)
+export function setLoad(val = true) {
+  set(LOAD_MENU_KEY, val, MENU_STORAGE)
 }
-export function clearGet() {
-  clear(IS_GET_MENU_KEY, MENU_STORAGE)
+export function clearLoad() {
+  clear(LOAD_MENU_KEY, MENU_STORAGE)
 }
 
 /**
@@ -133,35 +133,14 @@ export function clearTheme() {
 }
 
 /**
- * @description: 主题模式-存储、获取、清除
+ * @description: 人机识别
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-export function getThemeMode() {
-  const mode = get(THEME_MODE_KEY, THEME_STORAGE)
-  return mode || null
+export function getHuman() {
+  return get('human', StorageType.LOCAL)
 }
-export function setThemeMode(mode) {
-  set(THEME_MODE_KEY, mode, THEME_STORAGE)
-}
-export function clearThemeMode() {
-  clear(THEME_MODE_KEY, THEME_STORAGE)
-}
-
-/**
- * @description: 布局-存储、获取、清除
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function getLayout() {
-  const layout = get(LAYOUT_KEY, THEME_STORAGE)
-  return layout ? JSON.parse(layout) : null
-}
-export function setLayout(layout) {
-  set(LAYOUT_KEY, JSON.stringify(layout), THEME_STORAGE)
-}
-export function clearLayout() {
-  clear(LAYOUT_KEY, THEME_STORAGE)
+export function setHuman(human) {
+  set('human', human, StorageType.LOCAL)
 }

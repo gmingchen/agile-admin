@@ -1,18 +1,20 @@
-import { ContentType, TokenKey, StorageType, SuccessCode, RequestMapping, ModelBinding } from '@/utils/dictionary'
+import { ContentType, AuthKey, StorageType, SuccessCode, RequestMapping, ModelBinding } from '@/utils/enum'
 
 // request Mapping
 export const MAPPING = RequestMapping.SLIPPER
 // 请求数据类型
 export const CONTENT_TYPE = ContentType.JSON
 // 请求超时时长
-export const TIME_OUT = 10000
+export const TIME_OUT = 50000
 // 访问秘钥 存储
-export const TOKEN_KEY = TokenKey.TOKEN
+export const AUTH_KEY = AuthKey.TOKEN
 // 秘钥本地存储类型
-export const TOKEN_STORAGE = StorageType.COOKIE
+export const AUTH_STORAGE = StorageType.COOKIE
+// 租户ID键值
+export const TNEANT_KEY = 'tenant-id'
 // 菜单本地存储类型
 export const MENU_STORAGE = StorageType.SESSION
-export const IS_GET_MENU_KEY = 'isGet'
+export const LOAD_MENU_KEY = 'load'
 export const MENU_KEY = 'menus'
 export const PERMISSION_KEY = 'permissions'
 // 主题本地存储类型

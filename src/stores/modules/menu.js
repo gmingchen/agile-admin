@@ -1,93 +1,93 @@
-import { defineStore } from 'pinia'
+import { adminerMenuApi } from '@/api/auth'
 
-import { getGet, setGet, clearGet, getMenuAndPermission, setMenuAndPermission, clearMenuAndPermission } from '@/utils/storage'
+import { getLoad, setLoad, clearLoad, getMenuAndPermission, setMenuAndPermission, clearMenuAndPermission } from '@/utils/storage'
 import { MENU_KEY, PERMISSION_KEY } from '@/utils/constant'
-import { selfInfoApi } from '@/api/enterprise-menu'
+import { MenuType } from '@/utils/enum'
+import { parseData2Tree, clearJson } from '@/utils'
 
-// 初始化菜单 权限 数据
+const load = getLoad()
 const data = getMenuAndPermission()
-
-/**
- * @description: 递归筛选出 目录、菜单
- * @param {Array} list
- * @param {Number} mode 1-显示的 2-所有的
- * @return {*}
- * @author: gumingchen
- */
-function menuProcessing(list = [], mode = 1) {
-  const result = []
-  list.forEach(item => {
-    if (item.type !== 2) {
-      if (mode === 2 || item.show === 1) {
-        const menu = {
-          id: item.menu_id,
-          name_cn: item.name_cn,
-          name_en: item.name_en,
-          icon: item.icon,
-          type: item.type,
-          url: item.url,
-          path: item.type === 3 ? `/i-${ item.menu_id }` : item.path || (item.url ? `/${ item.url.replace(/\//g, '-') }` : ''),
-          name: item.type === 3 ? `i-${ item.menu_id }` : item.name || (item.url ? item.url.replace(/\//g, '-') : ''),
-          children: []
-        }
-        if (item.children && item.children.length > 0) {
-          menu.children = menuProcessing(item.children, mode)
-        }
-        result.push(menu)
-      }
-    }
-  })
-  return result
-}
 
 export const useMenuStore = defineStore('menu', {
   state: () => ({
-    get: getGet(),
+    load: load,
     menus: data[MENU_KEY],
     permissions: data[PERMISSION_KEY],
     active: '',
     collapse: false
   }),
   getters: {
-    displayedMenus: state => menuProcessing(state.menus),
-    allMenus: state => menuProcessing(state.menus, 2)
+    displayedMenus: (state) => {
+      const reulst = state.menus.filter(item => item.show && item.type !== MenuType.BUTTON).map(item => {
+        const defaultValue = item.url ? item.url.substring(1, item.url.length).replace(/\//g, '-') : ''
+        return {
+          id: item.id,
+          label: item.name,
+          icon: item.icon,
+          type: item.type,
+          url: item.url,
+          path: item.type === 3 ? `/i-${ item.id }` : item.routePath || (item.url ? `/${ defaultValue }` : ''),
+          name: item.type === 3 ? `i-${ item.id }` : item.routeName || (item.url ? defaultValue : ''),
+          parentId: item.parentId,
+          children: []
+        }
+      })
+      return parseData2Tree(reulst)
+    },
+    allMenus: (state) => {
+      const reulst = state.menus.map(item => {
+        const defaultValue = item.url ? item.url.substring(1, item.url.length).replace(/\//g, '-') : ''
+        return {
+          id: item.id,
+          label: item.name,
+          icon: item.icon,
+          type: item.type,
+          url: item.url,
+          path: item.type === 3 ? `/i-${ item.id }` : item.routePath || (item.url ? `/${ defaultValue }` : ''),
+          name: item.type === 3 ? `i-${ item.id }` : item.routeName || (item.url ? defaultValue : ''),
+          parentId: item.parentId,
+          children: []
+        }
+      })
+      return parseData2Tree(reulst)
+    }
   },
   actions: {
     /**
-     * 设置是否获取过 菜单 权限
-     * @param {*}
-     * @returns
+     * 设置是否加载
+     * @param {*} val
      */
-    setGet(val = true) {
-      setGet(val)
-      this.get = val
+    setLoad(val) {
+      this.load = val
+      setLoad(val)
     },
     /**
-     * 获取当前管理员 菜单 权限
-     * @param {*}
+     * 获取菜单权限
      * @returns
      */
     async getMenuAndPermission() {
-      const r = await selfInfoApi()
+      const r = await adminerMenuApi()
       if (r) {
-        this.get = true
+        const { menus, permissions } = r.data
+        this.menus = menus
+        this.permissions = permissions
+        this.load = true
+        setLoad(true)
         setMenuAndPermission(r.data)
-        this.menus = r.data.menus
-        this.permissions = r.data.permissions
       }
-      return r && r.data ? r.data.menus : []
+      return r.data
     },
     /**
-     * 清除菜单 权限 信息
-     * @param {*}
+     * 清除数据
      */
     clear() {
-      clearGet()
+      clearLoad()
       clearMenuAndPermission()
-      this.get = false,
+      this.load = false
       this.menus = []
       this.permissions = []
+      this.active = ''
+      this.collapse = false
     }
   }
 })
-

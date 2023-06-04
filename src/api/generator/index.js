@@ -1,11 +1,3 @@
-/*
- * @Description: 代码生成器
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2020-12-28 16:25:18
- * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-20 15:47:56
- */
 import service from '@/utils/request'
 import { download } from '@/utils'
 
@@ -17,9 +9,9 @@ import { download } from '@/utils'
  */
 export function pageApi(params) {
   return service({
-    url: '/generator/table/page',
+    url: '/admin/generator/page',
     method: 'get',
-    params: params
+    params
   })
 }
 
@@ -29,12 +21,12 @@ export function pageApi(params) {
  * @return {*}
  * @author: gumingchen
  */
-export async function generatorApi(params) {
+export async function generateApi(data) {
   const r = await service({
-    url: '/generator/create',
+    url: '/admin/generator/generate',
     method: 'post',
     responseType: 'blob',
-    data: params
+    data
   })
   if (r) {
     const { blob, name } = r

@@ -6,7 +6,8 @@ module.exports = {
   },
   extends: [
     'plugin:vue/vue3-essential',
-    'eslint:recommended'
+    'eslint:recommended',
+    './.eslintrc-auto-import.json'
   ],
   rules: {
     // todo: vue eslint plugin

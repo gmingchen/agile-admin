@@ -1,203 +1,135 @@
-/*
- * @Description: 企业角色
- * @Author: gumingchen
- * @Email: 1240235512@qq.com
- * @Date: 2020-12-28 16:25:18
- * @LastEditors: gumingchen
- * @LastEditTime: 2021-05-20 15:47:56
- */
 import service from '@/utils/request'
+import { download } from '@/utils'
 
 /**
- * @description: 超级管理员获取当前企业下的所有角色 否则 获取当前管理员创建的角色
- * @param {*}
- * @return {*}
- * @author: gumingchen
+ * 分页
+ * @param {*} params
+ * @returns
  */
 export function pageApi(params) {
   return service({
     url: '/admin/role/page',
     method: 'get',
-    params: params
+    params
   })
 }
 
 /**
- * @description: 信息
- * @param {*}
- * @return {*}
- * @author: gumingchen
+ * 详情
+ * @param {*} params
+ * @returns
  */
 export function infoApi(params) {
   return service({
-    url: `/admin/role/info/${ params }`,
-    method: 'get'
-  })
-}
-
-/**
- * @description: 新增
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function addApi(params) {
-  return service({
-    url: `/admin/role/create`,
-    method: 'post',
-    data: params
-  })
-}
-
-/**
- * @description: 编辑
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function editApi(params) {
-  return service({
-    url: `/admin/role/update`,
-    method: 'post',
-    data: params
-  })
-}
-
-/**
- * @description: 删除
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function deleteApi(params) {
-  return service({
-    url: `/admin/role/delete`,
-    method: 'post',
-    data: params
-  })
-}
-
-/**
- * @description: 设置是否显示
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function setShowApi(params) {
-  return service({
-    url: `/admin/role/show`,
-    method: 'post',
-    data: params
-  })
-}
-
-/**
- * @description: 获取管理员创建的角色 超级管理员获取企业下所有的角色
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function selectListApi() {
-  return service({
-    url: `/admin/role/select/list`,
-    method: 'get'
-  })
-}
-
-// todo:------------------------------------------------------------------------------------
-
-/**
- * @description: 企业ID获取企业下所有角色
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function globalPageApi(params) {
-  return service({
-    url: '/admin/role/global/page',
+    url: '/admin/role/info',
     method: 'get',
-    params: params
+    params
   })
 }
 
 /**
- * @description: 信息
- * @param {*}
- * @return {*}
- * @author: gumingchen
+ * 新增
+ * @param {*} data
+ * @returns
  */
-export function globalInfoApi(params) {
+export function createApi(data) {
   return service({
-    url: `/admin/role/global/info/${ params }`,
+    url: '/admin/role/create',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 更新
+ * @param {*} data
+ * @returns
+ */
+export function updateApi(data) {
+  return service({
+    url: '/admin/role/update',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 删除
+ * @param {*} data
+ * @returns
+ */
+export function deleteApi(data) {
+  return service({
+    url: '/admin/role/delete',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 状态切换
+ * @param {*} data
+ * @returns
+ */
+export function setStatusApi(data) {
+  return service({
+    url: '/admin/role/status',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 设置菜单权限
+ * @param {*} data
+ * @returns
+ */
+export function setMenuPermissionApi(data) {
+  return service({
+    url: '/admin/role/menu',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 设置数据权限
+ * @param {*} data
+ * @returns
+ */
+export function setDataPermissionApi(data) {
+  return service({
+    url: '/admin/role/data',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 选择列表
+ * @param {*} data
+ * @returns
+ */
+export function selectApi() {
+  return service({
+    url: '/admin/role/select',
     method: 'get'
   })
 }
 
 /**
- * @description: 新增
- * @param {*}
- * @return {*}
- * @author: gumingchen
+ * 导出
+ * @returns
  */
-export function globalAddApi(params) {
-  return service({
-    url: `/admin/role/global/create`,
-    method: 'post',
-    data: params
+export async function exportApi(params) {
+  const r = await service({
+    url: 'admin/role/export',
+    method: 'get',
+    responseType: 'blob',
+    params
   })
-}
-
-/**
- * @description: 编辑
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function globalEditApi(params) {
-  return service({
-    url: `/admin/role/global/update`,
-    method: 'post',
-    data: params
-  })
-}
-
-/**
- * @description: 删除
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function globalDeleteApi(params) {
-  return service({
-    url: `/admin/role/global/delete`,
-    method: 'post',
-    data: params
-  })
-}
-
-/**
- * @description: 设置是否显示
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function globalSetShowApi(params) {
-  return service({
-    url: `/admin/role/global/show`,
-    method: 'post',
-    data: params
-  })
-}
-
-/**
- * @description: 获取企业下所有的角色
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-export function globalSelectListApi(params) {
-  return service({
-    url: `/admin/role/global/select/list/${ params }`,
-    method: 'get'
-  })
+  if (r) {
+    const { blob, name } = r
+    download(blob, name)
+  }
 }

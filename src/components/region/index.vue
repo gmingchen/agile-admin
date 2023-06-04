@@ -1,17 +1,8 @@
-<template>
-  <el-cascader
-    ref="refCascader"
-    v-model="value"
-    :props="regionProps"
-    :show-all-levels="false" />
-</template>
 
 <script setup>
-import { reactive, ref, toRefs } from 'vue'
+import useModel from '@/hooks/model'
 
-import useModel from '@/mixins/model'
-
-import { selectListApi } from '@/api/region'
+import { selectApi } from '@/api/region'
 
 const props = defineProps({
   modelValue: {
@@ -40,7 +31,7 @@ const regionProps = reactive({
         children: []
       }])
     } else {
-      selectListApi(node.value).then(r => {
+      selectApi({ parentId: node.value }).then(r => {
         if (r) {
           resolve(r.data.map(item => {
             return {
@@ -60,8 +51,15 @@ const regionProps = reactive({
 const getCheckedNodes = () => {
   return refCascader.value.getCheckedNodes()[0].data
 }
-
 </script>
+
+<template>
+  <el-cascader
+    ref="refCascader"
+    v-model="value"
+    :props="regionProps"
+    :show-all-levels="false" />
+</template>
 
 <style lang="scss" scoped>
 

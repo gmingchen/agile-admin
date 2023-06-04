@@ -1,5 +1,5 @@
 <template>
-  <div class="headbar-container padding-n-10 flex-box flex_w-wrap flex_a_i-center">
+  <div class="headbar-container padding-n-10 flex flex_w-wrap flex_a_i-center">
     <el-tooltip
       content="折叠/展开菜单"
       placement="bottom"
@@ -17,12 +17,8 @@
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia'
-
-import { useMenuStore } from '@stores/menu'
-
-import Crumb from './components/crumb.vue'
-import Action from './components/action.vue'
+import Crumb from './components/crumb/index.vue'
+import Action from './components/action/index.vue'
 
 const menuStore = useMenuStore()
 const { collapse } = storeToRefs(menuStore)

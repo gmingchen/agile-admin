@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive, nextTick, watch, onBeforeUnmount } from 'vue'
+
 import { UPDATE_MODEL_EVENT } from '@/utils/constant'
 import * as Quill from 'quill'
 import 'quill/dist/quill.core.css'

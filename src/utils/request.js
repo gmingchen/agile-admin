@@ -2,14 +2,12 @@
 import axios from 'axios'
 import qs from 'qs'
 import router from '@/router'
-import pinia from '@/stores'
-import { useRootStore } from '@/stores/root'
-import { useAdministratorStore } from '@stores/administrator'
 
-import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, TOKEN_KEY } from '@/utils/constant'
-import { ContentType } from '@/utils/dictionary'
-import { getApiBaseUrl } from '@/utils'
+import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, AUTH_KEY, TNEANT_KEY } from '@/utils/constant'
+import { ContentType } from '@/utils/enum'
+import { getApiBaseUrl, blob2Json } from '@/utils'
 import Prompt from '@/utils/prompt'
+import { useAuthStore } from '../stores/modules/auth'
 
 /**
  * @description: 异常消息提示
@@ -34,12 +32,13 @@ const prompt = (message, single = true) => {
  */
 const codeHandle = (code, message) => {
   switch (code) {
+    case 4000:
     case 4001:
-      prompt(message)
-      useRootStore(pinia).logout()
       router.replace({
         name: 'login'
       })
+      prompt(message)
+      useAuthStore().clear()
       break
     case 401:
       router.replace({
@@ -52,9 +51,9 @@ const codeHandle = (code, message) => {
       })
       break
     case 500:
-      router.replace({
-        name: '500'
-      })
+      // router.replace({
+      //   name: '500'
+      // })
       break
     default:
       prompt(message, false)
@@ -88,9 +87,14 @@ const service = axios.create({
  */
 service.interceptors.request.use(
   config => {
-    const tokenVal = useAdministratorStore(pinia).tokenVal
-    if (tokenVal) {
-      config.headers[TOKEN_KEY] = tokenVal
+    const { token, tenantId } = useAuthStore()
+    // 设置 token
+    if (token.trim()) {
+      config.headers[AUTH_KEY] = token.trim()
+    }
+    // 设置租户ID
+    if (tenantId) {
+      config.headers[TNEANT_KEY] = tenantId
     }
     if (config.data) {
       if (config.headers['Content-Type'] === ContentType.FORM) {
@@ -112,9 +116,8 @@ service.interceptors.request.use(
  * @author: gumingchen
  */
 service.interceptors.response.use(
-  response => {
+  async response => {
     if (response.headers['content-type'] === ContentType.STREAM) {
-      console.log(response)
       if (!response.data.code) {
         return {
           blob: response.data,
@@ -123,6 +126,10 @@ service.interceptors.response.use(
       } else {
         return response.data || null
       }
+    }
+    const { responseType } = response.config
+    if (responseType === 'blob') {
+      response.data = await blob2Json(response.data)
     }
     const { code, message } = response.data
     if (!SUCCESS_CODE.includes(code)) {
@@ -187,9 +194,9 @@ service.interceptors.response.use(
       }
     } else {
       console.log('连接到服务器失败')
-      router.replace({
-        name: '500'
-      })
+      // router.replace({
+      //   name: '500'
+      // })
     }
     return Promise.reject(error)
   }

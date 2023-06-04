@@ -20,6 +20,7 @@ export default class Prompt {
     this[prompt](options, single)
   }
   [prompt] (options, single) {
+    options = { ...options, grouping: true }
     if (single) {
       if (document.getElementsByClassName('el-message').length === 0) {
         ElMessage(options)
