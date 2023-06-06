@@ -153,7 +153,6 @@ function addRoutes(menus = [], routeList = []) {
 }
 
 router.beforeEach(async (to, _from, next) => {
-  console.log(to)
   // debugger
   NProgress.start()
   // 标题控制
