@@ -14,7 +14,7 @@ const dynamics = import.meta.glob('../views/modules/**/*.vue')
 
 const constant = [
   { path: '/', redirect: { name: 'login' }, meta: { name: '重定向' } },
-  { path: '/login', name: 'login', component: () => import('@/views/constant/login.vue'), meta: { name: '登录' } },
+  { path: '/login', name: 'login', component: () => import('@/views/constant/login.vue'), meta: { title: '登录' } },
   { path: '/401', name: '401', component: () => import('@/views/constant/401.vue'), meta: { title: '401' } },
   { path: '/404', name: '404', component: () => import('@/views/constant/404.vue'), meta: { title: '404' } },
   { path: '/500', name: '500', component: () => import('@/views/constant/500.vue'), meta: { title: '500' } }
@@ -156,7 +156,7 @@ router.beforeEach(async (to, _from, next) => {
   // debugger
   NProgress.start()
   // 标题控制
-  document.title = to.meta.label || document.title
+  document.title = to.meta.label || to.meta.title || document.title
   // 处理动态路由页 刷新跳转 401 问题
   if (refresh) {
     // 添加 401 重定向
