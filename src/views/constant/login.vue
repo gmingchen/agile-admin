@@ -51,11 +51,12 @@ const submit = () => {
       authStore.login(form).then(r => {
         if (r) {
           router.push({ name: 'redirect', replace: true })
+        } else {
+          nextTick(() => {
+            getCaptcha()
+            loading.value = false
+          })
         }
-        nextTick(() => {
-          getCaptcha()
-          loading.value = false
-        })
       })
     }
   })
