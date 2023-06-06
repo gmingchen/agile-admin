@@ -44,5 +44,5 @@ const style = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '//at.alicdn.com/t/c/font_3225946_ayhw3s099fs.css';
+@import '//at.alicdn.com/t/c/font_3225946_t2saxllrdm.css';
 </style>

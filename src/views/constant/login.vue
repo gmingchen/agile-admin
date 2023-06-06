@@ -73,11 +73,11 @@ const notifyHandle = () => {
       因系统禁止多点在线 所以会遇到token失效、退出登录的情况，可以尝试更换帐号登录！
       <div class="margin_t-10">
         <p>总后台帐号：</p>
-        <b>demo1，demo2，demo3，demo4</b>
+        <b>admin1,admin2,admin3,admin4</b>
       </div>
       <div class="margin-10-n">
-        <p>企业超管帐号：</p>
-        <b>admin1，admin2，admin3，admin4</b>
+        <p>租户帐号：</p>
+        <b>demo1,demo2,demo3,demo4</b>
       </div>
       <p>所有帐号的密码统一为：<b>superadmin</b></p>
     </div>
@@ -109,7 +109,8 @@ onBeforeMount(() => {
       <el-form
         ref="refForm"
         :model="form"
-        :rules="rules">
+        :rules="rules"
+        @keyup.enter="submit()">
         <el-form-item prop="account">
           <el-input v-model="form.account" placeholder="用户名/手机号/邮箱" clearable>
             <template #prefix>

@@ -31,6 +31,7 @@
     "echarts": "^5.4.2",
     "eslint": "^8.34.0",
     "eslint-plugin-vue": "^9.9.0",
+    "ora": "^5.4.1",
     "qs": "^6.11.1",
     "sass": "^1.60.0",
     "sass-loader": "^13.2.1",
