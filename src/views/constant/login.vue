@@ -1,12 +1,15 @@
 <script setup>
 import { ElNotification } from 'element-plus'
+import { onBeforeRouteUpdate, loadRouteLocation } from 'vue-router'
 
 import Identify from './identify.vue'
 
 import { generateUUID } from '@/utils'
 import { captchaApi } from '@/api/auth'
+import { onActivated, watch } from 'vue'
 
 const router = useRouter()
+const route = useRoute()
 const authStore = useAuthStore()
 
 const refForm = ref()
@@ -15,7 +18,7 @@ const loading = ref(false)
 
 const captcha = ref('')
 const form = reactive({
-  account: 'admin1',
+  account: 'demo1',
   password: 'superadmin',
   uuid: '',
   code: ''
@@ -38,6 +41,19 @@ const getCaptcha = () => {
     }
   })
 }
+
+/**
+ * 监听token 登录后无菜单清除token 并刷新页面数据
+ */
+watch(() => authStore.token, (newVal, _oldVal) => {
+  if (!newVal) {
+    nextTick(() => {
+      getCaptcha()
+      loading.value = false
+    })
+  }
+})
+
 /**
  * 登录表单提交
  */
