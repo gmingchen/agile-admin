@@ -11,6 +11,7 @@ deploy
 .env.local
 .env.*.local
 package-lock.json
+.eslintrc-auto-import.json
 
 # Log files
 npm-debug.log*
