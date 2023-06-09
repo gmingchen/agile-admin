@@ -71,8 +71,8 @@ const loadHandle = () => {
 </script>
 
 <template>
-  <div class="width-200 height-full flex flex_d-column">
-    <div class="margin_b-10 flex">
+  <div class="width-200 height-full flex flex_d-column" v-drag-resize>
+    <div class="padding-10 flex">
       <el-input class="margin_r-10" v-model="form.keyword" />
       <el-button v-repeat @click="reacquireHandle">
         <iconfont name="search" />
@@ -80,6 +80,7 @@ const loadHandle = () => {
     </div>
     <el-scrollbar class="flex-item_f-1" v-loading="loading">
       <ul
+        class="padding-n-10"
         v-if="!reload"
         v-infinite-scroll="loadHandle"
         :infinite-scroll-disabled="disabled">

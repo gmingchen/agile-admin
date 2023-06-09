@@ -61,15 +61,9 @@ const resizeHandle = () => {
 }
 
 onMounted(() => {
-  nextTick(() => {
-    init()
-    window.addEventListener('resize', resizeHandle)
-  })
+  init()
 })
 
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', resizeHandle)
-})
 </script>
 
 <template>
@@ -77,7 +71,7 @@ onBeforeUnmount(() => {
     <div class="panel padding-15">
       <div class="panel-title margin_b-10 font-size-18">用户地区</div>
       <div class="panel-content">
-        <div class="height-full width-full" ref="refEchart" />
+        <div class="height-full width-full" ref="refEchart" v-resize="resizeHandle" />
       </div>
     </div>
   </div>
