@@ -10,6 +10,7 @@ import { Status } from '@/utils/enum'
 import { pageApi, deleteApi, setStatusApi, resetPasswordApi, exportApi } from '@/api/adminer'
 import { h } from 'vue'
 
+const refContainerSidebar = ref()
 const refForm = ref()
 const refTable = ref()
 const refAddEdit = ref()
@@ -236,6 +237,7 @@ const exportHandle = () => {
  * 侧边栏选择变化事件
  */
 const changeHandle = (_row) => {
+  refContainerSidebar.value.setScrollTop()
   getList()
 }
 
@@ -255,7 +257,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <ContainerSidebar>
+  <ContainerSidebar ref="refContainerSidebar" :scroll="false">
     <template #sidebar>
       <Sidebar v-model="form.deptId" @change="changeHandle" />
     </template>

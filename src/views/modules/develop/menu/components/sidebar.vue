@@ -210,8 +210,8 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="sidebar-container height-full width-300 flex flex_d-column">
-    <div class="margin_b-10 flex">
+  <div class="sidebar-container height-full width-300 flex flex_d-column" v-drag-resize>
+    <div class="padding-10 flex">
       <el-input class="margin_r-10" v-model="form.name" @input="inputHandle">
         <template #suffix>
           <Iconfont name="search" />
@@ -226,6 +226,7 @@ onBeforeMount(() => {
     </div>
     <el-scrollbar class="flex-item_f-1" v-loading="loading">
       <el-tree
+        class="padding-n-10"
         ref="refTree"
         :data="list"
         :props="treeProps"

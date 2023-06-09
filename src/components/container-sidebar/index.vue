@@ -5,12 +5,12 @@
     overflow-auto
     ${panelMode === 3 ? 'container-sidebar-panel' : ''}`">
     <el-scrollbar class="sidebar-container margin_r-10" v-if="scroll && slots.sidebar">
-      <div class="padding-10">
+      <div>
         <slot name="sidebar" />
       </div>
     </el-scrollbar>
     <div class="sidebar-container margin_r-10" v-if="!scroll && slots.sidebar">
-      <div class="padding-10 height-full">
+      <div class="height-full">
         <slot name="sidebar" />
       </div>
     </div>

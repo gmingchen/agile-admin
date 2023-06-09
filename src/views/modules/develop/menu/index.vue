@@ -116,7 +116,6 @@ const clearRouterParams = () => {
 }
 
 const changeHandle = (val) => {
-  console.log(val)
   refContainerSidebar.value.setScrollTop()
   if (!val) {
     active.value = ''
