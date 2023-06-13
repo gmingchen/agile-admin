@@ -8,7 +8,7 @@
             <el-tab-pane label="基本信息" name="basic">
               <BasicInfo :adminer="adminer" />
             </el-tab-pane>
-            <el-tab-pane label="修改密码" name="password">
+            <el-tab-pane label="修改密码" name="password" v-if="havePermission('auth:updatePassword')">
               <EditPassword />
             </el-tab-pane>
             <el-tab-pane name="message">
@@ -23,10 +23,10 @@
               </template>
               <Notice />
             </el-tab-pane>
-            <el-tab-pane label="最近操作日志" name="operate">
+            <el-tab-pane label="最近操作日志" name="operate" v-if="havePermission('operateLog:latest')">
               <OperateLog />
             </el-tab-pane>
-            <el-tab-pane label="最近登录日志" name="login">
+            <el-tab-pane label="最近登录日志" name="login" v-if="havePermission('loginLog:latest')">
               <LoginLog />
             </el-tab-pane>
           </el-tabs>

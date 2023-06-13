@@ -19,7 +19,11 @@ const defaultOptions = {
   // Element的最小宽度/高度
   min: 200,
   // Element的最大宽度/高度
-  max: 460
+  max: 460,
+  // 处理器
+  downHandler: null,
+  moveHandler: null,
+  upHandler: null
 }
 
 const weakMap = new WeakMap()
@@ -68,6 +72,10 @@ const createElement = (options) => {
 
 const mouseListener = (el, div, options) => {
   div.addEventListener('mousedown', (downEvent) => {
+    const { downHandler, moveHandler, upHandler } = options
+    if (typeof downHandler === 'function') {
+      downHandler(downEvent)
+    }
     const moveController = new AbortController()
     const upController = new AbortController()
 
@@ -80,6 +88,9 @@ const mouseListener = (el, div, options) => {
     weakMap.set(el, { div, moveController, upController })
 
     document.addEventListener('mousemove', (moveEvent) => {
+      if (typeof moveHandler === 'function') {
+        moveHandler(moveHandler)
+      }
       document.documentElement.style.cursor = div.style.cursor
       if (horizontal.includes(options.position)) {
         const value = moveEvent.pageX - downPageX
@@ -106,6 +117,9 @@ const mouseListener = (el, div, options) => {
     }, { signal: moveController.signal })
 
     document.addEventListener('mouseup', () => {
+      if (typeof upHandler === 'function') {
+        upHandler(moveHandler)
+      }
       moveController.abort()
       upController.abort()
       document.documentElement.style.cursor = ''

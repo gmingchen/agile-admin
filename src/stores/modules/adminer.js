@@ -31,7 +31,7 @@ export const useAdminerStore = defineStore('adminer', {
       if (r) {
         this.$state = r.data
       }
-      return r.data
+      return r ? r.data : null
     },
     /**
      * 退出当前账户

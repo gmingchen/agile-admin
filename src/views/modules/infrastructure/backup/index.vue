@@ -275,6 +275,7 @@ onBeforeMount(() => {
           width="160"
           show-overflow-tooltip />
         <el-table-column
+          v-permission="'backup:info|backup:recovery|backup:delete'"
           align="center"
           label="操作"
           width="160"

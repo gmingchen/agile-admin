@@ -388,6 +388,7 @@ onBeforeMount(() => {
           prop="updatedAt"
           width="160" />
         <el-table-column
+          v-permission="'adminer:update|adminer:role|adminer:reset|adminer:delete'"
           align="center"
           label="操作"
           width="110"

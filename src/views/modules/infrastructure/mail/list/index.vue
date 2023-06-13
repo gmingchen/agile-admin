@@ -245,7 +245,7 @@ onBeforeMount(() => {
           label="操作"
           width="110"
           fixed="right"
-          v-permission="'mail:delete'">
+          v-permission="'mail:info|mail:delete'">
           <template v-slot="{ row }">
             <el-button
               v-permission="'mail:info'"

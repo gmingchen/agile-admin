@@ -18,7 +18,7 @@ const loading = ref(false)
 
 const captcha = ref('')
 const form = reactive({
-  account: 'demo1',
+  account: 'admin1',
   password: 'superadmin',
   uuid: '',
   code: ''

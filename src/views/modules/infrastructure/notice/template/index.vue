@@ -260,6 +260,7 @@ onBeforeMount(() => {
           prop="updatedAt"
           width="160" />
         <el-table-column
+          v-permission="'noticeTemplate:update|noticeTemplate:delete'"
           align="center"
           label="操作"
           width="110"

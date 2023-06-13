@@ -4,6 +4,7 @@ import { ElMessage } from 'element-plus'
 import UploadImage from '@/components/upload-image/index.vue'
 
 import { isEmail, isMobile } from '@/utils/regular'
+import { havePermission } from '@/utils'
 
 import { updateBasicApi } from '@/api/auth'
 
@@ -76,7 +77,8 @@ onBeforeMount(() => {
     :rules="rules"
     ref="refForm"
     @keyup.enter="submit()"
-    label-position="top">
+    label-position="top"
+    :disabled="!havePermission('auth:updateBasic')">
     <el-form-item label="头像" prop="avatar">
       <UploadImage v-model="form.avatar" />
     </el-form-item>
