@@ -254,6 +254,7 @@ onBeforeMount(() => {
           prop="updatedAt"
           width="160" />
         <el-table-column
+          v-permission="'fileConfig:update|fileConfig:delete'"
           align="center"
           label="操作"
           width="110"

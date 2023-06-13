@@ -166,6 +166,7 @@ onBeforeMount(() => {
           prop="updatedAt"
           width="160" />
         <el-table-column
+          v-permission="'region:update|region:delete'"
           align="center"
           label="操作"
           width="110"

@@ -177,6 +177,7 @@ onBeforeMount(() => {
           prop="createdAt"
           width="160" />
         <el-table-column
+          v-permission="'errorLog:info'"
           align="center"
           label="操作"
           width="80"

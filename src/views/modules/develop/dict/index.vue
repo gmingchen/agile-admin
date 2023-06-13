@@ -166,6 +166,7 @@ const changeHandle = (row) => {
           prop="updatedAt"
           width="160" />
         <el-table-column
+          v-permission="'dictSub:update|dictSub:delete'"
           align="center"
           label="操作"
           width="110"

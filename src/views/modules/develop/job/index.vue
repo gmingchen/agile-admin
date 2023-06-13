@@ -317,6 +317,7 @@ onBeforeMount(() => {
           prop="updatedAt"
           width="160" />
         <el-table-column
+          v-permission="'job:update|job:run|job:resume|job:paush|job:delete'"
           align="center"
           label="操作"
           width="110"

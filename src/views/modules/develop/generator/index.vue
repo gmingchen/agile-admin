@@ -154,6 +154,7 @@ onBeforeMount(() => {
           prop="updatedAt"
           width="160" />
         <el-table-column
+          v-permission="'generator:generate'"
           align="center"
           label="操作"
           width="80"

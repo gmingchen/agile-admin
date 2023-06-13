@@ -271,6 +271,7 @@ onBeforeMount(() => {
           width="160"
           show-overflow-tooltip />
         <el-table-column
+          v-permission="'mailTemplate:update|mailTemplate:delete'"
           align="center"
           label="操作"
           width="110"
