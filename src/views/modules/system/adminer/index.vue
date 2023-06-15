@@ -8,7 +8,6 @@ import { clearJson, havePermission } from '@/utils'
 import { Status } from '@/utils/enum'
 
 import { pageApi, deleteApi, setStatusApi, resetPasswordApi, exportApi } from '@/api/adminer'
-import { h } from 'vue'
 
 const refContainerSidebar = ref()
 const refForm = ref()
@@ -266,9 +265,14 @@ onBeforeMount(() => {
         <el-form-item>
           <el-input v-model="form.name" placeholder="名称" clearable />
         </el-form-item>
+        <!--
+ <el-form-item>
+          <DictSelect v-model="form.status" code="STATUS" placeholder="状态" />
+        </el-form-item>
         <el-form-item>
           <DictSelect v-model="form.status" code="STATUS" placeholder="状态" />
         </el-form-item>
+-->
         <el-form-item>
           <DateRangePicker v-model:start="form.start" v-model:end="form.end" />
         </el-form-item>

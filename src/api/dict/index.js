@@ -148,10 +148,10 @@ export function subSetStatusApi(data) {
  * @param {*} data
  * @returns
  */
-export function subSelectListApi(params) {
+export function subSelectListApi(data) {
   return service({
     url: '/admin/dict/sub/select/list',
-    method: 'get',
-    params
+    method: 'post',
+    data
   })
 }

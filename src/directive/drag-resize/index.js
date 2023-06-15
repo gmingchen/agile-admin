@@ -26,7 +26,17 @@ const defaultOptions = {
   upHandler: null
 }
 
-const weakMap = new WeakMap()
+// 初始化数据
+let data = {
+  el: null,
+  dom: null,
+  options: null,
+
+  width: null,
+  downPageX: null,
+  height: null,
+  downPageY: null
+}
 
 /**
  * 拖拽区域位置处理
@@ -70,60 +80,87 @@ const createElement = (options) => {
   return div
 }
 
-const mouseListener = (el, div, options) => {
-  div.addEventListener('mousedown', (downEvent) => {
-    const { downHandler, moveHandler, upHandler } = options
-    if (typeof downHandler === 'function') {
-      downHandler(downEvent)
+/**
+ * 鼠标移动监听事件
+ * @param {*} event
+ * @returns
+ */
+const moveHandle = (event) => {
+  const { el, dom, options, width, downPageX, height, downPageY } = data
+  const { moveHandler, position, max, min } = options
+  // 事件回调
+  if (typeof moveHandler === 'function') {
+    moveHandler(event)
+  }
+  // 设置鼠标样式
+  document.documentElement.style.cursor = dom.style.cursor
+  // 水平方向处理
+  if (horizontal.includes(position)) {
+    const value = position === horizontal[0] ? downPageX - event.pageX : event.pageX - downPageX
+    const size = width + value
+    if (size >= max) {
+      return
     }
-    const moveController = new AbortController()
-    const upController = new AbortController()
+    if (size <= min) {
+      return
+    }
+    el.style.width = size + 'px'
+  }
+  // 垂直方向处理
+  if (vertical.includes(position)) {
+    const value = position === vertical[0] ? downPageY - event.pageY : event.pageY - downPageY
+    const size = height + value
+    if (size >= max) {
+      return
+    }
+    if (size <= min) {
+      return
+    }
+    el.style.height = size + 'px'
+  }
+}
+/**
+ * 鼠标松开监听事件
+ * @param {*} event
+ */
+const upHandle = (event) => {
+  // 事件回调
+  const { upHandler } = data.options
+  if (typeof upHandler === 'function') {
+    upHandler(event)
+  }
+  // 移除监听
+  document.removeEventListener('mousemove', moveHandle)
+  document.removeEventListener('mouseup', upHandle)
+  // 移除鼠标样式
+  document.documentElement.style.cursor = ''
+}
 
+/**
+ * 鼠标按下事件
+ * @param {*} el 当前节点
+ * @param {*} dom 可拖拽节点
+ * @param {*} options 参数
+ */
+const downListener = (el, dom, options) => {
+  dom.addEventListener('mousedown', (event) => {
+    // 事件回调
+    const { downHandler } = options
+    if (typeof downHandler === 'function') {
+      downHandler(event)
+    }
+    // 获取水平参数
     const width = el.offsetWidth
-    const downPageX = downEvent.pageX
-
+    const downPageX = event.pageX
+    // 获取垂直参数
     const height = el.offsetHeight
-    const downPageY = downEvent.pageY
-
-    weakMap.set(el, { div, moveController, upController })
-
-    document.addEventListener('mousemove', (moveEvent) => {
-      if (typeof moveHandler === 'function') {
-        moveHandler(moveHandler)
-      }
-      document.documentElement.style.cursor = div.style.cursor
-      if (horizontal.includes(options.position)) {
-        const value = moveEvent.pageX - downPageX
-        const size = width + value
-        if (size >= options.max) {
-          return
-        }
-        if (size <= options.min) {
-          return
-        }
-        el.style.width = size + 'px'
-      }
-      if (vertical.includes(options.position)) {
-        const value = moveEvent.pageY - downPageY
-        const size = width + value
-        if (size >= options.max) {
-          return
-        }
-        if (size <= options.min) {
-          return
-        }
-        el.style.height = size + value + 'px'
-      }
-    }, { signal: moveController.signal })
-
-    document.addEventListener('mouseup', () => {
-      if (typeof upHandler === 'function') {
-        upHandler(moveHandler)
-      }
-      moveController.abort()
-      upController.abort()
-      document.documentElement.style.cursor = ''
-    }, { signal: upController.signal })
+    const downPageY = event.pageY
+    // 设置数据
+    data = { el, dom, options, width, downPageX, height, downPageY }
+    // 添加鼠标移动事件
+    document.addEventListener('mousemove', moveHandle)
+    // 添加鼠标松开事件
+    document.addEventListener('mouseup', upHandle)
   })
 }
 
@@ -142,20 +179,17 @@ export default {
       return
     }
 
-    const div = createElement(options)
+    const dom = createElement(options)
 
-    mouseListener(el, div, options)
+    downListener(el, dom, options)
 
-    el.appendChild(div)
+    el.appendChild(dom)
   },
-  unmounted(el) {
-    const data = weakMap.get(el)
-    if (data) {
-      const { moveController, upController } = data
-      moveController.abort()
-      upController.abort()
-      document.documentElement.style.cursor = ''
-    }
+  unmounted() {
+    // 移除监听
+    document.removeEventListener('mousemove', moveHandle)
+    document.removeEventListener('mouseup', upHandle)
+    // 移除鼠标样式
+    document.documentElement.style.cursor = ''
   }
 }
-
