@@ -1,6 +1,26 @@
-import axios from 'axios'
 import { subSelectListApi } from '@/api/dict'
-import { SUCCESS_CODE } from '../../utils/constant'
+
+/**
+ * 处理数据
+ * @param {*} data
+ * @returns
+ */
+const dictHandle = (data) => {
+  const result = {}
+  for (const key in data) {
+    if (Object.hasOwnProperty.call(data, key)) {
+      const dict = data[key]
+      const list = dict.map(item => {
+        return {
+          value: /^[0-9]+.?[0-9]*$/.test(item.code) ? +item.code : item.code, // 判断是否是数字 如果是数字则用数字
+          label: item.name
+        }
+      })
+      result[key] = list
+    }
+  }
+  return result
+}
 
 export const useDictStore = defineStore('dict', {
   state: () => ({
@@ -11,23 +31,18 @@ export const useDictStore = defineStore('dict', {
       if (dict && JSON.stringify(dict) !== '{}') {
         return dict
       } else {
-        const r = await subSelectListApi({ code })
+        const r = await subSelectListApi([code])
         if (r) {
-          const list = r.data.map(item => {
-            return {
-              value: /^[0-9]+.?[0-9]*$/.test(item.code) ? +item.code : item.code, // 判断是否是数字 如果是数字则用数字
-              label: item.name
-            }
-          })
-          this.$state[code] = list
-          return list
+          const data = dictHandle(r.data)
+          this.$state[code] = data[code]
+          return data[code]
         } else {
-          return {}
+          return []
         }
       }
     },
     async getDicts(...codes) {
-      const result = {}
+      let result = {}
       const codeList = []
 
       codes.forEach(code => {
@@ -38,28 +53,14 @@ export const useDictStore = defineStore('dict', {
           codeList.push(code)
         }
       })
-
-      const requests = []
-      codeList.forEach(code => {
-        requests.push(subSelectListApi({ code }))
-      })
-      if (requests.length) {
-        const responses = await axios.all(requests)
-        responses.forEach((r, index) => {
-          if (r && SUCCESS_CODE.includes(r.code)) {
-            const list = r.data.map(item => {
-              return {
-                value: /^[0-9]+.?[0-9]*$/.test(item.code) ? +item.code : item.code, // 判断是否是数字 如果是数字则用数字
-                label: item.name
-              }
-            })
-            const code = codeList[index]
-            this.$state[code] = list
-            result[code] = list
-          }
-        })
+      if (codeList.length) {
+        const r = await subSelectListApi(codeList)
+        if (r) {
+          const data = dictHandle(r.data)
+          this.$state = { ...this.$state, ...data }
+          result = { ...result, ...data }
+        }
       }
-
       return result
     }
   }

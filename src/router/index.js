@@ -25,7 +25,7 @@ const main = {
   name: 'layout',
   redirect: { name: 'redirect' },
   component: () => import('@/views/layout/index.vue'),
-  meta: { title: '主入口整体布局' },
+  meta: { title: '' },
   children: [
     // todo 动态路由未注册之前 直接跳转会报错 所以使用了个中间件
     { path: '/redirect', name: 'redirect', component: defineComponent({ render: () => h('div') }), meta: {} }

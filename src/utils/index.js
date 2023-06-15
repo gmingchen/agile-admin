@@ -332,3 +332,12 @@ export function blob2Json(blob) {
     }
   })
 }
+
+/**
+ * 休眠函数
+ * @param {Number} ms 间隔时长
+ * @returns
+ */
+export function delay(ms = 200) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}

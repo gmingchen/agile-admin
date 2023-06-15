@@ -276,7 +276,7 @@ onBeforeMount(() => {
           prop="dataScope"
           width="120">
           <template v-slot="{ row }">
-            <el-tag :type="row.dataScope_type">{{ row.dataScope_dict }}</el-tag>
+            <el-tag :type="row.dataScope_type">{{ row.dataScope_dict || '未设置' }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column

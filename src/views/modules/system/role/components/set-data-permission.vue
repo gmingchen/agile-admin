@@ -131,7 +131,7 @@ defineExpose({
         <DictSelect
           v-model="form.dataScope"
           code="DATA_PERMISSION"
-          placeholder="状态"
+          placeholder="权限范围"
           :search="false" />
       </el-form-item>
       <el-form-item label="部门" prop="dataScopeDeptIds" v-show="form.dataScope === DataPermission.CUSTOM">
