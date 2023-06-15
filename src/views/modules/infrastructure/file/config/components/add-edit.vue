@@ -22,6 +22,7 @@ const form = reactive({
   temp: '',
   // 本地存储配置信息字段
   path: '',
+  prefix: '',
   // 七牛云、阿里云、腾讯云 通用存储配置信息字段
   access: '',
   secret: '',
@@ -76,12 +77,13 @@ const init = async (id) => {
       form.master = master
       form.storage = storage
 
-      const { domain, temp, path, access, secret, bucket, endpoint } = config
+      const { domain, temp, path, prefix, access, secret, bucket, endpoint } = config
       form.domain = domain
       form.temp = temp
       switch (storage) {
         case FileStorageType.LOCAL:
           form.path = path
+          form.prefix = prefix
           break
         case FileStorageType.KODO:
           form.access = access
@@ -110,11 +112,11 @@ const init = async (id) => {
 const submit = () => {
   refForm.value.validate(async valid => {
     if (valid) {
-      const { id, name, remark, master, storage, domain, temp, path, access, secret, bucket, endpoint } = form
+      const { id, name, remark, master, storage, domain, temp, path, prefix, access, secret, bucket, endpoint } = form
       let config = { domain, temp }
       switch (storage) {
         case FileStorageType.LOCAL:
-          config = { ...config, path }
+          config = { ...config, path, prefix }
           break
         case FileStorageType.KODO:
           config = { ...config, access, secret, bucket }
@@ -163,6 +165,7 @@ const dialogClosedHandle = () => {
   form.domain = ''
   form.temp = ''
   form.path = ''
+  form.prefix = ''
   form.access = ''
   form.secret = ''
   form.bucket = ''
@@ -220,6 +223,9 @@ defineExpose({
         <template v-if="form.storage === FileStorageType.LOCAL">
           <el-form-item label="物理路径" prop="path">
             <el-input v-model="form.path" placeholder="物理路径" />
+          </el-form-item>
+          <el-form-item label="前缀" prop="prefix">
+            <el-input v-model="form.prefix" placeholder="前缀" />
           </el-form-item>
         </template>
         <template v-else-if="form.storage === FileStorageType.KODO || form.storage === FileStorageType.OSS || form.storage === FileStorageType.COS">
