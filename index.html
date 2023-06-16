@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
     <style>
-      h1 {
+      #app > .loading {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -100%);
       }
-      h1 span {
+      #app > .loading span {
         top: 20px;
         position: relative;
         animation: loading 0.3s ease 0s infinite alternate;
@@ -29,19 +29,19 @@
                     0 9px 0 #337ECC,
                     0 10px 10px rgba(0, 0, 0, 0.5);
       }
-      h1 span:nth-child(5n-1) { 
+      #app > .loading span:nth-child(5n-1) { 
         animation-delay: 0.5s; 
       }
-      h1 span:nth-child(5n-2) { 
+      #app > .loading span:nth-child(5n-2) { 
         animation-delay: 0.4s; 
       }
-      h1 span:nth-child(5n-3) { 
+      #app > .loading span:nth-child(5n-3) { 
         animation-delay: 0.3s; 
       }
-      h1 span:nth-child(5n-4) { 
+      #app > .loading span:nth-child(5n-4) { 
         animation-delay: 0.2s; 
       }
-      h1 span:nth-child(5n) { 
+      #app > .loading span:nth-child(5n) { 
         animation-delay: 0.1s; 
       }
       @keyframes loading {
@@ -63,7 +63,7 @@
   </head>
   <body>
     <div id="app">
-      <h1>
+      <h1 class="loading">
         <span>A</span>
         <span>g</span>
         <span>i</span>
@@ -74,7 +74,7 @@
         <span>m</span>
         <span>i</span>
         <span>n</span>
-    </h1>
+      </h1>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
