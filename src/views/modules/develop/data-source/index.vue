@@ -1,3 +1,9 @@
+<!--
+* @Description: 数据源
+* @Author: 拖孩
+* @Email: 1240235512@qq.com
+* @Date: 2023-06-16 11:22:49
+-->
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
@@ -5,7 +11,7 @@ import AddEdit from './components/add-edit.vue'
 import { clearJson } from '@/utils'
 import { Status } from '@/utils/enum'
 
-import { pageApi, deleteApi, exportApi } from '@/api/test'
+import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/data-source'
 
 const refForm = ref()
 const refTable = ref()
@@ -14,7 +20,9 @@ const refAddEdit = ref()
 const loading = ref(false)
 const visible = ref(false)
 const form = reactive({
-  title: '',
+  name: '',
+  code: '',
+  status: '',
   start: '',
   end: ''
 })
@@ -108,6 +116,47 @@ const deleteHandle = id => {
 }
 
 /**
+ * 状态变化之前操作
+ * @param {*} row
+ */
+const statusBefore = row => {
+  return new Promise((resolve) => {
+    ElMessageBox.confirm(`确定对[id=${ row.id }]进行[${ row.status === Status.ENABLE ? '禁用' : '启用' }]操作`, '提示', {
+      confirmButtonText: '确认',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }).then(() => {
+      resolve(true)
+    }).catch(() => {
+      resolve(false)
+    })
+  })
+}
+/**
+ * @description: 状态
+ * @param {number} id
+ * @return {*}
+ * @author: gumingchen
+ */
+const statusHandle = row => {
+  const params = {
+    key: row.id,
+    value: row.status
+  }
+  setStatusApi(params).then(r => {
+    if (r) {
+      ElMessage({
+        message: '操作成功!',
+        type: 'success'
+      })
+      getList()
+    } else {
+      row.status = row.status === Status.DISABLE ? Status.ENABLE : Status.DISABLE
+    }
+  })
+}
+
+/**
  * @description: 导出
  * @param {*}
  * @return {*}
@@ -135,12 +184,15 @@ onBeforeMount(() => {
 <template>
   <Container>
     <template #header>
-      <h1>该页面为部分功能演示页面</h1>
-      <h2>多数据源-总后台帐号在【开发配置】-【数据源】菜单下修改两个数据源的状态，会显示不同数据库的数据</h2>
-      <h2>数据权限-总后台帐号分别在不同部门已经设置不同的数据权限，可以登录不同的总后台帐号查看不同的数据；也可以在租户帐号下面创建数据进行测试</h2>
       <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
         <el-form-item>
-          <el-input v-model="form.title" placeholder="标题" clearable />
+          <el-input v-model="form.name" placeholder="名称" clearable />
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="form.code" placeholder="编码" clearable />
+        </el-form-item>
+        <el-form-item>
+          <DictSelect v-model="form.status" code="STATUS" placeholder="状态" />
         </el-form-item>
         <el-form-item>
           <DateRangePicker v-model:start="form.start" v-model:end="form.end" />
@@ -149,15 +201,15 @@ onBeforeMount(() => {
           <el-button v-repeat @click="reacquireHandle()">查询</el-button>
           <el-button v-repeat @click="resetHandle">重置</el-button>
           <el-button
-            v-permission="'test:create'"
+            v-permission="'dataSource:create'"
             type="primary"
             @click="addEditHandle()">新增</el-button>
           <el-button
-            v-permission="'test:delete'"
+            v-permission="'dataSource:delete'"
             type="danger"
             @click="deleteHandle()"
             :disabled="selection.length <= 0">批量删除</el-button>
-          <el-button v-repeat v-permission="'test:export'" @click="exportHandle">导出</el-button>
+          <el-button v-repeat v-permission="'dataSource:export'" @click="exportHandle">导出</el-button>
         </el-form-item>
       </el-form>
     </template>
@@ -176,14 +228,45 @@ onBeforeMount(() => {
           show-overflow-tooltip />
         <el-table-column
           align="center"
-          label="标题"
-          prop="title"
+          label="名称"
+          prop="name"
           show-overflow-tooltip />
         <el-table-column
           align="center"
-          label="内容"
-          prop="content"
+          label="编码"
+          prop="code"
           show-overflow-tooltip />
+        <el-table-column
+          align="center"
+          label="驱动名称"
+          prop="driverClassName"
+          show-overflow-tooltip />
+        <el-table-column
+          align="center"
+          label="连接"
+          prop="url"
+          show-overflow-tooltip />
+        <el-table-column
+          align="center"
+          label="用户名"
+          prop="username"
+          show-overflow-tooltip />
+        <el-table-column
+          align="center"
+          label="状态"
+          prop="status"
+          width="80"
+          show-overflow-tooltip>
+          <template v-slot="{ row }">
+            <el-switch
+              v-permission="'dataSource:status'"
+              :before-change="statusBefore.bind(this, row)"
+              @change="statusHandle(row)"
+              v-model="row.status"
+              :active-value="Status.ENABLE"
+              :inactive-value="Status.DISABLE" />
+          </template>
+        </el-table-column>
         <el-table-column
           align="center"
           label="创建时间"
@@ -197,19 +280,19 @@ onBeforeMount(() => {
           width="160"
           show-overflow-tooltip />
         <el-table-column
-          v-permission="'test:update|test:delete'"
+          v-permission="'dataSource:update|dataSource:delete'"
           align="center"
           label="操作"
           width="110"
           fixed="right">
           <template v-slot="{ row }">
             <el-button
-              v-permission="'test:update'"
+              v-permission="'dataSource:update'"
               type="primary"
               link
               @click="addEditHandle(row.id)">编辑</el-button>
             <el-button
-              v-permission="'test:delete'"
+              v-permission="'dataSource:delete'"
               type="danger"
               link
               @click="deleteHandle(row.id)">删除</el-button>
