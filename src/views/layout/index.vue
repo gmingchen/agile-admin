@@ -1,6 +1,6 @@
 <template>
   <div class="layout-container height-full flex overflow-auto">
-    <Sidebar />
+    <Sidebar v-if="menuLayoutMode !== 3" />
     <component :is="component" class="navigation-container">
       <template #headbar>
         <Headbar />
@@ -29,6 +29,7 @@ const themeStore = useThemeStore()
 const navigationMode = computed(() => themeStore.layout.navigationMode)
 const showTabs = computed(() => themeStore.layout.showTabs)
 const refresh = computed(() => themeStore.refresh)
+const menuLayoutMode = computed(() => themeStore.layout.menuLayoutMode)
 
 const component = computed(() => {
   let result = ''

@@ -15,10 +15,10 @@ const mode = computed({
 
 const sidebar = computed({
   get: () => {
-    return themeStore.layout.sidebarMode
+    return themeStore.layout.menuLayoutMode
   },
   set: (val) => {
-    themeStore.layout.sidebarMode = val
+    themeStore.layout.menuLayoutMode = val
     themeStore.setTheme()
   }
 })
@@ -191,7 +191,8 @@ const menuActiveTextColor = computed({
 const visible = ref(false)
 const sidebars = ref([
   { label: '经典模式', value: 1 },
-  { label: '分栏模式', value: 2 }
+  { label: '分栏模式', value: 2 },
+  { label: '上下模式', value: 3 }
 ])
 const navigations = ref([
   { label: '固定导航', value: 1 },

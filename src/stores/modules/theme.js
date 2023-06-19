@@ -5,9 +5,9 @@ import { getTheme, setTheme, clearTheme } from '@/utils/storage'
 // 默认布局
 const defaultLayout = {
   /**
-   * 侧边菜单栏模式 1：传统模式 2：分栏模式
+   * 菜单栏模式 1：传统模式 2：分栏模式 3:下上模式
    */
-  sidebarMode: 1,
+  menuLayoutMode: 1,
   /**
   * 导航模式 1：固定导航 2：不固定导航
   */

@@ -13,7 +13,7 @@ const { tenant } = storeToRefs(adminerStore)
 
 <template>
   <div
-    class="logo-container padding-n-10 width-full flex"
+    class="logo-container padding-n-10 flex"
     v-if="tenant.name || tenant.logo">
     <transition name="el-fade-in" mode="out-in">
       <div class="flex flex-item_f-1 flex_j_c-center flex_a_i-center" v-if="!collapse">

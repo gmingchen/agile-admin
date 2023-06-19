@@ -5,15 +5,15 @@ import Subfield from './components/subfield/index.vue'
 const route = useRoute()
 
 const menuStore = useMenuStore()
-const settingsStore = useThemeStore()
+const themeStore = useThemeStore()
 
-const sidebarMode = computed(() => settingsStore.layout.sidebarMode)
+const menuLayoutMode = computed(() => themeStore.layout.menuLayoutMode)
 
 const { active } = storeToRefs(menuStore)
 
 const component = computed(() => {
   let result = ''
-  switch (sidebarMode.value) {
+  switch (menuLayoutMode.value) {
     case 1:
       result = Classic
       break

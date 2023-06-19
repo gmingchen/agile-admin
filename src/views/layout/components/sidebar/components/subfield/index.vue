@@ -1,7 +1,6 @@
-
 <script setup>
-import Logo from '../logo/index.vue'
-import SubItem from '../sub/index.vue'
+import Logo from '../../../logo/index.vue'
+import SubMenu from '../../../sub-menu/index.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -105,7 +104,7 @@ watchEffect(() => {
           :active-text-color="menuTheme.activeTextColor"
           :unique-opened="true"
           :collapse="collapse">
-          <SubItem
+          <SubMenu
             v-for="item in activeMenu.children"
             :key="item.id"
             :data="item"

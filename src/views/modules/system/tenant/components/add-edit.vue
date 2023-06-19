@@ -209,7 +209,7 @@ defineExpose({
           v-model="form.accountCount"
           :min="0"
           :max="999999999"
-          placeholder="帐号额度" />
+          placeholder="不限" />
       </el-form-item>
       <el-form-item label="租户套餐" prop="packageIds">
         <el-select
