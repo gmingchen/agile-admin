@@ -1,6 +1,8 @@
 <script setup>
 import SubMenu from '../../../sub-menu/index.vue'
 
+const route = useRoute()
+
 const menuStore = useMenuStore()
 const themeStore = useThemeStore()
 
@@ -8,6 +10,20 @@ const menuTheme = computed(() => themeStore.color.menu)
 
 const { displayedMenus, active } = storeToRefs(menuStore)
 
+/**
+ * @description: 路由变化事件
+ * @param {*}
+ * @return {*}
+ * @author: gumingchen
+ */
+const routeHandle = argRoute => {
+  const name = argRoute.name
+  active.value = name
+}
+
+watchEffect(() => {
+  routeHandle(route)
+})
 </script>
 
 <template>
