@@ -1,6 +1,6 @@
 <script setup>
-import Logo from '../logo/index.vue'
-import SubItem from '../sub/index.vue'
+import Logo from '../../../logo/index.vue'
+import SubMenu from '../../../sub-menu/index.vue'
 
 const menuStore = useMenuStore()
 const themeStore = useThemeStore()
@@ -21,7 +21,7 @@ const { displayedMenus, active, collapse } = storeToRefs(menuStore)
         :active-text-color="menuTheme.activeTextColor"
         :unique-opened="true"
         :collapse="collapse">
-        <SubItem
+        <SubMenu
           v-for="item in displayedMenus"
           :key="item.id"
           :data="item"

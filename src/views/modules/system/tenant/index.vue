@@ -256,7 +256,7 @@ onBeforeMount(() => {
           label="帐号额度"
           prop="accountCount">
           <template v-slot="{ row }">
-            <el-tag>{{ row.accountCount ? row.accountCount : '不限' }}</el-tag>
+            <el-tag>{{ row.accountCount || row.accountCount === 0 ? row.accountCount : '不限' }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column

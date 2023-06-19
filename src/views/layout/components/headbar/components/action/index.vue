@@ -115,7 +115,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="action-container flex-item_f-1 flex flex_j_c-flex-end flex_a_i-center">
+  <div class="action-container flex flex_j_c-flex-end flex_a_i-center">
     <el-tooltip
       content="全屏"
       placement="bottom"
