@@ -7,6 +7,8 @@ import UserCounting from './components/user-counting.vue'
 import UserRegion from './components/user-region.vue'
 import UserVisits from './components/user-visits.vue'
 import UserGrowth from './components/user-growth.vue'
+
+import Applet from './components/applet.vue'
 </script>
 
 <template>
@@ -26,6 +28,7 @@ import UserGrowth from './components/user-growth.vue'
       <UserVisits />
       <UserGrowth />
     </div>
+    <Applet />
   </ContainerCustom>
 </template>
 

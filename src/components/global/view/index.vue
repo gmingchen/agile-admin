@@ -1,14 +1,19 @@
 <script setup>
 defineProps({
+  // 过度动画 不传则没有动画
+  transition: {
+    type: String,
+    default: () => ''
+  },
   // 是否缓存
   keepAlive: {
     type: Boolean,
     default: () => false
   },
-  // 过度动画 不传则没有动画
-  transition: {
-    type: String,
-    default: () => ''
+  // 组件键值
+  componentKey: {
+    type: [String, Number],
+    value: () => ''
   }
 })
 
@@ -33,20 +38,20 @@ const onLeave = (el) => {
 
 <template>
   <router-view v-slot="{ Component }">
-    <template v-if="true">
+    <template v-if="transition">
       <transition
         :name="transition"
         mode="out-in"
         @enter="onEnter"
         @leave="onLeave">
         <keep-alive :include="keepAlive ? '': []">
-          <component :is="Component" />
+          <component :is="Component" :key="componentKey" />
         </keep-alive>
       </transition>
     </template>
     <template v-else>
       <keep-alive :include="keepAlive ? '': []">
-        <component :is="Component" />
+        <component :is="Component" :key="componentKey" />
       </keep-alive>
     </template>
   </router-view>

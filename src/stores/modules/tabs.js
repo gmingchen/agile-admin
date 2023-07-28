@@ -38,10 +38,12 @@ export const useTabsStore = defineStore('tabs', {
         }
         // 如果不存在则添加
         if (this.tabs.every(item => item.value !== val)) {
+          // 自定义标题
+          const label = meta.label + (route.query.custom ? `-${ route.query.custom }` : '')
           const tab = {
             value: val,
             menuId: meta.id,
-            label: meta.label,
+            label: label,
             name: route.name,
             path: route.path,
             query: route.query,

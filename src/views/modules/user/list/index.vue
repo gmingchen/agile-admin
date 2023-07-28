@@ -1,28 +1,20 @@
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
-import Sidebar from './components/sidebar.vue'
-import AddEdit from './components/add-edit.vue'
-import SetRole from './components/set-role.vue'
 
-import { clearJson, havePermission } from '@/utils'
+import { clearJson } from '@/utils'
 import { Status } from '@/utils/enum'
 
-import { pageApi, deleteApi, setStatusApi, resetPasswordApi, exportApi } from '@/api/adminer'
+import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/user'
 
-const refContainerSidebar = ref()
+const router = useRouter()
+
 const refForm = ref()
 const refTable = ref()
-const refAddEdit = ref()
-const refSetRole = ref()
 
 const loading = ref(false)
 const visible = ref(false)
-const roleVisible = ref(false)
 const form = reactive({
-  deptId: '',
-  username: '',
-  nickname: '',
-  mobile: '',
+  name: '',
   status: '',
   start: '',
   end: ''
@@ -39,7 +31,6 @@ const selection = ref([])
  * @description: 获取分页列表
  * @param {*}
  * @return {*}
- * @author: gumingchen
  */
 const getList = () => {
   const { current, size } = page
@@ -64,7 +55,6 @@ const getList = () => {
  * @description: 重新获取数据
  * @param {*}
  * @return {*}
- * @author: gumingchen
  */
 const reacquireHandle = () => {
   page.current = 1
@@ -74,7 +64,6 @@ const reacquireHandle = () => {
  * @description: 重置并重新获取数据
  * @param {*}
  * @return {*}
- * @author: gumingchen
  */
 const resetHandle = () => {
   clearJson(form)
@@ -82,23 +71,9 @@ const resetHandle = () => {
 }
 
 /**
- * @description: 新增/编辑弹窗
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-const addEditHandle = id => {
-  visible.value = true
-  nextTick(() => {
-    refAddEdit.value.init(id)
-  })
-}
-
-/**
  * @description: 删除
  * @param {number} id
  * @return {*}
- * @author: gumingchen
  */
 const deleteHandle = id => {
   const ids = id ? [id] : selection.value.map(item => item.id)
@@ -122,7 +97,7 @@ const deleteHandle = id => {
 }
 
 /**
- * 变化之前操作
+ * 状态变化之前操作
  * @param {*} row
  */
 const statusBefore = row => {
@@ -139,7 +114,7 @@ const statusBefore = row => {
   })
 }
 /**
- * @description: 状态切换
+ * @description: 状态
  * @param {number} id
  * @return {*}
  * @author: gumingchen
@@ -162,64 +137,18 @@ const statusHandle = row => {
 }
 
 /**
- * @description: 分配角色
+ * @description: 跳转详情页
  * @param {*}
  * @return {*}
  * @author: gumingchen
  */
-const setRoleHandle = id => {
-  roleVisible.value = true
-  nextTick(() => {
-    refSetRole.value.init(id)
+const detailsHandle = row => {
+  router.push({
+    name: 'user-details',
+    query: { id: row.id, custom: row.nickname },
+    params: { },
+    meta: { label: row.nickname }
   })
-}
-
-/**
- * @description: 重置密码
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-const resetPasswordHandle = id => {
-  ElMessageBox.confirm(`确定对[id=${ id }]进行[重置密码]操作?`, '提示', {
-    confirmButtonText: '确认',
-    cancelButtonText: '取消',
-    type: 'warning'
-  }).then(() => {
-    resetPasswordApi({ id }).then(r => {
-      if (r) {
-        ElMessageBox({
-          title: '提示',
-          message: h('p', null, [
-            h('span', null, '重置后的密码：'),
-            h('i', { style: 'font-weight: 600' }, r.data)
-          ]),
-          confirmButtonText: '确认',
-          type: 'warning'
-        }).then(() => {
-          // to do something on confirmed
-        }).catch(() => {
-          // to do something on canceled
-        })
-      }
-    })
-  }).catch(() => {
-    // to do something on canceled
-  })
-}
-
-const commandHandle = (command, id) => {
-  switch (command) {
-    case 'role':
-      setRoleHandle(id)
-      break
-    case 'reset':
-      resetPasswordHandle(id)
-      break
-    case 'delete':
-      deleteHandle(id)
-      break
-  }
 }
 
 /**
@@ -233,18 +162,10 @@ const exportHandle = () => {
 }
 
 /**
- * 侧边栏选择变化事件
- */
-const changeHandle = (_row) => {
-  refContainerSidebar.value.setScrollTop()
-  getList()
-}
-
-/**
  * @description: table多选事件
  * @param {*} val
  * @return {*}
- * @author: gumingchen
+ * @author: 拖孩
  */
 const selectionHandle = val => {
   selection.value = val
@@ -256,14 +177,11 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <ContainerSidebar ref="refContainerSidebar" :scroll="false">
-    <template #sidebar>
-      <Sidebar v-model="form.deptId" @change="changeHandle" />
-    </template>
+  <Container>
     <template #header>
-      <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle">
+      <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
         <el-form-item>
-          <el-input v-model="form.name" placeholder="名称" clearable />
+          <el-input v-model="form.nickname" placeholder="昵称" clearable />
         </el-form-item>
         <el-form-item>
           <DictSelect v-model="form.status" code="STATUS" placeholder="状态" />
@@ -272,18 +190,14 @@ onBeforeMount(() => {
           <DateRangePicker v-model:start="form.start" v-model:end="form.end" />
         </el-form-item>
         <el-form-item>
-          <el-button v-repeat @click="reacquireHandle">查询</el-button>
+          <el-button v-repeat @click="reacquireHandle()">查询</el-button>
           <el-button v-repeat @click="resetHandle">重置</el-button>
           <el-button
-            v-permission="'adminer:create'"
-            type="primary"
-            @click="addEditHandle()">新增</el-button>
-          <el-button
-            v-permission="'adminer:delete'"
+            v-permission="'user:delete'"
             type="danger"
             @click="deleteHandle()"
             :disabled="selection.length <= 0">批量删除</el-button>
-          <el-button v-repeat v-permission="'adminer:export'" @click="exportHandle">导出</el-button>
+          <el-button v-repeat v-permission="'user:export'" @click="exportHandle">导出</el-button>
         </el-form-item>
       </el-form>
     </template>
@@ -313,18 +227,19 @@ onBeforeMount(() => {
         </el-table-column>
         <el-table-column
           align="center"
-          label="用户名"
-          prop="username"
+          label="昵称"
+          prop="nickname"
           show-overflow-tooltip />
         <el-table-column
           align="center"
-          label="昵称"
-          prop="nickname"
-          show-overflow-tooltip>
-          <template v-slot="{row}">
-            {{ row.nickname || '-' }}
-          </template>
-        </el-table-column>
+          label="手机号"
+          prop="mobile"
+          show-overflow-tooltip />
+        <el-table-column
+          align="center"
+          label="邮箱"
+          prop="email"
+          show-overflow-tooltip />
         <el-table-column
           align="center"
           label="性别"
@@ -336,39 +251,13 @@ onBeforeMount(() => {
         </el-table-column>
         <el-table-column
           align="center"
-          label="手机号"
-          prop="mobile"
-          width="120">
-          <template v-slot="{row}">
-            {{ row.mobile || '-' }}
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="邮箱"
-          prop="email"
-          show-overflow-tooltip>
-          <template v-slot="{row}">
-            {{ row.email || '-' }}
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="部门"
-          prop="deptName"
-          show-overflow-tooltip>
-          <template v-slot="{row}">
-            {{ row.deptName || '-' }}
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
           label="状态"
           prop="status"
-          width="80">
-          <template v-slot="{row}">
+          width="80"
+          show-overflow-tooltip>
+          <template v-slot="{ row }">
             <el-switch
-              v-permission="'adminer:status'"
+              v-permission="'user:status'"
               :before-change="statusBefore.bind(this, row)"
               @change="statusHandle(row)"
               v-model="row.status"
@@ -378,46 +267,36 @@ onBeforeMount(() => {
         </el-table-column>
         <el-table-column
           align="center"
-          label="创建时间"
+          label="注册时间"
           prop="createdAt"
-          width="160" />
+          width="160"
+          show-overflow-tooltip />
         <el-table-column
           align="center"
           label="更新时间"
           prop="updatedAt"
-          width="160" />
+          width="160"
+          show-overflow-tooltip />
         <el-table-column
-          v-permission="'adminer:update|adminer:role|adminer:reset|adminer:delete'"
+          v-permission="'user:delete'"
           align="center"
           label="操作"
           width="110"
           fixed="right">
           <template v-slot="{ row }">
-            <div class="flex flex_j_c-center">
-              <el-button
-                v-permission="'adminer:update'"
-                type="primary"
-                link
-                @click="addEditHandle(row.id)">编辑</el-button>
-              <el-dropdown
-                trigger="click"
-                @command="(command) => commandHandle(command, row.id)"
-                v-permission="'adminer:role|adminer:reset|adminer:delete'">
-                <el-button class="margin_l-12" type="primary" link>更多</el-button>
-                <template #dropdown>
-                  <el-dropdown-menu>
-                    <el-dropdown-item command="role" v-if="havePermission('adminer:role')">分配角色</el-dropdown-item>
-                    <el-dropdown-item command="reset" v-if="havePermission('adminer:reset')">重置密码</el-dropdown-item>
-                    <el-dropdown-item command="delete" v-if="havePermission('adminer:delete')">删除</el-dropdown-item>
-                  </el-dropdown-menu>
-                </template>
-              </el-dropdown>
-            </div>
+            <el-button
+              v-permission="'user:info'"
+              type="primary"
+              link
+              @click="detailsHandle(row)">详情</el-button>
+            <el-button
+              v-permission="'user:delete'"
+              type="danger"
+              link
+              @click="deleteHandle(row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <AddEdit ref="refAddEdit" v-if="visible" @refresh="getList" />
-      <SetRole ref="refSetRole" v-if="roleVisible" />
     </template>
     <template #footer>
       <Page
@@ -426,5 +305,5 @@ onBeforeMount(() => {
         :total="page.total"
         @change="getList" />
     </template>
-  </ContainerSidebar>
+  </Container>
 </template>

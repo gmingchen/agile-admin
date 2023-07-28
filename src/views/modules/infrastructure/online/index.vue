@@ -97,22 +97,23 @@ onBeforeMount(() => {
           label="ID"
           prop="id"
           width="80"
-          show-overflow-tooltip /><el-table-column
-            align="center"
-            label="头像"
-            prop="avatar"
-            width="80">
-            <template v-slot="{row}">
-              <el-image
-                v-if="row.avatar"
-                class="height-50 width-50"
-                fit="cover"
-                :src="row.avatar"
-                preview-teleported
-                :preview-src-list="[row.avatar]" />
-              <span v-else>-</span>
-            </template>
-          </el-table-column>
+          show-overflow-tooltip />
+        <el-table-column
+          align="center"
+          label="头像"
+          prop="avatar"
+          width="80">
+          <template v-slot="{row}">
+            <el-image
+              v-if="row.avatar"
+              class="height-50 width-50"
+              fit="cover"
+              :src="row.avatar"
+              preview-teleported
+              :preview-src-list="[row.avatar]" />
+            <span v-else>-</span>
+          </template>
+        </el-table-column>
         <el-table-column
           align="center"
           label="用户名"

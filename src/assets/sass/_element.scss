@@ -75,7 +75,7 @@ html.dark {
   .el-dialog__body {
     // 移除 弹窗 body 的上下padding
     padding-top: 0px !important;
-    padding-bottom: 0px !important;
+    padding-bottom: 1px !important; // 设置为1是为了处理滚动条的问题
     overflow: auto;
   }
 }

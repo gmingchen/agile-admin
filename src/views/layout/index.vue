@@ -24,11 +24,20 @@ import NavigationActive from './components/navigation/active/index.vue'
 import NavigationFixed from './components/navigation/fixed/index.vue'
 import Websocket from './components/websocket/index.vue'
 
+const route = useRoute()
+
+const keepAlive = computed(() => route.meta.keepalive)
+const key = computed(() => route.name)
+
 const themeStore = useThemeStore()
 
 const navigationMode = computed(() => themeStore.layout.navigationMode)
-const showTabs = computed(() => themeStore.layout.showTabs)
-const refresh = computed(() => themeStore.refresh)
+const showTabs = computed(() => {
+  return themeStore.layout.showTabs
+})
+const refresh = computed(() => {
+  return themeStore.refresh
+})
 const menuLayoutMode = computed(() => themeStore.layout.menuLayoutMode)
 
 const component = computed(() => {

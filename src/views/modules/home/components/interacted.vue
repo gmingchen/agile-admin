@@ -8,6 +8,10 @@ const images = ref([
     url: 'http://oss.gumingchen.icu/image/official-account-qr-code.jpg'
   },
   {
+    label: '小程序',
+    url: 'http://oss.gumingchen.icu/image/wechat-applet-qr-code.jpg'
+  },
+  {
     label: 'QQ讨论群',
     url: 'http://oss.gumingchen.icu/image/qq-group-qr-code.jpg'
   },

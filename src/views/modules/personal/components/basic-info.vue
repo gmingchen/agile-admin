@@ -41,7 +41,7 @@ const rules = computed(() => {
   return {
     nickname: [{ required: true, message: '请输入帐号', trigger: 'blur' }],
     mobile: [{ validator: checkMobile, trigger: 'blur' }],
-    email: [{ validator: checkEmail, trigger: 'blur' }]
+    // email: [{ validator: checkEmail, trigger: 'blur' }]
   }
 })
 
@@ -62,7 +62,7 @@ const submit = () => {
 }
 
 onBeforeMount(() => {
-  form.avatar = props.adminer.avatar
+  form.avatar = props.adminer.avatar || ''
   form.nickname = props.adminer.nickname
   form.mobile = props.adminer.mobile
   form.email = props.adminer.email
