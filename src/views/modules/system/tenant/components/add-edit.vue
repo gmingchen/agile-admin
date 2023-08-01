@@ -67,7 +67,7 @@ const init = async (id) => {
     if (r) {
       const { name, logo, contactName, contactMobile, accountCount, status, packages } = r.data
       form.name = name
-      form.logo = logo
+      form.logo = logo || ''
       form.contactName = contactName
       form.contactMobile = contactMobile
       form.accountCount = accountCount

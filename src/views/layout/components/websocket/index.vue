@@ -31,20 +31,11 @@ export default defineComponent({
       noticeStore.getList(1)
     }
 
-    const codeHandle = (code, _message) => {
-      let tip = ''
+    const codeHandle = (code, message) => {
+      let tip = message
       switch (code) {
-        case 4001:
-          tip = '凭证已过期，请重新登录！'
-          break
         case 4032:
           tip = '已在其它地方连接，将不会收到推送消息！'
-          break
-        case 4033:
-          tip = '已在其它地方登录！'
-          break
-        case 4034:
-          tip = '你已被强制退出登录！'
           break
       }
       ElMessage({ message: tip, type: 'warning' })

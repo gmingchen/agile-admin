@@ -46,7 +46,7 @@ module.exports = {
     'eqeqeq': ['error', 'always', { 'null': 'ignore' }], // 要求使用 === 和 !==
     'no-alert': process.env.NODE_ENV === 'production' ? 1 : 0, // 禁用 alert、confirm 和 prompt
     'no-caller': 1, // 禁用 arguments.caller 或 arguments.callee
-    'no-empty-function': 1, // 禁止出现空函数
+    'no-empty-function': 0, // 禁止出现空函数
     'no-extend-native': 1, // 禁止扩展原生类型
     'no-fallthrough': [0, { 'commentPattern': 'break[\\s\\w]*omitted' }], // 禁止 case 语句落空
     'no-floating-decimal': 1, // 禁止数字字面量中使用前导和末尾小数点
