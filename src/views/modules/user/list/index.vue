@@ -314,7 +314,7 @@ onBeforeMount(() => {
           width="160"
           show-overflow-tooltip />
         <el-table-column
-          v-permission="'user:delete'"
+          v-permission="'user:info|integral:create|user:delete'"
           align="center"
           label="操作"
           width="180"
