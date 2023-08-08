@@ -97,4 +97,11 @@ export const OperationalStatus = {
   SUCCESS: 1,
   RUNNING: 2
 }
+// 审核状态
+export const ReviewStatus = {
+  ING: 0,
+  PASS: 1,
+  REJECT: 2,
+  REVOKE: 3
+}
 
