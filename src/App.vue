@@ -10,7 +10,7 @@ import { useStore } from 'vuex'
 
 import View from '@/components/view/index.vue'
 
-import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+import zhCn from 'element-plus/dist/locale/zh-cn'
 
 export default defineComponent({
   components: { View },
