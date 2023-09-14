@@ -146,10 +146,6 @@ onActivated(() => {})
           width="160" />
         <el-table-column
           align="center"
-          label="连续签到天数"
-          prop="duration" />
-        <el-table-column
-          align="center"
           label="补签"
           prop="backup"
           show-overflow-tooltip>

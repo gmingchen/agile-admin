@@ -219,7 +219,7 @@ npm run build:test  # 测试环境
 ```
 
 ## 在线预览
-<a href="http://admin.gumingchen.icu">
+<a href="https://admin.gumingchen.icu">
   <img src="https://img.shields.io/badge/点这里-brightgreen.svg" />
 </a>
 ```
