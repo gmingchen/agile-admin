@@ -42,7 +42,7 @@
 
 如果觉着还不错，请点个 ⭐star 支持一下吧，这将是对我最大的支持和鼓励！
 
-#### 由于有部分开发者需要完整后端代码，目前开始售卖后端代码。如有需要购买完整后端代码的开发者可以翻到 ```联系方式``` 栏目添加作者微信，价格私聊！
+#### 由于有部分开发者需要完整后端代码，目前开始完成捐赠即可获得完整后端代码。开发者可以翻到 ```联系方式``` 栏目添加作者微信，具体的私聊！
 
 ## About the author
 Hi there, I'm [Slipper](https://github.com/gmingchen)（拖孩）👋. Thank you for your attention ⭐!
@@ -300,19 +300,19 @@ npm run build:test  # 测试环境
   </tr>
   <tr>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
+      <img src="https://admin.gumingchen.icu/file/static/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
     </td>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
+      <img src="https://admin.gumingchen.icu/file/static/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
     </td>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/wechat-group-qr-code.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
+      <img src="https://admin.gumingchen.icu/file/static/wechat-group-qr-code.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
     </td>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
+      <img src="https://admin.gumingchen.icu/file/static/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
     </td>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
+      <img src="https://admin.gumingchen.icu/file/static/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
     </td>
   </tr>
 </table>
@@ -327,10 +327,10 @@ npm run build:test  # 测试环境
   </tr>
   <tr>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/wechat-collection-code.png" width="200px" title="微信捐赠" alt="微信捐赠" />
+      <img src="https://admin.gumingchen.icu/file/static/wechat-collection-code.jpg" width="200px" title="微信捐赠" alt="微信捐赠" />
     </td>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/ali-collection-code.png" width="200px" title="支付宝捐赠" alt="支付宝捐赠" />
+      <img src="https://admin.gumingchen.icu/file/static/ali-collection-code.jpg" width="200px" title="支付宝捐赠" alt="支付宝捐赠" />
     </td>
   </tr>
 </table>
