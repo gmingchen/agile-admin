@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 
 const visible = ref(true)
 
-const qrCode = ref('http://oss.gumingchen.icu/image/wechat-applet-qr-code.jpg')
+const qrCode = ref('https://admin.gumingchen.icu/file/image/wechat-applet-qr-code.jpg')
 
 const list = ref([
   {

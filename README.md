@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/gmingchen/agile-admin">
-    <img src="http://oss.gumingchen.icu/image/slipper.jpeg" alt="logo" width="120">
+    <img src="https://admin.gumingchen.icu/file/image/slipper.jpeg" alt="logo" width="120">
   </a>
 </p>
 <p align="center">
@@ -232,60 +232,60 @@ npm run build:test  # 测试环境
 ## 演示图片
 <table>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/home.jpg" title="演示图片" alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/personal.jpg" title="演示图片" alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/home.jpg" title="演示图片" alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/personal.jpg" title="演示图片" alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/menu.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/theme.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/menu.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/theme.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/log-operate.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/log-error.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/log-operate.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/log-error.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/log-login.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/log-job.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/log-login.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/log-job.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/dict.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/job.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/dict.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/job.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/generator.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/ip.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/generator.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/ip.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/backup.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/region.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/backup.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/region.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/notice-template.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/notice.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/notice-template.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/notice.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/file-config.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/file.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/file-config.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/file.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/package.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/tenant.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/package.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/tenant.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/role.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/adminer.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/role.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/adminer.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/post.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/dept.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/post.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/dept.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/mail-account.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/mail-template.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/mail-account.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/mail-template.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
   <tr>
-    <td><img src="http://oss.gumingchen.icu/frame/mail.jpg" title="演示图片"  alt="演示图片" /></td>
-    <td><img src="http://oss.gumingchen.icu/frame/login.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/mail.jpg" title="演示图片"  alt="演示图片" /></td>
+    <td><img src="https://admin.gumingchen.icu/file/frame/login.jpg" title="演示图片"  alt="演示图片" /></td>
   </tr>
 </table>
 
@@ -300,19 +300,19 @@ npm run build:test  # 测试环境
   </tr>
   <tr>
     <td>
-      <img src="http://oss.gumingchen.icu/image/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
+      <img src="https://admin.gumingchen.icu/file/image/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
     </td>
     <td>
-      <img src="http://oss.gumingchen.icu/image/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
+      <img src="https://admin.gumingchen.icu/file/image/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
     </td>
     <td>
-      <img src="http://oss.gumingchen.icu/image/wechat-group-qr-code.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
+      <img src="https://admin.gumingchen.icu/file/image/wechat-group-qr-code.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
     </td>
     <td>
-      <img src="http://oss.gumingchen.icu/image/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
+      <img src="https://admin.gumingchen.icu/file/image/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
     </td>
     <td>
-      <img src="http://oss.gumingchen.icu/image/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
+      <img src="https://admin.gumingchen.icu/file/image/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
     </td>
   </tr>
 </table>
@@ -327,10 +327,10 @@ npm run build:test  # 测试环境
   </tr>
   <tr>
     <td>
-      <img src="http://oss.gumingchen.icu/image/wechat-collection-code.png" width="200px" title="微信捐赠" alt="微信捐赠" />
+      <img src="https://admin.gumingchen.icu/file/image/wechat-collection-code.png" width="200px" title="微信捐赠" alt="微信捐赠" />
     </td>
     <td>
-      <img src="http://oss.gumingchen.icu/image/ali-collection-code.png" width="200px" title="支付宝捐赠" alt="支付宝捐赠" />
+      <img src="https://admin.gumingchen.icu/file/image/ali-collection-code.png" width="200px" title="支付宝捐赠" alt="支付宝捐赠" />
     </td>
   </tr>
 </table>
