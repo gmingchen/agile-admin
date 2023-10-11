@@ -300,19 +300,19 @@ npm run build:test  # 测试环境
   </tr>
   <tr>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
+      <img src="https://admin.gumingchen.icu/file/static/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
     </td>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
+      <img src="https://admin.gumingchen.icu/file/static/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
     </td>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/wechat-group-qr-code.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
+      <img src="https://admin.gumingchen.icu/file/static/wechat-group-qr-code.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
     </td>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
+      <img src="https://admin.gumingchen.icu/file/static/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
     </td>
     <td>
-      <img src="https://admin.gumingchen.icu/file/image/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
+      <img src="https://admin.gumingchen.icu/file/static/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
     </td>
   </tr>
 </table>
