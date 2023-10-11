@@ -5,31 +5,31 @@ import { ref } from 'vue'
 const images = ref([
   {
     label: '公众号',
-    url: 'http://oss.gumingchen.icu/image/official-account-qr-code.jpg'
+    url: 'https://admin.gumingchen.icu/file/image/official-account-qr-code.jpg'
   },
   {
     label: '小程序',
-    url: 'http://oss.gumingchen.icu/image/wechat-applet-qr-code.jpg'
+    url: 'https://admin.gumingchen.icu/file/image/wechat-applet-qr-code.jpg'
   },
   {
     label: 'QQ讨论群',
-    url: 'http://oss.gumingchen.icu/image/qq-group-qr-code.jpg'
+    url: 'https://admin.gumingchen.icu/file/image/qq-group-qr-code.jpg'
   },
   {
     label: '微信讨论群',
-    url: 'http://oss.gumingchen.icu/image/wechat-group-qr-code.jpg'
+    url: 'https://admin.gumingchen.icu/file/image/wechat-group-qr-code.jpg'
   },
   {
     label: '微信',
-    url: 'http://oss.gumingchen.icu/image/wechat-qr-code-1.jpg'
+    url: 'https://admin.gumingchen.icu/file/image/wechat-qr-code-1.jpg'
   },
   {
     label: 'QQ',
-    url: 'http://oss.gumingchen.icu/image/qq-qr-code.jpg'
+    url: 'https://admin.gumingchen.icu/file/image/qq-qr-code.jpg'
   },
   {
     label: '支付宝扫码领红包',
-    url: 'http://oss.gumingchen.icu/image/red-envelopes.jpg'
+    url: 'https://admin.gumingchen.icu/file/image/red-envelopes.jpg'
   }
 ])
 </script>

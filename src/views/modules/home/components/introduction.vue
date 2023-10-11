@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const logo = ref('http://oss.gumingchen.icu/image/slipper.jpeg')
+const logo = ref('https://admin.gumingchen.icu/file/image/slipper.jpeg')
 const document = ref('http://admin.gumingchen.icu/doc/')
 const texts = ref([
   'Java + Vue 有很多优秀的后台管理系统，但是为了可以高效的开发后台权限管理系统，作者就自己开发出 Agile Admin。',
