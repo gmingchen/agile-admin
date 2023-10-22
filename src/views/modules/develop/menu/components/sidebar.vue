@@ -51,12 +51,12 @@ const addHandle = (row) => {
     id: `${ VIRTUAL_ID_KEY }${ index.value }`,
     name: `未命名${ index.value }`,
     parentId: 0,
-    type: 0
+    type: MenuType.CATALOG
   }
   if (row) {
     menu.parentId = row.id
-    if (row.type === 1) {
-      menu.type = 2
+    if (row.type === MenuType.MENU) {
+      menu.type = MenuType.BUTTON
     }
     if (!row.children) {
       row.children = []
@@ -107,7 +107,7 @@ const deleteHandle = (node, row) => {
 
 const clickHandle = (row, node) => {
   value.value = row.id
-  emits('change', { row, parentType: node.parent.data.type || 0 })
+  emits('change', { row, parentType: node.parent.data.type || MenuType.CATALOG })
 }
 
 const allowDragHandle = (node) => {
@@ -128,17 +128,22 @@ const allowDropHandle = (dragNode, dropNode, type) => {
       break
     case 'prev':
     case 'next':
-      dropParentType = dropNode.parent.data.type || 0
+      dropParentType = dropNode.parent.data.type || MenuType.CATALOG
       break
   }
   switch (dragData.type) {
     case MenuType.CATALOG:
-      if (dropParentType !== MenuType.CATALOG) {
+      if (dropParentType !== MenuType.CATALOG && dropParentType !== MenuType.GROUP) {
+        result = false
+      }
+      break
+    case MenuType.GROUP:
+      if (dropParentType !== MenuType.CATALOG && dropParentType !== MenuType.GROUP) {
         result = false
       }
       break
     case MenuType.MENU:
-      if (dropParentType !== MenuType.CATALOG) {
+      if (dropParentType !== MenuType.CATALOG && dropParentType !== MenuType.GROUP) {
         result = false
       }
       break
@@ -148,12 +153,12 @@ const allowDropHandle = (dragNode, dropNode, type) => {
       }
       break
     case MenuType.IFRAME:
-      if (dropParentType !== MenuType.CATALOG) {
+      if (dropParentType !== MenuType.CATALOG && dropParentType !== MenuType.GROUP) {
         result = false
       }
       break
     case MenuType.URL:
-      if (dropParentType !== MenuType.CATALOG) {
+      if (dropParentType !== MenuType.CATALOG && dropParentType !== MenuType.GROUP) {
         result = false
       }
       break
@@ -246,7 +251,7 @@ onBeforeMount(() => {
               <el-button
                 v-permission="'menu:create'"
                 size="small"
-                v-if="data.type !== 2 && data.type !== 3 && data.type !== 4"
+                v-if="data.type !== MenuType.BUTTON && data.type !== MenuType.IFRAME && data.type !== MenuType.URL"
                 @click.stop="addHandle(data)">
                 <Iconfont name="plus" size="12px" />
               </el-button>

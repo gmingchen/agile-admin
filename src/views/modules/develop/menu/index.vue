@@ -40,7 +40,7 @@ const row = ref(null) // todo: 引用传递 用于编辑之后修改 列表数�
 const parentType = ref(0) // 父级的类型
 const rules = reactive(function() {
   const checkUrl = (_rule, value, callback) => {
-    const types = [1, 3, 4]
+    const types = [MenuType.MENU, MenuType.IFRAME, MenuType.URL]
     if (types.includes(form.type) && !value) {
       callback(new Error('请输入路由Path / Http[s] URL'))
     } else {
@@ -48,7 +48,7 @@ const rules = reactive(function() {
     }
   }
   const checkPermission = (_rule, value, callback) => {
-    const types = [2]
+    const types = [MenuType.BUTTON]
     if (types.includes(form.type) && !value) {
       callback(new Error('请输入授权标识'))
     } else {
@@ -56,7 +56,7 @@ const rules = reactive(function() {
     }
   }
   const checkIcon = (_rule, value, callback) => {
-    const types = [0, 1, 3, 4]
+    const types = [MenuType.CATALOG, MenuType.MENU, MenuType.IFRAME, MenuType.URL]
     if (types.includes(form.type) && !value) {
       callback(new Error('请输入授权标识'))
     } else {
@@ -138,13 +138,13 @@ const changeHandle = (val) => {
 const buttonHandle = (val) => {
   let result = false
   switch (parentType.value) {
-    case 0:
-      if (val === 2) {
+    case MenuType.CATALOG:
+      if (val === MenuType.BUTTON) {
         result = true
       }
       break
-    case 1:
-      if (val === 0 || val === 3 || val === 4) {
+    case MenuType.MENU:
+      if (val === MenuType.CATALOG || val === MenuType.IFRAME || val === MenuType.URL) {
         result = true
       }
       break
@@ -220,19 +220,22 @@ onBeforeMount(() => {
                   :key="item.value">{{item.label}}</el-radio-button>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="组件Path（src/views/modules 为根目录，须省略组件文件的 .vue 后缀）/ Http[s] URL" prop="url" v-if="form.type !== 0 && form.type !== 2">
+            <el-form-item
+              label="组件Path（src/views/modules 为根目录，须省略组件文件的 .vue 后缀）/ Http[s] URL"
+              prop="url"
+              v-if="form.type !== MenuType.CATALOG && form.type !== MenuType.GROUP && form.type !== MenuType.BUTTON">
               <el-input v-model="form.url" placeholder="路由Path / Http[s] URL" :readonly="readonly" />
             </el-form-item>
-            <el-form-item label="路由Path（若为空则按照url路径处理）" prop="routePath" v-if="form.type == 1">
+            <el-form-item label="路由Path（若为空则按照url路径处理）" prop="routePath" v-if="form.type == MenuType.MENU">
               <el-input v-model="form.routePath" placeholder="路由Path" :readonly="readonly" />
             </el-form-item>
-            <el-form-item label="路由Name（若为空则按照url路径处理）" prop="routeName" v-if="form.type == 1">
+            <el-form-item label="路由Name（若为空则按照url路径处理）" prop="routeName" v-if="form.type == MenuType.MENU">
               <el-input v-model="form.routeName" placeholder="路由Name" :readonly="readonly" />
             </el-form-item>
-            <el-form-item label="授权标识" prop="permission" v-if="form.type == 1 || form.type == 2">
+            <el-form-item label="授权标识" prop="permission" v-if="form.type == MenuType.MENU || form.type == MenuType.BUTTON">
               <el-input v-model="form.permission" placeholder="授权标识" :readonly="readonly" />
             </el-form-item>
-            <el-form-item label="图标" prop="icon" v-if="form.type !== 2">
+            <el-form-item label="图标" prop="icon" v-if="form.type !== MenuType.BUTTON">
               <IconSelectInput v-model="form.icon" :readonly="readonly" />
             </el-form-item>
             <el-form-item label="排序" prop="sort">
@@ -242,7 +245,7 @@ onBeforeMount(() => {
                 controls-position="right"
                 :disabled="readonly" />
             </el-form-item>
-            <template v-if="form.type === 1 || form.type === 3">
+            <template v-if="form.type === MenuType.MENU || form.type === MenuType.IFRAME">
               <el-form-item label="是否在侧边菜单栏显示（如：个人中心，详情页都不需要显示）" prop="show">
                 <DictRadio v-model="form.show" code="WHETHER" :disabled="readonly" />
               </el-form-item>
