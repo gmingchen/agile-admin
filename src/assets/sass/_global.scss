@@ -168,6 +168,13 @@ $alignSelfs: auto, flex-start, flex-end, center, baseline, stretch;
       }
     }
   }
+  &_g {
+    @for $i from -20 to 20 {
+      &-#{$i} {
+        flex-grow: #{$i};
+      }
+    }
+  }
   // justify-content
   &_j_c {
     @each $var in $justifyContents {

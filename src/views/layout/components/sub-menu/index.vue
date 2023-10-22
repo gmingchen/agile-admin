@@ -26,7 +26,14 @@ const clickHandle = () => {
 </script>
 
 <template>
-  <el-sub-menu v-if="data.children && data.children.length > 0" :index="data.name || data.id + ''">
+  <el-menu-item-group title="Group One" v-if="data.type === 5" :index="data.name || data.id + ''">
+    <template #title>
+      <Iconfont :name="data.icon" class="padding_r-5" v-if="data.icon" />
+      <span>{{ data.label }}</span>
+    </template>
+    <SubTtem v-for="item in data.children" :key="item.id" :data="item" />
+  </el-menu-item-group>
+  <el-sub-menu v-else-if="data.children && data.children.length > 0" :index="data.name || data.id + ''">
     <template #title>
       <Iconfont :name="data.icon" class="padding_r-5" v-if="data.icon" />
       <span>{{ data.label }}</span>

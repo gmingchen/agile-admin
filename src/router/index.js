@@ -102,7 +102,7 @@ function addRoutes(menus = [], routeList = []) {
           component: dynamics[`../views/modules/iframe/index.vue`],
           meta: {
             id: item.id,
-            title: item.name,
+            label: item.name,
             type: item.type,
             url: item.url,
             dynamic: true,
