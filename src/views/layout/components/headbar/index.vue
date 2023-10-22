@@ -1,25 +1,27 @@
 <template>
-  <div class="headbar-container padding-n-10 flex flex_w-wrap flex_j_c-space-between flex_a_i-center">
-    <template v-if="menuLayoutMode === 3">
-      <Logo :collapse="false"  />
-      <Menu />
-    </template>
-    <div class="flex flex_a_i-center" v-else>
-      <el-tooltip
-        content="折叠/展开菜单"
-        placement="bottom"
-        :show-after="500"
-        :hide-after="0"
-        transition="">
-        <Iconfont
-          class="cursor-pointer margin_r-20"
-          :name="`collapse-${collapse ? 'right' : 'left'}`"
-          @click="collapseHandle" />
-      </el-tooltip>
-      <Crumb />
-    </div>
-
-    <Action />
+  <div class="headbar-container padding-n-10">
+    <el-scrollbar view-class="height-full flex flex_j_c-space-between flex_a_i-center">
+      <template v-if="menuLayoutMode === 3">
+        <Menu>
+          <Logo :collapse="false" />
+        </Menu>
+      </template>
+      <div class="flex flex_a_i-center" v-else>
+        <el-tooltip
+          content="折叠/展开菜单"
+          placement="bottom"
+          :show-after="500"
+          :hide-after="0"
+          transition="">
+          <Iconfont
+            class="cursor-pointer margin_r-20"
+            :name="`collapse-${collapse ? 'right' : 'left'}`"
+            @click="collapseHandle" />
+        </el-tooltip>
+        <Crumb />
+      </div>
+      <Action />
+    </el-scrollbar>
   </div>
 </template>
 

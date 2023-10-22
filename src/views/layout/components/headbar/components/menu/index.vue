@@ -34,10 +34,15 @@ watchEffect(() => {
       :active-text-color="menuTheme.activeTextColor"
       :unique-opened="true"
       mode="horizontal">
+      <el-menu-item class="menu-slot">
+        <slot />
+      </el-menu-item>
+      <div class="flex_g-1" />
       <SubMenu
         v-for="item in displayedMenus"
         :key="item.id"
         :data="item" />
+      <div class="flex_g-1" />
     </el-menu>
   </div>
 </template>
@@ -45,12 +50,20 @@ watchEffect(() => {
 <style lang="scss" scoped>
 .menu-container {
   max-width: 100%;
+  min-width: 600px;
   .el-menu {
     // flex: 1;
     // max-width: 100%;
     // min-width: 300px;
     border: none;
     // display: flex;
+    .menu-slot {
+      &:hover {
+        color: unset;
+        background-color: unset;
+        cursor: unset;
+      }
+    }
   }
 }
 </style>
