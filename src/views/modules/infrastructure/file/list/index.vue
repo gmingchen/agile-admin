@@ -6,6 +6,10 @@ import { AUTH_KEY, SUCCESS_CODE } from '@/utils/constant'
 
 import { pageApi, deleteApi, uploadUrlApi } from '@/api/file'
 
+defineOptions({
+  name: 'InfrastructureFileList'
+})
+
 const authStore = useAuthStore()
 const { token } = authStore
 

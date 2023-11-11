@@ -48,6 +48,10 @@ import LoginLog from './components/login-log.vue'
 
 import { havePermission } from '@/utils'
 
+defineOptions({
+  name: 'Personal'
+})
+
 const route = useRoute()
 const router = useRouter()
 

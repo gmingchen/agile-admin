@@ -6,6 +6,10 @@ import { clearJson, havePermission } from '@/utils'
 
 import { pageApi, deleteApi, exportApi, qrcodeApi } from '@/api/wechat-applet'
 
+defineOptions({
+  name: 'WechatApplet'
+})
+
 const refForm = ref()
 const refTable = ref()
 const refAddEdit = ref()

@@ -6,6 +6,10 @@ import { Status } from '@/utils/enum'
 
 import { pageApi, exportApi } from '@/api/ip'
 
+defineOptions({
+  name: 'InfrastructureIp'
+})
+
 const refForm = ref()
 const refTable = ref()
 

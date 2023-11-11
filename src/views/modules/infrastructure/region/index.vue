@@ -7,6 +7,10 @@ import { havePermission } from '@/utils'
 
 import { listApi, deleteApi } from '@/api/region'
 
+defineOptions({
+  name: 'InfrastructureRegion'
+})
+
 const props = { children: 'children', hasChildren: 'hasChildren' }
 
 const refForm = ref()

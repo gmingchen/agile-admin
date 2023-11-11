@@ -7,6 +7,10 @@ import { Whether } from '@/utils/enum'
 
 import { pageApi, deleteApi, setMasterApi, exportApi } from '@/api/mail-account'
 
+defineOptions({
+  name: 'InfrastructureMailAccount'
+})
+
 const refForm = ref()
 const refTable = ref()
 const refAddEdit = ref()

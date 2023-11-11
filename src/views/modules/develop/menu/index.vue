@@ -12,6 +12,10 @@ import { VIRTUAL_ID_KEY } from './index.js'
 
 import { infoApi, createApi, updateApi } from '@/api/menu'
 
+defineOptions({
+  name: 'DevelopMenu'
+})
+
 const { dict, getDict } = useDict()
 
 const refContainerSidebar = ref()
@@ -24,6 +28,7 @@ const form = reactive({
   name: '',
   routePath: '',
   routeName: '',
+  componentName: '',
   url: '',
   permission: '',
   type: '',
@@ -83,6 +88,7 @@ const getInfo = async () => {
     form.name = r.data.name
     form.routePath = r.data.routePath
     form.routeName = r.data.routeName
+    form.componentName = r.data.componentName
     form.url = r.data.url
     form.permission = r.data.permission
     form.type = r.data.type
@@ -103,6 +109,7 @@ const clearFrom = () => {
   form.name = ''
   form.routePath = ''
   form.routeName = ''
+  form.componentName = ''
   form.url = ''
   form.permission = ''
   form.icon = ''
@@ -220,19 +227,22 @@ onBeforeMount(() => {
                   :key="item.value">{{item.label}}</el-radio-button>
               </el-radio-group>
             </el-form-item>
+            <el-form-item label="组件名称（若为空则无法进行缓存）" prop="componentName" v-if="form.type == MenuType.ROUTER || form.type == MenuType.MENU">
+              <el-input v-model="form.componentName" placeholder="路由Name" :readonly="readonly" />
+            </el-form-item>
             <el-form-item
               label="组件Path（src/views/modules 为根目录，须省略组件文件的 .vue 后缀）/ Http[s] URL"
               prop="url"
               v-if="form.type !== MenuType.CATALOG && form.type !== MenuType.GROUP && form.type !== MenuType.BUTTON">
               <el-input v-model="form.url" placeholder="路由Path / Http[s] URL" :readonly="readonly" />
             </el-form-item>
-            <el-form-item label="路由Path（若为空则按照url路径处理）" prop="routePath" v-if="form.type == MenuType.MENU">
+            <el-form-item label="路由Path（若为空则按照url路径处理）" prop="routePath" v-if="form.type == MenuType.ROUTER || form.type == MenuType.MENU">
               <el-input v-model="form.routePath" placeholder="路由Path" :readonly="readonly" />
             </el-form-item>
-            <el-form-item label="路由Name（若为空则按照url路径处理）" prop="routeName" v-if="form.type == MenuType.MENU">
+            <el-form-item label="路由Name（若为空则按照url路径处理）" prop="routeName" v-if="form.type == MenuType.ROUTER || form.type == MenuType.MENU">
               <el-input v-model="form.routeName" placeholder="路由Name" :readonly="readonly" />
             </el-form-item>
-            <el-form-item label="授权标识" prop="permission" v-if="form.type == MenuType.MENU || form.type == MenuType.BUTTON">
+            <el-form-item label="授权标识" prop="permission" v-if="form.type == MenuType.ROUTER || form.type == MenuType.MENU || form.type == MenuType.BUTTON">
               <el-input v-model="form.permission" placeholder="授权标识" :readonly="readonly" />
             </el-form-item>
             <el-form-item label="图标" prop="icon" v-if="form.type !== MenuType.BUTTON">
@@ -245,25 +255,25 @@ onBeforeMount(() => {
                 controls-position="right"
                 :disabled="readonly" />
             </el-form-item>
-            <template v-if="form.type === MenuType.MENU || form.type === MenuType.IFRAME">
+            <template v-if="form.type == MenuType.ROUTER || form.type === MenuType.MENU || form.type === MenuType.IFRAME">
               <el-form-item label="是否在侧边菜单栏显示（如：个人中心，详情页都不需要显示）" prop="show">
                 <DictRadio v-model="form.show" code="WHETHER" :disabled="readonly" />
               </el-form-item>
               <el-form-item label="是否在tab页签显示" prop="tab">
                 <DictRadio v-model="form.tab" code="WHETHER" :disabled="readonly" />
               </el-form-item>
-              <template v-if="form.type === 1">
+              <template v-if="form.type == MenuType.ROUTER || form.type === MenuType.MENU">
                 <el-form-item label="是否支持tab页签多开（如：用户1的详情页、用户2的详情并存在tab页签）" prop="multiple">
                   <DictRadio v-model="form.multiple" code="WHETHER" :disabled="readonly" />
                 </el-form-item>
                 <el-form-item label="是否支持缓存" prop="keepalive">
                   <DictRadio v-model="form.keepalive" code="WHETHER" :disabled="readonly" />
                 </el-form-item>
-                <el-form-item label="是否启用" prop="status">
-                  <DictRadio v-model="form.status" code="STATUS" :disabled="readonly" />
-                </el-form-item>
               </template>
             </template>
+            <el-form-item label="是否启用" prop="status">
+              <DictRadio v-model="form.status" code="STATUS" :disabled="readonly" />
+            </el-form-item>
             <el-form-item v-show="!readonly">
               <el-button
                 v-repeat

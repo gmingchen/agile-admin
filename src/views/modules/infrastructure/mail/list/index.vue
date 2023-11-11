@@ -9,6 +9,10 @@ import { Status } from '@/utils/enum'
 
 import { pageApi, deleteApi, exportApi } from '@/api/mail'
 
+defineOptions({
+  name: 'InfrastructureMailList'
+})
+
 const refForm = ref()
 const refTable = ref()
 const refSend = ref()

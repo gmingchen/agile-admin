@@ -8,6 +8,10 @@ import { Status } from '@/utils/enum'
 
 import { listApi, deleteApi, setStatusApi, exportApi } from '@/api/dept'
 
+defineOptions({
+  name: 'SystemDept'
+})
+
 const props = {
   children: 'children'
 }

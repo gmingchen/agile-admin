@@ -53,7 +53,8 @@ export const MenuType = {
   BUTTON: 2,
   IFRAME: 3,
   URL: 4,
-  GROUP: 5
+  GROUP: 5,
+  ROUTER: 6
 }
 // 文件存储类型
 export const FileStorageType = {

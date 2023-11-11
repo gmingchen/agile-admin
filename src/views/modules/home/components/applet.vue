@@ -3,24 +3,24 @@ import { ElMessage } from 'element-plus'
 
 const visible = ref(true)
 
-const qrCode = ref('https://admin.gumingchen.icu/file/image/wechat-applet-qr-code.jpg')
+const qrCode = ref('https://admin.gumingchen.icu/file/static/wechat-applet-qr-code.jpg')
 
 const list = ref([
   {
     question: '为什么会出现【小程序推广】弹窗？',
-    answer: '该弹窗为了可以演示用户管理的用户，实时添加注册的新用户，达到用户管理的演示目的。'
+    answer: '该弹窗为了推广作者自己开发的小程序。'
   },
   {
     question: '这个小程序是什么样的小程序？',
-    answer: '目前这个小程序是作者之前开发的一个 WIFI共享的小程序，暂时先用来演示用户管理。'
+    answer: '目前这个小程序是一个工具类小程序。'
   },
   {
-    question: '后续是否会更新重新开发？',
-    answer: '后续会对这个小程序重新开发，目前已经有了方案，正在规划中。'
+    question: '这个小程序现在有哪些工具？',
+    answer: 'WIFI共享、文字转语音、二维码生成器。'
   },
   {
-    question: '后续会开发什么样的内容？',
-    answer: '大概是一个薅羊毛、可以赚钱的小程序，暂时先卖个关子，有兴趣的可以关注一下！'
+    question: '后续还会开发什么样的内容？',
+    answer: '后面会上线淘宝购物优惠的相关内容！(已开发完成)'
   }
 ])
 

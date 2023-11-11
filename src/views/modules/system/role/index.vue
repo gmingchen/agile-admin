@@ -9,6 +9,10 @@ import { Status } from '@/utils/enum'
 
 import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/role'
 
+defineOptions({
+  name: 'SystemRole'
+})
+
 const refForm = ref()
 const refTable = ref()
 const refAddEdit = ref()

@@ -50,7 +50,7 @@ module.exports = {
     'no-extend-native': 1, // 禁止扩展原生类型
     'no-fallthrough': [0, { 'commentPattern': 'break[\\s\\w]*omitted' }], // 禁止 case 语句落空
     'no-floating-decimal': 1, // 禁止数字字面量中使用前导和末尾小数点
-    'no-labels': [1, { 'allowLoop': false, 'allowSwitch': false }], // 禁用标签语句
+    'no-labels': [0, { 'allowLoop': false, 'allowSwitch': false }], // 禁用标签语句
     'no-lone-blocks': 1, // 禁用不必要的嵌套块
     'no-multi-spaces': 1, // 禁止使用多个空格
     'no-multi-str': 1, // 禁止使用多行字符串

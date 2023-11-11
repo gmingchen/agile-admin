@@ -7,6 +7,10 @@ import { Whether } from '@/utils/enum'
 
 import { configPageApi, configDeleteApi, configSetMasterApi, configExportApi } from '@/api/file'
 
+defineOptions({
+  name: 'InfrastructureFileConfig'
+})
+
 const refForm = ref()
 const refTable = ref()
 const refAddEdit = ref()

@@ -4,6 +4,10 @@ import { clearJson } from '@/utils'
 
 import { pageApi, exportApi } from '@/api/operate-log'
 
+defineOptions({
+  name: 'LogOperate'
+})
+
 const refForm = ref()
 const refTable = ref()
 

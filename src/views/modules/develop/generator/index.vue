@@ -5,6 +5,10 @@ import { clearJson, havePermission } from '@/utils'
 
 import { pageApi, generateApi } from '@/api/generator'
 
+defineOptions({
+  name: 'DevelopGenerator'
+})
+
 const refForm = ref()
 const refTable = ref()
 
