@@ -38,9 +38,10 @@ const init = async (id) => {
   if (id) {
     const r = await infoApi({ id })
     if (r) {
-      const { title, describe, key, quantity, sort, type, platform, status } = r.data
+      const { title, describe, param, key, quantity, sort, type, platform, status } = r.data
       form.title = title
       form.describe = describe
+      form.param = param
       form.key = key
       form.quantity = quantity
       form.sort = sort
