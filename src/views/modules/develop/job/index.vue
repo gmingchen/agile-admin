@@ -7,6 +7,10 @@ import { Status } from '@/utils/enum'
 
 import { pageApi, deleteApi, runApi, resumeApi, pauseApi } from '@/api/job'
 
+defineOptions({
+  name: 'DevelopJob'
+})
+
 const refForm = ref()
 const refTable = ref()
 const refAddEdit = ref()

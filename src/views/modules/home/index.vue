@@ -9,6 +9,10 @@ import UserVisits from './components/user-visits.vue'
 import UserGrowth from './components/user-growth.vue'
 
 import Applet from './components/applet.vue'
+
+defineOptions({
+  name: 'Home'
+})
 </script>
 
 <template>

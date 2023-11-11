@@ -9,6 +9,10 @@ import { Status } from '@/utils/enum'
 
 import { subListApi, subDeleteApi, subSetStatusApi } from '@/api/dict'
 
+defineOptions({
+  name: 'DevelopDict'
+})
+
 const refContainerSidebar = ref()
 const refTable = ref()
 const refSubAddEdit = ref()

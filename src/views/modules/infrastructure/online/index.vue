@@ -7,6 +7,10 @@ import { Status } from '@/utils/enum'
 
 import { pageApi, logoutApi } from '@/api/online'
 
+defineOptions({
+  name: 'InfrastructureOnline'
+})
+
 const refContainerSidebar = ref()
 const refTable = ref()
 

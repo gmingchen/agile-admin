@@ -9,6 +9,10 @@ import { Status } from '@/utils/enum'
 
 import { pageApi, deleteApi, setStatusApi, resetPasswordApi, exportApi } from '@/api/adminer'
 
+defineOptions({
+  name: 'SystemAdminer'
+})
+
 const refContainerSidebar = ref()
 const refForm = ref()
 const refTable = ref()

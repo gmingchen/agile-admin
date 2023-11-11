@@ -6,6 +6,10 @@ import { Status } from '@/utils/enum'
 
 import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/user'
 
+defineOptions({
+  name: 'UserList'
+})
+
 const router = useRouter()
 
 const refForm = ref()

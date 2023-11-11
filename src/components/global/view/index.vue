@@ -4,17 +4,25 @@ defineProps({
   transition: {
     type: String,
     default: () => ''
-  },
-  // 是否缓存
-  keepAlive: {
-    type: Boolean,
-    default: () => false
-  },
-  // 组件键值
-  componentKey: {
-    type: [String, Number],
-    value: () => ''
   }
+})
+
+const menuStore = useMenuStore()
+const tabsStore = useTabsStore()
+
+const keepalives = computed(() => {
+  const list = []
+  fo:for (let i = 0; i < tabsStore.tabs.length; i++) {
+    const tab = tabsStore.tabs[i]
+    for (let j = 0; j < menuStore.keepaliveMenus.length; j++) {
+      const menu = menuStore.keepaliveMenus[j]
+      if (menu.id === tab.menuId) {
+        list.push(menu.componentName)
+        continue fo
+      }
+    }
+  }
+  return list
 })
 
 /**
@@ -44,14 +52,14 @@ const onLeave = (el) => {
         mode="out-in"
         @enter="onEnter"
         @leave="onLeave">
-        <keep-alive :include="keepAlive ? '': []">
-          <component :is="Component" :key="componentKey" />
+        <keep-alive :include="keepalives">
+          <component :is="Component" />
         </keep-alive>
       </transition>
     </template>
     <template v-else>
-      <keep-alive :include="keepAlive ? '': []">
-        <component :is="Component" :key="componentKey" />
+      <keep-alive :include="keepalives">
+        <component :is="Component" />
       </keep-alive>
     </template>
   </router-view>

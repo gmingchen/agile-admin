@@ -8,6 +8,10 @@ import { Status, OperationalStatus } from '@/utils/enum'
 
 import { pageApi, deleteApi, backupApi, recoveryApi, exportApi } from '@/api/backup'
 
+defineOptions({
+  name: 'InfrastructureBackup'
+})
+
 const refForm = ref()
 const refTable = ref()
 const refDetails = ref()
