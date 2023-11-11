@@ -50,6 +50,12 @@ export const useMenuStore = defineStore('menu', {
         }
       })
       return parseData2Tree(reulst)
+    },
+    keepaliveMenus: (state) => {
+      return state.menus.filter(item => item.keepalive && item.componentName && item.componentName.trim())
+    },
+    keepaliveMenuIds: (state) => {
+      return state.menus.filter(item => item.keepalive && item.componentName && item.componentName.trim()).map(item => item.id)
     }
   },
   actions: {

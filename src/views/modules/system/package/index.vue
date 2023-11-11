@@ -7,6 +7,10 @@ import { Status } from '@/utils/enum'
 
 import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/package'
 
+defineOptions({
+  name: 'SystemPackage'
+})
+
 const refForm = ref()
 const refTable = ref()
 const refAddEdit = ref()

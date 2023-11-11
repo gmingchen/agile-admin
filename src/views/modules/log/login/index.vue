@@ -3,6 +3,10 @@ import { clearJson } from '@/utils'
 
 import { pageApi, exportApi } from '@/api/login-log'
 
+defineOptions({
+  name: 'LogLogin'
+})
+
 const refForm = ref()
 const refTable = ref()
 

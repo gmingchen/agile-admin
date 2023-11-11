@@ -11,6 +11,10 @@ import { clearJson } from '@/utils'
 
 import { pageApi, exportApi } from '@/api/job-log'
 
+defineOptions({
+  name: 'LogJob'
+})
+
 const refForm = ref()
 const refTable = ref()
 

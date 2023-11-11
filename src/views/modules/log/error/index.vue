@@ -5,6 +5,10 @@ import { clearJson } from '@/utils'
 
 import { pageApi, exportApi } from '@/api/error-log'
 
+defineOptions({
+  name: 'LogError'
+})
+
 const refForm = ref()
 const refTable = ref()
 const refDetails = ref()

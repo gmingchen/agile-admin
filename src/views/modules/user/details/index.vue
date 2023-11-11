@@ -91,6 +91,10 @@
 <script setup>
 import { infoApi } from '@/api/user'
 
+defineOptions({
+  name: 'UserDetails'
+})
+
 const route = useRoute()
 
 const loading = ref(false)

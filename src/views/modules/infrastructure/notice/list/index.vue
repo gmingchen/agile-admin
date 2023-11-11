@@ -9,6 +9,10 @@ import { Status } from '@/utils/enum'
 
 import { pageApi, deleteApi, exportApi } from '@/api/notice'
 
+defineOptions({
+  name: 'InfrastructureNoticeList'
+})
+
 const refContainerSidebar = ref()
 const refForm = ref()
 const refTable = ref()
