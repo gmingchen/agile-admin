@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 
-const logo = ref('https://oss.gumingchen.icu/image/slipper.jpeg')
-const document = ref('https://admin.gumingchen.icu/doc/')
+const logo = ref('https://admin.gumingchen.icu/file/static/slipper.jpeg')
+const document = ref('http://admin.gumingchen.icu/doc/')
 const texts = ref([
   'Java + Vue 有很多优秀的后台管理系统，但是为了可以高效的开发后台权限管理系统，作者就自己开发出 Agile Admin。',
   'Agile Admin 是一个基于 Vue3 + Element-plus + Java 的租户后台权限管理系统，提供了完善的权限体系，让开发者把注意力集中到具体业务当中，降低开发成本，提高项目效率。',

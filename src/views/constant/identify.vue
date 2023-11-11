@@ -88,7 +88,7 @@ defineExpose({
     <div class="text-align-center">
       <div class="tips-box">微信扫描下方二维码，回复【后台验证】</div>
       <div class="tips-box">进行人机识别验证</div>
-      <img class="width-250 height-250" src="https://admin.gumingchen.icu/file/image/official-account-qr-code.jpg">
+      <img class="width-250 height-250" src="https://admin.gumingchen.icu/file/static/official-account-qr-code.jpg">
     </div>
     <el-form
       :model="form"
