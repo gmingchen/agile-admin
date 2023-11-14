@@ -26,9 +26,6 @@ import Websocket from './components/websocket/index.vue'
 
 const route = useRoute()
 
-const keepAlive = computed(() => route.meta.keepalive)
-const key = computed(() => route.name)
-
 const themeStore = useThemeStore()
 
 const navigationMode = computed(() => themeStore.layout.navigationMode)
@@ -51,6 +48,11 @@ const component = computed(() => {
       break
   }
   return result
+})
+
+onMounted(() => {
+  const instance = getCurrentInstance()
+  console.log(instance)
 })
 </script>
 

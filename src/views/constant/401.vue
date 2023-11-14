@@ -14,8 +14,6 @@
 
 <script setup>
 
-
-
 import { useRootStore } from '@/stores/root'
 
 const router = useRouter()

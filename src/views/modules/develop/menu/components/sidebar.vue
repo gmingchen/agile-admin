@@ -57,6 +57,8 @@ const addHandle = (row) => {
     menu.parentId = row.id
     if (row.type === MenuType.MENU) {
       menu.type = MenuType.BUTTON
+    } else if (row.type === MenuType.ROUTER) {
+      menu.type = MenuType.ROUTER
     }
     if (!row.children) {
       row.children = []
@@ -142,8 +144,13 @@ const allowDropHandle = (dragNode, dropNode, type) => {
         result = false
       }
       break
+    case MenuType.ROUTER:
+      if (dropParentType !== MenuType.CATALOG && dropParentType !== MenuType.GROUP && dropParentType !== MenuType.ROUTER) {
+        result = false
+      }
+      break
     case MenuType.MENU:
-      if (dropParentType !== MenuType.CATALOG && dropParentType !== MenuType.GROUP) {
+      if (dropParentType !== MenuType.CATALOG && dropParentType !== MenuType.GROUP && dropParentType !== MenuType.ROUTER) {
         result = false
       }
       break
