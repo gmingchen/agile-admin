@@ -9,7 +9,6 @@ defineProps({
 
 const menuStore = useMenuStore()
 const tabsStore = useTabsStore()
-
 const keepalives = computed(() => {
   const list = []
   fo:for (let i = 0; i < tabsStore.tabs.length; i++) {
