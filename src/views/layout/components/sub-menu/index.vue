@@ -1,5 +1,7 @@
 <script setup>
 import SubTtem from './index.vue'
+import { MenuType } from '@/utils/enum'
+
 const props = defineProps({
   data: {
     type: Object,
@@ -14,11 +16,12 @@ const router = useRouter()
  */
 const clickHandle = () => {
   switch (props.data.type) {
-    case 4: // 外链
+    case MenuType.URL: // 外链
       window.open(props.data.url)
       break
-    case 1: // 菜单
-    case 3: // iframe
+    case MenuType.ROUTER: // 路由
+    case MenuType.MENU: // 菜单
+    case MenuType.IFRAME: // iframe
       router.push({ name: props.data.name })
       break
   }

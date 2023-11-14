@@ -28,6 +28,7 @@ const form = reactive({
   name: '',
   routePath: '',
   routeName: '',
+  redirectName: '',
   componentName: '',
   url: '',
   permission: '',
@@ -88,6 +89,7 @@ const getInfo = async () => {
     form.name = r.data.name
     form.routePath = r.data.routePath
     form.routeName = r.data.routeName
+    form.redirectName = r.data.redirectName
     form.componentName = r.data.componentName
     form.url = r.data.url
     form.permission = r.data.permission
@@ -109,6 +111,7 @@ const clearFrom = () => {
   form.name = ''
   form.routePath = ''
   form.routeName = ''
+  form.redirectName = ''
   form.componentName = ''
   form.url = ''
   form.permission = ''
@@ -150,8 +153,18 @@ const buttonHandle = (val) => {
         result = true
       }
       break
+    case MenuType.GROUP:
+      if (val === MenuType.BUTTON) {
+        result = true
+      }
+      break
+    case MenuType.ROUTER:
+      if (val === MenuType.CATALOG || val === MenuType.GROUP) {
+        result = true
+      }
+      break
     case MenuType.MENU:
-      if (val === MenuType.CATALOG || val === MenuType.IFRAME || val === MenuType.URL) {
+      if (val !== MenuType.BUTTON && val !== MenuType.MENU) {
         result = true
       }
       break
@@ -241,6 +254,9 @@ onBeforeMount(() => {
             </el-form-item>
             <el-form-item label="路由Name（若为空则按照url路径处理）" prop="routeName" v-if="form.type == MenuType.ROUTER || form.type == MenuType.MENU">
               <el-input v-model="form.routeName" placeholder="路由Name" :readonly="readonly" />
+            </el-form-item>
+            <el-form-item label="路由重定向 name 属性值（用于嵌套路由）" prop="redirectName" v-if="form.type == MenuType.ROUTER">
+              <el-input v-model="form.redirectName" placeholder="路由Name" :readonly="readonly" />
             </el-form-item>
             <el-form-item label="授权标识" prop="permission" v-if="form.type == MenuType.ROUTER || form.type == MenuType.MENU || form.type == MenuType.BUTTON">
               <el-input v-model="form.permission" placeholder="授权标识" :readonly="readonly" />
