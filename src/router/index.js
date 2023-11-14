@@ -2,7 +2,8 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
-import { parseStr2Date } from '@/utils'
+import { parseStr2Date, parseData2Tree } from '@/utils'
+import { MenuType } from '@/utils/enum'
 import Prompt from '@/utils/prompt'
 import { useMenuStore } from '../stores/modules/menu'
 import { useRootStore } from '../stores/root'
@@ -82,68 +83,66 @@ function routeType(route, constantRoutes = []) {
   return temp.length >= 1 ? routeType(route, temp) : 'main'
 }
 
+function formatMenus(menus) {
+  const types = [MenuType.ROUTER, MenuType.MENU, MenuType.IFRAME]
+  const list = menus.filter(item => types.includes(item.type) && item.url && /\S/u.test(item.url))
+  return parseData2Tree(list)
+}
+
+/**
+ * 递归创建路由
+ * @param {*} menu
+ * @returns
+ */
+function menu2Route(menu) {
+  const { id, name, type, url, routePath, routeName, redirectName, tab, keepalive, multiple, children } = menu
+  const meta = {
+    id: id,
+    label: name,
+    type: type,
+    url: url,
+    dynamic: true,
+    tab: tab === 1,
+    keepalive: keepalive === 1,
+    multiple: multiple === 1
+  }
+  let route
+  if (type === MenuType.IFRAME) {
+    route = {
+      path: `/i-${ id }`,
+      name: `i-${ id }`,
+      component: dynamics[`../views/modules/iframe/index.vue`],
+      meta
+    }
+  } else if (url && /\S/u.test(url)) {
+    const defaultValue = url.substring(1, url.length).replace(/\//g, '-')
+    route = {
+      path: routePath || `/${ defaultValue }`,
+      name: routeName || defaultValue,
+      component: dynamics[`../views/modules${ url }.vue`],
+      meta
+    }
+    if (type === MenuType.ROUTER && redirectName) {
+      route.redirect = { name: redirectName }
+    }
+    if (children && children.length) {
+      route.children = []
+      children.forEach(item => {
+        route.children.push(menu2Route(item))
+      })
+    }
+  }
+  return route
+}
 /**
  * 动态添加路由
  * @param {*} menus
  * @param {*} routeList
  */
-function addRoutes(menus = [], routeList = []) {
-  let list = []
-  menus.forEach((item, _index) => {
-    if (item.children && item.children.length > 0) {
-      list = list.concat(item.children)
-    }
-    let route
-    switch (item.type) {
-      case 3:
-        route = {
-          path: `/i-${ item.id }`,
-          name: `i-${ item.id }`,
-          component: dynamics[`../views/modules/iframe/index.vue`],
-          meta: {
-            id: item.id,
-            label: item.name,
-            type: item.type,
-            url: item.url,
-            dynamic: true,
-            tab: item.tab === 1,
-            keepalive: item.keepalive === 1,
-            multiple: item.multiple === 1
-          }
-        }
-        break
-      case 0:
-        break
-      case 4:
-        break
-      default:
-        if (item.url && /\S/u.test(item.url)) {
-          const defaultValue = item.url.substring(1, item.url.length).replace(/\//g, '-')
-          route = {
-            path: item.routePath || `/${ defaultValue }`,
-            name: item.routeName || defaultValue,
-            component: dynamics[`../views/modules${ item.url }.vue`],
-            meta: {
-              id: item.id,
-              label: item.name,
-              type: item.type,
-              url: item.url,
-              dynamic: true,
-              tab: item.tab === 1,
-              keepalive: item.keepalive === 1,
-              multiple: item.multiple === 1
-            }
-          }
-        }
-        break
-    }
-    if (route) {
-      routeList.push(route)
-    }
-  })
+function addRoutes(menus = []) {
+  const list = formatMenus(menus)
+  const routeList = list.map(menu => menu2Route(menu))
   if (list.length >= 1) {
-    addRoutes(list, routeList)
-  } else {
     main.children = main.children.concat(routeList)
     console.log('%c!<-------------------- 动态(菜单)路由 s -------------------->', 'color:blue')
     console.log(main.children)
@@ -153,7 +152,6 @@ function addRoutes(menus = [], routeList = []) {
 }
 
 router.beforeEach(async (to, _from, next) => {
-  // debugger
   NProgress.start()
   // 标题控制
   document.title = to.meta.label || to.meta.title || document.title
