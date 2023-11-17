@@ -95,12 +95,13 @@ function formatMenus(menus) {
  * @returns
  */
 function menu2Route(menu) {
-  const { id, name, type, url, routePath, routeName, redirectName, tab, keepalive, multiple, children } = menu
+  const { id, name, type, url, routePath, routeName, redirectName, componentName, tab, keepalive, multiple, children } = menu
   const meta = {
     id: id,
     label: name,
     type: type,
     url: url,
+    componentName: componentName,
     dynamic: true,
     tab: tab === 1,
     keepalive: keepalive === 1,

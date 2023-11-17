@@ -1,28 +1,23 @@
 <script setup>
-defineProps({
+import { cacheHandle } from '@/utils/cache'
+
+const props = defineProps({
   // 过度动画 不传则没有动画
   transition: {
     type: String,
     default: () => ''
+  },
+  rename: {
+    type: Boolean,
+    default: () => false
   }
 })
 
+const route = useRoute()
+
 const menuStore = useMenuStore()
-const tabsStore = useTabsStore()
-const keepalives = computed(() => {
-  const list = []
-  fo:for (let i = 0; i < tabsStore.tabs.length; i++) {
-    const tab = tabsStore.tabs[i]
-    for (let j = 0; j < menuStore.keepaliveMenus.length; j++) {
-      const menu = menuStore.keepaliveMenus[j]
-      if (menu.id === tab.menuId) {
-        list.push(menu.componentName)
-        continue fo
-      }
-    }
-  }
-  return list
-})
+
+const keepalives = computed(() => menuStore.keepaliveNames)
 
 /**
  * 开始进入动画时将父级元素 overflow 设置为空
@@ -52,13 +47,13 @@ const onLeave = (el) => {
         @enter="onEnter"
         @leave="onLeave">
         <keep-alive :include="keepalives">
-          <component :is="Component" />
+          <component :is="rename ? cacheHandle(Component, route) : Component" />
         </keep-alive>
       </transition>
     </template>
     <template v-else>
       <keep-alive :include="keepalives">
-        <component :is="Component" />
+        <component :is="rename ? cacheHandle(Component, route) : Component" />
       </keep-alive>
     </template>
   </router-view>
