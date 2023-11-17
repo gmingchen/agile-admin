@@ -1,10 +1,10 @@
 import router from '@/router'
 
-// todo: ITab value 格式：{a}-{b}-{c}-{d}
+// todo: ITab value 格式：{a}&{b}&{c}&{d}
 // todo: a: 路由name b: 菜单ID c: 路由query字符串 d: 路由params字符串
 // todo: c、d 支持多开的时候需要
 const defaultTabs = [{
-  value: 'home-home-{}-{}',
+  value: 'home&home&{}&{}',
   label: '首页',
   name: 'home',
   path: '/home',
@@ -19,7 +19,12 @@ export const useTabsStore = defineStore('tabs', {
     active: '',
     tabs: []
   }),
-  getters: {},
+  getters: {
+    activeTab: (state) => {
+      const exists = state.tabs.filter(tab => tab.value === state.active)
+      return exists.length ? exists[0] : {}
+    }
+  },
   actions: {
     /**
      * 路由变化事件 设置当前选中、添加标签
@@ -27,14 +32,14 @@ export const useTabsStore = defineStore('tabs', {
      */
     changeHandle(route) {
       const meta = route.meta
-      let val = `${ route.name }-${ meta.id }`
+      let val = `${ route.name }&${ meta.id }`
       if (meta.tab) {
         if (meta.multiple) {
           const queryStr = JSON.stringify(route.query)
           const paramsStr = JSON.stringify(route.params)
-          val += `-${ queryStr }-${ paramsStr }`
+          val += `&${ queryStr }&${ paramsStr }`
         } else {
-          val += `-{}-{}`
+          val += `&{}&{}`
         }
         // 如果不存在则添加
         if (this.tabs.every(item => item.value !== val)) {

@@ -29,13 +29,13 @@ const removeHandle = (name) => {
 
 onBeforeRouteUpdate((to) => {
   tabsStore.changeHandle(to)
-  const meta = to.meta
-  if (meta.multiple) {
-    refresh.value = true
-    nextTick(() => {
-      refresh.value = false
-    })
-  }
+  // const meta = to.meta
+  // if (meta.multiple) {
+  //   refresh.value = true
+  //   nextTick(() => {
+  //     refresh.value = false
+  //   })
+  // }
 })
 
 onBeforeMount(() => {

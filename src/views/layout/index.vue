@@ -9,7 +9,7 @@
         <Tabsbar />
       </template>
       <template #default v-if="!refresh">
-        <View class="margin-20 flex-item_f-1" transition="left-in-right-out" />
+        <View class="margin-20 flex-item_f-1" transition="left-in-right-out" rename />
       </template>
     </component>
     <Websocket />
@@ -48,11 +48,6 @@ const component = computed(() => {
       break
   }
   return result
-})
-
-onMounted(() => {
-  const instance = getCurrentInstance()
-  console.log(instance)
 })
 </script>
 

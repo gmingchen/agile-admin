@@ -1,9 +1,12 @@
 import { adminerMenuApi } from '@/api/auth'
+import { useTabsStore } from './tabs'
+// console.log(useTabsStore())
 
 import { getLoad, setLoad, clearLoad, getMenuAndPermission, setMenuAndPermission, clearMenuAndPermission } from '@/utils/storage'
 import { MENU_KEY, PERMISSION_KEY } from '@/utils/constant'
 import { MenuType } from '@/utils/enum'
 import { parseData2Tree, clearJson } from '@/utils'
+import { findKeepaliveName } from '@/utils/cache'
 
 const load = getLoad()
 const data = getMenuAndPermission()
@@ -28,6 +31,7 @@ export const useMenuStore = defineStore('menu', {
           url: item.url,
           path: item.type === 3 ? `/i-${ item.id }` : item.routePath || (item.url ? `/${ defaultValue }` : ''),
           name: item.type === 3 ? `i-${ item.id }` : item.routeName || (item.url ? defaultValue : ''),
+          componentName: item.componentName,
           parentId: item.parentId,
           children: []
         }
@@ -45,6 +49,7 @@ export const useMenuStore = defineStore('menu', {
           url: item.url,
           path: item.type === 3 ? `/i-${ item.id }` : item.routePath || (item.url ? `/${ defaultValue }` : ''),
           name: item.type === 3 ? `i-${ item.id }` : item.routeName || (item.url ? defaultValue : ''),
+          componentName: item.componentName,
           parentId: item.parentId,
           children: []
         }
@@ -52,10 +57,13 @@ export const useMenuStore = defineStore('menu', {
       return parseData2Tree(reulst)
     },
     keepaliveMenus: (state) => {
-      return state.menus.filter(item => item.keepalive && item.componentName && item.componentName.trim())
+      const list = state.menus.filter(item => item.keepalive && item.componentName && item.componentName.trim())
+      return parseData2Tree(list)
     },
-    keepaliveMenuIds: (state) => {
-      return state.menus.filter(item => item.keepalive && item.componentName && item.componentName.trim()).map(item => item.id)
+    keepaliveNames: (state, a) => {
+      // console.log(useTabsStore())
+      return findKeepaliveName(useTabsStore().tabs, state.keepaliveMenus)
+      // return useTabsStore().tabs
     }
   },
   actions: {
