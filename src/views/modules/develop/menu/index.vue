@@ -282,7 +282,7 @@ onBeforeMount(() => {
                 <el-form-item label="是否支持tab页签多开（如：用户1的详情页、用户2的详情并存在tab页签）" prop="multiple">
                   <DictRadio v-model="form.multiple" code="WHETHER" :disabled="readonly" />
                 </el-form-item>
-                <el-form-item label="是否支持缓存" prop="keepalive">
+                <el-form-item label="是否支持缓存（若是路由不设置缓存，但其下的菜单或路由设置了缓存，那么离开这个路由页将不会继续缓存）" prop="keepalive">
                   <DictRadio v-model="form.keepalive" code="WHETHER" :disabled="readonly" />
                 </el-form-item>
               </template>

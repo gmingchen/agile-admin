@@ -3,6 +3,7 @@
     <template #default>
       <div class="user-details-container margin-10 flex flex_w-wrap">
         <div class="panel flex-item_f-2 margin-10 padding-30">
+          <el-input v-model="value" placeholder="输入内容测试页面缓存" />
           <div class="flex flex_d-column flex_a_i-center">
             <el-avatar
               :size="120"
@@ -94,6 +95,8 @@ import { infoApi } from '@/api/user'
 defineOptions({
   name: 'UserDetails'
 })
+
+const value = ref('')
 
 const route = useRoute()
 
