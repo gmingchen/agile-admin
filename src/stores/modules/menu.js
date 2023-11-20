@@ -61,9 +61,7 @@ export const useMenuStore = defineStore('menu', {
       return parseData2Tree(list)
     },
     keepaliveNames: (state, a) => {
-      // console.log(useTabsStore())
       return findKeepaliveName(useTabsStore().tabs, state.keepaliveMenus)
-      // return useTabsStore().tabs
     }
   },
   actions: {
