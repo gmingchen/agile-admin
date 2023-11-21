@@ -79,7 +79,7 @@ export const findKeepaliveName = (tabs, menus) => {
       }
     }
     if (children && children.length) {
-      const arr = findKeepaliveName(children)
+      const arr = findKeepaliveName(tabs, children)
       if (arr.length) {
         componentName && list.push(componentName)
         list.push(...arr)

@@ -1,6 +1,5 @@
 import { adminerMenuApi } from '@/api/auth'
 import { useTabsStore } from './tabs'
-// console.log(useTabsStore())
 
 import { getLoad, setLoad, clearLoad, getMenuAndPermission, setMenuAndPermission, clearMenuAndPermission } from '@/utils/storage'
 import { MENU_KEY, PERMISSION_KEY } from '@/utils/constant'
@@ -10,6 +9,27 @@ import { findKeepaliveName } from '@/utils/cache'
 
 const load = getLoad()
 const data = getMenuAndPermission()
+/**
+ * 格式化菜单
+ * @param {*} menu 菜单
+ * @returns
+ */
+const formatMenu = (menu) => {
+  const { id, name, icon, url, routePath, routeName, componentName, parentId, type } = menu
+  const defaultValue = url ? url.substring(1, url.length).replace(/\//g, '-') : ''
+  return {
+    id: id,
+    label: name,
+    icon: icon,
+    type: type,
+    url: url,
+    path: type === 3 ? `/i-${ id }` : routePath || (url ? `/${ defaultValue }` : ''),
+    name: type === 3 ? `i-${ id }` : routeName || (url ? defaultValue : ''),
+    componentName: componentName,
+    parentId: parentId,
+    children: []
+  }
+}
 
 export const useMenuStore = defineStore('menu', {
   state: () => ({
@@ -22,48 +42,24 @@ export const useMenuStore = defineStore('menu', {
   getters: {
     displayedMenus: (state) => {
       const reulst = state.menus.filter(item => item.show && item.type !== MenuType.BUTTON).map(item => {
-        const defaultValue = item.url ? item.url.substring(1, item.url.length).replace(/\//g, '-') : ''
-        return {
-          id: item.id,
-          label: item.name,
-          icon: item.icon,
-          type: item.type,
-          url: item.url,
-          path: item.type === 3 ? `/i-${ item.id }` : item.routePath || (item.url ? `/${ defaultValue }` : ''),
-          name: item.type === 3 ? `i-${ item.id }` : item.routeName || (item.url ? defaultValue : ''),
-          componentName: item.componentName,
-          parentId: item.parentId,
-          children: []
-        }
+        return formatMenu(item)
       })
       return parseData2Tree(reulst)
     },
     allMenus: (state) => {
       const reulst = state.menus.map(item => {
-        const defaultValue = item.url ? item.url.substring(1, item.url.length).replace(/\//g, '-') : ''
-        return {
-          id: item.id,
-          label: item.name,
-          icon: item.icon,
-          type: item.type,
-          url: item.url,
-          path: item.type === 3 ? `/i-${ item.id }` : item.routePath || (item.url ? `/${ defaultValue }` : ''),
-          name: item.type === 3 ? `i-${ item.id }` : item.routeName || (item.url ? defaultValue : ''),
-          componentName: item.componentName,
-          parentId: item.parentId,
-          children: []
-        }
+        return formatMenu(item)
       })
       return parseData2Tree(reulst)
     },
     keepaliveMenus: (state) => {
-      const list = state.menus.filter(item => item.keepalive && item.componentName && item.componentName.trim())
+      const list = state.menus.filter(item => item.keepalive && item.componentName && item.componentName.trim()).map(item => {
+        return formatMenu(item)
+      })
       return parseData2Tree(list)
     },
-    keepaliveNames: (state, a) => {
-      // console.log(useTabsStore())
+    keepaliveNames: (state) => {
       return findKeepaliveName(useTabsStore().tabs, state.keepaliveMenus)
-      // return useTabsStore().tabs
     }
   },
   actions: {
