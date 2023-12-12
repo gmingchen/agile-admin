@@ -53,9 +53,7 @@ export const useMenuStore = defineStore('menu', {
       return parseData2Tree(reulst)
     },
     keepaliveMenus: (state) => {
-      const list = state.menus.filter(item => item.keepalive && item.componentName && item.componentName.trim()).map(item => {
-        return formatMenu(item)
-      })
+      const list = state.menus.filter(item => item.keepalive && item.componentName && item.componentName.trim())
       return parseData2Tree(list)
     },
     keepaliveNames: (state) => {
