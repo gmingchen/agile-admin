@@ -15,19 +15,14 @@ const data = getMenuAndPermission()
  * @returns
  */
 const formatMenu = (menu) => {
-  const { id, name, icon, url, routePath, routeName, componentName, parentId, type } = menu
+  const { id, name, icon, url, routePath, routeName, componentName, parentId, type, tab, keepalive, multiple } = menu
   const defaultValue = url ? url.substring(1, url.length).replace(/\//g, '-') : ''
   return {
-    id: id,
     label: name,
-    icon: icon,
-    type: type,
-    url: url,
     path: type === 3 ? `/i-${ id }` : routePath || (url ? `/${ defaultValue }` : ''),
     name: type === 3 ? `i-${ id }` : routeName || (url ? defaultValue : ''),
-    componentName: componentName,
-    parentId: parentId,
-    children: []
+    children: [],
+    id, icon, type, url, componentName, tab, keepalive, multiple, parentId
   }
 }
 
@@ -53,7 +48,9 @@ export const useMenuStore = defineStore('menu', {
       return parseData2Tree(reulst)
     },
     keepaliveMenus: (state) => {
-      const list = state.menus.filter(item => item.keepalive && item.componentName && item.componentName.trim())
+      const list = state.menus.filter(item => item.keepalive && item.componentName && item.componentName.trim()).map(item => {
+        return formatMenu(item)
+      })
       return parseData2Tree(list)
     },
     keepaliveNames: (state) => {
