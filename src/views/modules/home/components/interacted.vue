@@ -4,20 +4,16 @@ import { ref } from 'vue'
 
 const images = ref([
   {
+    label: '微信讨论群',
+    url: 'https://admin.gumingchen.icu/file/static/wechat-group-qr-code.jpg'
+  },
+  {
     label: '公众号',
     url: 'https://admin.gumingchen.icu/file/static/official-account-qr-code.jpg'
   },
   {
     label: '小程序',
     url: 'https://admin.gumingchen.icu/file/static/wechat-applet-qr-code.jpg'
-  },
-  {
-    label: 'QQ讨论群',
-    url: 'https://admin.gumingchen.icu/file/static/qq-group-qr-code.jpg'
-  },
-  {
-    label: '微信讨论群',
-    url: 'https://admin.gumingchen.icu/file/static/wechat-group-qr-code.jpg'
   },
   {
     label: '微信',

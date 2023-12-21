@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/gmingchen/agile-admin">
-    <img src="https://admin.gumingchen.icu/file/image/slipper.jpeg" alt="logo" width="120">
+    <img src="https://admin.gumingchen.icu/file/static/slipper.jpeg" alt="logo" width="120">
   </a>
 </p>
 <p align="center">
@@ -290,23 +290,20 @@ npm run build:test  # 测试环境
 </table>
 
 ## 联系方式
+`①群已满(500人)，可以先进②群，有空位后在加①群。若二维码失效可以加微信联系作者！`
 <table>
   <tr align="center">
-    <td>公众号</td>
-    <td>QQ交流群</td>
     <td>微信交流群</td>
+    <td>公众号</td>
     <td>微信</td>
     <td>QQ</td>
   </tr>
   <tr>
     <td>
-      <img src="https://admin.gumingchen.icu/file/static/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
-    </td>
-    <td>
-      <img src="https://admin.gumingchen.icu/file/static/qq-group-qr-code.jpg" width="200px" title="QQ交流群" alt="QQ交流群:124371554" />
-    </td>
-    <td>
       <img src="https://admin.gumingchen.icu/file/static/wechat-group-qr-code.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
+    </td>
+    <td>
+      <img src="https://admin.gumingchen.icu/file/static/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
     </td>
     <td>
       <img src="https://admin.gumingchen.icu/file/static/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
