@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 
-const visible = ref(true)
+const visible = ref(false)
 
 const qrCode = ref('https://admin.gumingchen.icu/file/static/wechat-applet-qr-code.jpg')
 
@@ -17,10 +17,6 @@ const list = ref([
   {
     question: '这个小程序现在有哪些工具？',
     answer: 'WIFI共享、文字转语音、二维码生成器。'
-  },
-  {
-    question: '后续还会开发什么样的内容？',
-    answer: '后面会上线淘宝购物优惠的相关内容！(已开发完成)'
   }
 ])
 
