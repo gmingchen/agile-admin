@@ -1,5 +1,5 @@
 <script setup>
-import { cacheHandle } from '@/utils/cache'
+import { cacheHandle } from '@utils/cache'
 
 const props = defineProps({
   // 过度动画 不传则没有动画

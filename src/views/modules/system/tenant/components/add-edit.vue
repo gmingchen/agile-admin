@@ -3,8 +3,8 @@ import { ElMessage } from 'element-plus'
 
 import UploadImage from '@/components/upload-image/index.vue'
 
-import { Status } from '@/utils/enum'
-import { isUsername } from '@/utils/regular'
+import { Status } from '@enums'
+import { isUsername } from '@utils/regular'
 
 import { infoApi, createApi, updateApi } from '@/api/tenant'
 import { selectApi } from '@/api/package'

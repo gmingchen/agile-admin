@@ -1,6 +1,6 @@
 <script setup>
 import SubTtem from './index.vue'
-import { MenuType } from '@/utils/enum'
+import { MenuType } from '@enums'
 
 const props = defineProps({
   data: {

@@ -22,8 +22,8 @@ onBeforeMount(() => {
     <el-radio
       v-for="item in dict"
       :key="item.value"
-      :label="item.value">
-      {{item.label }}
+      :label="item.label"
+      :value ="item.value">
     </el-radio>
     <template v-for="(_value, name) in $slots" #[name]="slotData">
       <slot :name="name" v-bind="slotData || {}" />

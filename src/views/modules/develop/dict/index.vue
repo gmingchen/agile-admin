@@ -4,8 +4,8 @@ import ContainerSidebar from '@/components/container-sidebar/index.vue'
 import Sidebar from './components/sidebar.vue'
 import SubAddEdit from './components/sub-add-edit.vue'
 
-import { havePermission } from '@/utils'
-import { Status } from '@/utils/enum'
+import { havePermission } from '@utils'
+import { Status } from '@enums'
 
 import { subListApi, subDeleteApi, subSetStatusApi } from '@/api/dict'
 

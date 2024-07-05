@@ -2,7 +2,7 @@
 import { ElMessage } from 'element-plus'
 
 import useModel from '@/hooks/model'
-import { AUTH_KEY, SUCCESS_CODE } from '@/utils/constant'
+import { AUTH_KEY, SUCCESS_CODE } from '@constants'
 
 import { uploadUrlApi } from '@/api/file'
 

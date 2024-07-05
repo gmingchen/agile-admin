@@ -7,8 +7,8 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 
-import { parseData2Tree } from '@/utils'
-import { Status, NoticeScope, NoticeType } from '@/utils/enum'
+import { parseData2Tree } from '@utils'
+import { Status, NoticeScope, NoticeType } from '@enums'
 
 import { selectApi as templateSelectApi } from '@/api/notice-template'
 import { selectApi as deptSelectApi } from '@/api/dept'

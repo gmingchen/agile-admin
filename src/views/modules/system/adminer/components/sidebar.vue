@@ -2,8 +2,8 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 import useModel from '@/hooks/model'
-import { UPDATE_MODEL_EVENT } from '@/utils/constant'
-import { parseData2Tree } from '@/utils'
+import { UPDATE_MODEL_EVENT } from '@constants'
+import { parseData2Tree } from '@utils'
 
 import { selectApi } from '@/api/dept'
 

@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 
 import UploadImage from '@/components/upload-image/index.vue'
 
-import { ReviewStatus } from '@/utils/enum'
+import { ReviewStatus } from '@enums'
 
 import { reviewApi } from '@/api/withdrawal'
 
@@ -103,8 +103,8 @@ defineExpose({
       </el-form-item>
       <el-form-item label="审核状态" prop="status">
         <el-radio-group v-model="form.status">
-          <el-radio :label="ReviewStatus.PASS">通过</el-radio>
-          <el-radio :label="ReviewStatus.REJECT">驳回</el-radio>
+          <el-radio label="通过" :value="ReviewStatus.PASS"></el-radio>
+          <el-radio label="驳回" :value="ReviewStatus.REJECT"></el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="审核图片" prop="image">

@@ -1,7 +1,7 @@
 <script setup>
 import useModel from '@/hooks/model'
 
-import { UPDATE_MODEL_EVENT } from '@/utils/constant'
+import { UPDATE_MODEL_EVENT } from '@constants'
 
 import { selectPageApi } from '@/api/tenant'
 

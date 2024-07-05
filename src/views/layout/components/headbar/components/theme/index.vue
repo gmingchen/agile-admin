@@ -1,5 +1,5 @@
 <script setup>
-import { ThemeMode } from '@/utils/enum'
+import { ThemeMode } from '@enums'
 
 const themeStore = useThemeStore()
 

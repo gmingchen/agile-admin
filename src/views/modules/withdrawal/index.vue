@@ -2,8 +2,8 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
 import Review from './components/review.vue'
 
-import { clearJson } from '@/utils'
-import { ReviewStatus } from '@/utils/enum'
+import { clearJson } from '@utils'
+import { ReviewStatus } from '@enums'
 
 import { pageApi, exportApi } from '@/api/withdrawal'
 

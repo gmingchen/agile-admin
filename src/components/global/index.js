@@ -1,6 +1,6 @@
 export default {
   install: function (app) {
-    const globalComponents = import.meta.globEager('./**/index.(js|vue)')
+    const globalComponents = import.meta.glob('./**/index.(js|vue)', { eager: true })
     for (const key in globalComponents) {
       if (key === './index.js') return
       const component = globalComponents[key]

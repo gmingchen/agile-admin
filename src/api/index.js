@@ -2,11 +2,11 @@
 import axios from 'axios'
 import qs from 'qs'
 import router from '@/router'
+import { ElMessage } from 'element-plus'
 
-import { CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, AUTH_KEY, TNEANT_KEY } from '@/utils/constant'
-import { ContentType } from '@/utils/enum'
-import { getApiBaseUrl, blob2Json } from '@/utils'
-import Prompt from '@/utils/prompt'
+import { MAPPING, CONTENT_TYPE, SUCCESS_CODE, TIME_OUT, AUTH_KEY, TNEANT_KEY } from '@constants'
+import { ContentType } from '@enums'
+import { blob2Json } from '@utils'
 import { useAuthStore } from '../stores/modules/auth'
 
 /**
@@ -15,12 +15,13 @@ import { useAuthStore } from '../stores/modules/auth'
  * @return {*}
  * @author: gumingchen
  */
-const prompt = (message, single = true) => {
-  new Prompt().warning({
+const prompt = (message) => {
+  return ElMessage({
     message: message,
     type: 'warning',
-    duration: 3000
-  }, single)
+    duration: 3000,
+    grouping: true
+  })
 }
 
 /**
@@ -61,9 +62,6 @@ const codeHandle = (code, message) => {
   }
 }
 
-// 设置获取 baseURL
-const baseURL = getApiBaseUrl(import.meta.env)
-
 /**
  * @description: axios创建
  * @param {*}
@@ -71,7 +69,7 @@ const baseURL = getApiBaseUrl(import.meta.env)
  * @author: gumingchen
  */
 const service = axios.create({
-  baseURL,
+  baseURL: MAPPING,
   withCredentials: true,
   timeout: TIME_OUT,
   headers: {

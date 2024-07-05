@@ -3,8 +3,8 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 
 import Integral from './components/integral.vue'
 
-import { clearJson } from '@/utils'
-import { Status } from '@/utils/enum'
+import { clearJson } from '@utils'
+import { Status } from '@enums'
 
 import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/user'
 

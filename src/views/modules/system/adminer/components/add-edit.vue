@@ -3,9 +3,9 @@ import { ElMessage } from 'element-plus'
 
 import UploadImage from '@/components/upload-image/index.vue'
 
-import { parseData2Tree } from '@/utils'
-import { Status, Sex } from '@/utils/enum'
-import { isUsername } from '@/utils/regular'
+import { parseData2Tree } from '@utils'
+import { Status, Sex } from '@enums'
+import { isUsername } from '@utils/regular'
 
 import { infoApi, createApi, updateApi } from '@/api/adminer'
 import { selectApi as deptSelectApi } from '@/api/dept'

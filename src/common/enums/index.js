@@ -26,6 +26,10 @@ export const RequestMapping = {
   SLIPPER: '/slipper',
   API: '/api'
 }
+// websocket mapping
+export const WebsocketMapping = {
+  WEBSOCKET: '/websocket',
+}
 // 双向绑定名
 export const ModelBinding = {
   MODEL_VALUE: 'update:modelValue',

@@ -1,4 +1,4 @@
-import service from '@/utils/request'
+import service from '..'
 
 /**
  * @description: 获取所有菜单

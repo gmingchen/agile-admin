@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
 
-import { clearJson, havePermission } from '@/utils'
+import { clearJson, havePermission } from '@utils'
 
 import { pageApi, generateApi } from '@/api/generator'
 

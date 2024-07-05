@@ -4,7 +4,7 @@ import { onBeforeRouteUpdate, loadRouteLocation } from 'vue-router'
 
 import Identify from './identify.vue'
 
-import { generateUUID } from '@/utils'
+import { generateUUID } from '@utils'
 import { captchaApi } from '@/api/auth'
 import { onActivated, watch } from 'vue'
 

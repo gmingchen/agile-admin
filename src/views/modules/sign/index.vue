@@ -1,8 +1,8 @@
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
 
-import { clearJson } from '@/utils'
-import { Status } from '@/utils/enum'
+import { clearJson } from '@utils'
+import { Status } from '@enums'
 
 import { pageApi, exportApi } from '@/api/sign'
 

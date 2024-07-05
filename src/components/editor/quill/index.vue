@@ -57,7 +57,7 @@
 
 <script setup>
 
-import { UPDATE_MODEL_EVENT } from '@/utils/constant'
+import { UPDATE_MODEL_EVENT } from '@constants'
 import * as Quill from 'quill'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'

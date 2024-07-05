@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 
-import { Whether } from '@/utils/enum'
+import { Whether } from '@enums'
 
 import { infoApi, createApi, updateApi } from '@/api/mail-account'
 

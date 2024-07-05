@@ -1,7 +1,7 @@
 <script>
 import { ElMessage, ElNotification } from 'element-plus'
 
-import { SUCCESS_CODE } from '@/utils/constant'
+import { SUCCESS_CODE } from '@constants'
 
 export default defineComponent({
   render() { return '' },

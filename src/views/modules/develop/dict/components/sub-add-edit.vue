@@ -76,7 +76,7 @@ import { computed, nextTick, reactive, ref } from 'vue'
 
 import { ElMessage } from 'element-plus'
 
-import { Status } from '@/utils/enum'
+import { Status } from '@enums'
 
 import { subInfoApi, subCreateApi, subUpdateApi } from '@/api/dict'
 

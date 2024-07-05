@@ -46,7 +46,7 @@ import Notice from './components/notice.vue'
 import OperateLog from './components/operate-log.vue'
 import LoginLog from './components/login-log.vue'
 
-import { havePermission } from '@/utils'
+import { havePermission } from '@utils'
 
 defineOptions({
   name: 'Personal'

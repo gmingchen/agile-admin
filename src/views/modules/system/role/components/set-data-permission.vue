@@ -1,8 +1,8 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 
-import { parseData2Tree } from '@/utils'
-import { DataPermission, Status } from '@/utils/enum'
+import { parseData2Tree } from '@utils'
+import { DataPermission, Status } from '@enums'
 
 import { infoApi, setDataPermissionApi } from '@/api/role'
 import { selectApi } from '@/api/dept'

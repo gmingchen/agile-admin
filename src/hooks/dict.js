@@ -1,4 +1,4 @@
-import { delay } from '@/utils'
+import { delay } from '@utils'
 
 // 页面多次复用组件第一次会重复请求处理
 const pending = {}

@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
 
-import { clearJson } from '@/utils'
+import { clearJson } from '@utils'
 
 import { pageApi, exportApi } from '@/api/wifi'
 
