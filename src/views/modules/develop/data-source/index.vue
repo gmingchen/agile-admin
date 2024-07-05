@@ -8,8 +8,8 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
 
-import { clearJson } from '@/utils'
-import { Status } from '@/utils/enum'
+import { clearJson } from '@utils'
+import { Status } from '@enums'
 
 import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/data-source'
 

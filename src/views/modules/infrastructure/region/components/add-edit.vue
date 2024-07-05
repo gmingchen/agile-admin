@@ -3,7 +3,7 @@
 import { ElMessage } from 'element-plus'
 import Region from '@/components/region/index.vue'
 
-import { isInteger } from '@/utils/regular'
+import { isInteger } from '@utils/regular'
 
 import { infoApi, createApi, updateApi } from '@/api/region'
 

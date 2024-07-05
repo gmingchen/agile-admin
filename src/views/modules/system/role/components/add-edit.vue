@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 
-import { Status } from '@/utils/enum'
+import { Status } from '@enums'
 
 import { infoApi, createApi, updateApi } from '@/api/role'
 

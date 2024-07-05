@@ -4,8 +4,8 @@ import Sidebar from './components/sidebar.vue'
 import AddEdit from './components/add-edit.vue'
 import SetRole from './components/set-role.vue'
 
-import { clearJson, havePermission } from '@/utils'
-import { Status } from '@/utils/enum'
+import { clearJson, havePermission } from '@utils'
+import { Status } from '@enums'
 
 import { pageApi, deleteApi, setStatusApi, resetPasswordApi, exportApi } from '@/api/adminer'
 

@@ -1,6 +1,6 @@
 
 <script setup>
-import { clearJson } from '@/utils'
+import { clearJson } from '@utils'
 
 import { pageApi, exportApi } from '@/api/operate-log'
 

@@ -4,8 +4,8 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import Send from './components/send.vue'
 import Details from './components/details.vue'
 
-import { clearJson } from '@/utils'
-import { Status } from '@/utils/enum'
+import { clearJson } from '@utils'
+import { Status } from '@enums'
 
 import { pageApi, deleteApi, exportApi } from '@/api/mail'
 

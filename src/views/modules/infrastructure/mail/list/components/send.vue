@@ -1,8 +1,8 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 
-import { Status } from '@/utils/enum'
-import { isEmail } from '@/utils/regular'
+import { Status } from '@enums'
+import { isEmail } from '@utils/regular'
 
 import { selectApi } from '@/api/mail-template'
 

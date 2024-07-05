@@ -1,4 +1,4 @@
-import service from '@/utils/request'
+import service from '..'
 
 /**
  * 用户量统计

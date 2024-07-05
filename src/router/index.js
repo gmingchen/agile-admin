@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { ElMessage } from 'element-plus'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
-import { parseStr2Date, parseData2Tree } from '@/utils'
-import { MenuType } from '@/utils/enum'
-import Prompt from '@/utils/prompt'
+import { parseStr2Date, parseData2Tree } from '@utils'
+import { MenuType } from '@enums'
 import { useMenuStore } from '../stores/modules/menu'
 import { useRootStore } from '../stores/root'
 
@@ -44,11 +44,11 @@ const main = {
           useMenuStore().active = name
         } else {
           name = 'login'
-          new Prompt().warning({
+          ElMessage({
             message: '暂无可用菜单！',
             type: 'warning',
             duration: 3000
-          }, true)
+          })
           useRootStore().logout()
         }
         next({ name, replace: true })

@@ -1,8 +1,10 @@
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
 
-import { clearJson } from '@/utils'
-import { Status } from '@/utils/enum'
+import Integral from './components/integral.vue'
+
+import { clearJson } from '@utils'
+import { Status } from '@enums'
 
 import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/user'
 
@@ -14,6 +16,7 @@ const router = useRouter()
 
 const refForm = ref()
 const refTable = ref()
+const refIntegral = ref()
 
 const loading = ref(false)
 const visible = ref(false)
@@ -156,6 +159,18 @@ const detailsHandle = row => {
 }
 
 /**
+ * @description: 积分弹窗
+ * @param {*}
+ * @return {*}
+ */
+const integralHandle = row => {
+  visible.value = true
+  nextTick(() => {
+    refIntegral.value.init(row)
+  })
+}
+
+/**
  * @description: 导出
  * @param {*}
  * @return {*}
@@ -246,11 +261,32 @@ onBeforeMount(() => {
           show-overflow-tooltip />
         <el-table-column
           align="center"
+          label="生日"
+          prop="birthday"
+          width="160" />
+        <el-table-column
+          align="center"
           label="性别"
           prop="sex"
           width="80">
           <template v-slot="{ row }">
             <el-tag :type="row.sex_type">{{ row.sex_dict }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column
+          align="center"
+          label="收款码"
+          prop="payable"
+          width="80">
+          <template v-slot="{row}">
+            <el-image
+              v-if="row.payable"
+              class="height-50 width-50"
+              fit="cover"
+              :src="row.payable"
+              preview-teleported
+              :preview-src-list="[row.payable]" />
+            <span v-else>-</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -282,10 +318,10 @@ onBeforeMount(() => {
           width="160"
           show-overflow-tooltip />
         <el-table-column
-          v-permission="'user:delete'"
+          v-permission="'user:info|integral:create|user:delete'"
           align="center"
           label="操作"
-          width="110"
+          width="180"
           fixed="right">
           <template v-slot="{ row }">
             <el-button
@@ -294,6 +330,11 @@ onBeforeMount(() => {
               link
               @click="detailsHandle(row)">详情</el-button>
             <el-button
+              v-permission="'integral:create'"
+              type="primary"
+              link
+              @click="integralHandle(row)">积分奖惩</el-button>
+            <el-button
               v-permission="'user:delete'"
               type="danger"
               link
@@ -301,6 +342,7 @@ onBeforeMount(() => {
           </template>
         </el-table-column>
       </el-table>
+      <Integral ref="refIntegral" v-if="visible" />
     </template>
     <template #footer>
       <Page

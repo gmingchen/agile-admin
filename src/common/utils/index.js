@@ -1,4 +1,4 @@
-import { MAPPING } from '@/utils/constant'
+import { MAPPING } from '@constants'
 
 /**
  * @description: 生成UUID
@@ -201,19 +201,6 @@ export function havePermission(permission) {
 }
 
 /**
- * @description: 获取Api BaseUrl
- * @param {*} key
- * @return {*}
- * @author: gumingchen
- */
-export function getApiBaseUrl (env) {
-  const baseUrl = env.VITE_PROXY === 'true'
-    ? `/proxy${ MAPPING }`
-    : env.VITE_BASE_API + MAPPING
-  return baseUrl
-}
-
-/**
  * @description: hex 转 rgb
  * @param {*} color 颜色
  * @return {*}
@@ -340,4 +327,17 @@ export function blob2Json(blob) {
  */
 export function delay(ms = 200) {
   return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+/**
+ * 获取websock链接地址
+ */
+export function getWebsocketOrigin() {
+  let { protocol, host } = window.location
+  if (protocol === 'http:') {
+    protocol = `ws:`
+  } else if (protocol === 'https:') {
+    protocol = 'wss:'
+  }
+  return `${protocol}//${ host }`
 }

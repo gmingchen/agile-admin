@@ -4,8 +4,8 @@
  * @Email: 1240235512@qq.com
  * @Date: 2023-07-26 21:31:45
  */
-import service from '@/utils/request'
-import { download } from '@/utils'
+import service from '..'
+import { download } from '@utils'
 
 /**
  * @description: 分页列表

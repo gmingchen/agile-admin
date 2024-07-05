@@ -3,8 +3,8 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './add-edit.vue'
 
 import useModel from '@/hooks/model'
-import { UPDATE_MODEL_EVENT } from '@/utils/constant'
-import { havePermission } from '@/utils'
+import { UPDATE_MODEL_EVENT } from '@constants'
+import { havePermission } from '@utils'
 
 import { listApi, deleteApi } from '@/api/dict'
 

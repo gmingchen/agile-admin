@@ -3,7 +3,7 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
 
-import { havePermission } from '@/utils'
+import { havePermission } from '@utils'
 
 import { listApi, deleteApi } from '@/api/region'
 

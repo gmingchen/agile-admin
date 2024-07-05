@@ -2,9 +2,9 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 import useModel from '@/hooks/model'
-import { MenuType } from '@/utils/enum'
-import { UPDATE_MODEL_EVENT } from '@/utils/constant'
-import { havePermission, parseData2Tree } from '@/utils'
+import { MenuType } from '@enums'
+import { UPDATE_MODEL_EVENT } from '@constants'
+import { havePermission, parseData2Tree } from '@utils'
 import { VIRTUAL_ID_KEY } from '../index.js'
 
 import { listApi, deleteApi, dragApi } from '@/api/menu'

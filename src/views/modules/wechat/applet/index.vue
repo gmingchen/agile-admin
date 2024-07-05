@@ -2,7 +2,7 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
 
-import { clearJson, havePermission } from '@/utils'
+import { clearJson, havePermission } from '@utils'
 
 import { pageApi, deleteApi, exportApi, qrcodeApi } from '@/api/wechat-applet'
 

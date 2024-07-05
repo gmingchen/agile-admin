@@ -7,9 +7,9 @@ import { ElMessage } from 'element-plus'
 import Theme from '../theme/index.vue'
 import Notice from '../notice/index.vue'
 
-import { ThemeMode } from '@/utils/enum'
+import { ThemeMode } from '@enums'
 
-import { havePermission } from '@/utils'
+import { havePermission } from '@utils'
 
 const router = useRouter()
 const { isSupported, isFullscreen, toggle } = useFullscreen()

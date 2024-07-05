@@ -6,8 +6,8 @@ import IconSelectInput from '@/components/icon-select-input/index.vue'
 
 import useDict from '@/hooks/dict'
 
-import { havePermission } from '@/utils'
-import { MenuType, Status } from '@/utils/enum'
+import { havePermission } from '@utils'
+import { MenuType, Status } from '@enums'
 import { VIRTUAL_ID_KEY } from './index.js'
 
 import { infoApi, createApi, updateApi } from '@/api/menu'
@@ -234,10 +234,11 @@ onBeforeMount(() => {
             <el-form-item label="类型" prop="type">
               <el-radio-group v-model="form.type" :disabled="readonly" @change="clearRouterParams">
                 <el-radio-button
-                  :label="item.value"
-                  :disabled="buttonHandle(item.value)"
                   v-for="item in dict"
-                  :key="item.value">{{item.label}}</el-radio-button>
+                  :key="item.value"
+                  :value="item.value"
+                  :label="item.label"
+                  :disabled="buttonHandle(item.value)"></el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="组件名称（若为空则无法进行缓存）" prop="componentName" v-if="form.type == MenuType.ROUTER || form.type == MenuType.MENU">

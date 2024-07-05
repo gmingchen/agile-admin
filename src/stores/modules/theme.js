@@ -1,6 +1,6 @@
-import { ThemeMode } from '@/utils/enum'
-import { lighten, darken } from '@/utils'
-import { getTheme, setTheme, clearTheme } from '@/utils/storage'
+import { ThemeMode } from '@enums'
+import { lighten, darken } from '@utils'
+import { getTheme, setTheme, clearTheme } from '@utils/storage'
 
 // 默认布局
 const defaultLayout = {

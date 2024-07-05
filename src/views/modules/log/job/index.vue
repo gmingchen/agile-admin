@@ -7,7 +7,7 @@
  * @LastEditTime: 2023-05-23 20:37:22
 -->
 <script setup>
-import { clearJson } from '@/utils'
+import { clearJson } from '@utils'
 
 import { pageApi, exportApi } from '@/api/job-log'
 

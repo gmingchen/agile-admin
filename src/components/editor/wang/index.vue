@@ -5,7 +5,7 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { toolOptions, editorOptions } from './config.js'
 
 import useModel from '@/hooks/model'
-import { UPDATE_MODEL_EVENT, AUTH_KEY } from '@/utils/constant'
+import { UPDATE_MODEL_EVENT, AUTH_KEY } from '@constants'
 
 const emits = defineEmits([UPDATE_MODEL_EVENT, 'created', 'change', 'focus', 'blur', 'destroyed'])
 const props = defineProps({

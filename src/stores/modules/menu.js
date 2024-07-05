@@ -1,11 +1,11 @@
 import { adminerMenuApi } from '@/api/auth'
 import { useTabsStore } from './tabs'
 
-import { getLoad, setLoad, clearLoad, getMenuAndPermission, setMenuAndPermission, clearMenuAndPermission } from '@/utils/storage'
-import { MENU_KEY, PERMISSION_KEY } from '@/utils/constant'
-import { MenuType } from '@/utils/enum'
-import { parseData2Tree, clearJson } from '@/utils'
-import { findKeepaliveName } from '@/utils/cache'
+import { getLoad, setLoad, clearLoad, getMenuAndPermission, setMenuAndPermission, clearMenuAndPermission } from '@utils/storage'
+import { MENU_KEY, PERMISSION_KEY } from '@constants'
+import { MenuType } from '@enums'
+import { parseData2Tree, clearJson } from '@utils'
+import { findKeepaliveName } from '@utils/cache'
 
 const load = getLoad()
 const data = getMenuAndPermission()

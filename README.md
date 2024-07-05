@@ -122,6 +122,11 @@ vue3-src
 │  ├─font 字体
 │  └─sass 样式
 │ 
+├─common 通用
+│  ├─constants 常量
+│  ├─enums 枚举
+│  └─utils 工具
+│ 
 ├─components 通用组件
 │  ├─global 全局组件
 │  │  ├─container 布局组件
@@ -146,6 +151,7 @@ vue3-src
 ├─directive 全局自定义指令
 │ 
 ├─hooks 钩子
+│  ├─bind-exposed 导出绑定
 │  ├─dict 字典
 │  └─model 双向绑定
 │ 
@@ -163,17 +169,6 @@ vue3-src
 │  │  └─websocket 消息推送模块
 │  ├─index 动态加载模块
 │  └─root 根模块
-│ 
-├─utils 工具模块
-│  ├─constant 常量
-│  ├─enum 枚举
-│  ├─index 工具
-│  ├─prompt 单次提示处理类
-│  ├─regular 正则
-│  ├─request axios二次封装
-│  ├─storage 本地缓存工具
-│  ├─uploader 分片上传
-│  └─websocket websocket对象封装
 │
 ├─views 视图模块
 │  ├─constant 通用页面
@@ -219,7 +214,7 @@ npm run build:test  # 测试环境
 ```
 
 ## 在线预览
-<a href="http://admin.gumingchen.icu">
+<a href="https://admin.gumingchen.icu">
   <img src="https://img.shields.io/badge/点这里-brightgreen.svg" />
 </a>
 ```
@@ -294,26 +289,18 @@ npm run build:test  # 测试环境
 <table>
   <tr align="center">
     <td>微信交流群</td>
-    <td>公众号</td>
-    <td>小程序</td>
     <td>微信</td>
-    <td>QQ</td>
+    <td>公众号</td>
   </tr>
   <tr>
     <td>
-      <img src="https://admin.gumingchen.icu/file/static/wechat-group-qr-code.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
-    </td>
-    <td>
-      <img src="https://admin.gumingchen.icu/file/static/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
-    </td>
-    <td>
-      <img src="https://admin.gumingchen.icu/file/static/wechat-applet-qr-code.jpg" width="200px" title="小程序" alt="小程序:叫个羊毛" />
+      <img src="https://admin.gumingchen.icu/file/static/align-admin-wechat-group.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
     </td>
     <td>
       <img src="https://admin.gumingchen.icu/file/static/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
     </td>
     <td>
-      <img src="https://admin.gumingchen.icu/file/static/qq-qr-code.jpg" width="200px" title="QQ" alt="QQ:1240235512" />
+      <img src="https://admin.gumingchen.icu/file/static/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
     </td>
   </tr>
 </table>
@@ -365,13 +352,9 @@ npm run build:test  # 测试环境
 
 是多企业管理后台基础功能 [base](https://github.com/gmingchen/agile-admin/tree/base) 分支的后端代码，基于 __`java`__ 的 __`springboot`__
 
-[vue3-element-plus-im](https://github.com/gmingchen/vue3-element-plus-im)
+[vue3-element-plus-im](https://github.com/gmingchen/chatterbox)
 
 是一个即时聊天系统，基于 [vue3](https://github.com/vuejs/vue-next) 、 [element-plus](https://github.com/element-plus/element-plus) 实现。内置了好友私聊功能。
-
-[java-spring-boot-im](https://github.com/gmingchen/java-spring-boot-im)
-
-是[vue3-element-plus-im](https://github.com/gmingchen/vue3-element-plus-im)即时聊天系统的 __`java`__ 后端代码，__`springboot`__ 基于 [netty](https://github.com/netty/netty) 、 [shiro](https://github.com/apache/shiro) 实现。
 
 [node-server](https://github.com/gmingchen/node-server)
 是一个基于 node 开发的后端服务框架，只要你会 SQL 就也可以写接口了，再也不用看后端的脸色了。

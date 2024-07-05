@@ -1,8 +1,8 @@
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
 
-import { clearJson, parseDate2Str, havePermission } from '@/utils'
-import { NoticeStatus } from '@/utils/enum'
+import { clearJson, parseDate2Str, havePermission } from '@utils'
+import { NoticeStatus } from '@enums'
 
 import { pageApi, statusApi, deleteApi } from '@/api/adminer-notice'
 

@@ -2,8 +2,8 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
 
-import { clearJson } from '@/utils'
-import { Whether } from '@/utils/enum'
+import { clearJson } from '@utils'
+import { Whether } from '@enums'
 
 import { configPageApi, configDeleteApi, configSetMasterApi, configExportApi } from '@/api/file'
 

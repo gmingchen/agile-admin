@@ -1,7 +1,7 @@
 <script setup>
 import Details from './components/details.vue'
 
-import { clearJson } from '@/utils'
+import { clearJson } from '@utils'
 
 import { pageApi, exportApi } from '@/api/error-log'
 
@@ -129,7 +129,7 @@ onBeforeMount(() => {
         ref="refTable"
         v-loading="loading"
         :data="list"
-        :tooltip-options="{'showArrow': false, 'appendTo' : 'el-table__row'}"
+        :tooltip-options="{'showArrow': true, 'appendTo': '.el-table__row'}"
         border>
         <el-table-column
           align="center"

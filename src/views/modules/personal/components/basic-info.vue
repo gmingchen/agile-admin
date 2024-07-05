@@ -3,8 +3,8 @@ import { ElMessage } from 'element-plus'
 
 import UploadImage from '@/components/upload-image/index.vue'
 
-import { isEmail, isMobile } from '@/utils/regular'
-import { havePermission } from '@/utils'
+import { isEmail, isMobile } from '@utils/regular'
+import { havePermission } from '@utils'
 
 import { updateBasicApi } from '@/api/auth'
 

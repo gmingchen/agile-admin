@@ -3,8 +3,8 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import AddEdit from './components/add-edit.vue'
 import SetDataPermission from './components/set-data-permission.vue'
 
-import { clearJson, havePermission, parseData2Tree } from '@/utils'
-import { Status } from '@/utils/enum'
+import { clearJson, havePermission, parseData2Tree } from '@utils'
+import { Status } from '@enums'
 
 import { listApi, deleteApi, setStatusApi, exportApi } from '@/api/dept'
 

@@ -7,7 +7,7 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 
-import { Status } from '@/utils/enum'
+import { Status } from '@enums'
 
 import { infoApi, createApi, updateApi } from '@/api/data-source'
 
@@ -63,7 +63,6 @@ const init = async (id) => {
  * @return {*}
  */
 const submit = () => {
-  console.log(encodeURIComponent('jdbc:mysql://139.196.182.46:3306/agile-admin-dev?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false'))
   refForm.value.validate(async valid => {
     if (valid) {
       const params = { ...form, url: encodeURIComponent(form.url) }

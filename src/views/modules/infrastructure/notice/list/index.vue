@@ -4,8 +4,8 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import TenantSidebar from '@/components/tenant-sidebar/index.vue'
 import Send from './components/send.vue'
 
-import { clearJson } from '@/utils'
-import { Status } from '@/utils/enum'
+import { clearJson } from '@utils'
+import { Status } from '@enums'
 
 import { pageApi, deleteApi, exportApi } from '@/api/notice'
 

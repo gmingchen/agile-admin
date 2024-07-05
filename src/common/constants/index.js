@@ -1,7 +1,9 @@
-import { ContentType, AuthKey, StorageType, SuccessCode, RequestMapping, ModelBinding } from '@/utils/enum'
+import { ContentType, AuthKey, StorageType, SuccessCode, RequestMapping, WebsocketMapping, ModelBinding } from '@enums'
 
 // request Mapping
 export const MAPPING = RequestMapping.SLIPPER
+// websocket Mapping
+export const WEBSOCKET_MAPPING = MAPPING + WebsocketMapping.WEBSOCKET
 // 请求数据类型
 export const CONTENT_TYPE = ContentType.JSON
 // 请求超时时长

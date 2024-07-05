@@ -1,5 +1,8 @@
-import WebsocketClass from '@/utils/websocket'
+import { getWebsocketOrigin } from '@utils'
+import WebsocketClass from '@utils/websocket'
+import { WEBSOCKET_MAPPING } from '@constants'
 import { useAuthStore } from './auth'
+
 
 export const useWebsocketStore = defineStore('websocket', {
   state: () => ({
@@ -13,7 +16,7 @@ export const useWebsocketStore = defineStore('websocket', {
      */
     init() {
       if (!this.socket) {
-        const url = import.meta.env.VITE_WS_URL + useAuthStore().token
+        const url = `${ getWebsocketOrigin() }${ WEBSOCKET_MAPPING }/${ useAuthStore().token }` 
         this.socket = new WebsocketClass(url, data => {
           this.response = data
           if (data.data) {
