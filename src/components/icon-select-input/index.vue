@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 import useModel from '@/hooks/model'
-import { UPDATE_MODEL_EVENT, CONTENT_TYPE, TIME_OUT } from '@/utils/constant'
+import { UPDATE_MODEL_EVENT, CONTENT_TYPE, TIME_OUT } from '@constants'
 
 const emits = defineEmits([UPDATE_MODEL_EVENT])
 const props = defineProps({

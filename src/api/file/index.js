@@ -1,6 +1,7 @@
-import service from '@/utils/request'
-import { parseJson2Param, getApiBaseUrl, download } from '@/utils'
-import { ContentType } from '@/utils/enum'
+import service from '..'
+import { parseJson2Param, download } from '@utils'
+import { ContentType } from '@enums'
+import { MAPPING } from '@constants'
 
 /**
  * 配置分页
@@ -126,7 +127,7 @@ export function uploadUrlApi(params) {
     method: 'post',
     params: params
   }
-  result = `${ getApiBaseUrl(import.meta.env) + options.url }${ options.params ? parseJson2Param(options.params) : '' }`
+  result = `${ MAPPING + options.url }${ options.params ? parseJson2Param(options.params) : '' }`
   return result
 }
 

@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 
-import { getHuman, setHuman } from '@/utils/storage'
+import { getHuman, setHuman } from '@utils/storage'
 
 const refForm = ref()
 const visible = ref(false)

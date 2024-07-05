@@ -1,7 +1,7 @@
 import { loginApi, logoutApi } from '@/api/auth'
 
-import { getAuth, setAuth, clearAuth } from '@/utils/storage'
-import { clearJson } from '@/utils'
+import { getAuth, setAuth, clearAuth } from '@utils/storage'
+import { clearJson } from '@utils'
 
 const auth = getAuth()
 

@@ -3,8 +3,8 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 
 import Details from './components/details.vue'
 
-import { clearJson } from '@/utils'
-import { Status, OperationalStatus } from '@/utils/enum'
+import { clearJson } from '@utils'
+import { Status, OperationalStatus } from '@enums'
 
 import { pageApi, deleteApi, backupApi, recoveryApi, exportApi } from '@/api/backup'
 

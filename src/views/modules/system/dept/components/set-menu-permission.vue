@@ -1,7 +1,7 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 
-import { parseData2Tree } from '@/utils'
+import { parseData2Tree } from '@utils'
 
 import { infoApi, setMenuPermissionApi } from '@/api/role'
 
@@ -42,7 +42,6 @@ const getMenuList = () => {
     parentId: 0,
     children: menuStore.allMenus
   }]
-  console.log(menuStore.allMenus)
   menus.value = list
 }
 

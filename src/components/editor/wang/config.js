@@ -1,6 +1,6 @@
+import { ElMessage } from 'element-plus'
 import { uploadUrlApi } from '@/api/file'
-import { SUCCESS_CODE } from '@/utils/constant'
-import Prompt from '@/utils/prompt'
+import { SUCCESS_CODE } from '@constants'
 
 // toolbar工具栏的工具选项（默认展示全部）
 export const toolOptions = {
@@ -117,7 +117,7 @@ export const editorOptions = {
           const { url, original } = data
           insertFn(url, original, url)
         } else {
-          new Prompt().warning({
+          ElMessage({
             message: message,
             type: 'warning',
             duration: 3000
@@ -148,7 +148,7 @@ export const editorOptions = {
           const { url, original } = data
           insertFn(url, original, url)
         } else {
-          new Prompt().warning({
+          ElMessage({
             message: message,
             type: 'warning',
             duration: 3000

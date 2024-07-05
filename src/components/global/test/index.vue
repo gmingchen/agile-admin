@@ -7,13 +7,11 @@
 </template>
 
 <script setup>
+import useBindExposed from '@/hooks/bind-exposed'
+
 const refinput = ref()
 
 onMounted(() => {
-  const instance = getCurrentInstance()
-  const entries = Object.entries(refinput.value.$.exposed)
-  for (const [key, value] of entries) {
-    instance.exposed[key] = value
-  }
+  useBindExposed(refinput)
 })
 </script>

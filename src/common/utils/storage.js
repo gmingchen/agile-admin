@@ -7,8 +7,8 @@
  * @LastEditTime: 2021-04-30 14:01:54
  */
 import cookie from 'js-cookie'
-import { AUTH_KEY, AUTH_STORAGE, LOAD_MENU_KEY, MENU_KEY, MENU_STORAGE, PERMISSION_KEY, THEME_KEY, THEME_MODE_KEY, THEME_STORAGE, LAYOUT_KEY } from '@/utils/constant'
-import { StorageType } from '@/utils/enum'
+import { AUTH_KEY, AUTH_STORAGE, LOAD_MENU_KEY, MENU_KEY, MENU_STORAGE, PERMISSION_KEY, THEME_KEY, THEME_MODE_KEY, THEME_STORAGE, LAYOUT_KEY } from '@constants'
+import { StorageType } from '@enums'
 
 /**
  * @description: 本地存储、获取、清除

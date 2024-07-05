@@ -1,9 +1,3 @@
-/*
- * @Description: 数据源
- * @Author: 拖孩
- * @Email: 1240235512@qq.com
- * @Date: 2023-06-16 11:22:49
- */
 import service from '..'
 import { download } from '@utils'
 
@@ -14,7 +8,7 @@ import { download } from '@utils'
  */
 export function pageApi(params) {
   return service({
-    url: '/admin/datasource/page',
+    url: '/admin/panel/page',
     method: 'get',
     params: params
   })
@@ -27,7 +21,7 @@ export function pageApi(params) {
  */
 export function infoApi(params) {
   return service({
-    url: '/admin/datasource/info',
+    url: '/admin/panel/info',
     method: 'get',
     params
   })
@@ -40,7 +34,7 @@ export function infoApi(params) {
  */
 export function createApi(data) {
   return service({
-    url: '/admin/datasource/create',
+    url: '/admin/panel/create',
     method: 'post',
     data
   })
@@ -53,7 +47,7 @@ export function createApi(data) {
  */
 export function updateApi(data) {
   return service({
-    url: '/admin/datasource/update',
+    url: '/admin/panel/update',
     method: 'post',
     data
   })
@@ -66,7 +60,7 @@ export function updateApi(data) {
  */
 export function deleteApi(data) {
   return service({
-    url: '/admin/datasource/delete',
+    url: '/admin/panel/delete',
     method: 'post',
     data
   })
@@ -79,22 +73,9 @@ export function deleteApi(data) {
  */
 export function setStatusApi(data) {
   return service({
-    url: '/admin/datasource/status',
+    url: '/admin/panel/status',
     method: 'post',
     data
-  })
-}
-
-/**
- * @description: 选择列表
- * @param {*}
- * @return {*}
- */
-export function selectApi(params) {
-  return service({
-    url: '/admin/datasource/select',
-    method: 'get',
-    params
   })
 }
 
@@ -104,7 +85,7 @@ export function selectApi(params) {
  */
 export async function exportApi(params) {
   const r = await service({
-    url: '/admin/datasource/export',
+    url: '/admin/panel/export',
     method: 'get',
     responseType: 'blob',
     params

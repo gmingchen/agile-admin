@@ -1,5 +1,5 @@
-import service from '@/utils/request'
-import { download } from '@/utils'
+import service from '..'
+import { download } from '@utils'
 
 /**
  * 配置分页

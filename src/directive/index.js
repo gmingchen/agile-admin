@@ -1,6 +1,6 @@
 export default {
   install: function (app) {
-    const directives = import.meta.globEager('./**/index.js')
+    const directives = import.meta.glob('./**/index.js', { eager: true })
     for (const key in directives) {
       if (key === './index.js') return
       const directive = directives[key]

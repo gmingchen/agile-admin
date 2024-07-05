@@ -1,4 +1,4 @@
-import { havePermission } from '@/utils'
+import { havePermission } from '@utils'
 /**
  * @description: 权限控制指令
  * @param {*}

@@ -1,8 +1,8 @@
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
 
-import { clearJson, formatStorageUnit } from '@/utils'
-import { AUTH_KEY, SUCCESS_CODE } from '@/utils/constant'
+import { clearJson, formatStorageUnit } from '@utils'
+import { AUTH_KEY, SUCCESS_CODE } from '@constants'
 
 import { pageApi, deleteApi, uploadUrlApi } from '@/api/file'
 

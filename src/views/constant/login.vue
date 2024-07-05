@@ -4,7 +4,7 @@ import { onBeforeRouteUpdate, loadRouteLocation } from 'vue-router'
 
 import Identify from './identify.vue'
 
-import { generateUUID } from '@/utils'
+import { generateUUID } from '@utils'
 import { captchaApi } from '@/api/auth'
 import { onActivated, watch } from 'vue'
 
@@ -58,9 +58,9 @@ watch(() => authStore.token, (newVal, _oldVal) => {
  * 登录表单提交
  */
 const submit = () => {
-  if (!refIdentify.value.init()) {
-    return
-  }
+  // if (!refIdentify.value.init()) {
+  //   return
+  // }
   refForm.value.validate(valid => {
     if (valid) {
       loading.value = true
@@ -170,7 +170,7 @@ onBeforeMount(() => {
           @click="submit()">登录</el-button>
       </el-form>
     </el-card>
-    <Identify ref="refIdentify" />
+    <!-- <Identify ref="refIdentify" /> -->
   </div>
 </template>
 

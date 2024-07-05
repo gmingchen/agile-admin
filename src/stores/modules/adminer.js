@@ -1,4 +1,4 @@
-import { clearJson } from '@/utils/index'
+import { clearJson } from '@utils'
 
 import { adminerInfoApi, logoutApi } from '@/api/auth'
 

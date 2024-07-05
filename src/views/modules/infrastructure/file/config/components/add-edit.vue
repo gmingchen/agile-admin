@@ -1,8 +1,8 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 
-import { FileStorageType, Whether } from '@/utils/enum'
-import { isDomain, isURL } from '@/utils/regular'
+import { FileStorageType, Whether } from '@enums'
+import { isDomain, isURL } from '@utils/regular'
 
 import { configInfoApi, configCreateApi, configUpdateApi } from '@/api/file'
 

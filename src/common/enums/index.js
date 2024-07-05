@@ -26,6 +26,10 @@ export const RequestMapping = {
   SLIPPER: '/slipper',
   API: '/api'
 }
+// websocket mapping
+export const WebsocketMapping = {
+  WEBSOCKET: '/websocket',
+}
 // 双向绑定名
 export const ModelBinding = {
   MODEL_VALUE: 'update:modelValue',
@@ -98,5 +102,12 @@ export const OperationalStatus = {
   FAIL: 0,
   SUCCESS: 1,
   RUNNING: 2
+}
+// 审核状态
+export const ReviewStatus = {
+  ING: 0,
+  PASS: 1,
+  REJECT: 2,
+  REVOKE: 3
 }
 

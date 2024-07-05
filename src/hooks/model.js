@@ -1,4 +1,4 @@
-import { MODEL_NAME, UPDATE_MODEL_EVENT } from '@/utils/constant'
+import { MODEL_NAME, UPDATE_MODEL_EVENT } from '@constants'
 
 export default function (props, key) {
   const vm = getCurrentInstance().proxy

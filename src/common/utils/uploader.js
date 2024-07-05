@@ -87,7 +87,6 @@ export default class Uploader {
       if (failedRequests.length) {
         failedRequests = await this.requestAll(failedRequests)
       }
-      console.log(failedRequests)
       if (!failedRequests.length) {
         const params = {
           md5: this.md5,
@@ -97,13 +96,11 @@ export default class Uploader {
           if (r) {
             this.success(r.data)
           } else {
-            console.log(1)
             this.fail('上传失败')
             deleteSliceApi({ md5: this.md5 })
           }
         })
       } else {
-        console.log(2)
         this.fail('上传失败')
         deleteSliceApi({ md5: this.md5 })
       }
@@ -112,7 +109,6 @@ export default class Uploader {
         if (r) {
           this.success()
         } else {
-          console.log(3)
           this.fail('上传失败')
           deleteSliceApi({ md5: this.md5 })
         }

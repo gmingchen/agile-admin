@@ -2,9 +2,15 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import VueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
+const aliasPath = (path) => {
+  return fileURLToPath(new URL(path, import.meta.url))
+}
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -13,6 +19,8 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
+      vueJsx(),
+      VueDevTools(),
       AutoImport({
         resolvers: [ElementPlusResolver()],
         imports: ['vue', 'vue-router', 'pinia'],
@@ -38,8 +46,11 @@ export default defineConfig(({ mode }) => {
     resolve: {
       // 路径别名
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-        '@stores': fileURLToPath(new URL('./src/stores/modules', import.meta.url))
+        '@': aliasPath('./src'),
+        '@utils': aliasPath('./src/common/utils'),
+        '@enums': aliasPath('./src/common/enums'),
+        '@constants': aliasPath('./src/common/constants'),
+        '@stores': aliasPath('./src/stores/modules'),
       }
     },
     css: {
@@ -63,12 +74,16 @@ export default defineConfig(({ mode }) => {
       // 自动打开浏览器。
       open: false,
       // 代理。
-      proxy: env.VITE_APP_PROXY === 'false' ? null : {
-        '^/proxy': {
-          target: 'http://api.admin.gumingchen.icu',
+      proxy: {
+        '^/slipper/websocket': {
+          target: 'https://api.admin.gumingchen.icu',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/proxy/, '/')
-        }
+          ws: true
+        },
+        '^/slipper': {
+          target: 'https://api.admin.gumingchen.icu',
+          changeOrigin: true,
+        },
       },
       // 为开发服务器配置 CORS。
       cors: true
@@ -80,7 +95,7 @@ export default defineConfig(({ mode }) => {
       // 决定是否自动注入 module preload 的 polyfill。
       polyfillModulePreload: true,
       // 指定输出路径（相对于 项目根目录).
-      outDir: 'admin',
+      outDir: 'dist',
       // 指定生成静态资源的存放路径（相对于 build.outDir）。
       assetsDir: 'assets',
       // 小于此阈值的导入或引用资源将内联为 base64 编码

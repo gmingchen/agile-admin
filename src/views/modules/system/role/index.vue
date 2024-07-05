@@ -4,8 +4,8 @@ import AddEdit from './components/add-edit.vue'
 import SetMenuPermission from './components/set-menu-permission.vue'
 import SetDataPermission from './components/set-data-permission.vue'
 
-import { clearJson, havePermission } from '@/utils'
-import { Status } from '@/utils/enum'
+import { clearJson, havePermission } from '@utils'
+import { Status } from '@enums'
 
 import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/role'
 

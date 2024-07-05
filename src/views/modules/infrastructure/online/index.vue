@@ -3,7 +3,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 
 import TenantSidebar from '@/components/tenant-sidebar/index.vue'
 
-import { Status } from '@/utils/enum'
+import { Status } from '@enums'
 
 import { pageApi, logoutApi } from '@/api/online'
 
