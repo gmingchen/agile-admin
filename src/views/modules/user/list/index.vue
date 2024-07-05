@@ -159,18 +159,6 @@ const detailsHandle = row => {
 }
 
 /**
- * @description: 积分弹窗
- * @param {*}
- * @return {*}
- */
-const integralHandle = row => {
-  visible.value = true
-  nextTick(() => {
-    refIntegral.value.init(row)
-  })
-}
-
-/**
  * @description: 导出
  * @param {*}
  * @return {*}
@@ -329,11 +317,6 @@ onBeforeMount(() => {
               type="primary"
               link
               @click="detailsHandle(row)">详情</el-button>
-            <el-button
-              v-permission="'integral:create'"
-              type="primary"
-              link
-              @click="integralHandle(row)">积分奖惩</el-button>
             <el-button
               v-permission="'user:delete'"
               type="danger"
