@@ -1,8 +1,6 @@
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
 
-import Integral from './components/integral.vue'
-
 import { clearJson } from '@utils'
 import { Status } from '@enums'
 
