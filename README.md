@@ -290,19 +290,23 @@ npm run build:test  # 测试环境
 `①群已满(500人)，可以先进②群，有空位后在加①群。若二维码失效可以加微信联系作者！`
 <table>
   <tr align="center">
-    <td>微信交流群</td>
-    <td>微信</td>
     <td>公众号</td>
+    <td>个人微信</td>
+    <td>微信交流群</td>
+    <td>摸鱼群</td>
   </tr>
   <tr>
     <td>
-      <img src="https://admin.gumingchen.icu/file/static/align-admin-wechat-group.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
+      <img src="https://admin.gumingchen.icu/file/static/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
     </td>
     <td>
       <img src="https://admin.gumingchen.icu/file/static/wechat-qr-code-1.jpg" width="200px" title="微信" alt="微信:Gy1240235512" />
     </td>
     <td>
-      <img src="https://admin.gumingchen.icu/file/static/official-account-qr-code.jpg" width="200px" title="公众号" alt="公众号:loafer-man" />
+      <img src="https://admin.gumingchen.icu/file/static/align-admin-wechat-group.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
+    </td>
+    <td>
+      <img src="https://admin.gumingchen.icu/file/static/fish.jpg?time=1" width="200px" title="微信交流群" alt="微信交流群:124371554" />
     </td>
   </tr>
 </table>
