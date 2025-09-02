@@ -1,49 +1,33 @@
-<script setup>
-import Classic from './components/classic/index.vue'
-import Subfield from './components/subfield/index.vue'
-
-const route = useRoute()
-
-const menuStore = useMenuStore()
-const themeStore = useThemeStore()
-
-const menuLayoutMode = computed(() => themeStore.layout.menuLayoutMode)
-
-const { active } = storeToRefs(menuStore)
-
-const component = computed(() => {
-  let result = ''
-  switch (menuLayoutMode.value) {
-    case 1:
-      result = Classic
-      break
-    case 2:
-      result = Subfield
-      break
-  }
-  return result
-})
-
-/**
- * @description: 路由变化事件
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-const routeHandle = argRoute => {
-  const name = argRoute.name
-  active.value = name
-}
-
-watchEffect(() => {
-  routeHandle(route)
-})
-</script>
-
 <template>
-  <component :is="component" />
+  <div :class="n.b()">
+    <div v-if="$slots.top" :class="n.e('top')">
+      <slot name="top"></slot>
+    </div>
+    <el-scrollbar class="f_f-1">
+      <slot></slot>
+    </el-scrollbar>
+  </div>
 </template>
 
-<style lang="scss" scoped>
+<script setup>
+import { useNamespace } from '@/hooks';
+const n = useNamespace('sidebar')
+</script>
 
+<style lang="scss" scoped>
+@use '@/assets/sass/bem.scss' as *;
+@include b(sidebar) {
+  background-color: var(--sidebar-background-color);
+  background-color: var(--sidebar-background-color);
+  box-shadow: var(--el-box-shadow-light);
+  display: flex;
+  flex-direction: column;
+
+  @include e(top) {
+    height: var(--headbar-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 </style>

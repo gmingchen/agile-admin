@@ -1,0 +1,22 @@
+:root {
+  --color-primary: #409eff;
+  --color-success: #67c23a;
+  --color-warning: #e6a23c;
+  --color-danger: #f56c6c;
+  --color-error: #f56c6c;
+  --color-info: #909399;
+
+  --headbar-height: 50px;
+  --headbar-background-color: white;
+  --sidebar-background-color: white;
+  --sidebar-menu-width: 200px;
+  --content-background-color: #f1f4f6;
+  --container-background-color: white;
+}
+
+html.dark {
+  --headbar-background-color: var(--el-bg-color);
+  --sidebar-background-color: var(--el-bg-color);
+  --content-background-color: #222222;
+  --container-background-color: var(--el-bg-color);
+}

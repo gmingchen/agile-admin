@@ -4,7 +4,7 @@
  * @return {*}
  * @author: gumingchen
  */
-export function isInteger(input) {
+export const isInteger = input => {
   const reg = /^-?[1-9]\d*$/
   return reg.test(input)
 }
@@ -15,7 +15,7 @@ export function isInteger(input) {
  * @return {*}
  * @author: gumingchen
  */
-export function isPositiveInteger(input) {
+export const isPositiveInteger = input => {
   const reg = /^[1-9]\d*$/
   return reg.test(input)
 }
@@ -26,7 +26,7 @@ export function isPositiveInteger(input) {
  * @return {*}
  * @author: gumingchen
  */
-export function isNegtiveInteger(input) {
+export const isNegtiveInteger = input => {
   const reg = /^-[1-9]\d*$/
   return reg.test(input)
 }
@@ -37,7 +37,7 @@ export function isNegtiveInteger(input) {
  * @return {*}
  * @author: gumingchen
  */
-export function isTwoDecimal(input) {
+export const isTwoDecimal = input => {
   const reg = /^-?\d*(\.\d{1,2})?$/
   return reg.test(input)
 }
@@ -48,7 +48,7 @@ export function isTwoDecimal(input) {
  * @return {*}
  * @author: gumingchen
  */
-export function isEmail(input) {
+export const isEmail = input => {
   const reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/
   return reg.test(input)
 }
@@ -59,7 +59,7 @@ export function isEmail(input) {
  * @return {*}
  * @author: gumingchen
  */
-export function isURL(input) {
+export const isURL = input => {
   const reg = /^http[s]?:\/\/.*/
   return reg.test(input)
 }
@@ -70,7 +70,7 @@ export function isURL(input) {
  * @return {*}
  * @author: gumingchen
  */
-export function isDomain(input) {
+export const isDomain = input => {
   const reg = /^http[s]?:\/\/[a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+$/
   return reg.test(input)
 }
@@ -81,7 +81,7 @@ export function isDomain(input) {
  * @return {*}
  * @author: gumingchen
  */
-export function isPort(input) {
+export const isPort = input => {
   const reg = /^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/
   return reg.test(input)
 }
@@ -90,7 +90,7 @@ export function isPort(input) {
  * 手机号码
  * @param {*} input
  */
-export function isMobile(input) {
+export const isMobile = input => {
   const reg = /^1[0-9]{10}$/
   return reg.test(input)
 }
@@ -99,7 +99,7 @@ export function isMobile(input) {
  * 用户名
  * @param {*} input
  */
-export function isUsername(input) {
+export const isUsername = input => {
   const reg = /^[a-zA-Z]\w{3,11}$/
   return reg.test(input)
 }
@@ -108,7 +108,7 @@ export function isUsername(input) {
  * 密码
  * @param {*} input
  */
-export function isPassword(input) {
+export const isPassword = input => {
   const reg = /^[a-zA-Z0-9_-]{8,16}$/
   return reg.test(input)
 }
@@ -117,7 +117,7 @@ export function isPassword(input) {
  * json 字符串
  * @param {*} input
  */
-export function isJson(input) {
+export const isJson = input => {
   if (typeof input === 'string') {
     try {
       const obj = JSON.parse(input)
@@ -131,4 +131,3 @@ export function isJson(input) {
     }
   }
 }
-

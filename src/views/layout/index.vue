@@ -1,62 +1,62 @@
 <template>
-  <div class="layout-container height-full flex overflow-auto">
-    <Sidebar v-if="menuLayoutMode !== 3" />
-    <component :is="component" class="navigation-container">
+  <div :class="n.b()">
+    <Frame :mode="mode">
       <template #headbar>
-        <Headbar />
+        <Headbar :class="n.e('headbar')">
+          <template #left>
+            <MenuCollapse></MenuCollapse>
+          </template>
+        </Headbar>
       </template>
-      <template #tabsbar v-if="showTabs">
-        <Tabsbar />
+      <template #sidebar>
+        <Sidebar :class="n.e('sidebar')">
+          <template #top>
+            <Brand :collapse="collapse"></Brand>
+          </template>
+          <Menu :data="showMenus" :active="active" :collapse="collapse"></Menu>
+        </Sidebar>
       </template>
-      <template #default v-if="!refresh">
-        <View class="margin-20 flex-item_f-1" transition="left-in-right-out" rename />
-      </template>
-    </component>
-    <Websocket />
+      <View v-if="!refresh" transition="left-in-right-out"></View>
+    </Frame>
   </div>
 </template>
 
 <script setup>
-import Sidebar from './components/sidebar/index.vue'
-import Headbar from './components/headbar/index.vue'
-import Tabsbar from './components/tabsbar/index.vue'
-import NavigationActive from './components/navigation/active/index.vue'
-import NavigationFixed from './components/navigation/fixed/index.vue'
-import Websocket from './components/websocket/index.vue'
+import { View } from '@/components'
+import { Frame, Headbar, Sidebar, Brand, Menu, MenuCollapse } from './components'
+import { useMenuStore, useSystemStore } from '@/stores'
+import { useNamespace } from '@/hooks';
+
+const n = useNamespace('layout')
 
 const route = useRoute()
 
-const themeStore = useThemeStore()
+const menuStore = useMenuStore()
+const { showMenus, active, collapse, } = storeToRefs(menuStore)
+const systemStore = useSystemStore()
+const { refresh } = storeToRefs(systemStore)
 
-const navigationMode = computed(() => themeStore.layout.navigationMode)
-const showTabs = computed(() => {
-  return themeStore.layout.showTabs
+watchEffect(() => {
+  active.value = route.name + ''
 })
-const refresh = computed(() => {
-  return themeStore.refresh
-})
-const menuLayoutMode = computed(() => themeStore.layout.menuLayoutMode)
 
-const component = computed(() => {
-  let result = ''
-  switch (navigationMode.value) {
-    case 1:
-      result = NavigationFixed
-      break
-    case 2:
-      result = NavigationActive
-      break
-  }
-  return result
-})
+const mode = ref('horizontal')
 </script>
 
-<style lang="scss">
-.layout-container {
-  z-index: 0;
-  background-color: var(--gl-content-background-color);
-  .navigation-container {
-    z-index: 0;
+<style lang="scss" scoped>
+@use '@/assets/sass/bem.scss' as *;
+@include b(layout) {
+  height: 100%;
+  overflow: hidden;
+  @include e(headbar) {
+    z-index: 2;
+  }
+  @include e(sidebar) {
+    z-index: 3;
+  }
+
+  .el-menu:not(.el-menu--collapse) {
+    width: var(--sidebar-menu-width);
   }
 }
 </style>

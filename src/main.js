@@ -3,16 +3,14 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import pinia from './stores'
+import directive from './directive' // 自定义指令
 
-import '@/assets/sass/index.scss' // 全局样式
-import components from '@/components/global/index' // 全局自定义组件
-import Directive from '@/directive' // 自定义指令
+import 'nprogress/nprogress.css'
+import '@/assets/sass/index.scss'
 
 const app = createApp(App)
 
-app.use(router)
-  .use(pinia)
-  .use(components)
-  .use(Directive)
+app.use(pinia)
+  .use(router)
+  .use(directive)
   .mount('#app')
-

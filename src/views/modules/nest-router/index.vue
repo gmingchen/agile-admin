@@ -16,7 +16,7 @@ const value = ref('')
 
 const router = useRouter()
 const jump = (type) => {
-  router.push({ name: `nestRouter${ type }` })
+  router.push({ name: `nest-router${ type }` })
 }
 </script>
 

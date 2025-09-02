@@ -1,24 +1,71 @@
+<template>
+  <Container :class="n.b()">
+    <template #headbar>
+      <el-form inline @keyup.enter="onEnterKeyup">
+        <el-form-item>
+          <el-input v-model="form.name" placeholder="名称" clearable />
+        </el-form-item>
+        <el-form-item>
+          <DateRangePicker v-model:start="form.start" v-model:end="form.end" />
+        </el-form-item>
+        <el-form-item>
+          <el-button v-repeat @click="onSearch">查询</el-button>
+          <el-button v-repeat @click="onReset">重置</el-button>
+        </el-form-item>
+        <el-form-item>
+          <Upload @success="onUploadSuccess">
+            <el-button type="primary">上传</el-button>
+          </Upload>
+        </el-form-item>
+      </el-form>
+    </template>
+    <el-table v-loading="loading" :data="list" border @selection-change="onSelectionChange">
+      <el-table-column align="center" type="selection" width="50" />
+      <el-table-column align="center" label="ID" prop="id" width="80" />
+      <el-table-column align="center" label="原始名称" prop="original" show-overflow-tooltip />
+      <el-table-column align="center" label="实际名称" prop="actual" show-overflow-tooltip />
+      <el-table-column align="center" label="物理路径" prop="path" show-overflow-tooltip />
+      <el-table-column align="center" label="虚拟路径" prop="url" show-overflow-tooltip />
+      <el-table-column align="center" label="类型" prop="type" width="120" />
+      <el-table-column align="center" label="大小" prop="size" width="120">
+        <template v-slot="{ row }">
+          {{ formatStorageUnit(row.size) }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="上传时间" prop="createdAt" min-width="170" />
+      <el-table-column v-permission="'file:delete'" align="center" label="操作" width="110" fixed="right">
+        <template v-slot="{ row }">
+          <div class="f_jc-center">
+            <el-button v-if="isImage(row.type)" type="primary" link @click="onPreview(row)">预览</el-button>
+            <el-button v-permission="'file:delete'" type="danger" link @click="onDelete(row.id)">删除</el-button>
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
+    <template #footbar>
+      <Pagination v-model:current="page.current" v-model:size="page.size" :total="page.total" :disabled="loading" @change="onPaginationChange" />
+    </template>
+    <el-image-viewer
+      v-if="visible"
+      :url-list="previewList"
+      hide-on-click-modal
+      teleported
+      @close="visible = false" />
+  </Container>
+</template>
+
 <script setup>
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { Container, DateRangePicker, Upload, Pagination } from '@/components'
+import { useNamespace } from '@/hooks';
+import { clearJson, formatStorageUnit } from '@/common/utils'
+import { filePageApi, fileDeleteApi } from '@/apis'
 
-import { clearJson, formatStorageUnit } from '@utils'
-import { AUTH_KEY, SUCCESS_CODE } from '@constants'
-
-import { pageApi, deleteApi, uploadUrlApi } from '@/api/file'
-
-defineOptions({
-  name: 'InfrastructureFileList'
-})
-
-const authStore = useAuthStore()
-const { token } = authStore
-
-const refForm = ref()
-const refTable = ref()
+const n = useNamespace('file-list')
 
 const loading = ref(false)
 const form = reactive({
   name: '',
+  status: '',
   start: '',
   end: ''
 })
@@ -28,236 +75,82 @@ const page = reactive({
   total: 0
 })
 const list = ref([])
+const selection = ref([])
 const visible = ref(false)
 const previewList = ref([])
 
-/**
- * @description: 获取分页列表
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-const getList = () => {
-  const { current, size } = page
-  const params = {
-    ...form,
-    current,
-    size
-  }
+const getData = () => {
   loading.value = true
-  pageApi(params).then(r => {
+  const { current, size } = page
+  const params = { ...form, current, size }
+  filePageApi(params).then(r => {
     if (r) {
       list.value = r.data.list
       page.total = r.data.total
     }
-    nextTick(() => {
-      loading.value = false
-    })
+    nextTick(() => loading.value = false)
   })
 }
 
-/**
- * @description: 重新获取数据
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-const reacquireHandle = () => {
+const handleReacquire = () => {
   page.current = 1
-  getList()
-}
-/**
- * @description: 重置并重新获取数据
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-const resetHandle = () => {
-  clearJson(form)
-  reacquireHandle()
+  getData()
 }
 
-/**
- * @description: 删除
- * @param {number} id
- * @return {*}
- * @author: gumingchen
- */
-const deleteHandle = id => {
-  ElMessageBox.confirm(`确定对[id=${ id }]进行[删除]操作?`, '提示', {
-    confirmButtonText: '确认',
-    cancelButtonText: '取消',
-    type: 'warning'
-  }).then(() => {
-    deleteApi({ key: id }).then(r => {
-      if (r) {
-        ElMessage({
-          message: '操作成功!',
-          type: 'success'
-        })
-        getList()
-      }
-    })
-  }).catch(() => {
-    // to do something on canceled
-  })
-}
-
-/**
- * 预览事件
- * @param {*} row
- */
-const previewHandle = row => {
-  previewList.value = [row.url]
-  visible.value = true
-}
-/**
- * 关闭预览事件
- */
-const previewCloseHandle = () => {
-  previewList.value = []
-  visible.value = false
-}
-
-/**
-* @description: 上传文件成功回调
-* @param {number} id
-* @return {*}
-* @author: gumingchen
-*/
-const successHandle = (r) => {
-  if (SUCCESS_CODE.includes(r.code)) {
-    getList()
-  } else {
-    ElMessage({
-      message: r.message,
-      type: 'warning'
-    })
-  }
-}
-
-/**
- * 判断类型是否是图片
- * @param {*} type
- */
 const isImage = (type) => {
   const reg = /^image\/[a-zA-Z]+$/
   return reg.test(type)
 }
 
-onBeforeMount(() => {
-  getList()
-})
+const onSearch = () => {
+  handleReacquire()
+}
+
+const onReset = () => {
+  clearJson(form)
+  handleReacquire()
+}
+
+const onEnterKeyup = () => {
+  handleReacquire()
+}
+
+const onPaginationChange = () => {
+  getData()
+}
+
+const onSelectionChange = value => {
+  selection.value = value
+}
+
+const onDelete = (id) => {
+  const ids = id ? [id] : selection.value.map(item => item.id)
+  ElMessageBox.confirm(
+    `确定对[id=${ ids.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`,
+    { title: '提示', confirmButtonText: '确认', type: 'warning' }
+  ).then(() => {
+    fileDeleteApi({ keys: ids }).then(r => {
+      if (r) {
+        ElMessage.success('操作成功!')
+        getData()
+      }
+    })
+  }).catch(() => {})
+}
+
+const onPreview = (row) => {
+  previewList.value = [row.url]
+  visible.value = true
+}
+
+const onUploadSuccess = () => {
+  getData()
+}
+
+onBeforeMount(getData)
 </script>
 
-<template>
-  <Container>
-    <template #header>
-      <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle">
-        <el-form-item>
-          <el-input v-model="form.name" placeholder="名称" clearable />
-        </el-form-item>
-        <el-form-item>
-          <DateRangePicker v-model:start="form.start" v-model:end="form.end" />
-        </el-form-item>
-        <el-form-item>
-          <el-button v-repeat @click="reacquireHandle">查询</el-button>
-          <el-button v-repeat @click="resetHandle">重置</el-button>
-          <el-upload
-            class="flex-box margin_l-12"
-            :action="uploadUrlApi()"
-            :headers="{
-              [AUTH_KEY]: token
-            }"
-            :show-file-list="false"
-            :on-success="successHandle">
-            <el-button type="primary">上传文件</el-button>
-          </el-upload>
-        </el-form-item>
-      </el-form>
-    </template>
-    <template #default>
-      <el-table
-        ref="refTable"
-        v-loading="loading"
-        :data="list"
-        border>
-        <el-table-column
-          align="center"
-          label="ID"
-          prop="id"
-          width="80" />
-        <el-table-column
-          align="center"
-          label="原始名称"
-          prop="original"
-          show-overflow-tooltip />
-        <el-table-column
-          align="center"
-          label="实际名称"
-          prop="actual"
-          show-overflow-tooltip />
-        <el-table-column
-          align="center"
-          label="物理路径"
-          prop="path"
-          show-overflow-tooltip />
-        <el-table-column
-          align="center"
-          label="虚拟路径"
-          prop="url"
-          show-overflow-tooltip />
-        <el-table-column
-          align="center"
-          label="类型"
-          prop="type"
-          width="120" />
-        <el-table-column
-          align="center"
-          label="大小"
-          prop="size"
-          width="120">
-          <template v-slot="{ row }">
-            {{ formatStorageUnit(row.size) }}
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="上传时间"
-          prop="createdAt"
-          width="160" />
-        <el-table-column
-          align="center"
-          label="操作"
-          width="110"
-          fixed="right">
-          <template v-slot="{ row }">
-            <el-button
-              v-show="isImage(row.type)"
-              type="primary"
-              link
-              @click="previewHandle(row)">预览</el-button>
-            <el-button
-              v-permission="'fileConfig:delete'"
-              type="danger"
-              link
-              @click="deleteHandle(row.id)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-image-viewer
-        v-if="visible"
-        :url-list="previewList"
-        @close="previewCloseHandle"
-        hide-on-click-modal
-        teleported />
-    </template>
-    <template #footer>
-      <Page
-        v-model:current="page.current"
-        v-model:size="page.size"
-        :total="page.total"
-        @change="getList" />
-    </template>
-  </Container>
-</template>
+<style lang="scss" scoped>
+@use '@/assets/sass/bem.scss' as *;
+@include b(file-list) {}
+</style>

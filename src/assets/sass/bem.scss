@@ -1,0 +1,37 @@
+$namespace: 'n';
+$element-separator: '__';
+$modifier-separator: '--';
+$state-prefix: 'is-';
+
+// n-[button]
+@mixin b($block) {
+  // $B: $namespace + '-' + $block;
+  $B: $block;
+  .#{$B} {
+    @content;
+  }
+}
+// &__[element] => n-button__element
+@mixin e($element) {
+  @at-root {
+    #{& + $element-separator + $element} {
+      @content;
+    }
+  }
+}
+// &--[primary] => n-button--primary
+@mixin m($modifier) {
+  @at-root {
+    #{& + $modifier-separator + $modifier} {
+      @content;
+    }
+  }
+}
+// n-button.is-[actived]
+@mixin when($state) {
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}
