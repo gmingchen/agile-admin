@@ -45,7 +45,7 @@ import { Sidebar, AddEditSub } from './components'
 import { hasPermission } from '@/permission'
 import { STATUS_ENUM } from '@/common/enums'
 import { dictSubListApi, dictSubDeleteApi, dictSubSetStatusApi } from '@/apis'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 
 const n = useNamespace('dict')
 

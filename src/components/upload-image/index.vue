@@ -36,7 +36,7 @@
 import { computed, getCurrentInstance, h, nextTick, ref, watch, } from 'vue'
 import Icon from '../icon/index.vue'
 import Upload from '../upload/index.vue'
-import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks';
+import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks'
 
 const n = useNamespace('upload-image')
 

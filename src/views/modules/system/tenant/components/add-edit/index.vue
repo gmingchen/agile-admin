@@ -72,7 +72,7 @@ import { Dict, UploadImage } from '@/components'
 import { DICT_CODE_ENUM } from '@/common/enums'
 import { isUsername } from '@/common/utils'
 import { tenantInfoApi, tenantCreateApi, tenantUpdateApi, packageSelectListApi } from '@/apis'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 
 const n = useNamespace('add-edit')
 

@@ -1,4 +1,4 @@
-import { doGet, doJson, doBlob } from '@/common/utils'
+import { doGet, doJson, doGetBlob } from '@/common/utils'
 
 /**
  * 套餐分页列表
@@ -47,7 +47,7 @@ export const packageSetStatusApi = params => doJson('/admin/package/status', par
  * @param {*} params
  * @returns
 */
-export const packageExportApi = params => doBlob('/admin/package/export', params)
+export const packageExportApi = params => doGetBlob('/admin/package/export', params)
 
 /**
  * 套餐选择分页列表

@@ -33,7 +33,7 @@
 import { Dict } from '@/components'
 import { DICT_CODE_ENUM } from '@/common/enums'
 import { dictInfoApi, dictCreateApi, dictUpdateApi } from '@/apis'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 
 const n = useNamespace('add-edit')
 

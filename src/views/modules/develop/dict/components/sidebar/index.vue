@@ -46,8 +46,7 @@ import { Icon } from '@/components'
 import AddEdit from '../add-edit/index.vue'
 import { hasPermission } from '@/permission'
 import { dictListApi, dictDeleteApi } from '@/apis'
-import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks';
-import { useTemplateRef } from 'vue';
+import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks'
 
 const n = useNamespace('sidebar')
 

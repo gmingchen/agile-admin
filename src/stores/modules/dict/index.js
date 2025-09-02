@@ -6,7 +6,7 @@ const getDictCodes = () => {
   const result = []
   for (const key in DICT_CODE_ENUM) {
     if (Object.prototype.hasOwnProperty.call(DICT_CODE_ENUM, key)) {
-      const code = DICT_CODE_ENUM[key];
+      const code = DICT_CODE_ENUM[key]
       result.push(code)
     }
   }

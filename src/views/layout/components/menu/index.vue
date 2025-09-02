@@ -13,8 +13,8 @@
 </template>
 
 <script setup>
-import MenuSub from './menu-sub.vue';
-import { useNamespace } from '@/hooks';
+import MenuSub from './menu-sub.vue'
+import { useNamespace } from '@/hooks'
 const n = useNamespace('menu')
 
 const props = defineProps({

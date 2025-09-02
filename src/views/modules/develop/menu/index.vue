@@ -83,14 +83,14 @@
 </template>
 
 <script setup>
-import { Container, Dict } from '@/components';
-import { Sidebar, IconPicker } from './components';
+import { Container, Dict } from '@/components'
+import { Sidebar, IconPicker } from './components'
 import { useDictStore } from '@/stores'
 import { hasPermission } from '@/permission'
 import { PERMISSION_TYPE_ENUM, DICT_CODE_ENUM } from '@/common/enums'
 import { VIRTUAL_ID_KEY } from './config.js'
 import { permissionInfoApi, permissionCreateApi, permissionUpdateApi } from '@/apis'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 
 const n = useNamespace('menu')
 

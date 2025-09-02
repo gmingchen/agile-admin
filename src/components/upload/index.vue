@@ -22,8 +22,8 @@ import { ElUpload } from 'element-plus'
 import { useAuthStore } from '@/stores'
 import { print } from '@/common/utils'
 import { TOKEN_KEY, BASE_URL, uploadUrl, handleResponse } from '@/apis'
-import { useNamespace } from '@/hooks';
-import { storeToRefs } from 'pinia';
+import { useNamespace } from '@/hooks'
+import { storeToRefs } from 'pinia'
 
 const n = useNamespace('upload')
 

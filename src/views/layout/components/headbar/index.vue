@@ -15,9 +15,9 @@
 </template>
 
 <script setup>
-import { FullScreen, Refresh, Clear, ThemeMode, User, } from './components';
-import { useNamespace } from '@/hooks';
-const n = useNamespace('headbar');
+import { FullScreen, Refresh, Clear, ThemeMode, User, } from './components'
+import { useNamespace } from '@/hooks'
+const n = useNamespace('headbar')
 </script>
 
 <style lang="scss" scoped>

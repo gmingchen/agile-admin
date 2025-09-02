@@ -3,11 +3,11 @@
 </template>
 
 <script setup>
+import { onBeforeMount } from 'vue'
 import { Radio, Select } from './components'
 import { DICT_COMPONENT_TYPE_ENUM } from '@/common/enums'
 import { useDictStore } from '@/stores'
-import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks';
-import { onBeforeMount } from 'vue';
+import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks'
 const n = useNamespace('dict')
 
 const emits = defineEmits([UPDATE_MODEL_EVENT])

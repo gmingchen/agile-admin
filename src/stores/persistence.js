@@ -1,4 +1,4 @@
-import { STORAGE_TYPE_ENUM } from '@/common/enums';
+import { STORAGE_TYPE_ENUM } from '@/common/enums'
 import { get, set, print, printError } from '@/common/utils'
 
 const STORE_PININ_KEY = 'PINIA_STORE_'
@@ -14,7 +14,7 @@ const handleSet = (id, key, state) => {
     const data = JSON.stringify(state || {})
     set(key, data, STORAGE_TYPE_ENUM.LOCAL)
     print(`Pinia persistent ${ id } success`)
-  });
+  })
 }
 
 /**

@@ -25,7 +25,7 @@
 import { Icon } from '@/components'
 import MenuSub from './menu-sub.vue'
 import { PERMISSION_TYPE_ENUM } from '@/common/enums'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 const n = useNamespace('menu-sub')
 
 const { data } = defineProps({

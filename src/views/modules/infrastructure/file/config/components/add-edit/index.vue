@@ -66,7 +66,7 @@ import { Dict } from '@/components'
 import { DICT_CODE_ENUM, FILE_STORAGE_TYPE_ENUM } from '@/common/enums'
 import { isDomain, isURL } from '@/common/utils'
 import { fileConfigInfoApi, fileConfigCreateApi, fileConfigUpdateApi } from '@/apis'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 
 const n = useNamespace('add-edit')
 

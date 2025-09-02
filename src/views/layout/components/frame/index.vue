@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 const n = useNamespace('frame')
 
 const props = defineProps({

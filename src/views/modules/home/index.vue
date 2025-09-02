@@ -6,8 +6,8 @@
 
 <script setup>
 import { Container } from '@/components'
-import { useNamespace } from '@/hooks';
-import { onMounted } from 'vue';
+import { useNamespace } from '@/hooks'
+import { onMounted } from 'vue'
 const n = useNamespace('home')
 
 onMounted(() => {

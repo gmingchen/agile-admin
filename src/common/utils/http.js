@@ -53,8 +53,10 @@ const doForm = (url, params, headers = {}) =>
  * @param {*} headers 请求头
  * @returns
  */
-const doBinary = (url, params, headers) =>
+const doGetBinary = (url, params, headers) =>
   request(url, 'get', params, headers, 'arraybuffer')
+const doJsonBinary = (url, params, headers) =>
+  request(url, 'post', params, headers, 'arraybuffer')
 
 /**
  * blob请求
@@ -63,14 +65,18 @@ const doBinary = (url, params, headers) =>
  * @param {*} headers 请求头
  * @returns
  */
-const doBlob = (url, params, headers) =>
+const doGetBlob = (url, params, headers) =>
   request(url, 'get', params, headers, 'blob')
+const doJsonBlob = (url, params, headers) =>
+  request(url, 'post', params, headers, 'blob')
 
 export {
   http,
   doGet,
   doJson,
   doForm,
-  doBinary,
-  doBlob,
-};
+  doGetBinary,
+  doJsonBinary,
+  doGetBlob,
+  doJsonBlob,
+}

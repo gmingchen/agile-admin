@@ -13,7 +13,7 @@
 
 <script setup>
 import { useAdminerStore } from '@/stores'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 
 const n = useNamespace('brand')
 

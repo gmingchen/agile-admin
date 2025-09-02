@@ -12,6 +12,10 @@ export * from './file'
 export * from './permission'
 export * from './package'
 export * from './tenant'
+export * from './data-source'
+export * from './job'
+export * from './generator'
+export * from './ip'
 export * from './test'
 
 export { handleResponse }

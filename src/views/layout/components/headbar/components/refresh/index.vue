@@ -10,7 +10,7 @@
 <script setup>
 import { Icon } from '@/components'
 import { useSystemStore } from '@/stores'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 
 const n = useNamespace('refresh')
 

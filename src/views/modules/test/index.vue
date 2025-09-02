@@ -15,7 +15,7 @@
 
 <script setup>
 import { Container } from '@/components'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 const n = useNamespace('test')
 </script>
 

@@ -56,7 +56,7 @@
 
 <script setup>
 import { Container, DateRangePicker, Upload, Pagination } from '@/components'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 import { clearJson, formatStorageUnit } from '@/common/utils'
 import { filePageApi, fileDeleteApi } from '@/apis'
 

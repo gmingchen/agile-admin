@@ -1,4 +1,4 @@
-import { doGet, doJson, doBlob, doForm, parseJsonToParam } from '@/common/utils'
+import { doGet, doJson, doGetBlob, doForm, parseJsonToParam } from '@/common/utils'
 
 /**
  * 文件配置分页列表
@@ -47,7 +47,7 @@ export const fileConfigSetMasterApi = params => doJson('/admin/file/config/maste
  * @param {*} params
  * @returns
 */
-export const fileConfigExportApi = params => doBlob('/admin/file/config/export', params)
+export const fileConfigExportApi = params => doGetBlob('/admin/file/config/export', params)
 
 /**
  * 文件配置选择列表

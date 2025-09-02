@@ -11,7 +11,7 @@
 <script setup>
 import { Icon } from '@/components'
 import { useMenuStore } from '@/stores'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 
 const n = useNamespace('menu-collapse')
 

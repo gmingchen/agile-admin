@@ -1,4 +1,4 @@
-import { doGet, doJson, doBlob } from '@/common/utils'
+import { doGet, doJson, doGetBlob } from '@/common/utils'
 
 /**
  * 租户分页列表
@@ -47,7 +47,7 @@ export const tenantSetStatusApi = params => doJson('/admin/tenant/status', param
  * @param {*} params
  * @returns
 */
-export const tenantExportApi = params => doBlob('/admin/tenant/export', params)
+export const tenantExportApi = params => doGetBlob('/admin/tenant/export', params)
 
 /**
  * 租户选择分页列表

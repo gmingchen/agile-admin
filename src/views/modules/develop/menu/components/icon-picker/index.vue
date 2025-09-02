@@ -31,7 +31,7 @@
 
 <script setup>
 import { Icon } from '@/components'
-import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks';
+import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks'
 
 const n = useNamespace('icon-picker')
 

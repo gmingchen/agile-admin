@@ -25,7 +25,7 @@
 import { View } from '@/components'
 import { Frame, Headbar, Sidebar, Brand, Menu, MenuCollapse } from './components'
 import { useMenuStore, useSystemStore } from '@/stores'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 
 const n = useNamespace('layout')
 

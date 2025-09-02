@@ -1,4 +1,4 @@
-import { doGet, doJson, doBinary, doBlob } from '@/common/utils'
+import { doGet, doJson, doGetBinary, doGetBlob } from '@/common/utils'
 
 
 export function testGetApi(params) {
@@ -9,13 +9,13 @@ export function testGetApi(params) {
 }
 
 export function testBinaryApi() {
-  return doBinary(
+  return doGetBinary(
     'https://ovopark-oss-wanji.oss-cn-hangzhou.aliyuncs.com/ovopark-wanji/211/2025/07/11/small/1752224798223.png',
   )
 }
 
 export function testBlobApi() {
-  return doBlob(
+  return doGetBlob(
     'https://ovopark-oss-wanji.oss-cn-hangzhou.aliyuncs.com/ovopark-wanji/211/2025/07/11/small/1752224798223.png',
   )
 }

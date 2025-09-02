@@ -18,7 +18,7 @@
 
 <script setup>
 import { useModel } from '@/hooks'
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 
 const n = useNamespace('pagination')
 

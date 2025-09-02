@@ -62,7 +62,7 @@ import { PERMISSION_TYPE_ENUM } from '@/common/enums'
 import { parseDataToTree } from '@/common/utils'
 import { VIRTUAL_ID_KEY } from '../../config.js'
 import { permissionListApi, permissionDragApi, permissionDeleteApi } from '@/apis'
-import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks';
+import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks'
 
 const n = useNamespace('sidebar')
 

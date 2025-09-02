@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { useNamespace } from '@/hooks';
+import { useNamespace } from '@/hooks'
 
 const n = useNamespace('date-range-picker')
 

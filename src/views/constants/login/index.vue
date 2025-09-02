@@ -53,8 +53,8 @@ const loading = ref(false)
 const captcha = ref('')
 const formRef = useTemplateRef('formRef')
 const form = reactive({
-  account: '',
-  password: '',
+  account: 'super',
+  password: 'gumingchen',
   uuid: '',
   code: '',
 })
@@ -100,7 +100,7 @@ const onSubmit = () => {
 }
 
 onBeforeMount(() => {
-  handleCaptcha();
+  handleCaptcha()
 })
 </script>
 
