@@ -19,7 +19,7 @@
           <el-button v-repeat @click="onReset">重置</el-button>
           <el-button v-permission="'dataSource:create'" type="primary" @click="onAddOrEdit()">新增</el-button>
           <el-button v-permission="'dataSource:delete'" type="danger" :disabled="!selection.length" @click="onDelete()">批量删除</el-button>
-          <el-button v-permission="'dataSource:export'" @click="onExport">导出</el-button>
+          <el-button v-permission="'dataSource:export'" v-repeat @click="onExport">导出</el-button>
         </el-form-item>
       </el-form>
     </template>

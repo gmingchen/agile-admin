@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^13.6.0",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^1.11.0",
     "dayjs": "^1.11.13",
     "element-plus": "^2.10.7",

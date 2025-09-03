@@ -16,6 +16,11 @@ export * from './data-source'
 export * from './job'
 export * from './generator'
 export * from './ip'
+export * from './backup'
+export * from './region'
+export * from './mail-account'
+export * from './mail-template'
+export * from './mail'
 export * from './test'
 
 export { handleResponse }

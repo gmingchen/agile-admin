@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     v-model="visible"
-    :title="form.id ? '编辑定时任务' : '新增定时任务'"
+    :title="form.id ? '编辑区域' : '新增区域'"
     :close-on-click-modal="false"
     width="500px"
     draggable
@@ -10,22 +10,13 @@
     @closed="onClosed">
     <el-form ref="formRef" v-loading="loading" :model="form" :rules="rules" @keyup.enter="submit()" label-position="top">
       <el-form-item label="名称" prop="name">
-        <el-input v-model="form.name" placeholder="名称" maxlength="50" show-word-limit />
+        <el-input v-model="form.name" placeholder="名称" />
       </el-form-item>
-      <el-form-item label="处理器名称" prop="bean">
-        <el-input v-model="form.bean" placeholder="处理器名称" maxlength="200" />
+      <el-form-item label="编号" prop="code">
+        <el-input v-model="form.code" placeholder="编号" />
       </el-form-item>
-      <el-form-item label="cron表达式" prop="cron">
-        <el-input v-model="form.cron" placeholder="cron表达式" maxlength="100" />
-      </el-form-item>
-      <el-form-item label="参数" prop="params">
-        <el-input v-model="form.params" placeholder="参数" type="textarea" maxlength="500" show-word-limit />
-      </el-form-item>
-      <el-form-item label="状态" prop="status">
-        <Dict v-model="form.status" :code="DICT_CODE_ENUM.STATUS" default-value></Dict>
-      </el-form-item>
-      <el-form-item label="备注" prop="remark">
-        <el-input v-model="form.remark" placeholder="备注" type="textarea" maxlength="200" show-word-limit />
+      <el-form-item label="上级" prop="parentId">
+        <Region ref="refRegion" v-model="form.parentId" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -36,9 +27,8 @@
 </template>
 
 <script setup>
-import { Dict } from '@/components'
-import { DICT_CODE_ENUM } from '@/common/enums'
-import { jobInfoApi, jobCreateApi, jobUpdateApi } from '@/apis'
+import { Region } from '@/components'
+import { regionInfoApi, regionCreateApi, regionUpdateApi } from '@/apis'
 import { useNamespace } from '@/hooks'
 
 const n = useNamespace('add-edit')
@@ -47,21 +37,29 @@ const emits = defineEmits(['confirm', 'cancel'])
 
 const visible = ref(false)
 const loading = ref(false)
+const regionRef = useTemplateRef('regionRef')
 const formRef = useTemplateRef('formRef')
 const form = reactive({
   id: null,
   name: '',
-  bean: '',
-  params: '',
-  cron: '',
-  remark: '',
-  status: ''
+  code: '',
+  level: '',
+  parentId: ''
 })
 const rules = computed(() => {
   return {
     name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-    bean: [{ required: true, message: '请输入处理器名称', trigger: 'blur' }],
-    cron: [{ required: true, message: '请输入cron表达式', trigger: 'blur' }]
+    code: [
+      { required: true, message: '请输入区域编码', trigger: 'blur' },
+      { validator: (_rule, value, callback) => {
+        if (!isInteger(value)) {
+          callback(new Error('请输入整数'))
+        } else {
+          callback()
+        }
+      }, trigger: 'blur' }
+    ],
+    parentId: [{ required: true, message: '请选择上级', trigger: 'blur' }]
   }
 })
 
@@ -78,8 +76,12 @@ const onCancel = () => {
 const onConfirm = () => {
   formRef.value.validate(async valid => {
     if (valid) {
+      const params = {
+        ...form,
+        level: regionRef.value.getCheckedNodes().level + 1
+      }
       loading.value = true
-      const r = await form.id ? jobUpdateApi(form) : jobCreateApi(form)
+      const r = await form.id ? regionUpdateApi(params) : regionCreateApi(params)
       if (r) {
         visible.value = false
         ElMessage.success('操作成功!')
@@ -94,14 +96,13 @@ const open = (id) => {
   if (id) {
     form.id = id
     loading.value = true
-    jobInfoApi({ id }).then(r => {
+    regionInfoApi({ id }).then(r => {
       if (r) {
+        form.id = r.data.id
         form.name = r.data.name
-        form.bean = r.data.bean
-        form.params = r.data.params
-        form.cron = r.data.cron
-        form.remark = r.data.remark
-        form.status = r.data.status
+        form.code = r.data.code
+        form.level = r.data.level
+        form.parentId = r.data.parentId
       }
       nextTick(() => loading.value = false)
     })

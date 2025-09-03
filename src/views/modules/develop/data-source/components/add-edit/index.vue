@@ -3,7 +3,7 @@
     v-model="visible"
     :title="form.id ? '编辑数据源' : '新增数据源'"
     :close-on-click-modal="false"
-    width="450px"
+    width="500px"
     draggable
     append-to-body
     destroy-on-close

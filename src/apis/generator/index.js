@@ -11,5 +11,5 @@ export const generatorPageApi = params => doGet('/admin/generator/page', params)
  * 代码生成
  * @param {*} params
  * @returns
-*/
+ */
 export const generatorGenerateApi = params => doJsonBlob('/admin/generator/generate', params)

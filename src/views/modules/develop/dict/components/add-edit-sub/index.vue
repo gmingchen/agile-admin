@@ -3,7 +3,7 @@
     v-model="visible"
     :title="form.id ? '编辑字典项' : '新增字典项'"
     :close-on-click-modal="false"
-    width="450px"
+    width="500px"
     draggable
     append-to-body
     destroy-on-close

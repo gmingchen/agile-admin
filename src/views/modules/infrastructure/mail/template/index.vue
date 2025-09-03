@@ -6,6 +6,9 @@
           <el-input v-model="form.name" placeholder="名称" clearable />
         </el-form-item>
         <el-form-item>
+          <el-input v-model="form.title" placeholder="标题" clearable />
+        </el-form-item>
+        <el-form-item>
           <Dict class="w-177_i" v-model="form.status" :code="DICT_CODE_ENUM.STATUS" :type="DICT_COMPONENT_TYPE_ENUM.SELECT" placeholder="状态" clearable />
         </el-form-item>
         <el-form-item>
@@ -14,9 +17,9 @@
         <el-form-item>
           <el-button v-repeat @click="onSearch">查询</el-button>
           <el-button v-repeat @click="onReset">重置</el-button>
-          <el-button v-permission="'package:create'" type="primary" @click="onAddOrEdit()">新增</el-button>
-          <el-button v-permission="'package:delete'" type="danger" :disabled="!selection.length" @click="onDelete()">批量删除</el-button>
-          <el-button v-permission="'package:export'" v-repeat @click="onExport">导出</el-button>
+          <el-button v-permission="'mailTemplate:create'" type="primary" @click="onAddOrEdit()">新增</el-button>
+          <el-button v-permission="'mailTemplate:delete'" type="danger" :disabled="!selection.length" @click="onDelete()">批量删除</el-button>
+          <el-button v-permission="'mailTemplate:export'" v-repeat @click="onExport">导出</el-button>
         </el-form-item>
       </el-form>
     </template>
@@ -24,11 +27,14 @@
       <el-table-column align="center" type="selection" width="50" />
       <el-table-column align="center" label="ID" prop="id" width="80" />
       <el-table-column align="center" label="名称" prop="name" />
+      <el-table-column align="center" label="编码" prop="code" />
+      <el-table-column align="center" label="标题" prop="title" show-overflow-tooltip />
+      <el-table-column align="center" label="内容" prop="content" show-overflow-tooltip />
       <el-table-column align="center" label="备注" prop="remark" show-overflow-tooltip />
       <el-table-column align="center" label="状态" prop="status" width="80">
         <template v-slot="{row}">
           <el-switch
-            v-permission="'package:status'"
+            v-permission="'mailTemplate:status'"
             :before-change="onStatusBeforeChange.bind(this, row)"
             @change="onStatusChange(row)"
             v-model="row.status"
@@ -38,11 +44,11 @@
       </el-table-column>
       <el-table-column align="center" label="创建时间" prop="createdAt" width="170" />
       <el-table-column align="center" label="更新时间" prop="updatedAt" width="170" />
-      <el-table-column v-permission="'package:update|package:delete'" align="center" label="操作" width="110" fixed="right">
+      <el-table-column v-permission="'mailTemplate:update|mailTemplate:delete'" align="center" label="操作" width="110" fixed="right">
         <template v-slot="{ row }">
           <div class="f_jc-center">
-            <el-button v-permission="'package:update'" type="primary" link @click="onAddOrEdit(row.id)">编辑</el-button>
-            <el-button v-permission="'package:delete'" type="danger" link @click="onDelete(row.id)">删除</el-button>
+            <el-button v-permission="'mailTemplate:update'" type="primary" link @click="onAddOrEdit(row.id)">编辑</el-button>
+            <el-button v-permission="'mailTemplate:delete'" type="danger" link @click="onDelete(row.id)">删除</el-button>
           </div>
         </template>
       </el-table-column>
@@ -60,15 +66,16 @@ import AddEdit  from './components/add-edit/index.vue'
 import { useNamespace } from '@/hooks'
 import { STATUS_ENUM, DICT_CODE_ENUM, DICT_COMPONENT_TYPE_ENUM } from '@/common/enums'
 import { clearJson, download } from '@/common/utils'
-import { packagePageApi, packageDeleteApi, packageSetStatusApi, packageExportApi} from '@/apis'
+import { mailTemplatePageApi, mailTemplateDeleteApi, mailTemplateSetStatusApi, mailTemplateExportApi} from '@/apis'
 
-const n = useNamespace('package')
+const n = useNamespace('mail-template')
 
 const addEditRef = useTemplateRef('addEditRef')
 
 const loading = ref(false)
 const form = reactive({
   name: '',
+  title: '',
   status: '',
   start: '',
   end: ''
@@ -85,7 +92,7 @@ const getData = () => {
   loading.value = true
   const { current, size } = page
   const params = { ...form, current, size }
-  packagePageApi(params).then(r => {
+  mailTemplatePageApi(params).then(r => {
     if (r) {
       list.value = r.data.list
       page.total = r.data.total
@@ -126,7 +133,7 @@ const onDelete = (id) => {
     `确定对[id=${ ids.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`,
     { title: '提示', confirmButtonText: '确认', type: 'warning' }
   ).then(() => {
-    packageDeleteApi({ keys: ids }).then(r => {
+    mailTemplateDeleteApi({ keys: ids }).then(r => {
       if (r) {
         ElMessage.success('操作成功!')
         getData()
@@ -153,7 +160,7 @@ const onStatusChange = (row) => {
     key: row.id,
     value: row.status
   }
-  packageSetStatusApi(params).then(r => {
+  mailTemplateSetStatusApi(params).then(r => {
     if (r) {
       ElMessage.success('操作成功!')
     } else {
@@ -163,7 +170,7 @@ const onStatusChange = (row) => {
 }
 
 const onExport = () => {
-  packageExportApi({ ...form }).then(r => r && download(r.data, '', 'xlsx', r.type))
+  mailTemplateExportApi({ ...form }).then(r => r && download(r.data, '', 'xlsx', r.type))
 }
 
 const onAddOrEdit = (id) => {
@@ -175,5 +182,6 @@ onBeforeMount(getData)
 
 <style lang="scss" scoped>
 @use '@/assets/sass/bem.scss' as *;
-@include b(package) {}
+$prefix: mail-template#{$element-separator};
+@include b(mail-template) {}
 </style>

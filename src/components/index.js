@@ -6,6 +6,8 @@ import DateRangePicker from './date-range-picker/index.vue'
 import Dict from './dict/index.vue'
 import Upload from './upload/index.vue'
 import UploadImage from './upload-image/index.vue'
+import Region from './region/index.vue'
+import WangEditor from './wang-editor/index.vue'
 
 export {
   View,
@@ -16,4 +18,6 @@ export {
   Dict,
   Upload,
   UploadImage,
+  Region,
+  WangEditor,
 }

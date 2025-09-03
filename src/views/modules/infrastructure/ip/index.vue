@@ -23,7 +23,7 @@
         <el-form-item>
           <el-button v-repeat @click="onSearch">查询</el-button>
           <el-button v-repeat @click="onReset">重置</el-button>
-          <el-button v-permission="'ip:export'" @click="onExport">导出</el-button>
+          <el-button v-permission="'ip:export'" v-repeat @click="onExport">导出</el-button>
         </el-form-item>
       </el-form>
     </template>
