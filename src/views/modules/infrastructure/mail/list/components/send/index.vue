@@ -137,10 +137,10 @@ const onCancel = () => {
 const onConfirm = () => {
   formRef.value.validate(async valid => {
     if (valid) {
+      loading.value = true
       const { templateId, templateParams, toMails } = form
       const params = { templateId, toMails, params: {} }
       templateParams.forEach(({ label, value }) => params.params[label] = value)
-      loading.value = true
       const r = await mailSendApi(params)
       if (r) {
         visible.value = false

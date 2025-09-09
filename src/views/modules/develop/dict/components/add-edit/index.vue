@@ -72,7 +72,7 @@ const onConfirm = () => {
   formRef.value.validate(async valid => {
     if (valid) {
       loading.value = true
-      const r = await form.id ? dictUpdateApi(form) : dictCreateApi(form)
+      const r = await (form.id ? dictUpdateApi(form) : dictCreateApi(form))
       if (r) {
         visible.value = false
         ElMessage.success('操作成功!')
@@ -85,8 +85,8 @@ const onConfirm = () => {
 const open = (id) => {
   visible.value = true
   if (id) {
-    form.id = id
     loading.value = true
+    form.id = id
     dictInfoApi({ id }).then(r => {
       if (r) {
         form.code = r.data.code

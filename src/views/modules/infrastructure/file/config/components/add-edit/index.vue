@@ -148,6 +148,7 @@ const onCancel = () => {
 const onConfirm = () => {
   formRef.value.validate(async valid => {
     if (valid) {
+      loading.value = true
       const { id, name, remark, master, storage, domain, temp, path, prefix, access, secret, bucket, endpoint } = form
       let config = { domain, temp }
       switch (storage) {
@@ -163,9 +164,7 @@ const onConfirm = () => {
           break
       }
       const params = { id, name, remark, master, storage, config }
-
-      loading.value = true
-      const r = await form.id ? fileConfigUpdateApi(params) : fileConfigCreateApi(params)
+      const r = await (form.id ? fileConfigUpdateApi(params) : fileConfigCreateApi(params))
       if (r) {
         visible.value = false
         ElMessage.success('操作成功!')
@@ -178,8 +177,8 @@ const onConfirm = () => {
 const open = (id) => {
   visible.value = true
   if (id) {
-    form.id = id
     loading.value = true
+    form.id = id
     fileConfigInfoApi({ id }).then(r => {
       if (r) {
         const {

@@ -104,6 +104,7 @@ const onCancel = () => {
 const onConfirm = () => {
   formRef.value.validate(async valid => {
     if (valid) {
+      loading.value = true
        // 获取所有菜单ID
       const checkedNodes = cascaderRef.value.getCheckedNodes(true)
       const menuIds = []
@@ -111,9 +112,7 @@ const onConfirm = () => {
         menuIds.push.apply(menuIds, item.pathValues)
       })
       form.menuIds = Array.from(new Set(menuIds)).filter(item => item !== 0)
-
-      loading.value = true
-      const r = await form.id ? packageUpdateApi(form) : packageCreateApi(form)
+      const r = await (form.id ? packageUpdateApi(form) : packageCreateApi(form))
       if (r) {
         visible.value = false
         ElMessage.success('操作成功!')

@@ -221,7 +221,7 @@ $prefix: sidebar#{$element-separator};
 
   @include e(node-wrap) {
     width: 0;
-    flex: 1,;
+    flex: 1;
     font-size: 14px;
     display: flex;
     justify-content: space-between;

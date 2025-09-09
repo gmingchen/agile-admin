@@ -76,11 +76,11 @@ const onCancel = () => {
 const onConfirm = () => {
   formRef.value.validate(async valid => {
     if (valid) {
+      loading.value = true
       const params = {
         ...form,
         level: regionRef.value.getCheckedNodes().level + 1
       }
-      loading.value = true
       const r = await form.id ? regionUpdateApi(params) : regionCreateApi(params)
       if (r) {
         visible.value = false
@@ -94,8 +94,8 @@ const onConfirm = () => {
 const open = (id) => {
   visible.value = true
   if (id) {
-    form.id = id
     loading.value = true
+    form.id = id
     regionInfoApi({ id }).then(r => {
       if (r) {
         form.id = r.data.id

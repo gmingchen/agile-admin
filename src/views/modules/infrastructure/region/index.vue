@@ -34,7 +34,7 @@
 
 <script setup>
 import { Container } from '@/components'
-import AddEdit  from './components/add-edit/index.vue'
+import AddEdit from './components/add-edit/index.vue'
 import { useNamespace } from '@/hooks'
 import { regionListApi, regionDeleteApi } from '@/apis'
 

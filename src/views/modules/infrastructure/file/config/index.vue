@@ -55,7 +55,7 @@
 
 <script setup>
 import { Container, DateRangePicker, Pagination } from '@/components'
-import AddEdit  from './components/add-edit/index.vue'
+import AddEdit from './components/add-edit/index.vue'
 import { useNamespace } from '@/hooks'
 import { STATUS_ENUM, WHETHER_ENUM } from '@/common/enums'
 import { clearJson, download } from '@/common/utils'

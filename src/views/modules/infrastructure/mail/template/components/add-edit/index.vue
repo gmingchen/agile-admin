@@ -80,7 +80,7 @@ const onConfirm = () => {
   formRef.value.validate(async valid => {
     if (valid) {
       loading.value = true
-      const r = await form.id ? mailTemplateUpdateApi(form) : mailTemplateCreateApi(form)
+      const r = await (form.id ? mailTemplateUpdateApi(form) : mailTemplateCreateApi(form))
       if (r) {
         visible.value = false
         ElMessage.success('操作成功!')
@@ -93,8 +93,8 @@ const onConfirm = () => {
 const open = (id) => {
   visible.value = true
   if (id) {
-    form.id = id
     loading.value = true
+    form.id = id
     mailTemplateInfoApi({ id }).then(r => {
       if (r) {
         form.name = r.data.name

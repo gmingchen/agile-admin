@@ -21,6 +21,12 @@ export * from './region'
 export * from './mail-account'
 export * from './mail-template'
 export * from './mail'
+export * from './notice'
+export * from './notice-template'
+export * from './role'
+export * from './post'
+export * from './dept'
+export * from './adminer'
 export * from './test'
 
 export { handleResponse }

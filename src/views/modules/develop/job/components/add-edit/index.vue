@@ -79,7 +79,7 @@ const onConfirm = () => {
   formRef.value.validate(async valid => {
     if (valid) {
       loading.value = true
-      const r = await form.id ? jobUpdateApi(form) : jobCreateApi(form)
+      const r = await (form.id ? jobUpdateApi(form) : jobCreateApi(form))
       if (r) {
         visible.value = false
         ElMessage.success('操作成功!')

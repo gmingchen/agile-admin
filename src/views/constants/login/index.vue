@@ -87,7 +87,7 @@ const onCaptchaChange = () => {
 const onSubmit = () => {
   if (loading.value) return
   formRef.value.validate(async valid => {
-    if (!valid)  return
+    if (!valid) return
     loading.value = true
     const r = await authStore.login(form)
     if (r) {

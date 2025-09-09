@@ -34,7 +34,7 @@
       </el-table-column>
       <el-table-column align="center" label="创建时间" prop="createdAt" min-width="170" />
       <el-table-column align="center" label="更新时间" prop="updatedAt" min-width="170" />
-      <el-table-column v-permission="'job:update|job:delete'" align="center" label="操作" width="110" fixed="right">
+      <el-table-column v-permission="'job:update|job:delete|job:run|job:resume|job:pause'" align="center" label="操作" width="110" fixed="right">
         <template v-slot="{ row }">
           <div class="f_jc-center">
             <el-button v-permission="'job:update'" type="primary" link @click="onAddOrEdit(row.id)">编辑</el-button>
@@ -65,7 +65,7 @@
 
 <script setup>
 import { Container, DateRangePicker, Pagination } from '@/components'
-import AddEdit  from './components/add-edit/index.vue'
+import AddEdit from './components/add-edit/index.vue'
 import { useNamespace } from '@/hooks'
 import { hasPermission } from '@/permission'
 import { STATUS_ENUM } from '@/common/enums'

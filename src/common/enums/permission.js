@@ -7,3 +7,11 @@ export const PERMISSION_TYPE_ENUM = {
   GROUP: 5, // 分组
   ROUTER: 6 // 路由
 }
+
+export const DATA_PERMISSION_ENUM = {
+  ALL: 0, // 全部数据
+  SELF: 1, // 仅本人数据
+  IN: 2, // 本部门数据
+  BELOW: 3, // 本部门及以下数据
+  CUSTOM: 4, // 自定义数据
+}

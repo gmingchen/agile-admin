@@ -150,6 +150,7 @@ const onPackageChange = (value) => {
 const onConfirm = () => {
   formRef.value.validate(async valid => {
     if (valid) {
+      loading.value = true
       const {
         id, contactUsername, password,
         packages, packageIds,
@@ -162,8 +163,7 @@ const onConfirm = () => {
       if (!id) {
         params = { ...params, contactUsername, password }
       }
-      loading.value = true
-      const r = await form.id ? tenantUpdateApi(form) : tenantCreateApi(form)
+      const r = await (form.id ? tenantUpdateApi(form) : tenantCreateApi(form))
       if (r) {
         visible.value = false
         ElMessage.success('操作成功!')
@@ -179,8 +179,8 @@ const open = async (id) => {
     await getPackageList()
   }
   if (id) {
-    form.id = id
     loading.value = true
+    form.id = id
     tenantInfoApi({ id }).then(r => {
       if (r) {
         const { name, logo, contactName, contactMobile, accountCount, status, packages } = r.data
