@@ -30,7 +30,7 @@
               </div>
             </div>
           </template>
-        </el-tree>
+      </el-tree>
     </el-scrollbar>
   </div>
 </template>
@@ -91,6 +91,10 @@ onBeforeMount(getData)
 @use '@/assets/sass/bem.scss' as *;
 $prefix: sidebar#{$element-separator};
 @include b(sidebar) {
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   @include e(node-wrap) {
     width: 0;
     flex: 1;

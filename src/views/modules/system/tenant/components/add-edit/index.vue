@@ -154,10 +154,10 @@ const onConfirm = () => {
       const {
         id, contactUsername, password,
         packages, packageIds,
-        ...other
+        ...others
       } = form
       let params = {
-        id, ...other,
+        id, ...others,
         packages: packages.map(item => ({ id: item.id, packageId: item.packageId, expireAt: item.expireAt }))
       }
       if (!id) {

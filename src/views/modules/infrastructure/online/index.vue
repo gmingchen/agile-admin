@@ -1,47 +1,63 @@
 <template>
-  <Container :class="n.b()">
-    <template #headbar>
-      <el-form inline @keyup.enter="onEnterKeyup">
-        <el-form-item>
-          <el-input v-model="form.name" placeholder="名称" clearable />
-        </el-form-item>
-        <el-form-item>
-          <Dict class="w-177_i" v-model="form.status" :code="DICT_CODE_ENUM.STATUS" :type="DICT_COMPONENT_TYPE_ENUM.SELECT" placeholder="状态" clearable />
-        </el-form-item>
-        <el-form-item>
-          <DateRangePicker v-model:start="form.start" v-model:end="form.end" />
-        </el-form-item>
-        <el-form-item>
-          <el-button v-repeat @click="onSearch">查询</el-button>
-          <el-button v-repeat @click="onReset">重置</el-button>
-          <el-button v-permission="'online:create'" type="primary" @click="onAddOrEdit()">新增</el-button>
-          <el-button v-permission="'online:delete'" type="danger" :disabled="!selection.length" @click="onDelete()">批量删除</el-button>
-          <el-button v-permission="'online:export'" v-repeat @click="onExport">导出</el-button>
-        </el-form-item>
-      </el-form>
+  <Container ref="containerRef" :class="n.b()">
+    <template #sidebar>
+      <TenantSidebar v-model="tenantId" @change="onChange" />
     </template>
-    <el-table v-loading="loading" :data="list" border @selection-change="onSelectionChange">
-      <el-table-column align="center" type="selection" width="50" />
-      <el-table-column align="center" label="ID" prop="id" width="80" />
-      <el-table-column align="center" label="名称" prop="name" />
-      <el-table-column align="center" label="状态" prop="status" width="80">
+    <el-table v-loading="loading" :data="list" border>
+      <el-table-column align="center" label="头像" prop="avatar" width="80">
         <template v-slot="{row}">
-          <el-switch
-            v-permission="'online:status'"
-            :before-change="onStatusBeforeChange.bind(this, row)"
-            @change="onStatusChange(row)"
-            v-model="row.status"
-            :active-value="STATUS_ENUM.ENABLE"
-            :inactive-value="STATUS_ENUM.DISABLE" />
+          <el-image
+            v-if="row.avatar"
+            class="s-50"
+            fit="cover"
+            :src="row.avatar"
+            preview-teleported
+            :preview-src-list="[row.avatar]" />
+          <span v-else>-</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="创建时间" prop="createdAt" width="170" />
-      <el-table-column align="center" label="更新时间" prop="updatedAt" width="170" />
-      <el-table-column v-permission="'online:update|online:delete'" align="center" label="操作" width="110" fixed="right">
+      <el-table-column align="center" label="用户名" prop="username" show-overflow-tooltip />
+      <el-table-column align="center" label="昵称" prop="nickname" show-overflow-tooltip>
+        <template v-slot="{row}">
+          {{ row.nickname || '-' }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="性别" prop="sex" width="80">
+        <template v-slot="{ row }">
+          <el-tag :type="row.sex_type">{{ row.sex_dict }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="手机号" prop="mobile" width="120">
+        <template v-slot="{row}">
+          {{ row.mobile || '-' }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="邮箱" prop="email" show-overflow-tooltip>
+        <template v-slot="{row}">
+          {{ row.email || '-' }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="部门" prop="deptName" show-overflow-tooltip>
+        <template v-slot="{row}">
+          {{ row.deptName || '-' }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="是否是租户" prop="isTenant" width="100">
+        <template v-slot="{row}">
+          <el-tag type="success" v-if="row.isTenant">是</el-tag>
+          <el-tag v-else>否</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="所属租户" prop="tenant" show-overflow-tooltip>
+        <template v-slot="{row}">
+          {{ row.tenant ? row.tenant.name || '-' : '-' }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="登录时间" prop="loginAt" width="170" />
+      <el-table-column v-permission="'online:logout'" align="center" label="操作" width="110" fixed="right">
         <template v-slot="{ row }">
           <div class="f_jc-center">
-            <el-button v-permission="'online:update'" type="primary" link @click="onAddOrEdit(row.id)">编辑</el-button>
-            <el-button v-permission="'online:delete'" type="danger" link @click="onDelete(row.id)">删除</el-button>
+            <el-button v-permission="'online:logout'" type="danger" link @click="onLogout(row.id)">强制退出</el-button>
           </div>
         </template>
       </el-table-column>
@@ -49,41 +65,31 @@
     <template #footbar>
       <Pagination v-model:current="page.current" v-model:size="page.size" :total="page.total" :disabled="loading" @change="onPaginationChange" />
     </template>
-    <AddEdit ref="addEditRef" @confirm="getData" />
   </Container>
 </template>
 
 <script setup>
-import { Container, Dict, DateRangePicker, Pagination } from '@/components'
-import AddEdit from './components/add-edit/index.vue'
+import { Container, TenantSidebar, Pagination } from '@/components'
 import { useNamespace } from '@/hooks'
-import { STATUS_ENUM, DICT_CODE_ENUM, DICT_COMPONENT_TYPE_ENUM } from '@/common/enums'
-import { clearJson, download } from '@/common/utils'
-import { onlinePageApi, onlineDeleteApi, onlineSetStatusApi, onlineExportApi} from '@/apis'
+import { onlinePageApi, onlineLogoutApi } from '@/apis'
 
 const n = useNamespace('online')
 
-const addEditRef = useTemplateRef('addEditRef')
+const containerRef = useTemplateRef('containerRef')
 
 const loading = ref(false)
-const form = reactive({
-  name: '',
-  status: '',
-  start: '',
-  end: ''
-})
+const tenantId = ref('')
 const page = reactive({
   current: 1,
   size: 10,
   total: 0
 })
 const list = ref([])
-const selection = ref([])
 
 const getData = () => {
   loading.value = true
   const { current, size } = page
-  const params = { ...form, current, size }
+  const params = { tenantId: tenantId.value, current, size }
   onlinePageApi(params).then(r => {
     if (r) {
       list.value = r.data.list
@@ -93,80 +99,27 @@ const getData = () => {
   })
 }
 
-const handleReacquire = () => {
-  page.current = 1
+const onChange = () => {
+  containerRef.value.setScrollTop()
   getData()
-}
-
-const onSearch = () => {
-  handleReacquire()
-}
-
-const onReset = () => {
-  clearJson(form)
-  handleReacquire()
-}
-
-const onEnterKeyup = () => {
-  handleReacquire()
 }
 
 const onPaginationChange = () => {
   getData()
 }
 
-const onSelectionChange = value => {
-  selection.value = value
-}
-
-const onDelete = (id) => {
-  const ids = id ? [id] : selection.value.map(item => item.id)
+const onLogout = (id) => {
   ElMessageBox.confirm(
-    `确定对[id=${ ids.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`,
+    `确定对[id=${ id }]进行[强制退出]操作?`,
     { title: '提示', confirmButtonText: '确认', type: 'warning' }
   ).then(() => {
-    onlineDeleteApi({ keys: ids }).then(r => {
+    onlineLogoutApi({ adminerId: id }).then(r => {
       if (r) {
         ElMessage.success('操作成功!')
         getData()
       }
     })
   }).catch(() => {})
-}
-
-const onStatusBeforeChange = (row) => {
-  return new Promise((resolve) => {
-    ElMessageBox.confirm(
-      `确定对[id=${ row.id }]进行[${ row.status === STATUS_ENUM.ENABLE ? '禁用' : '启用' }]操作?`,
-      { title: '提示', confirmButtonText: '确认', type: 'warning' }
-    ).then(() => {
-      resolve(true)
-    }).catch(() => {
-      resolve(false)
-    })
-  })
-}
-
-const onStatusChange = (row) => {
-  const params = {
-    key: row.id,
-    value: row.status
-  }
-  onlineSetStatusApi(params).then(r => {
-    if (r) {
-      ElMessage.success('操作成功!')
-    } else {
-      row.status = row.status === STATUS_ENUM.DISABLE ? STATUS_ENUM.ENABLE : STATUS_ENUM.DISABLE
-    }
-  })
-}
-
-const onExport = () => {
-  onlineExportApi({ ...form }).then(r => r && download(r.data, '', 'xlsx', r.type))
-}
-
-const onAddOrEdit = (id) => {
-  addEditRef.value.open(id)
 }
 
 onBeforeMount(getData)

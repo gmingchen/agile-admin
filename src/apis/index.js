@@ -27,6 +27,7 @@ export * from './role'
 export * from './post'
 export * from './dept'
 export * from './adminer'
+export * from './online'
 export * from './test'
 
 export { handleResponse }

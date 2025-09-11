@@ -1,12 +1,15 @@
 <template>
-  <Container :class="n.b()">
+  <Container ref="containerRef" :class="n.b()">
+    <template #sidebar>
+      <TenantSidebar v-model="form.tenantId" @change="onChange" />
+    </template>
     <template #headbar>
       <el-form inline @keyup.enter="onEnterKeyup">
         <el-form-item>
-          <el-input v-model="form.name" placeholder="名称" clearable />
+          <Dict class="w-177_i" v-model="form.scopeType" :code="DICT_CODE_ENUM.NOTICE_SCOPE" :type="DICT_COMPONENT_TYPE_ENUM.SELECT" placeholder="通知范围" clearable />
         </el-form-item>
         <el-form-item>
-          <Dict class="w-177_i" v-model="form.status" :code="DICT_CODE_ENUM.STATUS" :type="DICT_COMPONENT_TYPE_ENUM.SELECT" placeholder="状态" clearable />
+          <Dict class="w-177_i" v-model="form.type" :code="DICT_CODE_ENUM.NOTICE_TYPE" :type="DICT_COMPONENT_TYPE_ENUM.SELECT" placeholder="通知类型" clearable />
         </el-form-item>
         <el-form-item>
           <DateRangePicker v-model:start="form.start" v-model:end="form.end" />
@@ -14,7 +17,7 @@
         <el-form-item>
           <el-button v-repeat @click="onSearch">查询</el-button>
           <el-button v-repeat @click="onReset">重置</el-button>
-          <el-button v-permission="'notice:create'" type="primary" @click="onAddOrEdit()">新增</el-button>
+          <el-button v-permission="'notice:push'" type="primary" @click="onSend()">发送通知</el-button>
           <el-button v-permission="'notice:delete'" type="danger" :disabled="!selection.length" @click="onDelete()">批量删除</el-button>
           <el-button v-permission="'notice:export'" v-repeat @click="onExport">导出</el-button>
         </el-form-item>
@@ -23,24 +26,23 @@
     <el-table v-loading="loading" :data="list" border @selection-change="onSelectionChange">
       <el-table-column align="center" type="selection" width="50" />
       <el-table-column align="center" label="ID" prop="id" width="80" />
-      <el-table-column align="center" label="名称" prop="name" />
-      <el-table-column align="center" label="状态" prop="status" width="80">
-        <template v-slot="{row}">
-          <el-switch
-            v-permission="'notice:status'"
-            :before-change="onStatusBeforeChange.bind(this, row)"
-            @change="onStatusChange(row)"
-            v-model="row.status"
-            :active-value="STATUS_ENUM.ENABLE"
-            :inactive-value="STATUS_ENUM.DISABLE" />
-        </template>
-      </el-table-column>
+      <el-table-column align="center" label="模版编码" prop="templateCode" show-overflow-tooltip />
+        <el-table-column align="center" label="模版内容" prop="templateContent" show-overflow-tooltip />
+        <el-table-column align="center" label="消息内容" prop="content" show-overflow-tooltip />
+        <el-table-column align="center" label="通知范围" prop="scopeType" width="100">
+          <template v-slot="{ row }">
+            <el-tag :type="row.scopeType_type">{{ row.scopeType_dict }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="消息类型" prop="type" width="100">
+          <template v-slot="{ row }">
+            <el-tag :type="row.type_type">{{ row.type_dict }}</el-tag>
+          </template>
+        </el-table-column>
       <el-table-column align="center" label="创建时间" prop="createdAt" width="170" />
-      <el-table-column align="center" label="更新时间" prop="updatedAt" width="170" />
       <el-table-column v-permission="'notice:update|notice:delete'" align="center" label="操作" width="110" fixed="right">
         <template v-slot="{ row }">
           <div class="f_jc-center">
-            <el-button v-permission="'notice:update'" type="primary" link @click="onAddOrEdit(row.id)">编辑</el-button>
             <el-button v-permission="'notice:delete'" type="danger" link @click="onDelete(row.id)">删除</el-button>
           </div>
         </template>
@@ -49,26 +51,28 @@
     <template #footbar>
       <Pagination v-model:current="page.current" v-model:size="page.size" :total="page.total" :disabled="loading" @change="onPaginationChange" />
     </template>
-    <AddEdit ref="addEditRef" @confirm="getData" />
+    <Send ref="sendRef" @confirm="getData" />
   </Container>
 </template>
 
 <script setup>
-import { Container, Dict, DateRangePicker, Pagination } from '@/components'
-import AddEdit from './components/add-edit/index.vue'
+import { Container, TenantSidebar, Dict, DateRangePicker, Pagination } from '@/components'
+import Send from './components/send/index.vue'
 import { useNamespace } from '@/hooks'
-import { STATUS_ENUM, DICT_CODE_ENUM, DICT_COMPONENT_TYPE_ENUM } from '@/common/enums'
+import { DICT_CODE_ENUM, DICT_COMPONENT_TYPE_ENUM } from '@/common/enums'
 import { clearJson, download } from '@/common/utils'
-import { noticePageApi, noticeDeleteApi, noticeSetStatusApi, noticeExportApi} from '@/apis'
+import { noticePageApi, noticeDeleteApi, noticeExportApi} from '@/apis'
 
 const n = useNamespace('notice')
 
-const addEditRef = useTemplateRef('addEditRef')
+const containerRef = useTemplateRef('containerRef')
+const sendRef = useTemplateRef('sendRef')
 
 const loading = ref(false)
 const form = reactive({
-  name: '',
-  status: '',
+  tenantId: '',
+  scopeType: '',
+  type: '',
   start: '',
   end: ''
 })
@@ -95,6 +99,11 @@ const getData = () => {
 
 const handleReacquire = () => {
   page.current = 1
+  getData()
+}
+
+const onChange = () => {
+  containerRef.value.setScrollTop()
   getData()
 }
 
@@ -134,39 +143,12 @@ const onDelete = (id) => {
   }).catch(() => {})
 }
 
-const onStatusBeforeChange = (row) => {
-  return new Promise((resolve) => {
-    ElMessageBox.confirm(
-      `确定对[id=${ row.id }]进行[${ row.status === STATUS_ENUM.ENABLE ? '禁用' : '启用' }]操作?`,
-      { title: '提示', confirmButtonText: '确认', type: 'warning' }
-    ).then(() => {
-      resolve(true)
-    }).catch(() => {
-      resolve(false)
-    })
-  })
-}
-
-const onStatusChange = (row) => {
-  const params = {
-    key: row.id,
-    value: row.status
-  }
-  noticeSetStatusApi(params).then(r => {
-    if (r) {
-      ElMessage.success('操作成功!')
-    } else {
-      row.status = row.status === STATUS_ENUM.DISABLE ? STATUS_ENUM.ENABLE : STATUS_ENUM.DISABLE
-    }
-  })
-}
-
 const onExport = () => {
   noticeExportApi({ ...form }).then(r => r && download(r.data, '', 'xlsx', r.type))
 }
 
-const onAddOrEdit = (id) => {
-  addEditRef.value.open(id)
+const onSend = () => {
+  sendRef.value.open()
 }
 
 onBeforeMount(getData)

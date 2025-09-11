@@ -8,6 +8,7 @@ import Upload from './upload/index.vue'
 import UploadImage from './upload-image/index.vue'
 import Region from './region/index.vue'
 import WangEditor from './wang-editor/index.vue'
+import TenantSidebar from './tenant-sidebar/index.vue'
 
 export {
   View,
@@ -20,4 +21,5 @@ export {
   UploadImage,
   Region,
   WangEditor,
+  TenantSidebar,
 }
