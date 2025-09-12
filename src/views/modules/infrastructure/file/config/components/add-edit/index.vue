@@ -170,6 +170,7 @@ const onConfirm = () => {
         ElMessage.success('操作成功!')
         emits('confirm')
       }
+      loading.value = false
     }
   })
 }

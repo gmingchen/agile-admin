@@ -28,6 +28,12 @@ export * from './post'
 export * from './dept'
 export * from './adminer'
 export * from './online'
+export * from './operate-log'
+export * from './login-log'
+export * from './error-log'
+export * from './job-log'
+export * from './user'
+export * from './adminer-notice'
 export * from './test'
 
 export { handleResponse }

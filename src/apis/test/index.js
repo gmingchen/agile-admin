@@ -1,21 +1,57 @@
-import { doGet, doJson, doGetBinary, doGetBlob } from '@/common/utils'
+import { doGet, doJson, doGetBlob } from '@/common/utils'
 
+/**
+ * 测试分页列表
+ * @param {*} params
+ * @returns
+ */
+export const testPageApi = params => doGet('/admin/test/page', params)
 
-export function testGetApi(params) {
-  return doGet(
-    'https://admin.gumingchen.icu/slipper/admin/auth/captcha',
-    params
-  )
-}
+/**
+ * 测试详情
+ * @param {*} params
+ * @returns
+*/
+export const testInfoApi = params => doGet('/admin/test/info', params)
 
-export function testBinaryApi() {
-  return doGetBinary(
-    'https://ovopark-oss-wanji.oss-cn-hangzhou.aliyuncs.com/ovopark-wanji/211/2025/07/11/small/1752224798223.png',
-  )
-}
+/**
+ * 测试新增
+ * @param {*} params
+ * @returns
+*/
+export const testCreateApi = params => doJson('/admin/test/create', params)
 
-export function testBlobApi() {
-  return doGetBlob(
-    'https://ovopark-oss-wanji.oss-cn-hangzhou.aliyuncs.com/ovopark-wanji/211/2025/07/11/small/1752224798223.png',
-  )
-}
+/**
+ * 测试修改
+ * @param {*} params
+ * @returns
+*/
+export const testUpdateApi = params => doJson('/admin/test/update', params)
+
+/**
+ * 测试删除
+ * @param {*} params
+ * @returns
+*/
+export const testDeleteApi = params => doJson('/admin/test/delete', params)
+
+/**
+ * 测试状态设置
+ * @param {*} params
+ * @returns
+*/
+export const testSetStatusApi = params => doJson('/admin/test/status', params)
+
+/**
+ * 测试导出
+ * @param {*} params
+ * @returns
+*/
+export const testExportApi = params => doGetBlob('/admin/test/export', params)
+
+/**
+ * 测试选择列表
+ * @param {*} params
+ * @returns
+*/
+export const testSelectListApi = params => doGet('/admin/test/select', params)

@@ -69,6 +69,7 @@ watch(() => mode.value, toggle, { immediate: false })
 ::view-transition-new(root),
 ::view-transition-old(root) {
   animation: none;
+  transition: none;
 }
 .dark::view-transition-old(root) {
   z-index: 100;

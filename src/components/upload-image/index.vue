@@ -72,7 +72,7 @@ watch(() => value.value, (val) => {
     isLimit.value = list.value.length >= props.limit
   }
   monitor.value = true
-})
+}, { immediate: true })
 
 const updateValue = (files) => {
   monitor.value = false
