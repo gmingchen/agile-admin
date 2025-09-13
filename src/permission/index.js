@@ -2,11 +2,11 @@ import { usePermissionStore, useMenuStore } from '@/stores'
 import { parseDataToTree, print, printWarn } from '@/common/utils'
 import { PERMISSION_TYPE_ENUM } from '@/common/enums'
 import { loginPermissionApi } from '@/apis'
-import { menus as localMenus } from './modules'
-import { filterMenus, validatePermission } from './utils'
+import { permissions as localPermissions } from './modules'
+import { filterTree, validatePermission } from './utils'
 
 /*
-  todo 菜单对象属性 远程路由会处理成该格式
+  todo 权限对象属性 远程路由会处理成该格式
   value: 唯一值
   label: 显示名称
   icon: 图标
@@ -22,15 +22,15 @@ import { filterMenus, validatePermission } from './utils'
     redirect: 重定向
     component: 组件路径 理论上都是 /src/views/modules 下的组件
   }
-  children: 子菜单
+  children: 子权限
 */
 
 /**
- * 解析远程获取的菜单
+ * 解析远程获取的权限
  * @param {*} list
  * @returns
  */
-const parseRemoteMenu = (list) => {
+const parseRemotePermission = (list) => {
   const result = []
   list.forEach(item => {
     const {
@@ -48,6 +48,7 @@ const parseRemoteMenu = (list) => {
       multiple: multiple === 1,
       show: show === 1,
       type: type,
+      url,
       ...others,
     }
     if (type === PERMISSION_TYPE_ENUM.MENU || type === PERMISSION_TYPE_ENUM.ROUTER) {
@@ -57,6 +58,12 @@ const parseRemoteMenu = (list) => {
         name: routeName || defaultValue,
         redirect: redirectName ? { name: redirectName }: null,
         component: url
+      }
+    } else if (type === PERMISSION_TYPE_ENUM.IFRAME) {
+      menu.route = {
+        path: `/i-${ id }`,
+        name: `i-${ id }`,
+        component: '/iframe/index'
       }
     }
     result.push(menu)
@@ -71,13 +78,16 @@ const getPermissionData = async () => {
   if (r) {
     const permissionStore = usePermissionStore()
     permissionStore.loaded = true
-    permissionStore.permissions = r.data.permissions
+    permissionStore.permissionValues = r.data.permissionValues
 
     // todo：这里决定是本地路由还是后端路由
-    // let menus = filterMenus(localMenus, item => validatePermission(r.data.permissions, item.permission))
-    let menus = parseRemoteMenu(r.data.menus)
-    menus = parseDataToTree(menus, 'value')
+    // let permissions = filterTree(localPermissions, item => validatePermission(r.data.permissionValues, item.permission))
+    let permissions = parseRemotePermission(r.data.permissions)
 
+    permissions = parseDataToTree(permissions, 'value')
+    permissionStore.permissions = permissions
+
+    let menus = filterTree(permissions, item => item.show && item.type !== PERMISSION_TYPE_ENUM.BUTTON)
     const menuStore = useMenuStore()
     menuStore.menus = menus
   }
@@ -103,7 +113,7 @@ const hasPermission = (permission) => {
       fn = 'some'
       break
   }
-  const list = usePermissionStore().permissions
+  const list = usePermissionStore().permissionValues
   result = fn && permissions[fn](item => {
     return list.indexOf(item) !== -1
   })
@@ -124,7 +134,7 @@ export function havePermission(permission) {
       fn = 'some'
       break
   }
-  const list = useMenuStore().permissions
+  const list = useMenuStore().permissionValues
   result = fn && permissions[fn](item => {
     return list.indexOf(item) !== -1
   })

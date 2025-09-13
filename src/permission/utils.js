@@ -1,19 +1,19 @@
 import { PERMISSION_TYPE_ENUM } from '@/common/enums'
 
 /**
- * 过滤菜单
+ * 过滤权限树形数据
  * @param {*} list 数据
  * @param {*} condition 条件函数
  * @returns
  */
-export const filterMenus = (list, condition = (() => true)) => {
+export const filterTree = (list, condition = (() => true)) => {
   const result = []
   for (let i = 0; i < list.length; i++) {
     const item = list[i];
     if (condition(item)) {
       const row = {
         ...item,
-        children: item.children && item.children.length ? filterMenus(item.children, condition) : []
+        children: item.children && item.children.length ? filterTree(item.children, condition) : []
       }
       result.push(row)
     }
@@ -22,11 +22,11 @@ export const filterMenus = (list, condition = (() => true)) => {
 }
 
 /**
- * 查找路由菜单
+ * 查找路由权限
  * @param {*} list 数据
  * @returns
  */
-export const findRouteMenus = list => {
+export const findRoutePermission = list => {
   const result = []
   for (let i = 0; i < list.length; i++) {
     const item = list[i];
@@ -35,7 +35,7 @@ export const findRouteMenus = list => {
       result.push(item)
     }
     if (children && children.length && type !== PERMISSION_TYPE_ENUM.ROUTER) {
-      result.push(...findRouteMenus(children))
+      result.push(...findRoutePermission(children))
     }
   }
   return result
@@ -43,16 +43,16 @@ export const findRouteMenus = list => {
 
 
 /**
- * 查找第一个有路由的菜单
+ * 查找第一个有路由的权限
  */
-export const findFirstRouteMenu = list => {
+export const findFirstRoutePermission = list => {
   for (let i = 0; i < list.length; i++) {
     const item = list[i];
     const { type, children } = item
     if (type === PERMISSION_TYPE_ENUM.MENU) {
       return item
     } else if (children && children.length) {
-      const item = getFirstRouteMenu(children)
+      const item = findFirstRoutePermission(children)
       if (item) return item
     }
   }
@@ -62,22 +62,23 @@ export const findFirstRouteMenu = list => {
 /**
  * 校验是否有权限
  * @param {*} permissions 权限列表
- * @param {*} menuPermission 菜单权限
+ * @param {*} permission 权限
  * @returns
  */
-export const validatePermission = (permissions, menuPermission) => {
-  if (!menuPermission) return true
-  const permission = menuPermission.split(',').map(item => item.trim())
-  return permission.some((item) => permissions.includes(item))
+export const validatePermission = (permissions, permission) => {
+  if (!permission) return true
+  return permission.split(',')
+          .map(item => item.trim())
+          .some(item => permissions.includes(item))
 }
 
 /**
- * 解析菜单 -> 路由
+ * 解析权限 -> 路由
  * @param {*} menu
  * @returns
  */
 const dynamics = import.meta.glob('../views/modules/**/*.vue')
-const parseMenuToRoute = menu => {
+const parsePermissionToRoute = menu => {
   const { children, route, ...others } = menu
   const result = {
     ...route,
@@ -97,9 +98,9 @@ export const findRoutes = list => {
   const result = []
   for (let i = 0; i < list.length; i++) {
     const item = list[i];
-    if (item.type === PERMISSION_TYPE_ENUM.MENU || item.type === PERMISSION_TYPE_ENUM.ROUTER) {
+    if (item.type === PERMISSION_TYPE_ENUM.MENU || item.type === PERMISSION_TYPE_ENUM.ROUTER || item.type === PERMISSION_TYPE_ENUM.IFRAME) {
       result.push({
-        ...parseMenuToRoute(item),
+        ...parsePermissionToRoute(item),
         children: item.children && item.children.length ? findRoutes(item.children) : []
       })
     } else if (item.children && item.children.length) {

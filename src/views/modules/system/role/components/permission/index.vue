@@ -12,12 +12,12 @@
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" readonly />
       </el-form-item>
-      <el-form-item label="权限" prop="menuIds">
+      <el-form-item label="权限" prop="permissionIds">
         <el-cascader
           class="w-f"
-          ref="refCascader"
-          v-model="form.menuIds"
-          :options="menus"
+          ref="cascaderRef"
+          v-model="form.permissionIds"
+          :options="permissions"
           :props="cascaderProps"
           :show-all-levels="false"
           collapse-tags
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { useMenuStore } from '@/stores'
+import { usePermissionStore } from '@/stores'
 import { roleInfoApi, roleSetPermissionApi } from '@/apis'
 import { useNamespace } from '@/hooks'
 
@@ -41,7 +41,7 @@ const n = useNamespace('add-edit')
 
 const emits = defineEmits(['confirm', 'cancel'])
 
-const menuStore = useMenuStore()
+const permissionStore = usePermissionStore()
 
 const cascaderRef = useTemplateRef('cascaderRef')
 const cascaderProps = {
@@ -52,7 +52,7 @@ const cascaderProps = {
   label: `label`,
   children: 'children'
 }
-const menus = ref([])
+const permissions = ref([])
 
 const visible = ref(false)
 const loading = ref(false)
@@ -60,16 +60,16 @@ const formRef = useTemplateRef('formRef')
 const form = reactive({
   id: null,
   name: '',
-  menuIds: []
+  permissionIds: []
 })
 const rules = computed(() => {
   return {
-    menuIds: [{ type: 'array', required: true, message: '请选择权限', trigger: 'change' }]
+    permissionIds: [{ type: 'array', required: true, message: '请选择权限', trigger: 'change' }]
   }
 })
 
 const getPermissions = () => {
-  menus.value = [{ id: 0, label: '一级菜单', parentId: 0, children: menuStore.menus }]
+  permissions.value = [{ id: 0, label: '一级菜单', parentId: 0, children: permissionStore.permissions }]
 }
 
 const onClosed = () => {
@@ -87,10 +87,10 @@ const onConfirm = () => {
     if (valid) {
       loading.value = true
       const checkedNodes = cascaderRef.value.getCheckedNodes(true)
-      let menuIds = []
-      checkedNodes.forEach(item => menuIds.push.apply(menuIds, item.pathValues))
-      menuIds = Array.from(new Set(menuIds)).filter(item => item !== 0)
-      const r = await roleSetPermissionApi({ id: form.id, menuIds })
+      let permissionIds = []
+      checkedNodes.forEach(item => permissionIds.push.apply(permissionIds, item.pathValues))
+      permissionIds = Array.from(new Set(permissionIds)).filter(item => item !== 0)
+      const r = await roleSetPermissionApi({ id: form.id, permissionIds })
       if (r) {
         visible.value = false
         ElMessage.success('操作成功!')
@@ -103,12 +103,13 @@ const onConfirm = () => {
 
 const open = (id) => {
   visible.value = true
+  loading.value = true
   form.id = id
   getPermissions()
   roleInfoApi({ id }).then(r => {
     if (r) {
       form.name = r.data.name
-      form.menuIds = r.data.menuIds
+      form.permissionIds = r.data.permissionIds
     }
     nextTick(() => loading.value = false)
   })

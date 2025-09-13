@@ -22,11 +22,11 @@ export const loginApi = params => doJson('/admin/auth/login', params)
 export const loginInfoApi = () => doGet('/admin/auth/info')
 
 /**
- * 获取登录管理员权限、菜单
+ * 获取登录管理员权限
  * @param {*} params
  * @returns
  */
-export const loginPermissionApi = () => doGet('/admin/auth/menu')
+export const loginPermissionApi = () => doGet('/admin/auth/permission')
 
 /**
  * 修改基础信息

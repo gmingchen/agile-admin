@@ -1,17 +1,17 @@
 <template>
   <Container :class="n.b()" custom>
-    <h1 v-for="item in 30" :key="item">{{ item }}</h1>
+    <CountStat />
+    <Introduction />
   </Container>
 </template>
 
 <script setup>
 import { Container } from '@/components'
+import { CountStat, Introduction } from './components'
 import { useNamespace } from '@/hooks'
-import { onMounted } from 'vue'
+
 const n = useNamespace('home')
 
-onMounted(() => {
-})
 </script>
 
 <style lang="scss" scoped>

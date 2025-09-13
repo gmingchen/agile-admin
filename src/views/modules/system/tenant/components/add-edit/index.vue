@@ -176,11 +176,11 @@ const onConfirm = () => {
 
 const open = async (id) => {
   visible.value = true
+  loading.value = true
   if (!packageList.value.length) {
     await getPackageList()
   }
   if (id) {
-    loading.value = true
     form.id = id
     tenantInfoApi({ id }).then(r => {
       if (r) {
@@ -200,9 +200,9 @@ const open = async (id) => {
           form.packages.push({ ...item, name: packageName })
         })
       }
-      nextTick(() => loading.value = false)
     })
   }
+  nextTick(() => loading.value = false)
 }
 
 defineExpose({ open })

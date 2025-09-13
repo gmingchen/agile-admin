@@ -4,6 +4,7 @@ export const usePermissionStore = defineStore('permission', {
   state: () => ({
     loaded: false,
     permissions: [],
+    permissionValues: [],
   }),
   actions: {
     clear() {

@@ -13,7 +13,7 @@
           <template #top>
             <Brand :collapse="collapse"></Brand>
           </template>
-          <Menu :data="showMenus" :active="active" :collapse="collapse"></Menu>
+          <Menu :data="menus" :active="active" :collapse="collapse"></Menu>
         </Sidebar>
       </template>
       <View v-if="!refresh" transition="left-in-right-out"></View>
@@ -32,7 +32,7 @@ const n = useNamespace('layout')
 const route = useRoute()
 
 const menuStore = useMenuStore()
-const { showMenus, active, collapse, } = storeToRefs(menuStore)
+const { menus, active, collapse, } = storeToRefs(menuStore)
 const systemStore = useSystemStore()
 const { refresh } = storeToRefs(systemStore)
 

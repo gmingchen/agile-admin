@@ -53,12 +53,11 @@ const rules = computed(() => {
   }
 })
 
-const getRoles = () => {
-  roleSelectListApi().then(r => {
-    if (r) {
-      roles.value = r.data
-    }
-  })
+const getRoles = async () => {
+  const r = await roleSelectListApi()
+  if (r) {
+    roles.value = r.data
+  }
 }
 
 const onClosed = () => {
@@ -88,21 +87,21 @@ const onConfirm = () => {
   })
 }
 
-const open = (id) => {
+const open = async (id) => {
   visible.value = true
-  getRoles()
+  loading.value = true
+  await getRoles()
   if (id) {
-    loading.value = true
     form.id = id
-    adminerInfoApi({ id }).then(r => {
+    await adminerInfoApi({ id }).then(r => {
       if (r) {
         form.username = r.data.username
         form.nickname = r.data.nickname
         form.roleIds = r.data.roleIds
       }
-      nextTick(() => loading.value = false)
     })
   }
+  nextTick(() => loading.value = false)
 }
 
 defineExpose({ open })

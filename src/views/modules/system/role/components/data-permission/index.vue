@@ -110,21 +110,21 @@ const onConfirm = () => {
   })
 }
 
-const open = (id) => {
+const open = async (id) => {
   visible.value = true
-  getDepts()
+    loading.value = true
+  await getDepts()
   if (id) {
     form.id = id
-    loading.value = true
     roleInfoApi({ id }).then(r => {
       if (r) {
         form.name = r.data.name
         form.dataScope = r.data.dataScope
         form.dataScopeDeptIds = r.data.dataScopeDeptIds
       }
-      nextTick(() => loading.value = false)
     })
   }
+  nextTick(() => loading.value = false)
 }
 
 defineExpose({ open })

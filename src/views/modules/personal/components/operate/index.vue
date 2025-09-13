@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { operateLogLatestApi } from '@/apis'
+import { selfOperateLogLatestApi } from '@/apis'
 import { useNamespace } from '@/hooks'
 
 const n = useNamespace('operate')
@@ -28,7 +28,7 @@ const list = ref([])
 
 const getData = () => {
   loading.value = true
-  operateLogLatestApi().then(r => {
+  selfOperateLogLatestApi().then(r => {
     if (r) {
       list.value = r.data
     }

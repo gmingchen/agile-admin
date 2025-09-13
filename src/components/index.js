@@ -9,6 +9,7 @@ import UploadImage from './upload-image/index.vue'
 import Region from './region/index.vue'
 import WangEditor from './wang-editor/index.vue'
 import TenantSidebar from './tenant-sidebar/index.vue'
+import CountTo from './count-to/index.vue'
 
 export {
   View,
@@ -22,4 +23,5 @@ export {
   Region,
   WangEditor,
   TenantSidebar,
+  CountTo,
 }

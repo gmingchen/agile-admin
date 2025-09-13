@@ -125,14 +125,14 @@ const onConfirm = () => {
   })
 }
 
-const open = (id) => {
+const open = async (id) => {
   visible.value = true
-  getDepts()
-  getAdminers()
+  loading.value = true
+  await getDepts()
+  await getAdminers()
   if (id) {
-    loading.value = true
     form.id = id
-    deptInfoApi({ id }).then(r => {
+    await deptInfoApi({ id }).then(r => {
       if (r) {
         form.name = r.data.name
         form.leader = r.data.leader
@@ -141,9 +141,9 @@ const open = (id) => {
         form.parentId = r.data.parentId
         form.status = r.data.status
       }
-      nextTick(() => loading.value = false)
     })
   }
+  nextTick(() => loading.value = false)
 }
 
 defineExpose({ open })

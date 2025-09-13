@@ -141,20 +141,18 @@ const rules = computed(() => {
   }
 })
 
-const getDepts = () => {
-  deptSelectListApi().then(r => {
-    if (r) {
-      depts.value = parseDataToTree(r.data)
-    }
-  })
+const getDepts = async () => {
+  const r = await deptSelectListApi()
+  if (r) {
+    depts.value = parseDataToTree(r.data)
+  }
 }
 
-const getPosts = () => {
-  postSelectListApi().then(r => {
-    if (r) {
-      posts.value = r.data
-    }
-  })
+const getPosts = async () => {
+  const r = await postSelectListApi()
+  if (r) {
+    posts.value = r.data
+  }
 }
 
 const onClosed = () => {
@@ -182,14 +180,14 @@ const onConfirm = () => {
   })
 }
 
-const open = (id) => {
+const open = async (id) => {
   visible.value = true
-  getDepts()
-  getPosts()
+  loading.value = true
+  await getDepts()
+  await getPosts()
   if (id) {
-    loading.value = true
     form.id = id
-    adminerInfoApi({ id }).then(r => {
+    await adminerInfoApi({ id }).then(r => {
       if (r) {
         form.username = r.data.username
         form.nickname = r.data.nickname
@@ -201,9 +199,9 @@ const open = (id) => {
         form.postIds = r.data.postIds
         form.status = r.data.status
       }
-      nextTick(() => loading.value = false)
     })
   }
+  nextTick(() => loading.value = false)
 }
 
 defineExpose({ open })

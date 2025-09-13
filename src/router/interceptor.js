@@ -1,7 +1,7 @@
 import NProgress from 'nprogress'
 import dayjs from 'dayjs'
 import { useAuthStore, usePermissionStore, useMenuStore, useAdminerStore, useDictStore } from '@/stores'
-import { getPermissionData, findFirstRouteMenu, findRoutes } from '@/permission'
+import { getPermissionData, findFirstRoutePermission, findRoutes } from '@/permission'
 import { print } from '@/common/utils'
 import { constants, layout } from './route'
 /**
@@ -25,8 +25,8 @@ const handleLayoutBeforeEnter = async (to, _from, next) => {
     return next({ name: 'login', replace: true })
   }
   if (to.name === 'redirect') {
-    const { menus } = useMenuStore()
-    const menu = findFirstRouteMenu(menus)
+    const { permissions } = usePermissionStore()
+    const menu = findFirstRoutePermission(permissions)
     if (menu) {
       const { name } = menu.route
       return next({ name: name, replace: true })
@@ -66,8 +66,9 @@ const handleDynamic = async (to, _from, next, router) => {
     if (!r) return next({ name: 'login', replace: true })
   }
 
-  const { menus } = useMenuStore()
-  const routes = findRoutes(menus)
+  const { permissions } = usePermissionStore()
+  const routes = findRoutes(permissions)
+
 
   handleRegisterRoute(routes, router)
   isRegistered = true

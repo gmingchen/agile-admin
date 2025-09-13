@@ -12,11 +12,11 @@
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" placeholder="名称" maxlength="32" show-word-limit />
       </el-form-item>
-      <el-form-item label="菜单权限" prop="menuIds">
+      <el-form-item label="权限" prop="permissionIds">
         <el-cascader
           class="w-f"
           ref="cascaderRef"
-          v-model="form.menuIds"
+          v-model="form.permissionIds"
           :options="permissionList"
           :props="cascaderProps"
           :show-all-levels="false"
@@ -62,13 +62,13 @@ const form = reactive({
   name: '',
   remark: '',
   status: '',
-  menuIds: []
+  permissionIds: []
 })
 const rules = computed(() => {
   return {
     name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
     status: [{ required: true, message: '请选择状态', trigger: 'change' }],
-    menuIds: [{ type: 'array', required: true, message: '请选择菜单', trigger: 'change' }]
+    permissionIds: [{ type: 'array', required: true, message: '请选择菜单', trigger: 'change' }]
   }
 })
 
@@ -107,11 +107,11 @@ const onConfirm = () => {
       loading.value = true
        // 获取所有菜单ID
       const checkedNodes = cascaderRef.value.getCheckedNodes(true)
-      const menuIds = []
+      const permissionIds = []
       checkedNodes.forEach(item => {
-        menuIds.push.apply(menuIds, item.pathValues)
+        permissionIds.push.apply(permissionIds, item.pathValues)
       })
-      form.menuIds = Array.from(new Set(menuIds)).filter(item => item !== 0)
+      form.permissionIds = Array.from(new Set(permissionIds)).filter(item => item !== 0)
       const r = await (form.id ? packageUpdateApi(form) : packageCreateApi(form))
       if (r) {
         visible.value = false
@@ -125,22 +125,22 @@ const onConfirm = () => {
 
 const open = async (id) => {
   visible.value = true
+  loading.value = true
   if (!permissionList.value.length) {
     await getPermissionList()
   }
   if (id) {
     form.id = id
-    loading.value = true
-    packageInfoApi({ id }).then(r => {
+    await packageInfoApi({ id }).then(r => {
       if (r) {
         form.name = r.data.name
         form.remark = r.data.remark
         form.status = r.data.status
-        form.menuIds = r.data.menuIds
+        form.permissionIds = r.data.permissionIds
       }
-      nextTick(() => loading.value = false)
     })
   }
+  nextTick(() => loading.value = false)
 }
 
 defineExpose({ open })

@@ -44,7 +44,7 @@
 import { Dict, DateRangePicker, Pagination } from '@/components'
 import { NOTICE_STATUS_ENUM, DICT_CODE_ENUM, DICT_COMPONENT_TYPE_ENUM } from '@/common/enums'
 import { clearJson } from '@/common/utils'
-import { adminerNoticePageApi, adminerNoticeDeleteApi, adminerNoticeSetStatusApi} from '@/apis'
+import { selfNoticePageApi, selfNoticeDeleteApi, selfNoticeSetStatusApi} from '@/apis'
 import { useNamespace } from '@/hooks'
 
 const n = useNamespace('notice')
@@ -70,7 +70,7 @@ const getData = () => {
   loading.value = true
   const { current, size } = page
   const params = { ...form, current, size }
-  adminerNoticePageApi(params).then(r => {
+  selfNoticePageApi(params).then(r => {
     if (r) {
       list.value = r.data.list
       page.total = r.data.total
@@ -111,7 +111,7 @@ const onDelete = (id) => {
     `确定对[id=${ ids.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`,
     { title: '提示', confirmButtonText: '确认', type: 'warning' }
   ).then(() => {
-    adminerNoticeDeleteApi({ keys: ids }).then(r => {
+    selfNoticeDeleteApi({ keys: ids }).then(r => {
       if (r) {
         ElMessage.success('操作成功!')
         getData()

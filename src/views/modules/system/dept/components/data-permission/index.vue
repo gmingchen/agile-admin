@@ -110,11 +110,11 @@ const onConfirm = () => {
   })
 }
 
-const open = (id) => {
+const open = async (id) => {
   visible.value = true
-  getDepts()
+  loading.value = true
+  await getDepts()
   if (id) {
-    loading.value = true
     form.id = id
     deptInfoApi({ id }).then(r => {
       if (r) {
@@ -122,9 +122,9 @@ const open = (id) => {
         form.dataScope = r.data.dataScope
         form.dataScopeDeptIds = r.data.dataScopeDeptIds
       }
-      nextTick(() => loading.value = false)
     })
   }
+  nextTick(() => loading.value = false)
 }
 
 defineExpose({ open })

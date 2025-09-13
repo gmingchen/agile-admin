@@ -162,7 +162,7 @@
 			"export const ${2:name}SelectListApi = params => doGet('/admin/${2:name}/select', params)\n",
 		]
 	},
-	// 权限菜单对象
+	// 权限对象
 	"Permission Object" : {
 		"prefix": ["aapermission", "aap", "apermission", "ap"],
 		"body": [

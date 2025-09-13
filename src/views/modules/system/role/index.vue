@@ -55,7 +55,7 @@
               <el-button class="margin_l-12" type="primary" link>更多</el-button>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item command="permission" v-if="hasPermission('role:menu')">权限</el-dropdown-item>
+                  <el-dropdown-item command="permission" v-if="hasPermission('role:permission')">权限</el-dropdown-item>
                   <el-dropdown-item command="dataPermission" v-if="hasPermission('role:data')">数据权限</el-dropdown-item>
                   <el-dropdown-item command="delete" v-if="hasPermission('role:delete')">删除</el-dropdown-item>
                 </el-dropdown-menu>

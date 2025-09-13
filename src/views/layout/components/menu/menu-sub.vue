@@ -26,6 +26,7 @@ import { Icon } from '@/components'
 import MenuSub from './menu-sub.vue'
 import { PERMISSION_TYPE_ENUM } from '@/common/enums'
 import { useNamespace } from '@/hooks'
+
 const n = useNamespace('menu-sub')
 
 const { data } = defineProps({
@@ -38,9 +39,11 @@ const { data } = defineProps({
 const router = useRouter()
 
 const onClick = () => {
-  const { type, route } = data
-  if (type === PERMISSION_TYPE_ENUM.MENU || type === PERMISSION_TYPE_ENUM.ROUTER) {
+  const { type, route, url } = data
+  if (type === PERMISSION_TYPE_ENUM.MENU || type === PERMISSION_TYPE_ENUM.ROUTER || type === PERMISSION_TYPE_ENUM.IFRAME) {
     router.push({ name: route.name })
+  } else if (type === PERMISSION_TYPE_ENUM.URL) {
+    window.open(url)
   }
 }
 </script>
