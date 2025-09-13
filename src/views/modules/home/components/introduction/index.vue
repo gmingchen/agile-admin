@@ -35,6 +35,7 @@ const onDocument = () => {
 @use '@/assets/sass/bem.scss' as *;
 $prefix: introduction#{$element-separator};
 @include b(introduction) {
+  min-width: 400px;
   @include e(content) {
     text-align: center;
   }
