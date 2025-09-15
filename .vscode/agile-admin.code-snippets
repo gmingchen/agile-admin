@@ -262,7 +262,7 @@
 		"prefix": ["aavuebemdefaulttemplate", "aavbdt", "avuebemdefaulttemplatee", "avbdt"],
 		"body": [
 			"<template>",
-			"  <div :class=\"n.b()\"></div>",
+			"  <div :class=\"n.b()\">${1:namespace}</div>",
 			"</template>\n",
 			"<script setup>",
 			"import { useNamespace } from '@/hooks'\n",

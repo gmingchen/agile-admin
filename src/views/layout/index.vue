@@ -6,6 +6,7 @@
           <template #left>
             <MenuCollapse></MenuCollapse>
           </template>
+          <Crumb class="ml-10"></Crumb>
         </Headbar>
       </template>
       <template #sidebar>
@@ -23,7 +24,7 @@
 
 <script setup>
 import { View } from '@/components'
-import { Frame, Headbar, Sidebar, Brand, Menu, MenuCollapse } from './components'
+import { Frame, Headbar, Sidebar, Brand, Crumb, Menu, MenuCollapse } from './components'
 import { useMenuStore, useSystemStore } from '@/stores'
 import { useNamespace } from '@/hooks'
 
