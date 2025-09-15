@@ -10,6 +10,7 @@ import Region from './region/index.vue'
 import WangEditor from './wang-editor/index.vue'
 import TenantSidebar from './tenant-sidebar/index.vue'
 import CountTo from './count-to/index.vue'
+import Echarts from './echarts/index.vue'
 
 export {
   View,
@@ -24,4 +25,5 @@ export {
   WangEditor,
   TenantSidebar,
   CountTo,
+  Echarts,
 }
