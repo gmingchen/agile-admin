@@ -14,7 +14,7 @@
         <el-button v-repeat @click="onSearch">查询</el-button>
         <el-button v-repeat @click="onReset">重置</el-button>
         <el-button v-repeat type="primary" @click="onRead()">全部已读</el-button>
-        <el-button type="danger" @click="onDelete()" :disabled="selection.length <= 0">批量删除</el-button>
+        <el-button type="danger" @click="onDelete()" :disabled="!selection.length">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table v-loading="loading" :data="list" border @selection-change="onSelectionChange">
@@ -42,14 +42,15 @@
 
 <script setup>
 import { Dict, DateRangePicker, Pagination } from '@/components'
+import { useNoticeStore } from '@/stores'
 import { NOTICE_STATUS_ENUM, DICT_CODE_ENUM, DICT_COMPONENT_TYPE_ENUM } from '@/common/enums'
 import { clearJson } from '@/common/utils'
-import { selfNoticePageApi, selfNoticeDeleteApi, selfNoticeSetStatusApi} from '@/apis'
+import { selfNoticePageApi, selfNoticeDeleteApi } from '@/apis'
 import { useNamespace } from '@/hooks'
 
 const n = useNamespace('notice')
 
-const addEditRef = useTemplateRef('addEditRef')
+const noticeStore = useNoticeStore()
 
 const loading = ref(false)
 const form = reactive({
@@ -120,10 +121,16 @@ const onDelete = (id) => {
   }).catch(() => {})
 }
 
-const onRead = async (row) => {
-  const ids = row ? [row.id] : []
-  // await noticeStore.read(ids)
-  getData()
+const onRead = async (id) => {
+  const ids = id ? [id] : []
+  ElMessageBox.confirm(
+    `确定对[${ id ? `id=${ ids.join(',') }` : '所有通知' }]进行[已读]操作?`,
+    { title: '提示', confirmButtonText: '确认', type: 'warning' }
+  ).then(async () => {
+    await noticeStore.setRead(ids)
+    ElMessage.success('操作成功!')
+    getData()
+  }).catch(() => {})
 }
 
 onBeforeMount(getData)

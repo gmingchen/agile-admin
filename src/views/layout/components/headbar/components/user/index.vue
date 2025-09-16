@@ -34,7 +34,7 @@ const onCommand = async (command) => {
       router.push({ name: 'personal' })
       break
     case 'logout':
-      logout()
+      await logout()
       router.push({ name: 'login' })
       break
   }

@@ -17,6 +17,7 @@
           <Menu :data="menus" :active="active" :collapse="collapse"></Menu>
         </Sidebar>
       </template>
+      <Tabbar :class="n.e('tabbar')"></Tabbar>
       <View v-if="!refresh" transition="left-in-right-out"></View>
     </Frame>
   </div>
@@ -24,7 +25,7 @@
 
 <script setup>
 import { View } from '@/components'
-import { Frame, Headbar, Sidebar, Brand, Crumb, Menu, MenuCollapse } from './components'
+import { Frame, Headbar, Sidebar, Tabbar, Brand, Crumb, Menu, MenuCollapse } from './components'
 import { useMenuStore, useSystemStore } from '@/stores'
 import { useNamespace } from '@/hooks'
 
@@ -50,10 +51,14 @@ const mode = ref('horizontal')
   height: 100%;
   overflow: hidden;
   @include e(headbar) {
-    z-index: 2;
+    z-index: 3;
   }
   @include e(sidebar) {
-    z-index: 3;
+    z-index: 4;
+  }
+  @include e(tabbar) {
+    z-index: 2;
+    flex-shrink: 0;
   }
 
   .el-menu:not(.el-menu--collapse) {

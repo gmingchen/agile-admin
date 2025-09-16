@@ -19,7 +19,7 @@
 		]
 	},
 	"Import Store" :{
-		"prefix": ["aaimportstore", "aaistore", "aimportstore", "ais"],
+		"prefix": ["aaimportstore", "aais", "aimportstore", "ais"],
 		"body": [
 			"import { ${1:store} } from '@/stores'"
 		]

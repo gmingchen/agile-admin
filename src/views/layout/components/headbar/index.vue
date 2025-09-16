@@ -9,13 +9,14 @@
       <Refresh></Refresh>
       <Clear></Clear>
       <ThemeMode></ThemeMode>
-      <User></User>
+      <Notice></Notice>
+      <User class="ml-10"></User>
     </div>
   </div>
 </template>
 
 <script setup>
-import { FullScreen, Refresh, Clear, ThemeMode, User, } from './components'
+import { FullScreen, Refresh, Clear, ThemeMode, User, Notice } from './components'
 import { useNamespace } from '@/hooks'
 const n = useNamespace('headbar')
 </script>

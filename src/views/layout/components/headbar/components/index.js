@@ -3,6 +3,7 @@ import Refresh from './refresh/index.vue'
 import Clear from './clear/index.vue'
 import ThemeMode from './theme-mode/index.vue'
 import User from './user/index.vue'
+import Notice from './notice/index.vue'
 
 export {
   FullScreen,
@@ -10,4 +11,5 @@ export {
   Clear,
   ThemeMode,
   User,
+  Notice,
 }

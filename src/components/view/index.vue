@@ -6,21 +6,20 @@
         mode="out-in"
         @enter="onEnter"
         @leave="onLeave">
-        <keep-alive>
+        <!-- <keep-alive> -->
           <component :is="Component" />
-        </keep-alive>
+        <!-- </keep-alive> -->
       </transition>
     </template>
     <template v-else>
-      <keep-alive>
+      <!-- <keep-alive> -->
         <component :is="Component" />
-      </keep-alive>
+      <!-- </keep-alive> -->
     </template>
   </router-view>
 </template>
 
 <script setup>
-import { View } from '@/components'
 const props = defineProps({
   // 过度动画 不传则没有动画
   transition: {

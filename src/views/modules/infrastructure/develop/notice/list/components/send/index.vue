@@ -177,7 +177,7 @@ const onConfirm = () => {
         params: {}
       }
       templateParams.forEach(({ label, value }) => params.params[label] = value)
-      const r = await noticePushApi(others)
+      const r = await noticePushApi(params)
       if (r) {
         visible.value = false
         ElMessage.success('操作成功!')

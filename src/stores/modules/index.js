@@ -4,6 +4,8 @@ import { usePermissionStore } from './permission'
 import { useMenuStore } from './menu'
 import { useSystemStore } from './system'
 import { useDictStore } from './dict'
+import { useTabStore } from './tab'
+import { useNoticeStore } from './notice'
 
 const useRootStore = defineStore('root', {
   state: () => ({}),
@@ -13,9 +15,13 @@ const useRootStore = defineStore('root', {
       usePermissionStore().clear()
       useMenuStore().clear()
       useDictStore().clear()
+      useTabStore().clear()
+      useNoticeStore().clear()
     },
-    logout() {
-      useAuthStore().logout()
+    async logout() {
+      try {
+        await useAuthStore().logout()
+      } catch (error) {}
       this.clear()
     }
   }
@@ -28,5 +34,7 @@ export {
   useMenuStore,
   useSystemStore,
   useDictStore,
+  useTabStore,
+  useNoticeStore,
   useRootStore,
 }
