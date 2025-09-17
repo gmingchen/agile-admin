@@ -94,6 +94,12 @@ $textAligns: left, center, right;
   .fs-#{$i} { font-size: #{$i}px; }
   .fs-#{$i}_i { font-size: #{$i}px !important; }
 }
+/* font-weight */
+$fontWeights: 100, 200, 300, 400, 500, 600, 700, 800, 900;
+@each $var in $fontWeights {
+  .fw-#{$var} { font-weight: #{$var}; }
+}
+
 /* ellipsis */
 .e {
   display: -webkit-box;

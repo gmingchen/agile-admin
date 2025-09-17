@@ -89,7 +89,7 @@ const onConfirm = () => {
       const checkedNodes = cascaderRef.value.getCheckedNodes(true)
       let permissionIds = []
       checkedNodes.forEach(item => permissionIds.push.apply(permissionIds, item.pathValues))
-      permissionIds = Array.from(new Set(permissionIds)).filter(item => item !== 0)
+      permissionIds = Array.from(new Set(permissionIds)).filter(item => item !== 0 && item)
       const r = await roleSetPermissionApi({ id: form.id, permissionIds })
       if (r) {
         visible.value = false

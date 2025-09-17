@@ -82,8 +82,8 @@ const getPermissionData = async () => {
     permissionStore.permissionValues = r.data.permissionValues
 
     // todo：这里决定是本地路由还是后端路由
-    let permissions = filterTree(localPermissions, item => validatePermission(r.data.permissionValues, item.permission))
-    // let permissions = parseRemotePermission(r.data.permissions)
+    // let permissions = filterTree(localPermissions, item => validatePermission(r.data.permissionValues, item.permission))
+    let permissions = parseRemotePermission(r.data.permissions)
 
     permissions = parseDataToTree(permissions, 'value')
     permissionStore.permissions = permissions

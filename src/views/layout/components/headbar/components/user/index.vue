@@ -29,14 +29,11 @@ const name = computed(() => {
 })
 
 const onCommand = async (command) => {
-  switch (command) {
-    case 'personal':
-      router.push({ name: 'personal' })
-      break
-    case 'logout':
-      await logout()
-      router.push({ name: 'login' })
-      break
+  if (command === 'personal') {
+    router.push({ name: 'personal' })
+  } else if (command === 'logout') {
+    await logout()
+    router.push({ name: 'login' })
   }
 }
 </script>

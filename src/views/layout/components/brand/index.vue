@@ -42,6 +42,7 @@ const logo = computed(() => tenant.value.logo)
     height: var(--size);
   }
   @include e(name) {
+    margin-left: 10px;
     line-height: var(--size);
   }
 }

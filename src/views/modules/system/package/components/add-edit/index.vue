@@ -111,7 +111,7 @@ const onConfirm = () => {
       checkedNodes.forEach(item => {
         permissionIds.push.apply(permissionIds, item.pathValues)
       })
-      form.permissionIds = Array.from(new Set(permissionIds)).filter(item => item !== 0)
+      form.permissionIds = Array.from(new Set(permissionIds)).filter(item => item !== 0 && item)
       const r = await (form.id ? packageUpdateApi(form) : packageCreateApi(form))
       if (r) {
         visible.value = false

@@ -35,8 +35,8 @@ export default [
             type: PERMISSION_TYPE_ENUM.IFRAME,
             url: 'https://admin.gumingchen.icu',
             route: {
-              path: '/i-iframe-demo',
-              name: 'i-iframe-demo',
+              path: '/i-217',
+              name: 'i-217',
               component: '/iframe/index',
             },
           },
