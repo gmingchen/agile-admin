@@ -32,14 +32,14 @@ export default defineConfig({
     open: true,
     proxy: {
       '^/slipper/websocket': {
-        // target: 'https://admin.gumingchen.icu',
-        target: 'http://localhost:8806',
+        target: 'https://admin.gumingchen.icu',
+        // target: 'http://localhost:8806',
         changeOrigin: true,
         ws: true
       },
       '^/slipper': {
-        // target: 'https://admin.gumingchen.icu',
-        target: 'http://localhost:8806',
+        target: 'https://admin.gumingchen.icu',
+        // target: 'http://localhost:8806',
         changeOrigin: true,
       },
     },

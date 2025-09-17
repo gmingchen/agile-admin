@@ -55,8 +55,8 @@ const loading = ref(false)
 const captcha = ref('')
 const formRef = useTemplateRef('formRef')
 const form = reactive({
-  account: 'super',
-  password: 'gumingchen',
+  account: '',
+  password: '',
   uuid: '',
   code: '',
 })
