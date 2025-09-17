@@ -3,9 +3,9 @@ import { PERMISSION_TYPE_ENUM } from '@/common/enums'
 export default [
   {
     label: '首页',
-    value: 'home',
+    value: 1,
     icon: 'home',
-    permission: 'menu:home',
+    permission: 'page:home',
     keepalive: true,
     tab: true,
     multiple: false,

@@ -5,12 +5,13 @@
 </template>
 
 <script setup>
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import { View } from '@/components'
+import zhCn from "element-plus/es/locale/lang/zh-cn";
+import { View } from "@/components";
 
-const size = ref('default')
-const locale = ref(zhCn)
-const zIndex = ref(2000)
+const size = ref("default");
+const locale = ref(zhCn);
+const zIndex = ref(2000);
+
 </script>
 
 <style>

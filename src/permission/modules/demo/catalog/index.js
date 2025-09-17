@@ -1,0 +1,72 @@
+import { PERMISSION_TYPE_ENUM } from '@/common/enums'
+
+export default [
+  {
+    label: '目录演示',
+    value: 214,
+    icon: 'visits',
+    permission: 'catalog:demo',
+    keepalive: false,
+    tab: false,
+    multiple: false,
+    show: true,
+    type: PERMISSION_TYPE_ENUM.CATALOG,
+    children: [
+      {
+        label: '分组一演示',
+        value: 215,
+        icon: 'visits',
+        permission: 'group:demo1',
+        keepalive: false,
+        tab: false,
+        multiple: false,
+        show: true,
+        type: PERMISSION_TYPE_ENUM.GROUP,
+        children: [
+          {
+            label: 'Iframe演示',
+            value: 217,
+            icon: 'visits',
+            permission: 'iframe:demo',
+            keepalive: false,
+            tab: true,
+            multiple: false,
+            show: true,
+            type: PERMISSION_TYPE_ENUM.IFRAME,
+            url: 'https://admin.gumingchen.icu',
+            route: {
+              path: '/i-iframe-demo',
+              name: 'i-iframe-demo',
+              component: '/iframe/index',
+            },
+          },
+        ],
+      },
+      {
+        label: '分组二演示',
+        value: 216,
+        icon: 'visits',
+        permission: 'group:demo2',
+        keepalive: false,
+        tab: false,
+        multiple: false,
+        show: true,
+        type: PERMISSION_TYPE_ENUM.GROUP,
+        children: [
+          {
+            label: '外链演示',
+            value: 218,
+            icon: 'visits',
+            permission: 'link:demo',
+            keepalive: false,
+            tab: false,
+            multiple: false,
+            show: true,
+            type: PERMISSION_TYPE_ENUM.URL,
+            url: 'https://www.baidu.com',
+          },
+        ],
+      },
+    ],
+  },
+]

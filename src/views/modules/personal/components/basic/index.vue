@@ -84,8 +84,6 @@ const rules = computed(() => {
 
 const getData = () => {
   const { avatar, nickname, mobile, email, sex } = adminerStore
-  console.log(avatar);
-
   form.avatar = avatar || ''
   form.nickname = nickname
   form.mobile = mobile

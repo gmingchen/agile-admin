@@ -68,8 +68,8 @@ export const findFirstRoutePermission = list => {
 export const validatePermission = (permissions, permission) => {
   if (!permission) return true
   return permission.split(',')
-          .map(item => item.trim())
-          .some(item => permissions.includes(item))
+    .map(item => item.trim())
+    .some(item => permissions.includes(item))
 }
 
 /**
@@ -82,7 +82,7 @@ const parsePermissionToRoute = menu => {
   const { children, route, ...others } = menu
   const result = {
     ...route,
-    component: dynamics[`../views/modules${ route.component }.vue`],
+    component: dynamics[`../views/modules${route.component}.vue`],
     name: route.name || route.path.replace('/', ''),
     redirect: route.redirect || undefined,
     meta: { ...others }

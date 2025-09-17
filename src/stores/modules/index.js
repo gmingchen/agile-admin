@@ -6,6 +6,7 @@ import { useSystemStore } from './system'
 import { useDictStore } from './dict'
 import { useTabStore } from './tab'
 import { useNoticeStore } from './notice'
+import { useWebsocketStore } from './websocket'
 
 const useRootStore = defineStore('root', {
   state: () => ({}),
@@ -36,5 +37,6 @@ export {
   useDictStore,
   useTabStore,
   useNoticeStore,
+  useWebsocketStore,
   useRootStore,
 }

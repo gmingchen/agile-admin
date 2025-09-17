@@ -20,12 +20,13 @@
       <Tabbar :class="n.e('tabbar')"></Tabbar>
       <View v-if="!refresh" transition="left-in-right-out"></View>
     </Frame>
+    <Websocket></Websocket>
   </div>
 </template>
 
 <script setup>
 import { View } from '@/components'
-import { Frame, Headbar, Sidebar, Tabbar, Brand, Crumb, Menu, MenuCollapse } from './components'
+import { Frame, Headbar, Sidebar, Tabbar, Brand, Crumb, Menu, MenuCollapse, Websocket } from './components'
 import { useMenuStore, useSystemStore } from '@/stores'
 import { useNamespace } from '@/hooks'
 

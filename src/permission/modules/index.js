@@ -1,21 +1,32 @@
+// todo: 可以在一个文件内写这些数据，分文件夹是因为都在一个文件内数据太多看起来有点累
+
 // todo: 手动导入
 // import home from './home'
 // import demo from './demo'
-// export const menus = [
+// import user from './user'
+// import system from './system'
+// import infrastructure from './infrastructure'
+// import personal from './personal'
+// export const permissions = [
 //   ...home,
 //   ...demo,
+//   ...user,
+//   ...system,
+//   ...infrastructure,
+//   ...personal,
 // ]
 // todo: 自动导入 由于是函数自动导入数据 所以需要手动设置模块顺序
-const modulesSort = ['home', 'demo']
+const modulesSort = ['home', 'demo', 'user', 'system', 'infrastructure', 'personal']
 export const permissions = []
-const menuFiles = import.meta.glob('./**/index.js', { eager: true})
-for (const key in menuFiles) {
-  const list = menuFiles[key].default
+const permissionFiles = import.meta.glob('./*/index.js', { eager: true })
+for (const key in permissionFiles) {
+  const list = permissionFiles[key].default
+  const name = key.replace(/\.\/|\/index.js/g, '')
   for (let i = 0; i < list.length; i++) {
-    const menu = list[i];
-    const index = modulesSort.indexOf(menu.value)
+    const permission = list[i];
+    const index = modulesSort.indexOf(name)
     if (index !== -1) {
-      permissions[index] = menu
+      permissions[index] = permission
     }
   }
 }

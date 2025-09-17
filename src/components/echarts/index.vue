@@ -13,31 +13,31 @@ const n = useNamespace('echarts')
 const echartsRef = useTemplateRef('echartsRef')
 const chartRef = useTemplateRef('chartRef')
 
-const chart = ref(null)
-const resizeObserver = ref(null)
+let chart = null
+let resizeObserver = null
 
 const draw = (options) => {
-  chart.value = markRaw(echarts.init(chartRef.value))
-  chart.value.setOption(options)
+  chart = echarts.init(chartRef.value)
+  chart.setOption(options)
 }
 
 const handleResize = () => {
-  resizeObserver.value = new ResizeObserver(() => {
-    if (chart.value) {
-      chart.value.resize()
+  resizeObserver = new ResizeObserver(() => {
+    if (chart) {
+      chart.resize()
     }
   })
-  resizeObserver.value.observe(echartsRef.value)
+  resizeObserver.observe(echartsRef.value)
 }
 
 onMounted(handleResize)
 
 onBeforeUnmount(() => {
-  if (chart.value) {
-    chart.value.dispose()
+  if (chart) {
+    chart.dispose()
   }
-  if (resizeObserver.value) {
-    resizeObserver.value.disconnect()
+  if (resizeObserver) {
+    resizeObserver.disconnect()
   }
 })
 

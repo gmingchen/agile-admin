@@ -5,3 +5,5 @@ export * from './permission'
 export * from './dict'
 export * from './file'
 export * from './notice'
+export * from './websocket'
+
