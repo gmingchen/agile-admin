@@ -5,7 +5,7 @@ export default [
     label: '个人中心',
     value: 90,
     icon: '',
-    permission: 'module:page',
+    permission: 'page:personal,notice:adminerPage',
     keepalive: false,
     tab: false,
     multiple: false,

@@ -1,6 +1,6 @@
 import NProgress from 'nprogress'
 import dayjs from 'dayjs'
-import { useAuthStore, usePermissionStore, useMenuStore, useAdminerStore, useDictStore } from '@/stores'
+import { useAuthStore, usePermissionStore, useAdminerStore, useDictStore } from '@/stores'
 import { getPermissionData, findFirstRoutePermission, findRoutes } from '@/permission'
 import { print } from '@/common/utils'
 import { constants, layout } from './route'
@@ -59,7 +59,7 @@ const handleRegisterRoute = (routes, router) => {
 let isRegistered = false // 是否注册过路由
 const handleDynamic = async (to, _from, next, router) => {
   const { loaded } = usePermissionStore()
-  if(loaded && isRegistered) return next()
+  if (loaded && isRegistered) return next()
 
   if (!loaded) {
     const r = await getPermissionData()
@@ -68,7 +68,6 @@ const handleDynamic = async (to, _from, next, router) => {
 
   const { permissions } = usePermissionStore()
   const routes = findRoutes(permissions)
-
 
   handleRegisterRoute(routes, router)
   isRegistered = true
@@ -79,7 +78,7 @@ const handleDynamic = async (to, _from, next, router) => {
 let isFirstVisit = true // 是否首次访问
 export const beforeEachHandler = async (to, from, next, router) => {
   NProgress.start()
-  document.title = to.meta.label || document.title
+  document.title = `Agile Admin ${to.meta.label || document.title}`
   // 判断是否是搜首次访问
   if (isFirstVisit) {
     router.addRoute({ path: '/:pathMatch(.*)', redirect: { name: '401' } })
