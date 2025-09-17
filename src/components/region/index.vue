@@ -1,19 +1,31 @@
+<template>
+  <el-cascader
+    :class="n.b()"
+    ref="cascaderRef"
+    v-model="value"
+    :props="regionProps"
+    :show-all-levels="false" />
+</template>
 
 <script setup>
-import useModel from '@/hooks/model'
+import { regionSelectListApi } from '@/apis'
+import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks'
 
-import { selectApi } from '@/api/region'
+const n = useNamespace('region')
+
+const emits = defineEmits([UPDATE_MODEL_EVENT])
 
 const props = defineProps({
-  modelValue: {
+  [MODEL_NAME]: {
     type: [String, Number, Array],
-    required: true
+    default: () => []
   }
 })
 
+const cascaderRef = useTemplateRef('cascaderRef')
+
 const value = useModel(props)
 
-const refCascader = ref()
 const regionProps = reactive({
   emitPath: false,
   checkStrictly: true,
@@ -23,15 +35,9 @@ const regionProps = reactive({
   lazy: true,
   lazyLoad: (node, resolve) => {
     if (node.level === 0) {
-      resolve([{
-        id: 0,
-        name: '一级区域',
-        level: 0,
-        leaf: false,
-        children: []
-      }])
+      resolve([{ id: 0, name: '一级区域', level: 0, leaf: false, children: [] }])
     } else {
-      selectApi({ parentId: node.value }).then(r => {
+      regionSelectListApi({ parentId: node.value }).then(r => {
         if (r) {
           resolve(r.data.map(item => {
             return {
@@ -45,22 +51,17 @@ const regionProps = reactive({
   }
 })
 
-/**
- * 获取当前选中节点
- */
 const getCheckedNodes = () => {
-  return refCascader.value.getCheckedNodes()[0].data
+  return cascaderRef.value.getCheckedNodes()[0].data
 }
+
+defineExpose({
+  getCheckedNodes
+})
 </script>
 
-<template>
-  <el-cascader
-    ref="refCascader"
-    v-model="value"
-    :props="regionProps"
-    :show-all-levels="false" />
-</template>
-
 <style lang="scss" scoped>
-
+@use '@/assets/sass/bem.scss' as *;
+$prefix: region#{$element-separator};
+@include b(region) {}
 </style>

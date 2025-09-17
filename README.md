@@ -1,24 +1,22 @@
+
 <p align="center">
   <a href="https://github.com/gmingchen/agile-admin">
     <img src="https://admin.gumingchen.icu/file/static/slipper.jpeg" alt="logo" width="120">
   </a>
 </p>
 <p align="center">
-  <a href="http://admin.gumingchen.icu/doc/">文档</a> |
-  <a href="http://admin.gumingchen.icu">预览</a>
+  <a href="https://admin.gumingchen.icu/doc/">文档</a> |
+  <a href="https://admin.gumingchen.icu">预览</a>
 </p>
 <p align="center">
   <a href="https://github.com/vuejs/vue-next">
     <img src="https://img.shields.io/badge/vue-3.x-brightgreen.svg" alt="vue">
   </a>
   <a href="https://github.com/element-plus/element-plus">
-    <img src="https://img.shields.io/badge/element--plus-1.x-brightgreen.svg" alt="element-plus">
+    <img src="https://img.shields.io/badge/element--plus-2.x-brightgreen.svg" alt="element-plus">
   </a>
   <a href="https://github.com/gmingchen/agile-admin">
     <img src="https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg" />
-  </a>
-  <a href="https://www.oscs1024.com/project/gmingchen/agile-admin?ref=badge_small">
-    <img src="https://www.oscs1024.com/platform/badge/gmingchen/agile-admin.svg?size=small" alt="vue">
   </a>
 </p>
 <p align="center">
@@ -64,6 +62,8 @@ If you want to write code with me, you can contact me for internal promotion.
 
 ## 内置功能
 - [X] 首页：数据统计
+- [X] 功能演示模块：如数据源、嵌套路由、iframe、外链
+- [X] 用户管理：C端用户管理
 - [X] 系统管理：基本功能
   - [X] 套餐：租户套餐
   - [X] 租户：新增、编辑、删除，租户的来源
@@ -77,30 +77,32 @@ If you want to write code with me, you can contact me for internal promotion.
   - [X] 异常日志：系统内运行时候的异常记录查询
   - [X] 定时任务日志：系统内定时任务执行的记录查询
 - [X] 基础设施：系统的基础设施
-   - [X] 文件管理：管理当前系统上传的文件及图片等信息
-    - [X] 文件配置：系统内文件上传的相关配置
-    - [X] 文件列表：系统内所有上传的文件
-  - [X] 消息通知：站内websocket推送通知消息
-    - [X] 通知模版：配置通知的模版：如密码重置
-    - [X] 通知记录：系统内所有的通知记录
-  - [X] 邮箱管理：邮箱的相关配置
-    - [X] 邮箱帐号：邮箱帐号的相关配置
-    - [X] 邮件模版：配置邮件发送的模版：如密码重置
-    - [X] 邮件记录：系统内发送的邮件记录查询
-  - [X] 区域管理：全国省市区的管理
-  - [X] 备份管理：系统数据库的备份管理
-  - [X] IP管理：系统用户的IP管理
+  - [X] 开发配置
+    - [X] 权限管理
+    - [X] 数据字典
+    - [X] 数据源
+    - [X] 定时任务：系统内的所有定时任务维护
+    - [X] 文件管理：管理当前系统上传的文件及图片等信息
+    - [X] 邮箱管理：邮箱的相关配置
+    - [X] 消息通知：站内websocket推送通知消息
+    - [X] 区域管理：全国省市区的管理
+    - [X] 备份管理：系统数据库的备份管理
   - [X] 在线管理员：系统内在线的管理员
-- [X] 开发配置：开发流程的相关配置
-  - [X] 菜单权限：整个系统内的菜单权限配置，支持拖拽排序
-  - [X] 数据字典：系统内常用且固定的数据的维护
-  - [X] 定时任务：系统内的所有定时任务维护
-  - [X] 代码生成器：前端（api.js、index.vue、add-edit.vue）后端单表的增删改查相关代码生成
-- [X] 主题设置：整体页面主题设置，布局设置，暗黑模式
+  - [X] IP地址：系统用户的IP管理
+  - [X] 追溯日志：日志信息
+    - [X] 操作日志：当前租户下帐号的操作日志
+    - [X] 登录日志：当前租户下帐号的登录日志
+    - [X] 异常日志：系统内运行时候的异常记录查询
+    - [X] 代码生成器：前端（api.js、index.vue、add-edit.vue）后端单表的增删改查相关代码生成
+- [X] 主题设置：暗黑模式
 
 ## 分支
 - [master](https://github.com/gmingchen/agile-admin/tree/master) 多租户完整功能版本：多租户后台管理。```持续维护分支```
 - [dev](https://github.com/gmingchen/agile-admin/tree/master) 多租户完整功能开发分支。```持续维护分支```
+- [pure](https://github.com/gmingchen/agile-admin/tree/master) 多租户完整功能开发分支：纯净版本。```持续维护分支```
+
+***
+
 - [vite-pinia](https://github.com/gmingchen/agile-admin/tree/vite-pinia) 该分支是多租户概念，使用的是vite + pinia 实现的功能，使用的是vue组合式api的 setup 标签。```持续维护分支```
 - [webpack-vuex-enterprise](https://github.com/gmingchen/agile-admin/tree/webpack-vuex-enterprise) 该分支是企业概念版本内容，使用的是webpack + vuex 实现的功能，使用的是vue组合式api。
 - [vite-pinia-enterprise](https://github.com/gmingchen/agile-admin/tree/vite-pinia-enterprise) 该分支是企业概念版本内容，使用的是vite + pinia 实现的功能，使用的是vue组合式api的 setup 标签。
@@ -112,7 +114,7 @@ If you want to write code with me, you can contact me for internal promotion.
 - __`说明:`__ 持续维护分支是 [master](https://github.com/gmingchen/agile-admin/tree/master)、[dev](https://github.com/gmingchen/agile-admin/tree/master)、[vite-pinia](https://github.com/gmingchen/agile-admin/tree/vite-pinia)。其他分支是作者开发时使用的分支, 由于作者不断优化、重构、版本迭代的原因，[composition-api](https://github.com/1240235512/vue3/tree/composition-api) 和 [class-style](https://github.com/1240235512/vue3/tree/class-style) 没有同步迭代更新，所以建议这两个分支作为参考学习。
 
 ## 环境需求
-- Node => 16.0.0
+- Node => ^20.19.0 || >=22.12.0
 - Vue-Cli => 5.0.0
 - JDK = 1.8.x
 - Mysql >= 8.0.0
@@ -127,39 +129,33 @@ vue3-src
 │  └─sass 样式
 │ 
 ├─common 通用
-│  ├─constants 常量
 │  ├─enums 枚举
 │  └─utils 工具
 │ 
 ├─components 通用组件
-│  ├─global 全局组件
-│  │  ├─container 布局组件
-│  │  ├─date-range-picker 日期选择组件（二次封装）
-│  │  ├─dict-radio 字典radio组件（二次封装）
-│  │  ├─dict-select 字典select组件（二次封装）
-│  │  ├─iconfont 使用阿里图库图标的组件
-│  │  ├─page 分页组件
-│  │  ├─view 视图组件（二次封装router-view）
-│  │  └─index 统一全局注册
-│  ├─collapse 折叠组件
-│  ├─container-custom 自定义布局组件
-│  ├─container-sidebar 左右布局组件
+│  ├─container 布局组件
 │  ├─count-to 计数组件
-│  ├─editor 富文本组件
-│  ├─icon-select-input 阿里图库图标选择组件
+│  ├─date-range-picker 日期选择组件（二次封装）
+│  ├─dict 字典组件
+│  ├─echarts 统计图组件
+│  ├─icon 使用阿里图库图标的组件
+│  ├─pagination 分页组件（二次封装）
 │  ├─region 区域级联选择组件
 │  ├─tenant-sidebar 租户侧栏
 │  ├─upload 上传组件
-│  └─upload-image 单图片上传组件
-│ 
-├─directive 全局自定义指令
+│  ├─upload-image 图片上传组件
+│  ├─view 视图组件（二次封装router-view）
+│  └─wang-editor 富文本组件
+│
+├─directive 自定义指令
 │ 
 ├─hooks 钩子
-│  ├─bind-exposed 导出绑定
-│  ├─dict 字典
-│  └─model 双向绑定
+│  ├─use-model 双向绑定
+│  └─use-namespace BEM 命名空间
 │ 
-├─router 动态路由
+├─permission 权限
+│ 
+├─router 路由
 │ 
 ├─stores pinia
 │  ├─modules
@@ -168,11 +164,11 @@ vue3-src
 │  │  ├─dict 数据字典模块
 │  │  ├─menu 菜单模块
 │  │  ├─notice 通知模块
-│  │  ├─tabs 标签页模块
-│  │  ├─theme 主题模块
+│  │  ├─permission 权限模块
+│  │  ├─system 系统模块
+│  │  ├─tab 标签页模块
 │  │  └─websocket 消息推送模块
-│  ├─index 动态加载模块
-│  └─root 根模块
+│  └─index 根模块 统一导出
 │
 ├─views 视图模块
 │  ├─constant 通用页面
@@ -181,14 +177,9 @@ vue3-src
 │  │  ├─500 500页面
 │  │  └─login 登录页面
 │  ├─layout
-│  │  ├─components
-│  │  │  ├─headbar 顶部导航
-│  │  │  ├─navigation 导航布局组件
-│  │  │  ├─sidebar 侧边栏
-│  │  │  ├─tabsbar 标签页
-│  │  │  └─websocket 消息推送组件
+│  │  ├─components 布局组件
 │  │  └─index 布局入口页面
-│  └─modules 页面模块
+└──└─modules 页面模块
 
 ```
 
@@ -203,18 +194,11 @@ cd agile-admin
 # 安装依赖
 npm install
 
-# 若执行 npm install 报错，可能由于node版本太高原因导致，可执行一下命令
-npm install --legacy-peer-deps
-
 # 启动服务
-npm run dev   # 开发环境
-npm run prod  # 正式环境
-npm run test  # 测试环境
+npm run dev
 
-# 发布
-npm run build:dev   # 开发环境
-npm run build:prod  # 正式环境
-npm run build:test  # 测试环境
+# 打包 发布
+npm run build
 ```
 
 ## 在线预览
@@ -289,7 +273,6 @@ npm run build:test  # 测试环境
 </table>
 
 ## 联系方式
-`①群已满(500人)，可以先进②群，有空位后在加①群。若二维码失效可以加微信联系作者！`
 <table>
   <tr align="center">
     <td>公众号</td>
@@ -362,7 +345,7 @@ npm run build:test  # 测试环境
 
 是多企业管理后台基础功能 [base](https://github.com/gmingchen/agile-admin/tree/base) 分支的后端代码，基于 __`java`__ 的 __`springboot`__
 
-[vue3-element-plus-im](https://github.com/gmingchen/chatterbox)
+[chatterbox](https://github.com/gmingchen/chatterbox)
 
 是一个即时聊天系统，基于 [vue3](https://github.com/vuejs/vue-next) 、 [element-plus](https://github.com/element-plus/element-plus) 实现。内置了好友私聊功能。
 

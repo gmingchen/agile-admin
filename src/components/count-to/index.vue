@@ -1,3 +1,9 @@
+<template>
+  <span>
+    {{displayValue}}
+  </span>
+</template>
+
 <script setup>
 import { requestAnimationFrame, cancelAnimationFrame } from './index.js'
 
@@ -186,8 +192,4 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<template>
-  <span>
-    {{displayValue}}
-  </span>
-</template>
+

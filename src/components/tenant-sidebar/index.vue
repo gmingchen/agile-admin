@@ -1,24 +1,37 @@
+<template>
+  <div :class="n.b()" v-drag-resize>
+    <el-scrollbar v-if="!reload" class="f_f-1" v-loading="loading">
+      <ul v-if="!reload" class="p-10" v-infinite-scroll="onLoad" :infinite-scroll-disabled="disabled">
+        <li
+          :class="['mb-10', 'c-pointer', 'f_ai-center', n.is('active', item.id === value)]"
+          v-for="item in list"
+          :key="item.id"
+          @click="onClick(item)">
+          <div class="f_f-1 w-0 e">{{ item.name }}</div>
+          <el-tag :type="item.status_type" v-if="item.status_dict">{{ item.status_dict }}</el-tag>
+        </li>
+      </ul>
+    </el-scrollbar>
+  </div>
+</template>
+
 <script setup>
-import useModel from '@/hooks/model'
+import { tenantSelectPageApi } from '@/apis'
+import { useNamespace, useModel, MODEL_NAME, UPDATE_MODEL_EVENT } from '@/hooks'
 
-import { UPDATE_MODEL_EVENT } from '@constants'
+const n = useNamespace('tenant-sidebar')
 
-import { selectPageApi } from '@/api/tenant'
-
-const emits = defineEmits(['change', UPDATE_MODEL_EVENT])
+const emits = defineEmits([UPDATE_MODEL_EVENT, 'change'])
 const props = defineProps({
-  modelValue: {
+  [MODEL_NAME]: {
     type: [String, Number],
     required: true
-  }
+  },
 })
-
 const value = useModel(props)
 
-const loading = ref(false)
-const form = reactive({
-  keyword: ''
-})
+const loading= ref(false)
+const keyword = ref('')
 const page = reactive({
   current: 1,
   size: 10,
@@ -29,84 +42,61 @@ const list = ref([{ id: '', name: '全部' }])
 const reload = ref(false)
 const disabled = computed(() => loading.value || (list.value.length >= page.total && page.total !== -1))
 
-const getList = () => {
+const getData = () => {
+  loading.value = true
   const { current, size } = page
   const params = {
-    name: form.keyword,
+    name: keyword.value,
     current,
     size
   }
-  loading.value = true
-  selectPageApi(params).then(r => {
+  tenantSelectPageApi(params).then(r => {
     if (r) {
       list.value.push(...r.data.list)
       page.total = r.data.total
     }
-    nextTick(() => {
-      loading.value = false
-    })
+    nextTick(() => loading.value = false)
   })
 }
 
-const reacquireHandle = () => {
+const handleReacquire = () => {
   page.current = 1
-  list.value = [{ id: '', name: '全部' }]
   reload.value = true
-  nextTick(() => {
-    reload.value = false
-  })
+  nextTick(() => reload.value = false)
 }
 
-const clickHandle = (row) => {
-  value.value = row.id
-  emits('change', row)
-}
+const onSearch = () => handleReacquire()
 
-const loadHandle = () => {
+const onLoad = () => {
   if (list.value.length < page.total || page.total === -1) {
-    getList()
+    getData()
     page.current += 1
   }
 }
+
+const onClick = (row) => {
+  value.value = row.id
+  emits('change', row)
+}
 </script>
 
-<template>
-  <div class="width-200 height-full flex flex_d-column" v-drag-resize>
-    <div class="padding-10 flex">
-      <el-input class="margin_r-10" v-model="form.keyword" />
-      <el-button v-repeat @click="reacquireHandle">
-        <iconfont name="search" />
-      </el-button>
-    </div>
-    <el-scrollbar class="flex-item_f-1" v-loading="loading">
-      <ul
-        class="padding-n-10"
-        v-if="!reload"
-        v-infinite-scroll="loadHandle"
-        :infinite-scroll-disabled="disabled">
-        <li
-          class="margin_b-10 cursor-pointer flex flex_a_i-center"
-          :class="{ 'active': item.id === value }"
-          v-for="item in list"
-          :key="item.id"
-          @click="clickHandle(item)">
-          <div class="flex-item_f-1 width-0 ellipse">
-            {{ item.name }}
-          </div>
-          <el-tag :type="item.status_type" v-if="item.status_dict">{{ item.status_dict }}</el-tag>
-        </li>
-      </ul>
-    </el-scrollbar>
-  </div>
-</template>
-
 <style lang="scss" scoped>
-ul {
-  li:hover {
-    color: var(--el-color-primary);
-  }
-  .active {
-    color: var(--el-color-primary)
+@use '@/assets/sass/bem.scss' as *;
+$prefix: tenant-sidebar#{$element-separator};
+@include b(tenant-sidebar) {
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  ul {
+    font-size: 14px;
+    li:hover {
+      color: var(--el-color-primary);
+    }
+    @include when(active) {
+      color: var(--el-color-primary)
+    }
   }
 }
 </style>

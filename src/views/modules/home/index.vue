@@ -1,41 +1,37 @@
-<script setup>
-import Introduction from './components/introduction.vue'
-import Project from './components/project.vue'
-import Interacted from './components/interacted.vue'
-
-import UserCounting from './components/user-counting.vue'
-import UserRegion from './components/user-region.vue'
-import UserVisits from './components/user-visits.vue'
-import UserGrowth from './components/user-growth.vue'
-
-import Applet from './components/applet.vue'
-
-defineOptions({
-  name: 'Home'
-})
-</script>
-
 <template>
-  <ContainerCustom>
-    <div class="margin-10">
-      <UserCounting />
-
-      <div class="flex flex_w-wrap">
-        <Introduction class="flex-item_f-1" />
-        <div class="flex-item_f-1 padding-10">
-          <Project />
-          <Interacted class="margin_t-20" />
-        </div>
+  <Container :class="n.b()" custom>
+    <CountStat />
+    <div :class="n.e('overview')">
+      <Introduction class="f_f-1" />
+      <div class="f_f-1">
+        <Project />
+        <Interacted class="mt-15" />
       </div>
-
-      <UserRegion />
-      <UserVisits />
-      <UserGrowth />
     </div>
-    <Applet />
-  </ContainerCustom>
+    <RegionChart class="mt-15" />
+    <VisitsChart class="mt-15" />
+    <GrowthChart class="mt-15" />
+  </Container>
 </template>
 
-<style lang="scss" scoped>
+<script setup>
+import { Container } from '@/components'
+import { CountStat, Introduction, Project, Interacted, RegionChart, VisitsChart, GrowthChart } from './components'
+import { useNamespace } from '@/hooks'
 
+const n = useNamespace('home')
+
+</script>
+
+<style lang="scss" scoped>
+@use '@/assets/sass/bem.scss' as *;
+@include b(home) {
+  @include e(overview) {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
 </style>
+

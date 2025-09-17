@@ -1,4 +1,4 @@
-import { havePermission } from '@utils'
+import { hasPermission } from '@/permission'
 /**
  * @description: 权限控制指令
  * @param {*}
@@ -8,7 +8,7 @@ import { havePermission } from '@utils'
 export default {
   mounted: (el, binding, vnode) => {
     const permission = binding.value
-    const result = havePermission(permission)
+    const result = hasPermission(permission)
     const tagName = el.localName
     if (!result) {
       switch (tagName) {

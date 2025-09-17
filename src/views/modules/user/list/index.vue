@@ -1,25 +1,90 @@
+<template>
+  <Container :class="n.b()">
+    <template #headbar>
+      <el-form inline @keyup.enter="onEnterKeyup">
+        <el-form-item>
+          <el-input v-model="form.nickname" placeholder="昵称" clearable />
+        </el-form-item>
+        <el-form-item>
+          <Dict class="w-177_i" v-model="form.status" :code="DICT_CODE_ENUM.STATUS" :type="DICT_COMPONENT_TYPE_ENUM.SELECT" placeholder="状态" clearable />
+        </el-form-item>
+        <el-form-item>
+          <DateRangePicker v-model:start="form.start" v-model:end="form.end" />
+        </el-form-item>
+        <el-form-item>
+          <el-button v-repeat @click="onSearch">查询</el-button>
+          <el-button v-repeat @click="onReset">重置</el-button>
+          <el-button v-permission="'user:delete'" type="danger" :disabled="!selection.length" @click="onDelete()">批量删除</el-button>
+          <el-button v-permission="'user:export'" v-repeat @click="onExport">导出</el-button>
+        </el-form-item>
+      </el-form>
+    </template>
+    <el-table v-loading="loading" :data="list" border @selection-change="onSelectionChange">
+      <el-table-column align="center" type="selection" width="50" />
+      <el-table-column align="center" label="ID" prop="id" width="80" />
+      <el-table-column align="center" label="头像" prop="avatar" width="80">
+        <template v-slot="{row}">
+          <el-image
+            v-if="row.avatar"
+            class="s-50"
+            fit="cover"
+            :src="row.avatar"
+            preview-teleported
+            :preview-src-list="[row.avatar]" />
+          <span v-else>-</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="昵称" prop="nickname" show-overflow-tooltip />
+      <el-table-column align="center" label="手机号" prop="mobile" show-overflow-tooltip />
+      <el-table-column align="center" label="邮箱" prop="email" show-overflow-tooltip />
+      <el-table-column align="center" label="生日" prop="birthday" width="160" />
+      <el-table-column align="center" label="性别" prop="sex" width="80">
+        <template v-slot="{ row }">
+          <el-tag :type="row.sex_type">{{ row.sex_dict }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="状态" prop="status" width="80">
+        <template v-slot="{row}">
+          <el-switch
+            v-permission="'user:status'"
+            :before-change="onStatusBeforeChange.bind(this, row)"
+            @change="onStatusChange(row)"
+            v-model="row.status"
+            :active-value="STATUS_ENUM.ENABLE"
+            :inactive-value="STATUS_ENUM.DISABLE" />
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="注册时间" prop="createdAt" width="170" />
+      <el-table-column align="center" label="更新时间" prop="updatedAt" width="170" />
+      <el-table-column v-permission="'user:info|user:delete'" align="center" label="操作" width="110" fixed="right">
+        <template v-slot="{ row }">
+          <div class="f_jc-center">
+            <el-button v-permission="'user:info'" type="primary" link @click="onDetails(row)">详情</el-button>
+            <el-button v-permission="'user:delete'" type="danger" link @click="onDelete(row.id)">删除</el-button>
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
+    <template #footbar>
+      <Pagination v-model:current="page.current" v-model:size="page.size" :total="page.total" :disabled="loading" @change="onPaginationChange" />
+    </template>
+  </Container>
+</template>
+
 <script setup>
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { Container, Dict, DateRangePicker, Pagination } from '@/components'
+import { useNamespace } from '@/hooks'
+import { STATUS_ENUM, DICT_CODE_ENUM, DICT_COMPONENT_TYPE_ENUM } from '@/common/enums'
+import { clearJson, download } from '@/common/utils'
+import { userPageApi, userDeleteApi, userSetStatusApi, userExportApi} from '@/apis'
 
-import { clearJson } from '@utils'
-import { Status } from '@enums'
-
-import { pageApi, deleteApi, setStatusApi, exportApi } from '@/api/user'
-
-defineOptions({
-  name: 'UserList'
-})
+const n = useNamespace('user')
 
 const router = useRouter()
 
-const refForm = ref()
-const refTable = ref()
-const refIntegral = ref()
-
 const loading = ref(false)
-const visible = ref(false)
 const form = reactive({
-  name: '',
+  nickname: '',
   status: '',
   start: '',
   end: ''
@@ -32,122 +97,92 @@ const page = reactive({
 const list = ref([])
 const selection = ref([])
 
-/**
- * @description: 获取分页列表
- * @param {*}
- * @return {*}
- */
-const getList = () => {
-  const { current, size } = page
-  const params = {
-    ...form,
-    current,
-    size
-  }
+const getData = () => {
   loading.value = true
-  pageApi(params).then(r => {
+  const { current, size } = page
+  const params = { ...form, current, size }
+  userPageApi(params).then(r => {
     if (r) {
       list.value = r.data.list
       page.total = r.data.total
     }
-    nextTick(() => {
-      loading.value = false
-    })
+    nextTick(() => loading.value = false)
   })
 }
 
-/**
- * @description: 重新获取数据
- * @param {*}
- * @return {*}
- */
-const reacquireHandle = () => {
+const handleReacquire = () => {
   page.current = 1
-  getList()
-}
-/**
- * @description: 重置并重新获取数据
- * @param {*}
- * @return {*}
- */
-const resetHandle = () => {
-  clearJson(form)
-  reacquireHandle()
+  getData()
 }
 
-/**
- * @description: 删除
- * @param {number} id
- * @return {*}
- */
-const deleteHandle = id => {
+const onSearch = () => {
+  handleReacquire()
+}
+
+const onReset = () => {
+  clearJson(form)
+  handleReacquire()
+}
+
+const onEnterKeyup = () => {
+  handleReacquire()
+}
+
+const onPaginationChange = () => {
+  getData()
+}
+
+const onSelectionChange = value => {
+  selection.value = value
+}
+
+const onDelete = (id) => {
   const ids = id ? [id] : selection.value.map(item => item.id)
-  ElMessageBox.confirm(`确定对[id=${ ids.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`, '提示', {
-    confirmButtonText: '确认',
-    cancelButtonText: '取消',
-    type: 'warning'
-  }).then(() => {
-    deleteApi({ keys: ids }).then(r => {
+  ElMessageBox.confirm(
+    `确定对[id=${ ids.join(',') }]进行[${ id ? '删除' : '批量删除' }]操作?`,
+    { title: '提示', confirmButtonText: '确认', type: 'warning' }
+  ).then(() => {
+    userDeleteApi({ keys: ids }).then(r => {
       if (r) {
-        ElMessage({
-          message: '操作成功!',
-          type: 'success'
-        })
-        getList()
+        ElMessage.success('操作成功!')
+        getData()
       }
     })
-  }).catch(() => {
-    // to do something on canceled
-  })
+  }).catch(() => {})
 }
 
-/**
- * 状态变化之前操作
- * @param {*} row
- */
-const statusBefore = row => {
+const onStatusBeforeChange = (row) => {
   return new Promise((resolve) => {
-    ElMessageBox.confirm(`确定对[id=${ row.id }]进行[${ row.status === Status.ENABLE ? '禁用' : '启用' }]操作`, '提示', {
-      confirmButtonText: '确认',
-      cancelButtonText: '取消',
-      type: 'warning'
-    }).then(() => {
+    ElMessageBox.confirm(
+      `确定对[id=${ row.id }]进行[${ row.status === STATUS_ENUM.ENABLE ? '禁用' : '启用' }]操作?`,
+      { title: '提示', confirmButtonText: '确认', type: 'warning' }
+    ).then(() => {
       resolve(true)
     }).catch(() => {
       resolve(false)
     })
   })
 }
-/**
- * @description: 状态
- * @param {number} id
- * @return {*}
- * @author: gumingchen
- */
-const statusHandle = row => {
+
+const onStatusChange = (row) => {
   const params = {
     key: row.id,
     value: row.status
   }
-  setStatusApi(params).then(r => {
+  userSetStatusApi(params).then(r => {
     if (r) {
-      ElMessage({
-        message: '操作成功!',
-        type: 'success'
-      })
+      ElMessage.success('操作成功!')
     } else {
-      row.status = row.status === Status.DISABLE ? Status.ENABLE : Status.DISABLE
+      row.status = row.status === STATUS_ENUM.DISABLE ? STATUS_ENUM.ENABLE : STATUS_ENUM.DISABLE
     }
   })
 }
 
-/**
- * @description: 跳转详情页
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-const detailsHandle = row => {
+const onExport = () => {
+  userExportApi({ ...form }).then(r => r && download(r.data, '', 'xlsx', r.type))
+}
+
+const onDetails = (row) => {
   router.push({
     name: 'user-details',
     query: { id: row.id, custom: row.nickname },
@@ -156,181 +191,11 @@ const detailsHandle = row => {
   })
 }
 
-/**
- * @description: 导出
- * @param {*}
- * @return {*}
- * @author: gumingchen
- */
-const exportHandle = () => {
-  exportApi(form)
-}
-
-/**
- * @description: table多选事件
- * @param {*} val
- * @return {*}
- * @author: 拖孩
- */
-const selectionHandle = val => {
-  selection.value = val
-}
-
-onBeforeMount(() => {
-  getList()
-})
+onBeforeMount(getData)
 </script>
 
-<template>
-  <Container>
-    <template #header>
-      <el-form ref="refForm" :inline="true" @keyup.enter="reacquireHandle()">
-        <el-form-item>
-          <el-input v-model="form.nickname" placeholder="昵称" clearable />
-        </el-form-item>
-        <el-form-item>
-          <DictSelect v-model="form.status" code="STATUS" placeholder="状态" />
-        </el-form-item>
-        <el-form-item>
-          <DateRangePicker v-model:start="form.start" v-model:end="form.end" />
-        </el-form-item>
-        <el-form-item>
-          <el-button v-repeat @click="reacquireHandle()">查询</el-button>
-          <el-button v-repeat @click="resetHandle">重置</el-button>
-          <el-button
-            v-permission="'user:delete'"
-            type="danger"
-            @click="deleteHandle()"
-            :disabled="selection.length <= 0">批量删除</el-button>
-          <el-button v-repeat v-permission="'user:export'" @click="exportHandle">导出</el-button>
-        </el-form-item>
-      </el-form>
-    </template>
-    <template #default>
-      <el-table
-        ref="refTable"
-        v-loading="loading"
-        :data="list"
-        @selection-change="selectionHandle"
-        border>
-        <el-table-column align="center" type="selection" width="50" />
-        <el-table-column
-          align="center"
-          label="头像"
-          prop="avatar"
-          width="80">
-          <template v-slot="{row}">
-            <el-image
-              v-if="row.avatar"
-              class="height-50 width-50"
-              fit="cover"
-              :src="row.avatar"
-              preview-teleported
-              :preview-src-list="[row.avatar]" />
-            <span v-else>-</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="昵称"
-          prop="nickname"
-          show-overflow-tooltip />
-        <el-table-column
-          align="center"
-          label="手机号"
-          prop="mobile"
-          show-overflow-tooltip />
-        <el-table-column
-          align="center"
-          label="邮箱"
-          prop="email"
-          show-overflow-tooltip />
-        <el-table-column
-          align="center"
-          label="生日"
-          prop="birthday"
-          width="160" />
-        <el-table-column
-          align="center"
-          label="性别"
-          prop="sex"
-          width="80">
-          <template v-slot="{ row }">
-            <el-tag :type="row.sex_type">{{ row.sex_dict }}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="收款码"
-          prop="payable"
-          width="80">
-          <template v-slot="{row}">
-            <el-image
-              v-if="row.payable"
-              class="height-50 width-50"
-              fit="cover"
-              :src="row.payable"
-              preview-teleported
-              :preview-src-list="[row.payable]" />
-            <span v-else>-</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="状态"
-          prop="status"
-          width="80"
-          show-overflow-tooltip>
-          <template v-slot="{ row }">
-            <el-switch
-              v-permission="'user:status'"
-              :before-change="statusBefore.bind(this, row)"
-              @change="statusHandle(row)"
-              v-model="row.status"
-              :active-value="Status.ENABLE"
-              :inactive-value="Status.DISABLE" />
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="注册时间"
-          prop="createdAt"
-          width="160"
-          show-overflow-tooltip />
-        <el-table-column
-          align="center"
-          label="更新时间"
-          prop="updatedAt"
-          width="160"
-          show-overflow-tooltip />
-        <el-table-column
-          v-permission="'user:info|integral:create|user:delete'"
-          align="center"
-          label="操作"
-          width="180"
-          fixed="right">
-          <template v-slot="{ row }">
-            <el-button
-              v-permission="'user:info'"
-              type="primary"
-              link
-              @click="detailsHandle(row)">详情</el-button>
-            <el-button
-              v-permission="'user:delete'"
-              type="danger"
-              link
-              @click="deleteHandle(row.id)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <Integral ref="refIntegral" v-if="visible" />
-    </template>
-    <template #footer>
-      <Page
-        v-model:current="page.current"
-        v-model:size="page.size"
-        :total="page.total"
-        @change="getList" />
-    </template>
-  </Container>
-</template>
+<style lang="scss" scoped>
+@use '@/assets/sass/bem.scss' as *;
+$prefix: user#{$element-separator};
+@include b(user) {}
+</style>

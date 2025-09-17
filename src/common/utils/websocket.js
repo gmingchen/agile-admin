@@ -1,4 +1,17 @@
-export default class WebsocketClass {
+import { WEBSOCKET_STATUS_ENUM } from '@/common/enums'
+import { print } from '@/common/utils'
+
+export function getWebsocketOrigin() {
+  let { protocol, host } = window.location
+  if (protocol === 'http:') {
+    protocol = `ws:`
+  } else if (protocol === 'https:') {
+    protocol = 'wss:'
+  }
+  return `${protocol}//${ host }`
+}
+
+export class Websocket {
   /**
    * @description: 初始化参数
    * @param {*} url ws资源路径
@@ -10,7 +23,7 @@ export default class WebsocketClass {
     this.url = url
     this.callback = callback
     this.ws = null // websocket 对象
-    this.status = 0 // 连接状态: 0-关闭 1-连接 2-手动关闭
+    this.status = WEBSOCKET_STATUS_ENUM.CLOSED // 连接状态: 0-关闭 1-连接 2-手动关闭
     this.ping = 10000 // 心跳时长
     this.pingInterval = null // 心跳定时器
     this.reconnect = 5000 // 重连间隔
@@ -23,23 +36,27 @@ export default class WebsocketClass {
    * @author: gumingchen
    */
   connect() {
+    print('Websocket connect', this.url)
     this.ws = new WebSocket(this.url)
     // 监听socket连接
     this.ws.onopen = () => {
-      this.status = 1
-      this.heartHandler()
+      print('Websocket onopen')
+      this.status = WEBSOCKET_STATUS_ENUM.CONNECTED
+      this.handleHeart()
     }
     // 监听socket消息
     this.ws.onmessage = (e) => {
+      print('Websocket onmessage', e)
       this.callback(JSON.parse(e.data))
     }
     // 监听socket错误信息
     this.ws.onerror = (e) => {
-      console.log(e)
+      print('Websocket onerror', e)
     }
     // 监听socket关闭
     this.ws.onclose = (e) => {
-      this.onClose(e)
+      print('Websocket onclose', e)
+      this.handleClose(e)
     }
   }
 
@@ -50,6 +67,7 @@ export default class WebsocketClass {
    * @author: gumingchen
    */
   send(data) {
+    print('Websocket send', data)
     return this.ws.send(JSON.stringify(data))
   }
 
@@ -60,7 +78,8 @@ export default class WebsocketClass {
    * @author: gumingchen
    */
   close() {
-    this.status = 2
+    print('Websocket close', this.url)
+    this.status = WEBSOCKET_STATUS_ENUM.MANUAL_CLOSED
     this.ws.close()
   }
 
@@ -70,11 +89,11 @@ export default class WebsocketClass {
    * @return {*}
    * @author: gumingchen
    */
-  onClose(e) {
-    console.error(e)
-    this.status = this.status === 2 ? this.status : 0
+  handleClose(e) {
+    this.status = this.status === WEBSOCKET_STATUS_ENUM.MANUAL_CLOSED ? this.status : WEBSOCKET_STATUS_ENUM.CLOSED
     setTimeout(() => {
-      if (this.status === 0) {
+      if (this.status === WEBSOCKET_STATUS_ENUM.CLOSED) {
+        print('Websocket reconnect', e)
         this.connect()
       }
     }, this.reconnect)
@@ -86,13 +105,11 @@ export default class WebsocketClass {
    * @return {*}
    * @author: gumingchen
    */
-  heartHandler() {
-    const data = {
-      type: -1
-    }
+  handleHeart() {
+    const data = { type: -1 }
     this.pingInterval = setInterval(() => {
-      if (this.status === 1) {
-        this.ws.send(JSON.stringify(data))
+      if (this.status === WEBSOCKET_STATUS_ENUM.CONNECTED) {
+        this.send(data)
       } else {
         clearInterval(this.pingInterval)
       }

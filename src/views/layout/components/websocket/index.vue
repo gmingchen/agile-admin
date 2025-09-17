@@ -1,71 +1,62 @@
-<script>
-import { ElMessage, ElNotification } from 'element-plus'
+<template>
+</template>
 
-import { SUCCESS_CODE } from '@constants'
+<script setup>
+import { useWebsocketStore, useRootStore, useNoticeStore } from '@/stores'
+import { useNamespace } from '@/hooks'
+import { ElMessage } from 'element-plus'
 
-export default defineComponent({
-  render() { return '' },
-  setup() {
-    const router = useRouter()
+const n = useNamespace('websocket')
 
-    const websocketStore = useWebsocketStore()
-    const rootStroe = useRootStore()
-    const noticeStore = useNoticeStore()
+const router = useRouter()
 
-    const { response } = storeToRefs(websocketStore)
+const websocketStore = useWebsocketStore()
+const { response } = storeToRefs(websocketStore)
+const rootStore = useRootStore()
+const noticeStore = useNoticeStore()
+const { page } = storeToRefs(noticeStore)
 
-    const successHandle = ({ type, data }) => {
-      if (type === -1) return
-      ElNotification({
-        title: '通知',
-        message: data,
-        type: 'success',
-        duration: 3000,
-        onClick: () => {
-          console.log('点击')
-        },
-        onClose: () => {
-          console.log('关闭')
-        }
-      })
-      noticeStore.getList(1)
-    }
+const handleNotice = (message) => {
+  ElNotification({ title: '通知', type: 'success',  duration: 3000, message, })
+  page.value.current = 1
+  noticeStore.getData()
+}
 
-    const codeHandle = (code, message) => {
-      let tip = message
-      switch (code) {
-        case 4032:
-          tip = '已在其它地方连接，将不会收到推送消息！'
-          break
-      }
-      ElMessage({ message: tip, type: 'warning' })
-      websocketStore.close()
-      if (code !== 4032) {
-        rootStroe.logout()
-        router.push({ name: 'login' })
-      }
-    }
+const handleRemoteConnection = () => {
+  ElMessage.warning('已在其它地方连接，将不会收到推送消息！')
+  websocketStore.close()
+}
 
-    watch(() => response, (newVal, _oldVal) => {
-      if (newVal.value) {
-        const { code, message, data } = newVal.value
-        if (SUCCESS_CODE.includes(code)) {
-          successHandle(data)
-        } else {
-          codeHandle(code, message)
-        }
-      }
-    }, { deep: true })
+const handleLogout = async () => {
+  await rootStore.logout()
+  router.push({ name: 'login' })
+}
 
-    onBeforeMount(() => {
-      websocketStore.init()
-    })
+const handleSuccess = ({ type, data }) => {
+  if (type === -1) return
 
-    onUnmounted(() => {
-      websocketStore.close()
-    })
+  handleNotice(data)
+}
+const handleFail = (code, message) => {
+  if (code === 4032) {
+    handleRemoteConnection()
+  } else {
+    ElMessage.warning(message)
+    handleLogout()
+  }
+}
 
-    return {}
+watch(() => response.value, (response) => {
+  if (!response) return
+
+  const { code, message, data } = response
+  if (code === 0 || code === 200) {
+    handleSuccess(data)
+  } else {
+    handleFail(code, message)
   }
 })
+
+onBeforeMount(websocketStore.init)
+onBeforeUnmount(websocketStore.close)
 </script>

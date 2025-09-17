@@ -1,140 +1,113 @@
 <template>
-  <ContainerCustom v-loading="loading">
-    <template #default>
-      <div class="user-details-container margin-10 flex flex_w-wrap">
-        <div class="panel flex-item_f-2 margin-10 padding-30">
-          <el-input v-model="value" placeholder="输入内容测试页面缓存" />
-          <div class="flex flex_d-column flex_a_i-center">
-            <el-avatar
-              :size="120"
-              :src="info.avatar"
-              v-if="info.avatar" />
-            <h2>{{ info.nickname }}</h2>
-          </div>
-          <el-descriptions :column="4" class="padding-n-30" border>
-            <el-descriptions-item>
-              <template #label>
-                手机号
-              </template>
-              {{ info.mobile || '-'}}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>
-                邮箱
-              </template>
-              {{ info.email || '-'}}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>
-                性别
-              </template>
-              {{ info.sex_dict || '-' }}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>
-                状态
-              </template>
-              {{ info.status_dict || '-' }}
-            </el-descriptions-item>
-            <template v-if="info.auths">
-              <template v-for="item in info.auths" :key="item.id">
-                <el-descriptions-item>
-                  <template #label>
-                    授权方式
-                  </template>
-                  {{ item.identityType_dict || '-'}}
-                </el-descriptions-item>
-                <el-descriptions-item>
-                  <template #label>
-                    注册IP
-                  </template>
-                  {{ item.registeredIp || '-'}}
-                </el-descriptions-item>
-                <el-descriptions-item>
-                  <template #label>
-                    注册地址
-                  </template>
-                  {{ item.registeredAddress || '-'}}
-                </el-descriptions-item>
-                <el-descriptions-item>
-                  <template #label>
-                    注册时间
-                  </template>
-                  {{ item.registeredAt || '-'}}
-                </el-descriptions-item>
-                <el-descriptions-item>
-                  <template #label>
-                    最后登录IP
-                  </template>
-                  {{ item.logonIp || '-'}}
-                </el-descriptions-item>
-                <el-descriptions-item>
-                  <template #label>
-                    最后登录地址
-                  </template>
-                  {{ item.registeredAddress || '-'}}
-                </el-descriptions-item>
-                <el-descriptions-item :span="2">
-                  <template #label>
-                    最后登录时间
-                  </template>
-                  {{ item.logonAt || '-'}}
-                </el-descriptions-item>
-              </template>
-            </template>
-          </el-descriptions>
+  <Container :class="n.b()">
+    <div :class="n.e('wrap')">
+      <div :class="n.e('panel')">
+        <el-input v-model="value" placeholder="输入内容测试页面缓存" />
+        <div class="f_d-column f_ai-center">
+          <el-avatar v-if="data.avatar" :size="120" :src="data.avatar" />
+          <h2>{{ data.nickname }}</h2>
         </div>
+        <el-descriptions :column="4" class="padding-n-30" border>
+          <el-descriptions-item>
+            <template #label>手机号</template>
+            {{ data.mobile || '-'}}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label>邮箱</template>
+            {{ data.email || '-'}}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label>性别</template>
+            {{ data.sex_dict || '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label>状态</template>
+            {{ data.status_dict || '-' }}
+          </el-descriptions-item>
+          <template v-if="data.auths">
+            <template v-for="item in data.auths" :key="item.id">
+              <el-descriptions-item>
+                <template #label>授权方式</template>
+                {{ item.identityType_dict || '-'}}
+              </el-descriptions-item>
+              <el-descriptions-item>
+                <template #label>注册IP</template>
+                {{ item.registeredIp || '-'}}
+              </el-descriptions-item>
+              <el-descriptions-item>
+                <template #label>注册地址</template>
+                {{ item.registeredAddress || '-'}}
+              </el-descriptions-item>
+              <el-descriptions-item>
+                <template #label>注册时间</template>
+                {{ item.registeredAt || '-'}}
+              </el-descriptions-item>
+              <el-descriptions-item>
+                <template #label>最后登录IP</template>
+                {{ item.logonIp || '-'}}
+              </el-descriptions-item>
+              <el-descriptions-item>
+                <template #label>最后登录地址</template>
+                {{ item.registeredAddress || '-'}}
+              </el-descriptions-item>
+              <el-descriptions-item :span="2">
+                <template #label>最后登录时间</template>
+                {{ item.logonAt || '-'}}
+              </el-descriptions-item>
+            </template>
+          </template>
+        </el-descriptions>
       </div>
-    </template>
-  </ContainerCustom>
+    </div>
+  </Container>
 </template>
 
 <script setup>
-import { infoApi } from '@/api/user'
+import { Container } from '@/components'
+import { userInfoApi } from '@/apis'
+import { useNamespace } from '@/hooks'
 
-defineOptions({
-  name: 'UserDetails'
-})
-
-const value = ref('')
+const n = useNamespace('details')
 
 const route = useRoute()
 
-const loading = ref(false)
-const info = ref({})
+const value = ref('')
 
-/**
- * @description: 获取信息
- * @param {*}
- * @return {*}
- */
-const getInfo = (id) => {
+const loading = ref(false)
+const data = ref({})
+
+const getData = () => {
   loading.value = true
-  infoApi({ id }).then(r => {
+  const { id } = route.query
+  userInfoApi({ id }).then(r => {
     if (r) {
-      info.value = r.data
+      data.value = r
     }
-    nextTick(() => {
-      loading.value = false
-    })
+    nextTick(() => loading.value = false)
   })
 }
 
-onBeforeMount(() => {
-  const { id } = route.query
-  getInfo(id)
-})
+onBeforeMount(getData)
 </script>
 
 <style lang="scss" scoped>
-.user-details-container {
-  & > div:first-child {
-    height: fit-content;
-    min-width: 350px;
+@use '@/assets/sass/bem.scss' as *;
+$prefix: details#{$element-separator};
+@include b(details) {
+  @include e(wrap) {
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    & > div:first-child {
+      height: fit-content;
+      min-width: 350px;
+    }
   }
-  .panel {
+  @include e(panel) {
+    margin: 10px;
+    padding: 30px;
+    flex: 2;
     border-radius: var(--el-border-radius-base);
-    background-color: var(--gl-content-panel-background-color);
   }
 }
 </style>

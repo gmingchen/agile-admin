@@ -1,0 +1,234 @@
+/**
+ * todo: f -> 100%
+ * todo: t -> top
+ * todo: r -> right
+ * todo: b -> bottom
+ * todo: l -> left
+ * todo: u -> unset
+ * todo: v -> top & bottom
+ * todo: h -> left & right
+ * todo: a -> auto
+ * todo: c -> center
+ * todo: _i -> important
+ * todo: _s -> size
+ * todo: _c -> count
+ */
+
+/* width */
+.w-f { width: 100%; }
+.w-f_i { width: 100% !important; }
+.w-u { width: unset; }
+.w-u_i { width: unset !important; }
+.w-fc { width: fit-content; }
+.w-fc_i { width: fit-content !important; }
+@for $i from 0 through 1000 {
+  .w-#{$i} { width: #{$i}px; }
+  .w-#{$i}_i { width: #{$i}px !important; }
+}
+
+/* height */
+.h-f { height: 100%; }
+.h-f_i { height: 100% !important; }
+.h-u { height: unset; }
+.h-u_i { height: unset !important; }
+@for $i from 0 through 1000 {
+  .h-#{$i} { height: #{$i}px; }
+  .h-#{$i}_i { height: #{$i}px !important; }
+}
+
+/* size */
+.s-f { width: 100%; height: 100%; }
+.s-f_i { width: 100% !important; height: 100% !important; }
+.s-u { width: unset; height: unset; }
+.s-u_i { width: unset !important; height: unset !important; }
+.s-fc { width: fit-content; height: fit-content; }
+.s-fc_i { width: fit-content !important; height: fit-content !important; }
+@for $i from 0 through 1000 {
+  .s-#{$i} { width: #{$i}px; height: #{$i}px; }
+  .s-#{$i}_i { width: #{$i}px !important; height: #{$i}px !important; }
+}
+
+/* margin */
+@for $i from 0 through 200 {
+  .m-#{$i} { margin: #{$i}px; }
+  .m-#{$i}_i { margin: #{$i}px !important; }
+  .mv-#{$i} { margin-top: #{$i}px; margin-bottom: #{$i}px; }
+  .mv-#{$i}_i { margin-top: #{$i}px !important; margin-bottom: #{$i}px !important; }
+  .mh-#{$i} { margin-left: #{$i}px; margin-right: #{$i}px; }
+  .mh-#{$i}_i { margin-left: #{$i}px !important; margin-right: #{$i}px !important; }
+  .mt-#{$i} { margin-top: #{$i}px; }
+  .mt-#{$i}_i { margin-top: #{$i}px !important; }
+  .mr-#{$i} { margin-right: #{$i}px; }
+  .mr-#{$i}_i { margin-right: #{$i}px !important; }
+  .mb-#{$i} { margin-bottom: #{$i}px; }
+  .mb-#{$i}_i { margin-bottom: #{$i}px !important; }
+  .ml-#{$i} { margin-left: #{$i}px; }
+  .ml-#{$i}_i { margin-left: #{$i}px !important; }
+}
+
+/* padding */
+@for $i from 0 through 200 {
+  .p-#{$i} { padding: #{$i}px; }
+  .p-#{$i}_i { padding: #{$i}px !important; }
+  .pv-#{$i} { padding-top: #{$i}px; padding-bottom: #{$i}px; }
+  .pv-#{$i}_i { padding-top: #{$i}px !important; padding-bottom: #{$i}px !important; }
+  .ph-#{$i} { padding-left: #{$i}px; padding-right: #{$i}px; }
+  .ph-#{$i}_i { padding-left: #{$i}px !important; padding-right: #{$i}px !important; }
+  .pt-#{$i} { padding-top: #{$i}px; }
+  .pt-#{$i}_i { padding-top: #{$i}px !important; }
+  .pr-#{$i} { padding-right: #{$i}px; }
+  .pr-#{$i}_i { padding-right: #{$i}px !important; }
+  .pb-#{$i} { padding-bottom: #{$i}px; }
+  .pb-#{$i}_i { padding-bottom: #{$i}px !important; }
+  .pl-#{$i} { padding-left: #{$i}px; }
+  .pl-#{$i}_i { padding-left: #{$i}px !important; }
+}
+
+$textAligns: left, center, right;
+/* text-align */
+@each $var in $textAligns {
+  .ta-#{$var} { text-align: #{$var}; }
+}
+/* font-size */
+@for $i from 0 through 60 {
+  .fs-#{$i} { font-size: #{$i}px; }
+  .fs-#{$i}_i { font-size: #{$i}px !important; }
+}
+/* font-weight */
+$fontWeights: 100, 200, 300, 400, 500, 600, 700, 800, 900;
+@each $var in $fontWeights {
+  .fw-#{$var} { font-weight: #{$var}; }
+}
+
+/* ellipsis */
+.e {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+}
+.e { line-clamp: 1;-webkit-line-clamp: 1; }
+@for $i from 1 through 5 {
+  .e-#{$i} { @extend .e; line-clamp: #{$i}; -webkit-line-clamp: #{$i}; }
+}
+
+/* layout */
+$justifyContents: flex-start, flex-end, center, space-between, space-around;
+$alignContents: flex-start, flex-end, center, space-between, space-around, stretch;
+$alignItems: flex-start, flex-end, center, baseline, stretch;
+$justifySelfs: auto, flex-start, flex-end, center, baseline, stretch;
+$alignSelfs: auto, flex-start, flex-end, center, baseline, stretch;
+
+/* flex */
+$flexDirections: row, row-reverse, column, column-reverse;
+$flexWraps: nowrap, wrap, wrap-reverse;
+.f { display: flex; }
+.f {
+  @each $var in $flexDirections {
+    &d-#{$var} { @extend .f; flex-direction: #{$var}; }
+  }
+  @each $var in $flexWraps {
+    &w-#{$var} { @extend .f; flex-wrap: #{$var}; }
+  }
+  @each $var in $justifyContents {
+    &_jc-#{$var} { @extend .f; justify-content: #{$var}; }
+  }
+  @each $var in $alignContents {
+    &_ac-#{$var} { @extend .f; align-content: #{$var}; }
+  }
+  @each $var in $alignItems {
+    &_ai-#{$var} { @extend .f; align-items: #{$var}; }
+  }
+  /* item */
+  @each $var in $justifySelfs {
+    &_js-#{$var} { justify-self: #{$var}; }
+  }
+  @each $var in $alignSelfs {
+    &_as-#{$var} { align-self: #{$var}; }
+  }
+  @for $i from -20 to 20 {
+    &g-#{$i} { flex-grow: #{$i}; }
+  }
+  @for $i from -20 to 20 {
+    &_o-#{$i} { order: #{$i}; }
+  }
+  @for $i from 0 to 10 {
+    &_fs-#{$i} { flex-shrink: #{$i}; }
+  }
+  @for $i from 0 to 10 {
+    &_f-#{$i} { flex: #{$i}; }
+  }
+  &-c { @extend .f; justify-content: center; align-items: center; }
+}
+/* grid */
+.g { display: grid; }
+.g {
+  &_t {
+    @for $i from 0 to 20 {
+      &c-#{$i}_c { @extend .g; grid-template-columns: repeat(#{$i}, 1fr); }
+      &r-#{$i}_c { @extend .g; grid-template-rows: repeat(#{$i}, 1fr); }
+    }
+    @for $i from 0 to 200 {
+      &c-#{$i}_s { @extend .g; grid-template-columns: repeat(auto-fill, #{$i}px); }
+      &r-#{$i}_s { @extend .g; grid-template-rows: repeat(auto-fill, #{$i}px); }
+    }
+  }
+  @for $i from 0 to 100 {
+    &_cg-#{$i} { @extend .g; grid-column-gap: #{$i}; }
+    &_rg-#{$i} { @extend .g; grid-row-gap: #{$i}; }
+  }
+
+  @each $var in $justifyContents {
+    &_jc-#{$var} { @extend .g; justify-content: #{$var}; }
+  }
+  @each $var in $alignContents {
+    &_ac-#{$var} { @extend .g; align-content: #{$var}; }
+  }
+  @each $var in $alignItems {
+    &_ai-#{$var} { @extend .g; align-items: #{$var}; }
+  }
+  /* item */
+  @each $var in $justifySelfs {
+    &_js-#{$var} { justify-self: #{$var}; }
+  }
+  @each $var in $alignSelfs {
+    &_as-#{$var} { align-self: #{$var}; }
+  }
+}
+/* gap */
+@for $i from 0 through 100 {
+  .g-#{$i} { gap: #{$i}px; }
+  .g-#{$i}_i { gap: #{$i}px !important; }
+}
+
+/* position */
+$positions: relative, absolute, fixed, static, sticky;
+@each $var in $positions {
+  .p-#{$var} { position: #{$var}; }
+}
+@for $i from 0 to 100 {
+  .t-#{$i} { top: #{$i}px; }
+  .t-#{$i}_i { top: #{$i}px !important; }
+  .r-#{$i} { right: #{$i}px; }
+  .r-#{$i}_i { right: #{$i}px !important; }
+  .b-#{$i} { bottom: #{$i}px; }
+  .b-#{$i}_i { bottom: #{$i}px !important; }
+  .l-#{$i} { left: #{$i}px; }
+  .l-#{$i}_i { left: #{$i}px !important; }
+  .z-#{$i} { z-index: #{$i}; }
+  .z-#{$i}_i { z-index: #{$i} !important; }
+}
+
+/* overflow */
+$overflows: visible, hidden, scroll, auto, inherit;
+@each $var in $overflows {
+  .o-#{$var} { overflow: #{$var}; }
+}
+
+/* cursor */
+$cursors: pointer, hand, text, crosshair, wait, move, not-allowed, e-resize, n-resize, w-resize, s-resize, ne-resize, nw-resize, sw-resize, se-resize;
+@each $var in $cursors {
+  .c-#{$var} { cursor: #{$var}; }
+}
+

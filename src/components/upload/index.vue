@@ -1,53 +1,61 @@
+<template>
+  <component
+    :class="n.b()"
+    :is="h(
+      ElUpload,
+      {
+        ref: handleRef,
+        action: url,
+        headers: { [TOKEN_KEY]: token },
+        showFileList: false,
+        'on-success': onSuccess,
+        ...$attrs,
+      },
+      $slots
+    )"
+  />
+</template>
+
 <script setup>
-import { ElMessage } from 'element-plus'
+import { getCurrentInstance, h, } from 'vue'
+import { ElUpload } from 'element-plus'
+import { useAuthStore } from '@/stores'
+import { print } from '@/common/utils'
+import { TOKEN_KEY, BASE_URL, uploadUrl, handleResponse } from '@/apis'
+import { useNamespace } from '@/hooks'
+import { storeToRefs } from 'pinia'
 
-import useModel from '@/hooks/model'
-import { AUTH_KEY, SUCCESS_CODE } from '@constants'
+const n = useNamespace('upload')
 
-import { uploadUrlApi } from '@/api/file'
-
-const props = defineProps({
-  modelValue: {
-    type: [String, Array],
-    required: true,
-    default: () => ''
-  }
-})
+const emits = defineEmits(['success', 'fail'])
 
 const authStore = useAuthStore()
+const { token } = storeToRefs(authStore)
 
-const value = useModel(props)
+const url = BASE_URL + uploadUrl()
 
-const action = ref(uploadUrlApi())
-const authKey = ref(AUTH_KEY)
-const token = ref(authStore.token)
+const instance = getCurrentInstance()
+const handleRef = (exposed) => {
+  instance.exposed = exposed
+}
 
-const successHandle = (r) => {
-  if (SUCCESS_CODE.includes(r.code)) {
-    value.value = r.data
+const onSuccess = (response, file, files) => {
+  print('Upload onSuccess', response)
+  const r = handleResponse(response)
+  if (r) {
+    emits('success', r.data, file, files)
   } else {
-    ElMessage({
-      message: r.message,
-      type: 'warning'
-    })
+    emits('fail', response, file, files)
   }
 }
 </script>
 
-<template>
-  <el-upload
-    :action="action"
-    :headers="{
-      [authKey]: token
-    }"
-    v-bind="$attrs"
-    :on-success="successHandle">
-    <template v-for="(_value, name) in $slots" #[name]="slotData">
-      <slot :name="name" v-bind="slotData || {}" v-bind:url="value" />
-    </template>
-  </el-upload>
-</template>
-
 <style lang="scss" scoped>
-
+@use '@/assets/sass/bem.scss' as *;
+$prefix: sidebar#{$element-separator};
+@include b(upload) {
+  ::v-deep(.el-upload-list) {
+    margin: unset;
+  }
+}
 </style>

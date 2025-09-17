@@ -1,108 +1,77 @@
 <template>
-  <ContainerCustom>
-    <template #default>
-      <div class="personal-container margin-10 flex flex_w-wrap">
-        <InfoPanel class="panel flex-item_f-2 margin-10 padding-30" :adminer="adminer" />
-        <div class="panel flex-item_f-5 margin-10 padding-30">
-          <el-tabs v-model="active" class="demo-tabs">
-            <el-tab-pane label="基本信息" name="basic">
-              <BasicInfo :adminer="adminer" />
-            </el-tab-pane>
-            <el-tab-pane label="修改密码" name="password" v-if="havePermission('auth:updatePassword')">
-              <EditPassword />
-            </el-tab-pane>
-            <el-tab-pane name="message">
+  <Container :class="n.b()" custom>
+    <div :class="n.e('content')">
+      <Info class="f_f-2"></Info>
+      <div :class="n.e('other')">
+        <el-tabs v-model="active">
+          <template v-for="item in tabs" :key="item.value">
+            <el-tab-pane v-if="!item.permission || hasPermission(item.permission)" :label="item.label" :name="item.value">
               <template #label>
-                <el-badge
-                  :value="noticeUnreadCount"
-                  :max="99"
-                  class="cursor-pointer"
-                  :hidden="noticeUnreadCount < 1">
-                  消息通知
+                <el-badge v-if="item.badge" :value="item.badgeCount" :max="99" class="cursor-pointer" :hidden="item.badgeCount === 0">
+                  {{ item.label }}
                 </el-badge>
+                <span v-else>{{ item.label }}</span>
               </template>
-              <Notice />
+              <component :is="item.component" />
             </el-tab-pane>
-            <el-tab-pane label="最近操作日志" name="operate" v-if="havePermission('operateLog:latest')">
-              <OperateLog />
-            </el-tab-pane>
-            <el-tab-pane label="最近登录日志" name="login" v-if="havePermission('loginLog:latest')">
-              <LoginLog />
-            </el-tab-pane>
-          </el-tabs>
-        </div>
+          </template>
+        </el-tabs>
       </div>
-    </template>
-  </ContainerCustom>
+    </div>
+  </Container>
 </template>
 
 <script setup>
-import { useRoute, useRouter } from 'vue-router'
+import { Container } from '@/components'
+import { Info, Basic, Password, Notice, Operate, Login } from './components'
+import { hasPermission } from '@/permission'
+import { useNamespace } from '@/hooks'
+import { onBeforeMount } from 'vue'
 
-import InfoPanel from './components/info-panel.vue'
-import BasicInfo from './components/basic-info.vue'
-import EditPassword from './components/edit-password.vue'
-import Notice from './components/notice.vue'
-import OperateLog from './components/operate-log.vue'
-import LoginLog from './components/login-log.vue'
+const n = useNamespace('personal')
 
-import { havePermission } from '@utils'
-
-defineOptions({
-  name: 'Personal'
-})
-
-const route = useRoute()
 const router = useRouter()
-
-const adminerStore = useAdminerStore()
-const noticeStore = useNoticeStore()
-
-const noticeUnreadCount = computed(() => noticeStore.page.total)
-
-const adminer = computed(() => {
-  const { username, nickname, avatar, mobile, email, sex, sex_dict, dept, posts, roles } = adminerStore
-  return {
-    username: username,
-    nickname: nickname,
-    avatar: avatar,
-    mobile: mobile,
-    email: email,
-    sex: sex,
-    sex_dict: sex_dict,
-    dept: dept ? dept.name : '',
-    post: posts ? posts.map(item => item.name).join(',') : '',
-    role: roles ? roles.map(item => item.name).join(',') : ''
-  }
-})
+const route = useRoute()
 
 const active = ref('basic')
+const tabs = ref([
+  { label: '基本信息', value: 'basic', component: markRaw(Basic), },
+  { label: '修改密码', value: 'password', component: markRaw(Password), permission: 'auth:updatePassword' },
+  { label: '消息通知', value: 'notice', component: markRaw(Notice), badge: true, badgeCount: 0 },
+  { label: '最近操作', value: 'operate', component: markRaw(Operate), permission: 'operateLog:latest' },
+  { label: '最近登录', value: 'login', component: markRaw(Login), permission: 'loginLog:latest' },
+])
 
-/**
- * 初始化 判断页面展示的内容
- */
+watch(() => active.value, (value) => {
+  router.push({ query: { ...route.query, tab: value } })
+})
+
 const init = () => {
-  const { panel } = route.query
-  if (panel) {
-    active.value = panel
-    router.push({ name: 'personal' })
+  const { tab } = route.query
+  if (tab) {
+    active.value = tab
   }
 }
 
-onBeforeMount(() => {
-  init()
-})
+onBeforeMount(init)
 </script>
 
 <style lang="scss" scoped>
-.personal-container {
-  & > div:first-child {
-    height: fit-content;
-    min-width: 350px;
+@use '@/assets/sass/bem.scss' as *;
+@include b(personal) {
+  @include e(content) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
   }
-  .panel {
+  @include e(other) {
+    overflow-x: hidden;
+    flex: 5;
+    margin: 10px;
+    padding: 0 15px 0 15px;
+    height: fit-content;
     border-radius: var(--el-border-radius-base);
-    background-color: var(--gl-content-panel-background-color);
+    background-color: var(--container-background-color);
   }
 }
 </style>
