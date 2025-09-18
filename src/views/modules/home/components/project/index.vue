@@ -29,7 +29,7 @@ const text = ref('前端基于 Vue3、Element-plus、Vue-router、Vux、Sass、A
 
 const list = ref([
   {
-    url: 'https://github.com/agile-admin/agile-admin',
+    url: 'https://github.com/gmingchen/agile-admin',
     stars: 'https://img.shields.io/github/stars/gmingchen/agile-admin.svg?logo=github&color=brightgreen',
     forks: 'https://img.shields.io/github/forks/gmingchen/agile-admin.svg?logo=github&color=brightgreen'
   },
