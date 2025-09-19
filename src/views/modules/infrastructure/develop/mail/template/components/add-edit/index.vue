@@ -3,23 +3,25 @@
     v-model="visible"
     :title="form.id ? '编辑邮件模板' : '新增邮件模板'"
     :close-on-click-modal="false"
-    width="450px"
+    width="70%"
     draggable
     append-to-body
     destroy-on-close
     @closed="onClosed">
     <el-form ref="formRef" v-loading="loading" :model="form" :rules="rules" @keyup.enter="submit()" label-position="top">
-      <el-form-item label="名称" prop="name">
-        <el-input v-model="form.name" placeholder="名称" maxlength="20" show-word-limit />
-      </el-form-item>
-      <el-form-item label="编码" prop="code">
-        <el-input v-model="form.code" placeholder="编码" maxlength="50" show-word-limit />
-      </el-form-item>
-      <el-form-item label="标题" prop="title">
-        <el-input v-model="form.title" placeholder="标题" maxlength="50" show-word-limit />
-      </el-form-item>
+      <div class="f g-15">
+        <el-form-item class="f_f-1" label="名称" prop="name">
+          <el-input v-model="form.name" placeholder="名称" maxlength="20" show-word-limit />
+        </el-form-item>
+        <el-form-item class="f_f-1" label="编码" prop="code">
+          <el-input v-model="form.code" placeholder="编码" maxlength="50" show-word-limit />
+        </el-form-item>
+        <el-form-item class="f_f-1" label="标题" prop="title">
+          <el-input v-model="form.title" placeholder="标题" maxlength="50" show-word-limit />
+        </el-form-item>
+      </div>
       <el-form-item label="模版内容" prop="content">
-        <WangEditor v-model="form.content" placeholder="模版内容，变量使用 ${name} 表示" />
+        <Tinymce v-model="form.content" placeholder="模版内容，变量使用 ${name} 表示" />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input v-model="form.remark" placeholder="备注" type="textarea" maxlength="200" show-word-limit />
@@ -36,7 +38,7 @@
 </template>
 
 <script setup>
-import { Dict, WangEditor } from '@/components'
+import { Dict, Tinymce } from '@/components'
 import { DICT_CODE_ENUM } from '@/common/enums'
 import { mailTemplateInfoApi, mailTemplateCreateApi, mailTemplateUpdateApi } from '@/apis'
 import { useNamespace } from '@/hooks'

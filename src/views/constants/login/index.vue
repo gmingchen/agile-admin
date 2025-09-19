@@ -5,11 +5,7 @@
         <div :class="n.e('title')">AA(Agile Admin)</div>
         <el-divider content-position="right">基于VUE3开箱即用的后台管理系统</el-divider>
       </div>
-      <el-form
-        ref="formRef"
-        :model="form"
-        :rules="rules"
-        @keyup.enter="onSubmit">
+      <el-form ref="formRef" :model="form" :rules="rules" @keyup.enter="onSubmit">
         <el-form-item prop="account">
           <el-input v-model="form.account" placeholder="用户名/手机号/邮箱" clearable>
             <template #prefix>
@@ -43,13 +39,14 @@
 import { Icon } from '@/components'
 import Identify from './components/identify/index.vue'
 import { generateUUID } from '@/common/utils'
-import { useAuthStore } from '@/stores'
+import { useAuthStore, useRootStore } from '@/stores'
 import { captchaApi } from '@/apis'
 import { useNamespace } from '@/hooks'
 
 const n = useNamespace('login')
 const router = useRouter()
 const authStore = useAuthStore()
+const rootStore = useRootStore()
 
 const loading = ref(false)
 const captcha = ref('')
@@ -100,6 +97,7 @@ const onSubmit = () => {
     loading.value = true
     const r = await authStore.login(form)
     if (r) {
+      rootStore.clear()
       router.push({ name: 'redirect', replace: true })
     } else {
       await handleCaptcha()
