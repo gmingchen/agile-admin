@@ -11,6 +11,7 @@ import { filterTree, validatePermission } from './utils'
   label: 显示名称
   icon: 图标
   permission: 权限code 支持多个 逗号分隔 需要与后端协定 不设置则不需要权限
+  componentName: 组件名称 当 keepalive 为 true 时必填 且需要在对应的组件中设置上 name 属性 不然无法缓存
   keepalive: 是否缓存
   tab: 是否在tab中显示
   multiple: 是否可以多个tab打开

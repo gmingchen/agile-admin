@@ -45,9 +45,16 @@ export default defineConfig({
     },
   },
   build: {
+    minify: 'terser',
     target: ['es2015', 'edge88', 'firefox78', 'chrome87'],
     modulePreload: {
       polyfill: true
+    },
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      }
     }
   }
 })

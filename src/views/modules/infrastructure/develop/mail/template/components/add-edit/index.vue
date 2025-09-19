@@ -21,7 +21,7 @@
         </el-form-item>
       </div>
       <el-form-item label="模版内容" prop="content">
-        <Tinymce v-model="form.content" placeholder="模版内容，变量使用 ${name} 表示" />
+        <Tinymce v-model="form.content" placeholder="模版内容，变量使用 ${name} 表示" top />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input v-model="form.remark" placeholder="备注" type="textarea" maxlength="200" show-word-limit />
