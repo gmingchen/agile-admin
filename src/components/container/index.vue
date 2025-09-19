@@ -84,6 +84,7 @@ defineExpose({ setScrollTop })
 
   @include when(custom) {
     padding: 0px;
+    overflow: hidden;
     .container-common {
       background-color: transparent;
     }

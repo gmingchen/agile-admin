@@ -69,7 +69,7 @@ watchEffect(() => {
 })
 
 const getData = () => {
-  fetch('//at.alicdn.com/t/c/font_3225946_t2saxllrdm.css')
+  fetch('//at.alicdn.com/t/c/font_3225946_24q5ehak3jj.css')
     .then(r => r.text())
     .then(r => {
       if (r) {
