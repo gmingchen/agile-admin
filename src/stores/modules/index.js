@@ -5,6 +5,7 @@ import { useMenuStore } from './menu'
 import { useSystemStore } from './system'
 import { useDictStore } from './dict'
 import { useTabStore } from './tab'
+import { useKeepaliveStore } from './keepalive'
 import { useNoticeStore } from './notice'
 import { useWebsocketStore } from './websocket'
 
@@ -22,7 +23,7 @@ const useRootStore = defineStore('root', {
     async logout() {
       try {
         await useAuthStore().logout()
-      } catch (error) {}
+      } catch (error) { }
       this.clear()
     }
   }
@@ -36,6 +37,7 @@ export {
   useSystemStore,
   useDictStore,
   useTabStore,
+  useKeepaliveStore,
   useNoticeStore,
   useWebsocketStore,
   useRootStore,

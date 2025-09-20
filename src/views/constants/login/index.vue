@@ -31,13 +31,11 @@
         <el-button :loading="loading" class="mt-20 w-f" type="primary" @click="onSubmit">登录</el-button>
       </el-form>
     </el-card>
-    <Identify ref="identifyRef" />
   </div>
 </template>
 
 <script setup>
 import { Icon } from '@/components'
-import Identify from './components/identify/index.vue'
 import { generateUUID } from '@/common/utils'
 import { useAuthStore, useRootStore } from '@/stores'
 import { captchaApi } from '@/apis'
@@ -83,14 +81,8 @@ const onCaptchaChange = () => {
   handleCaptcha()
 }
 
-const identifyRef = useTemplateRef('identifyRef')
 
 const onSubmit = () => {
-  if (!identifyRef.value.handleValidate()) {
-    identifyRef.value.open()
-    return
-  }
-
   if (loading.value) return
   formRef.value.validate(async valid => {
     if (!valid) return

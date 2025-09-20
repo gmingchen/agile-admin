@@ -9,10 +9,94 @@
   <meta name="description"
     content="AgileAdmin是一个基于Vue3+Element-plus+Java的租户后台权限管理系统，提供了完善的权限体系，让开发者把注意力集中到具体业务当中，降低开发成本，提高项目效率。可以用于网站管理后台、SAAS、CMS、CRM、OA、ERP等，企业和个人都可以免费使用。欢迎上Github提Issues或者PR（需求）。">
   <meta name="keywords" content="Agile,Admin, Agile Admin, Vue3, Element-plus, Java, 后台管理">
+  <style>
+    #app>.loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -100%);
+    }
+
+    #app>.loading span {
+      top: 20px;
+      position: relative;
+      animation: loading 0.3s ease 0s infinite alternate;
+      font-size: 100px;
+      color: #409EFF;
+      text-shadow: 0 1px 0 #337ECC,
+        0 2px 0 #337ECC,
+        0 3px 0 #337ECC,
+        0 4px 0 #337ECC,
+        0 5px 0 #337ECC,
+        0 6px 0 #337ECC,
+        0 7px 0 #337ECC,
+        0 8px 0 #337ECC,
+        0 9px 0 #337ECC,
+        0 10px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    #app>.loading span:nth-child(5n-1) {
+      animation-delay: 0.5s;
+    }
+
+    #app>.loading span:nth-child(5n-2) {
+      animation-delay: 0.4s;
+    }
+
+    #app>.loading span:nth-child(5n-3) {
+      animation-delay: 0.3s;
+    }
+
+    #app>.loading span:nth-child(5n-4) {
+      animation-delay: 0.2s;
+    }
+
+    #app>.loading span:nth-child(5n) {
+      animation-delay: 0.1s;
+    }
+
+    @keyframes loading {
+      100% {
+        top: -20px;
+        text-shadow: 0 1px 0 #337ECC,
+          0 2px 0 #337ECC,
+          0 3px 0 #337ECC,
+          0 4px 0 #337ECC,
+          0 5px 0 #337ECC,
+          0 6px 0 #337ECC,
+          0 7px 0 #337ECC,
+          0 8px 0 #337ECC,
+          0 9px 0 #337ECC,
+          0 50px 25px rgba(0, 0, 0, 0.3);
+      }
+    }
+  </style>
+  <script>
+    var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?17a6c54f2ed90460475e7b8ad91c88e7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 </head>
 
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <h1 class="loading">
+      <span>A</span>
+      <span>g</span>
+      <span>i</span>
+      <span>l</span>
+      <span>e</span>
+      <span>A</span>
+      <span>d</span>
+      <span>m</span>
+      <span>i</span>
+      <span>n</span>
+    </h1>
+  </div>
   <script type="module" src="/src/main.js"></script>
 </body>
 

@@ -91,7 +91,7 @@ const getData = () => {
     }
     nextTick(() => {
       loading.value = false
-      treeRef.value.filter(keyword.value)
+      treeRef.value?.filter(keyword.value)
     })
   })
 }

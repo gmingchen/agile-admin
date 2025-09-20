@@ -4,7 +4,7 @@ import router from '@/router'
 import { TOKEN_KEY, TENANT_KEY, BASE_URL } from './constant'
 
 const getPrintTitle = (config) => {
-  return `API: ${ config.url }`
+  return `API: ${config.url}`
 }
 const requestSuccessPrint = (config) => {
   const title = getPrintTitle(config)
@@ -48,7 +48,7 @@ const responseFailPrint = (error) => {
   if (response) {
     const { status } = response
     message = statusMap[status] || '连接服务器失败'
-    message += `：${ status }`
+    message += `：${status}`
   }
   const title = getPrintTitle(config)
   printError(title, message)

@@ -6,20 +6,23 @@
         mode="out-in"
         @enter="onEnter"
         @leave="onLeave">
-        <!-- <keep-alive> -->
-          <component :is="Component" />
-        <!-- </keep-alive> -->
+        <keep-alive :include="keepalives">
+          <component :is="handleCache(Component, route)" />
+        </keep-alive>
       </transition>
     </template>
     <template v-else>
-      <!-- <keep-alive> -->
-        <component :is="Component" />
-      <!-- </keep-alive> -->
+      <keep-alive :include="keepalives">
+        <component :is="handleCache(Component, route)" />
+      </keep-alive>
     </template>
   </router-view>
 </template>
 
 <script setup>
+import { useKeepaliveStore } from '@/stores'
+import { handleCache } from '@/common/utils'
+
 const props = defineProps({
   // 过度动画 不传则没有动画
   transition: {
@@ -29,6 +32,8 @@ const props = defineProps({
 })
 
 const route = useRoute()
+const keepaliveStore = useKeepaliveStore()
+const { keepalives } = storeToRefs(keepaliveStore)
 
 /**
  * 开始进入动画时将父级元素 overflow 设置为空
