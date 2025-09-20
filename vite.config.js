@@ -7,6 +7,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig({
   plugins: [
@@ -20,6 +21,10 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
     }),
+    process.env.NODE_ENV === 'production' && visualizer({
+      open: true,
+      filename: 'dist/stats.html'
+    })
   ],
   resolve: {
     alias: {
@@ -55,6 +60,22 @@ export default defineConfig({
         drop_console: true,
         drop_debugger: true,
       }
+    },
+    chunkSizeWarningLimit: 1024,
+    rollupOptions: {
+      output: {
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+        manualChunks: {
+          vendor: ['vue', 'vue-router', 'pinia'],
+          element: ["element-plus", "@element-plus/icons-vue"],
+          echarts: ['echarts'] // 单独打包大型库
+        }
+      }
     }
+  },
+  optimizeDeps: {
+    include: ['vue', 'vue-router', 'pinia', 'echarts']
   }
 })

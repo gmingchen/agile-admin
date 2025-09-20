@@ -21,12 +21,13 @@
       <View v-if="!refresh" transition="left-in-right-out"></View>
     </Frame>
     <Websocket></Websocket>
+    <Identify></Identify>
   </div>
 </template>
 
 <script setup>
 import { View } from '@/components'
-import { Frame, Headbar, Sidebar, Tabbar, Brand, Crumb, Menu, MenuCollapse, Websocket } from './components'
+import { Frame, Headbar, Sidebar, Tabbar, Brand, Crumb, Menu, MenuCollapse, Websocket, Identify } from './components'
 import { useMenuStore, useSystemStore } from '@/stores'
 import { useNamespace } from '@/hooks'
 
