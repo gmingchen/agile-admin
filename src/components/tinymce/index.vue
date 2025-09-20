@@ -1,6 +1,7 @@
 <template>
   <div :class="n.b()">
     <Editor
+      v-show="!loading"
       :api-key="key"
       :init="options"
       v-model="value"
@@ -45,6 +46,10 @@ const props = defineProps({
   readonly: {
     type: Boolean,
     default: () => false
+  },
+  top: { // 是否需要设置 z-index 为 9999，解决 tinymce 弹窗被遮挡问题
+    type: Boolean,
+    default: () => false
   }
 })
 
@@ -52,6 +57,7 @@ const value = useModel(props)
 
 const uploadRef = useTemplateRef('uploadRef')
 
+const loading = ref(true)
 let editor = null
 const options = {
   ...config,
@@ -62,8 +68,18 @@ const options = {
       // 点击上传按钮，模拟点击上传文件输入框
       uploadRef.value.$refs?.uploadRef.$refs?.inputRef.click()
     })
+    loading.value = false
   }
 }
+
+watch(() => props.top, (val) => {
+  const el = document.documentElement
+  if (val) {
+    el.style.setProperty('--tox-private-z-index-sink', '9999')
+  } else {
+    el.style.setProperty('--tox-private-z-index-sink', null)
+  }
+}, { immediate: true })
 
 const onUploadSuccess = (_url, file, _files) => {
   if (file) {
@@ -103,20 +119,16 @@ $prefix: tinymce#{$element-separator};
 @include b(tinymce) {
   width: 100%;
   height: 500px;
-
   ::v-deep(.tox-promotion) {
     display: none;
   }
   ::v-deep(.tox-statusbar__branding) {
     display: none;
   }
-
   ::v-deep(.#{$prefix}iframe) {
     .p {
       background-color: red;
     }
   }
 }
-
-
 </style>

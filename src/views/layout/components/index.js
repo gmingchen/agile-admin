@@ -7,6 +7,7 @@ import Crumb from './crumb/index.vue'
 import Menu from './menu/index.vue'
 import MenuCollapse from './menu-collapse/index.vue'
 import Websocket from './websocket/index.vue'
+import Identify from './identify/index.vue'
 
 export {
   Frame,
@@ -18,4 +19,5 @@ export {
   Menu,
   MenuCollapse,
   Websocket,
+  Identify
 }
