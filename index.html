@@ -15,6 +15,11 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -100%);
+      min-width: 380px;
+    }
+
+    #app>.loading div {
+      display: inline-block;
     }
 
     #app>.loading span {
@@ -35,24 +40,44 @@
         0 10px 10px rgba(0, 0, 0, 0.5);
     }
 
-    #app>.loading span:nth-child(5n-1) {
-      animation-delay: 0.5s;
+    #app>.loading>div:first-child>span:nth-child(1) {
+      animation-delay: 0.1s;
     }
 
-    #app>.loading span:nth-child(5n-2) {
-      animation-delay: 0.4s;
+    #app>.loading>div:first-child>span:nth-child(2) {
+      animation-delay: 0.15s;
     }
 
-    #app>.loading span:nth-child(5n-3) {
-      animation-delay: 0.3s;
-    }
-
-    #app>.loading span:nth-child(5n-4) {
+    #app>.loading>div:first-child>span:nth-child(3) {
       animation-delay: 0.2s;
     }
 
-    #app>.loading span:nth-child(5n) {
-      animation-delay: 0.1s;
+    #app>.loading>div:first-child>span:nth-child(4) {
+      animation-delay: 0.25s;
+    }
+
+    #app>.loading>div:first-child>span:nth-child(5) {
+      animation-delay: 0.3s;
+    }
+
+    #app>.loading>div:last-child>span:nth-child(1) {
+      animation-delay: 0.35s;
+    }
+
+    #app>.loading>div:last-child>span:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    #app>.loading>div:last-child>span:nth-child(3) {
+      animation-delay: 0.45s;
+    }
+
+    #app>.loading>div:last-child>span:nth-child(4) {
+      animation-delay: 0.5s;
+    }
+
+    #app>.loading>div:last-child>span:nth-child(5) {
+      animation-delay: 0.55s;
     }
 
     @keyframes loading {
@@ -85,16 +110,21 @@
 <body>
   <div id="app">
     <h1 class="loading">
-      <span>A</span>
-      <span>g</span>
-      <span>i</span>
-      <span>l</span>
-      <span>e</span>
-      <span>A</span>
-      <span>d</span>
-      <span>m</span>
-      <span>i</span>
-      <span>n</span>
+      <div>
+        <span>A</span>
+        <span>g</span>
+        <span>i</span>
+        <span>l</span>
+        <span>e</span>
+      </div>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <div>
+        <span>A</span>
+        <span>d</span>
+        <span>m</span>
+        <span>i</span>
+        <span>n</span>
+      </div>
     </h1>
   </div>
   <script type="module" src="/src/main.js"></script>
