@@ -18,6 +18,9 @@
   <a href="https://github.com/gmingchen/agile-admin">
     <img src="https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg" />
   </a>
+  <a href="https://github.com/gmingchen/agile-admin">
+    <img src="https://img.shields.io/github/last-commit/gmingchen/agile-admin" />
+  </a>
 </p>
 <p align="center">
   <a href="https://github.com/gmingchen/agile-admin">
@@ -35,12 +38,10 @@
 </p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java + Vue 有很多优秀的后台管理系统，但是为了可以高效的开发后台权限管理系统，作者就自己开发出 agile-admin。```本项目中未曾过度使用样式，目的是为了方便开发者可以方便修改成自己需要的样式```<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[agile-admin](https://github.com/gmingchen/agile-admin) 是一个基于 Vue3 + Element-plus + Java 的多企业后台权限管理系统，提供了完善的权限体系，让开发者把注意力集中到具体业务当中，降低开发成本，提高项目效率。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[agile-admin](https://github.com/gmingchen/agile-admin) 是一个基于 Vue3 + Element-plus + Java 的多租户后台权限管理系统，提供了完善的权限体系，让开发者把注意力集中到具体业务当中，降低开发成本，提高项目效率。
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以用于网站管理后台、SAAS、CMS、CRM、OA、ERP等，企业和个人都可以免费使用。欢迎提交PR（需求），若开发中遇到问题可以上 Github 提 Issues。
 
 如果觉着还不错，请点个 ⭐star 支持一下吧，这将是对我最大的支持和鼓励！
-
-#### 由于有部分开发者需要完整后端代码，目前开始完成捐赠即可获得完整后端代码。开发者可以翻到 ```联系方式``` 栏目添加作者微信，具体的私聊！
 
 [![Star History](https://api.star-history.com/svg?repos=gmingchen/agile-admin&type=Date)](https://api.star-history.com/svg?repos=gmingchen/agile-admin&type=Date)
 
@@ -53,7 +54,7 @@ If you want to write code with me, you can contact me for internal promotion.
 
 - 🔭 I’m currently working on [万店掌](https://www.ovopark.com/)
 - 📫 How to reach me: ```🐧1240235512``` ```🛰️Gy1240235512``` ```📪gumingchen@foxmail.com```
-- 🌏 How to follow me: [Github](https://github.com/gmingchen) [Gitee](https://gitee.com/shychen) [掘金](https://juejin.cn/user/4103845398710846) [简书](https://www.jianshu.com/u/81a5a02678d3)
+- 🌏 How to follow me: [Github](https://github.com/gmingchen) [Gitee](https://gitee.com/shychen) [掘金](https://juejin.cn/user/4103845398710846) [CSDN](https://blog.csdn.net/qq_40230003) [简书](https://www.jianshu.com/u/81a5a02678d3)
 - ❤️ I like playing 🎮, sleeping in 🛌 and coding 👨‍💻.
 
 ![Github stats](https://github-readme-stats.vercel.app/api?username=gmingchen&show_icons=true&title_color=fff&icon_color=79ff97&text_color=9f9f9f&bg_color=151515&include_all_commits=true&hide=["contribs"])
@@ -96,9 +97,10 @@ If you want to write code with me, you can contact me for internal promotion.
 
 ## 分支
 - [master](https://github.com/gmingchen/agile-admin/tree/master) 多租户完整功能版本：多租户后台管理。```持续维护分支```
-- [dev](https://github.com/gmingchen/agile-admin/tree/master) 多租户完整功能开发分支。```持续维护分支```
-- [pure](https://github.com/gmingchen/agile-admin/tree/master) 多租户完整功能开发分支：纯净版本。```持续维护分支```
+- [dev](https://github.com/gmingchen/agile-admin/tree/dev) 多租户完整功能开发分支。```持续维护分支```
+- [pure](https://github.com/gmingchen/agile-admin/tree/pure) 多租户完整功能开发分支：纯净版本。```持续维护分支```
 
+以上分支对应的后端JAVA```已开源！``` ```已开源！``` ```已开源！```： [🚀agile-admin-bk](https://github.com/gmingchen/agile-admin-bk)
 ***
 
 - [vite-pinia](https://github.com/gmingchen/agile-admin/tree/vite-pinia) 该分支是多租户概念，使用的是vite + pinia 实现的功能，使用的是vue组合式api的 setup 标签。```持续维护分支```
@@ -338,6 +340,10 @@ npm run build
 -->
 
 ### 其它开源项目
+
+[agile-admin-bk](https://github.com/gmingchen/agile-admin-bk)
+
+多租户后台管理系统完整功能后端JAVA代码。
 
 [java-spring-boot-admin](https://github.com/gmingchen/java-spring-boot-admin/tree/base)
 
